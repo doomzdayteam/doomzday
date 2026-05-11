@@ -26,6 +26,7 @@ class Generator:
         
         self.tools_path=os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__))))
         self.output_path="_" + self.config.get('locations', 'output_path')
+        self.repo_version=os.environ.get('KODI_REPO_VERSION') or self.config.get('addon', 'version')
         
         self.excludes=self.config.get('addon', 'excludes').split(',')
 
@@ -45,23 +46,23 @@ class Generator:
         
     def _pre_run ( self ):
 
-        # create output  path if it does not exists
-        if not os.path.exists(self.output_path):
-            os.makedirs(self.output_path)
+        # recreate output path so stale addon zips are not published
+        if os.path.exists(self.output_path):
+            shutil.rmtree(self.output_path)
+        os.makedirs(self.output_path)
 
     def _generate_repo_files ( self ):
         
         addonid=self.config.get('addon', 'id')
         name=self.config.get('addon', 'name')
-        version=self.config.get('addon', 'version')
+        version=self.repo_version
         author=self.config.get('addon', 'author')
         summary=self.config.get('addon', 'summary') 
         description=self.config.get('addon', 'description')
         url=self.config.get('locations', 'url')      
 
-        if os.path.isfile(addonid + os.path.sep + "addon.xml"):return
-        
-        print( "Create repository addon" )
+        action = "Update" if os.path.isfile(addonid + os.path.sep + "addon.xml") else "Create"
+        print( action + " repository addon" )
         
         with open (self.tools_path + os.path.sep + "template.xml", "r") as template:
             template_xml=template.read()
