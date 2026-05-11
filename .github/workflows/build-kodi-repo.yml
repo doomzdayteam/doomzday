@@ -1,0 +1,86 @@
+name: Build Kodi Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_version:
+        description: "repository.doomzday version to build"
+        required: true
+        default: "1.1.0"
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  KODI_REPO_VERSION: ${{ inputs.repo_version }}
+
+concurrency:
+  group: build-kodi-repo
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Show repository version
+        run: echo "Building repository.doomzday ${KODI_REPO_VERSION}"
+
+      - name: Generate Kodi repository
+        working-directory: _tools
+        run: python generate_repo.py
+
+      - name: Remove generated backup zips
+        run: |
+          python -c "from pathlib import Path; import re; [p.unlink() for p in Path('_zipfiles').rglob('*') if p.is_file() and re.search(r'\.zip\.\d{14}$', p.name)]"
+
+      - name: Copy repository install zip to site root
+        shell: bash
+        run: |
+          addon_id="$(python -c "import configparser; c=configparser.ConfigParser(); c.read('_tools/config.ini'); print(c.get('addon', 'id'))")"
+          version="${KODI_REPO_VERSION}"
+          rm -f repository.doomzday-*.zip
+          cp "_zipfiles/${addon_id}/${addon_id}-${version}.zip" "${addon_id}-${version}.zip"
+          printf '<a href="%s-%s.zip">%s-%s.zip</a>\n' "${addon_id}" "${version}" "${addon_id}" "${version}" > index.html
+          echo "Repository install zip: https://doomzdayteam.github.io/doomzday/${addon_id}-${version}.zip"
+          echo "Repository data zip: https://doomzdayteam.github.io/doomzday/_zipfiles/${addon_id}/${addon_id}-${version}.zip"
+
+      - name: Verify generated repository
+        shell: bash
+        run: |
+          addon_id="$(python -c "import configparser; c=configparser.ConfigParser(); c.read('_tools/config.ini'); print(c.get('addon', 'id'))")"
+          version="${KODI_REPO_VERSION}"
+          test -f "_zipfiles/addons.xml"
+          test -f "_zipfiles/addons.xml.md5"
+          test -f "_zipfiles/${addon_id}/${addon_id}-${version}.zip"
+          test -f "${addon_id}-${version}.zip"
+          grep -F "version=\"${version}\"" "${addon_id}/addon.xml"
+          grep -F "version=\"${version}\"" "_zipfiles/${addon_id}/addon.xml"
+          grep -F "${addon_id}-${version}.zip" index.html
+          python -c "import hashlib, pathlib; data=pathlib.Path('_zipfiles/addons.xml').read_bytes(); expected=pathlib.Path('_zipfiles/addons.xml.md5').read_text().strip(); actual=hashlib.md5(data).hexdigest(); raise SystemExit(0 if actual == expected else f'addons.xml.md5 mismatch: {actual} != {expected}')"
+
+      - name: Commit generated repository files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A _zipfiles
+          git add repository.doomzday/addon.xml
+          git add -A 'repository.doomzday-*.zip'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No generated repository changes to commit."
+          else
+            git commit -m "Build Kodi repository"
+            git push
+          fi
