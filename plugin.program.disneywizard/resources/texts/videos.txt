@@ -1,0 +1,13 @@
+name="Example Video"
+section="no"
+url="https://youtu.be/1jd16EnTiNY?si=hj8tk058_2FC90D4"
+icon="http://"
+fanart="http://"
+description="An example video."
+
+name="Example Section"
+section="yes"
+url="url.to.textfile"
+icon="http://"
+fanart="http://"
+description="An example section."

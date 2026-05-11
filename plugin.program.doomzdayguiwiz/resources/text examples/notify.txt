@@ -1,0 +1,3 @@
+1
+|||
+You're message goes here. Host this file and add the url to NOTIFICATION = in the uservar.py.  Raise the integer value on the first line when you want to push a notification to the wizard. Leave the 3 bars on line 2 alone.

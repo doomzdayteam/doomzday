@@ -1,0 +1,25 @@
+<builds>
+
+  <build>
+	<name>Build 1</name>
+	<version>1.0</version>
+	<kodi>K21</kodi>
+	<url>http://</url>
+	<icon>http://</icon>
+	<fanart>http://</fanart>
+	<description>Brief description of the build.</description>
+	<preview>http://</preview>
+  </build>
+  
+  <build>
+	<name>Build 2</name>
+	<version>1.0</version>
+	<kodi>K21</kodi>
+	<url>http://</url>
+	<icon>http://</icon>
+	<fanart>http://</fanart>
+	<description>Brief description of the build.</description>
+	<preview>http://</preview>
+  </build>
+  
+</builds>

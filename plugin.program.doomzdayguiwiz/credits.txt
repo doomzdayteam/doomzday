@@ -1,0 +1,73 @@
+=============================================================
+  Omega GUI Wizard: Phoenix
+  Credits & Acknowledgements
+=============================================================
+
+Current Maintainer
+------------------
+The Hermit
+  Phoenix Edition — rebuild, optimization, and ongoing development.
+  Taking the community's ideas forward with a codebase that
+  actually keeps up.
+
+
+Foundation & Original Development
+----------------------------------
+Surfacingx
+  Creator of the original GUI Wizard. None of this exists without
+  the work that was done first.
+
+FTG (Fire TV Guru)
+  PyXBMCt layout, Kodi 18 zip fix (zlib), foundational FTG mods
+  that became core to the wizard's identity.
+
+Slam / Funsterbe
+  Continued development and keeping the wizard alive through
+  multiple Kodi versions and Python migrations.
+
+
+Specific Contributions
+-----------------------
+][NT3L][G3NC][
+  Force Close fix, original APK install foundation
+
+Sean Poyser
+  YouTube module
+
+EchoCoder
+  Help with Addons27.db
+
+MetalKettle
+  Original speed test code
+
+Barroni
+  Artwork for Advanced Settings Auto Configurator
+
+WhufcLee, OpenEleq, Midraal
+  Various coding help
+
+Kodi Team
+  Kodi Log Uploader (added support for forks and email log url)
+
+
+Special Thanks
+--------------
+The NaN Team — for providing a home when this all started,
+and for the patience in helping a coder find their footing.
+
+The 3rd-party Kodi development community — builders, skinners,
+content creators — who keep Kodi alive through the push-back
+and the praise alike. You know who you are.
+
+
+Open Source Code Citations
+--------------------------
+- PyXBMCt by romanvm
+    https://github.com/romanvm/script.module.pyxbmct
+    License: GPL v3
+
+- repository.biyik by hbiyik
+    https://github.com/hbiyik/repository.biyik
+    License: see repository
+
+Please see the original repositories for full license details.

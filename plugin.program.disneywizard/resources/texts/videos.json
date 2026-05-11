@@ -1,0 +1,28 @@
+{
+	"videos": [
+		{
+			"name": "Rumble or Youtube Video 1",
+			"section": "no",
+			"url": "https://youtu.be/1jd16EnTiNY?si=ml5X3pUaohCRjiqo",
+			"icon": "http://",
+			"fanart": "http://",
+			"description": "Tutorials or other videos."
+		},
+		{
+			"name": "Rumble or Youtube Video 2",
+			"section": "no",
+			"url": "https://rumble.com/v63qjb1-quick-wizard-update.html",
+			"icon": "http://",
+			"fanart": "http://",
+			"description": "Tutorials or other videos."
+		},
+		{
+			"name": "Section Example",
+			"section": "yes",
+			"url": "url.to.json",
+			"icon": "http://",
+			"fanart": "http://",
+			"description": "Section Example"
+		}
+	]
+}

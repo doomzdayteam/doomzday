@@ -1,0 +1,13 @@
+name="Theme 1" 
+url="http://" 
+icon="http://" 
+fanart="http://" 
+adult="no" 
+description="Theme 1"
+
+name="Theme 2" 
+url="http://" 
+icon="http://" 
+fanart="http://" 
+adult="no" 
+description="Theme 2"

@@ -1,0 +1,174 @@
+{
+    "favourites.xml": {
+        "name": "Favourites",
+        "setting": "savefavs",
+        "path": "user_path"
+    },
+    "advancedsettings.xml": {
+        "name": "Advanced Settings",
+        "setting": "saveadvanced",
+        "path": "user_path"
+    },
+    "sources.xml": {
+        "name": "Sources",
+        "setting": "savesources",
+        "path": "user_path"
+    },
+    "guisettings.xml": {
+        "name": "Gui Settings",
+        "setting": "savegui",
+        "path": "user_path"
+    },
+    "plugin.video.seren": {
+        "name": "Seren",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.ezra": {
+        "name": "Ezra",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.fen": {
+        "name": "Fen",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.umbrella": {
+        "name": "Umbrella",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.shadow": {
+        "name": "Shadow",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.ghost": {
+        "name": "Ghost",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.Genocide": {
+        "name": "Genocide",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.thechains": {
+        "name": "Chains",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.base19": {
+        "name": "Base 19",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.twisted": {
+        "name": "Twisted",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.magicdragon": {
+        "name": "Magic Dragon",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.asgard": {
+        "name": "Asgard",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.metv19": {
+        "name": "M.E.T.V",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.KodiVerse": {
+        "name": "Kodiverse",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.premiumizerx": {
+        "name": "PremiumizerX",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.realizerx": {
+        "name": "RealizerX",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.myaccounts": {
+        "name": "My Accounts",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.resolveurl": {
+        "name": "ResolveURL",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+
+
+
+
+    "script.trakt": {
+        "name": "Trakt",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.themoviedb.helper": {
+        "name": "TMDB Helper",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.scrubsv2": {
+        "name": "Scrubs V2",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.thecrew": {
+        "name": "The Crew",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.homelander": {
+        "name": "Homelander",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.nightwing": {
+        "name": "Nightwing",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.moria": {
+        "name": "Moria",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.thepromise": {
+        "name": "The Promise",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.aliunde19": {
+        "name": "Aliunde",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+
+
+
+    "plugin.video.imdb.trailers": {
+        "name": "IMDb Trailers",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.youtube": {
+        "name": "YouTube",
+        "setting": "saveyoutube",
+        "path": "data_path"
+    }
+}

@@ -1,0 +1,49 @@
+=============================================================
+  Omega GUI Wizard: Phoenix
+  A continuation of work too good to let fade away.
+=============================================================
+
+This program is not a replacement for what came before.
+It is the next chapter — built on the foundation that Surfacingx,
+FTG, Slam, Funsterbe, and a long line of coders poured their time
+into, kept alive through Kodi version after Kodi version, and held
+together with real care even when life made it hard to keep up.
+
+To everyone who carried it this far: thank you. This is, and always
+will be, yours. Grateful for the opportunity — and honored to be
+even a small part of what all of you built and so freely shared.
+
+
+-------------------------------------------------------------
+  Release History — A Rebirth
+-------------------------------------------------------------
+
+    v0.0.1  (released April 06, 2026)  The Second Coming
+           - First public release as Omega GUI Wizard
+
+  - Debrid service support expanded: Real Debrid, Premiumize,
+    AllDebrid, TorBox, and LinkSnappy all wired in alongside
+    Trakt — credentials tracked per-service, auto-saved in the
+    background on every boot
+  - Favourites shortcuts seeded automatically into userdata on
+    first install — Clear Cache, Clear Packages, Force Close and
+    more available in Kodi Favourites with no manual setup
+  - Customizable install progress window: full-screen backdrop with
+    animated progress bar during build downloads, consistent
+    across all skins regardless of skin dialog behavior
+  - Credential Save / Restore — clarified and corrected:
+    Trakt and debrid auth tokens (OAuth keys, API tokens) are
+    stored by Kodi across multiple locations simultaneously.
+    A file-copy restore cannot reliably hit all of them, which
+    means re-authorization after a build install is a Kodi
+    limitation — not a wizard bug. The background auto-save
+    preserves dates, display names, and non-auth settings data
+    that genuinely survives. The underlying functions remain
+    for developers who need them. The Save Data menu now shows a
+    plain-language explanation in place of those controls.
+
+
+-------------------------------------------------------------
+For the complete pre-release and prior version history, see
+changelog_history.txt in the wizard's root folder.
+-------------------------------------------------------------

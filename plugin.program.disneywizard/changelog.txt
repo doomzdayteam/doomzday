@@ -1,0 +1,72 @@
+3.0.8 - Added the option to save GUI settings (This only applies to build updates). Changed how build updates are installed. Build updates are now installed after acknowledging the build update notification dialog instead of being redirected to the build menu. Added build changelogs. An option to view a builds changelog has been added to the build update notification dialog and the wizards main menu. Changelog text files must be named exactly the same as your build and spaces are accepted (i.e MyBuild.txt or My Build.txt). Builders will be required to create a directory on their server containing all changelogs and add the directory URL to uservar.py. Updated how builds are displayed in the build menu with a new element being added to builds.xml/json/txt to distinguish between Kodi versions. Add the builds supported Kodi version i.e. K20, K21, or K22 in the field and the wizard will display builds depending on what version of Kodi is installed. If this element is left out of your build file the standard Simple Wizard build menu layout will be used. Updated save data dialog. Updated menus. Code cleanup. Bug fixes
+
+3.0.7 - Updated parsers to include the option of using Open Wizard format build texts. Switched from Elementtree to regex parser for xml build files. Added rumble.com support for video previews.  Added optional "Videos" section for video tutorials and other useful videos. Supports Rumble, YouTube or directs. Videos section url needs to be added in uservar.py. Added support for more flexible build versions.  Build versions are now treated as strings so can now be 1.0.0 or 1.0.0a for example. Updated templates in the texts folder to reflect added compatibility. Code cleanup.
+
+3.0.6 - Added K21 advanced settings video cache configs. Added a new feature that will allow the user to backup/restore their GUI/Skin settings. Updated clear packages at startup to only run if there are packages to clear. 
+
+3.0.2 - Added speedtest, various bugfixes
+
+3.0.0 - Added backup/restore functionality for trakt/debrid accounts. Updated debrid/trakt authorization section. Restore of gui/skin settings has been added. Updated Advancedsettings configs. Updated wizard artwork. Added user edited color options for menus. Fixed wizard writing over itself during build installs. Edited fresh start to keep wizard/dependencies. Removed double ok dialog during build installs. Numerous other small fixes throughout. 
+
+2.1.8 - Added logviewer to maintenance. 
+
+2.1.7 - Fixed issue with binary installs failing. Updated Advancedsettings configs. Added notification at start of backups. 
+
+2.1.6.1 - Fix permissions error on Windows devices. Added keeping binaries list when installs fail. 
+
+2.1.6 - Added binary addon installation to build install. Fix for Dropbox zips not showing the file length. Fixed error on startup when buildfile or notify urls are invalid.
+
+2.1.5 - Added option to cancel prompt for build update and no build. 
+
+2.1.4 - Small fix to Whitelist. 
+
+2.1.3 - Added prompt that opens the Build Menu when there's an update or now build installed. Added Force Close shortcut. Restructured addon a bit. There is now a uservar py in root of addon for user variables. 
+
+2.1.1 - Added Custom Backups Path
+
+2.1.0 - Added Backup/Restore 
+
+2.0.7 - Added Whitelist, Fixes to Dropbox urls.
+
+2.0.5 - Added Authorize Debrid, Added language strings to most labels, code cleanup
+
+2.0.3 - Added video preview
+
+2.0.2 - Fixed issue with backup restore 
+
+2.0.0 Major changes to the framework of the addon. Allocated most of the code to modules. Added some new modules. Added support for Dropbox links. Fixed cancel download.
+
+1.1.3 - Fix to save items when items not selected 
+
+1.1.2 - Remade service.py, small Bugfixes. 
+
+1.1.1 - Fixed an issue with update checker. 
+
+1.1.0 - Fixed Resolveurl path in save data. 
+
+1.0.9 - Added settings to main menu. 
+
+1.0.8 - Fixed percentage during build download
+
+1.0.7 - Added option to link to another xml or json file. This is good for teams or community wizards as each builder can have their own xml. Also changed format of the builds xml. Please refer to builds_newformat.xml located in the resources folder. The old format will still work but if the user is running an older version of the wizard, they'll only see the version number as the name. They'll want to update to fix that. 
+
+1.0.6 - Added Notifications Dialog. Special thanks to Blue for art and helping with the design. 
+
+1.0.5 - Bugfixes.
+
+1.0.3 - Added download progress to build install. 
+
+1.0.2 - Added option to encode the buildfile variable to a base64 string. 
+
+1.0.1 - Added the option to use json for build file. 
+
+1.0.0 - Basic clean up. Ready for official release.
+
+0.0.9 - Added Save Menu
+0.0.8 - Bugfixes, Fresh Start should be faster now
+0.0.7 - Added Advanced Settings presets to Maintenance. 
+0.0.6 - Added Clear Packages, the first of the Maintenance section.
+0.0.5 - Bug fixes
+0.0.4 - Added enabling of disabled addons on build first run. Added update repos on build first run. 
+0.0.3 - Added prompt notifying when new version of installed build is available.
+0.0.2 - Initial Release

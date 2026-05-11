@@ -1,0 +1,30 @@
+<videos>
+
+  <video>
+	<name>Rumble or Youtube Video 1</name>
+	<section>no</section>
+	<url>https://youtu.be/1jd16EnTiNY?si=ml5X3pUaohCRjiqo</url>
+	<icon>http://</icon>
+	<fanart>http://</fanart>
+	<description>Tutorials or other videos.</description>
+  </video>
+  
+  <video>
+	<name>Rumble or Youtube Video 2</name>
+	<section>no</section>
+	<url>https://rumble.com/v63qjb1-quick-wizard-update.html</url>
+	<icon>http://</icon>
+	<fanart>http://</fanart>
+	<description>Tutorials or other videos.</description>
+  </video>
+  
+  <video>
+	<name>Example Section</name>
+	<section>yes</section>
+	<url>url.to.xml</url>
+	<icon>http://</icon>
+	<fanart>http://</fanart>
+	<description>Example Section</description>
+  </video>
+  
+</videos>

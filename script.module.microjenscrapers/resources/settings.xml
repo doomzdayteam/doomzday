@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+<!-- General-0 -->
+    <category label="General">
+        <setting id="package.folder" label="Choose Module Scraper" type="action" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?action=ScraperChoice)" default="MicrojenScrapers" />
+        <setting type="sep" />
+        <setting label="Enable All Providers (for current Module Scraper)" type="action" action="RunPlugin(plugin://script.module.microjenscrapers/?action=ToggleProviderAll&amp;setting=true&amp;query=0.2)" option="close"/>
+        <setting type="sep" />
+        <setting label="Disable All Providers" type="action" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAll&amp;setting=false&amp;query=0.4)" option="close"/>
+        <setting label="Enable All Providers" type="action" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAll&amp;setting=true&amp;query=0.5)" option="close"/>
+        <setting label="Disable All Hosters" type="action" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllHosters&amp;setting=false&amp;query=0.6)" option="close" />
+        <setting label="Enable All Hosters" type="action" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllHosters&amp;setting=true&amp;query=0.7)" option="close" />
+        <setting label="Disable All Foreign Providers" type="action" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllForeign&amp;setting=false&amp;query=0.8)" />
+        <setting label="Enable All Foreign Providers" type="action" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllForeign&amp;setting=true&amp;query=0.9)" />
+        <setting label="Disable All Torrent Providers" type="action" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllTorrent&amp;setting=false&amp;query=0.10)"/>
+        <setting label="Enable All Torrent Providers" type="action" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?action=toggleAllTorrent&amp;setting=true&amp;query=0.11)"/>
+    </category>
+    
+    <category label="Quality">
+    	<setting id="quality.4k" type="bool" label="Enable 4k" default="true" />
+        <setting id="quality.1080p" type="bool" label="Enable 1080p" default="true" />
+        <setting id="quality.720p" type="bool" label="Enable 720p" default="true" />
+        <setting id="quality.sd" type="bool" label="Enable SD" default="false" />
+        <setting id="quality.cam" type="bool" label="Enable Cams" default="false" />
+    </category>
+
+<!-- Providers/Hosters-1 -->
+    <category label="Hosters">
+        <setting id="provider.library" type="bool" label="LIBRARY" default="false" />
+        <setting id="provider.123movies" type="bool" label="123MOVIES" default="false" />
+        <setting id="provider.300mbfilms" type="bool" label="300MBFILMS" default="false" />
+        <setting id="provider.bnwmovies" type="bool" label="BNWMOVIES" default="false" />
+        <setting id="provider.filmxy" type="bool" label="FILMXY" default="false" />
+        <setting id="provider.furk" type="bool" label="FURK" default="false" />
+        <setting id="provider.gowatchseries" type="bool" label="GOWATCHSERIES" default="false" />
+        <setting id="provider.hdmovie8" type="bool" label="HDMOVIE8" default="false" />
+        <setting id="provider.iwaatch" type="bool" label="IWAATCH" default="false" />
+        <setting id="provider.maxrls" type="bool" label="MAXRLS" default="false" />
+        <setting id="provider.myvideolink" type="bool" label="MYVIDEOLINK" default="false" />
+        <setting id="provider.onlineseries" type="bool" label="ONLINESERIES" default="false" />
+        <setting id="provider.plockers" type="bool" label="PLOCKERS" default="false" />
+        <setting id="provider.projectfree" type="bool" label="PROJECTFREE" default="false" />
+        <setting id="provider.rapidmoviez" type="bool" label="RAPIDMOVIEZ" default="false" />
+        <setting id="provider.scenerls" type="bool" label="SCENERLS" default="false" />
+        <setting id="provider.streamlord" type="bool" label="STREAMLORD" default="false" />
+        <setting id="provider.telepisodes" type="bool" label="TELEPISODES" default="false" />
+        <setting id="provider.ultrahdindir" type="bool" label="ULTRAHDINDIR" default="false" />
+        <setting id="provider.xmovies8" type="bool" label="XMOVIES8" default="false" />
+    </category>
+
+<!-- Providers/Foreign-2 -->
+    <category label="Foreign">
+        <setting type="lsep" label="Greek" />
+        <setting id="provider.gamato-movies" type="bool" label="GAMATO-MOVIES" default="false" />
+        <setting id="provider.tenies-online" type="bool" label="TENIES-ONLINE" default="false" />
+        <setting id="provider.xrysoi" type="bool" label="XRYSOI" default="false" />
+    </category>
+
+<!-- Torrents-3 -->
+    <category label="Torrent">
+        <setting id="provider.1337x" type="bool" label="1337X" default="true" />
+        <setting id="provider.bitlord" type="bool" label="BITLORD" default="true" />
+        <setting id="provider.bt4g" type="bool" label="BT4G" default="true" />
+        <setting id="provider.btscene" type="bool" label="BTSCENE" default="false" />
+        <setting id="provider.eztv" type="bool" label="EZTV" default="true" />
+        <setting id="provider.glodls" type="bool" label="GLODLS" default="true" />
+        <setting id="provider.kickass2" type="bool" label="KICKASS2" default="true" />
+        <setting id="provider.limetorrents" type="bool" label="LIMETORRENTS" default="true" />
+        <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="true" />
+        <setting id="provider.nyaa" type="bool" label="NYAA" default="true" />
+        <setting id="provider.piratebay" type="bool" label="PIRATEBAY" default="true" />
+		<setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
+        <setting id="provider.tordl" type="bool" label="TORDL" default="true" />
+        <setting id="provider.torrentapi" type="bool" label="TORRENTAPI" default="true" />
+        <setting id="provider.torrentdownloads" type="bool" label="TORRENTDOWNLOADS" default="true" />
+        <setting id="provider.yourbt" type="bool" label="YOURBT" default="true" />
+        <setting id="provider.yts" type="bool" label="YTS" default="true" />
+        <setting id="provider.zooqle" type="bool" label="ZOOQLE" default="true" />
+    </category>
+
+<!-- Accounts-4 -->
+    <category label="Scraper Accounts">
+        <setting type="lsep" label="Filepursuit - get key from: rapidapi.com/azharxes/api/filepursuit" />
+        <setting id="provider.filepursuit" type="bool" label="FILEPURSUIT" default="false" />
+        <setting id="filepursuit.api" type="text" subsetting="true" label="Filepursuit API key" default="" visible="eq(-1,true)" />
+        <setting type="lsep" label="Ororo.tv" />
+        <setting id="provider.ororo" type="bool" label="ORORO" default="false" />
+        <setting id="ororo.user" type="text" subsetting="true" label="E-mail" default="" visible="eq(-1,true)" />
+        <setting id="ororo.pass" type="text" subsetting="true" label="Password" default="" visible="eq(-2,true)" />
+    </category>
+
+    
+
+<!--    <category label="Debug">\-->
+<!--        <setting id="addon_debug" type="bool" label="Enable Debug" default="false" />-->
+<!--    </category>-->
+</settings>

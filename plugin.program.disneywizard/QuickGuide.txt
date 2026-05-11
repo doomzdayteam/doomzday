@@ -1,0 +1,19 @@
+Simple 19 Wizard
+
+This is a lightweight build installer with Fresh Start option for use with Kodi 19. There's also a small set of maintenance tools. It uses xml for build file. There is a template for that named builds.xml located in the resources folder. It's important to keep the structure of the xml the same. Please report any bugs and feature requests to @slamious on Telegram/Twitter.
+
+Quick Guide:
+
+1. Unzip plugin.program.simple19wizard.zip
+
+2. Rename the plugin.program.simple19wizard folder to your desired plugin name ie plugin.program.my19wizard.
+
+3. Open the addon.xml file and change the plugin ID to match the foldername you created in step 2. You should also change the Name, Provider-name, Summary and Description to whatever you want. Save.
+
+4. Replace the icon.png and fanart.jpg files in the resources folder with your own. Keep the filenames the same.
+
+5. Open the builds.xml or builds.json template file located in the resources folder and replace the template info with that of your build info. You can add or remove builds just be sure to keep the structure of the xml tags (or dict for json) the same. You can rename this file if you wish. Host the file. It doesn't matter if you use xml or json. XML is likely the more user friendly while json is more efficient. Choose whichever you are more comfortable using. 
+
+6. Open the uservar.py file and change the build file url to the url of your hosted build xml file. Save.
+
+7. Zip the plugin.program.my19wizard folder and install in Kodi. 

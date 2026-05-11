@@ -1,0 +1,1356 @@
+# Addon Name: Nightwing
+# Addon id: plugin.video.nightwing
+# Addon Provider: dev name
+# Translators: Nightwing
+# Translators: Nightwing
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Nightwing\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-10-11 02:03+0000\n"
+"Last-Translator: Nightwing\n"
+"Language-Team:\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgctxt "#32001"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#32002"
+msgid "TV Shows"
+msgstr ""
+
+msgctxt "#32003"
+msgid "[COLORffFEEE5F]My Movies[/COLOR]"
+msgstr ""
+
+msgctxt "#32004"
+msgid "[COLORffFEEE5F]My TV Shows[/COLOR]"
+msgstr ""
+
+msgctxt "#32005"
+msgid "[COLORffFEEE5F]New Movies[/COLOR]"
+msgstr ""
+
+msgctxt "#32006"
+msgid "[COLORffFEEE5F]New Episodes[/COLOR]"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Channels"
+msgstr ""
+
+msgctxt "#32008"
+msgid "Tools"
+msgstr ""
+
+msgctxt "#32009"
+msgid "Downloads"
+msgstr ""
+
+msgctxt "#32010"
+msgid "[COLORffFEEE5F]Search[/COLOR]"
+msgstr ""
+
+msgctxt "#32011"
+msgid "[COLORffFEEE5F]Genres[/COLOR]"
+msgstr ""
+
+msgctxt "#32012"
+msgid "[COLORffFEEE5F]Year[/COLOR]"
+msgstr ""
+
+msgctxt "#32013"
+msgid "[COLORffFEEE5F]People[/COLOR]"
+msgstr ""
+
+msgctxt "#32014"
+msgid "[COLORffFEEE5F]Languages[/COLOR]"
+msgstr ""
+
+msgctxt "#32015"
+msgid "[COLORffFEEE5F]Certificates[/COLOR]"
+msgstr ""
+
+msgctxt "#32016"
+msgid "[COLORffFEEE5F]Networks[/COLOR]"
+msgstr ""
+
+msgctxt "#32017"
+msgid "[COLORffFEEE5F]People Watching[/COLOR]"
+msgstr ""
+
+msgctxt "#32018"
+msgid "[COLORffFEEE5F]Most Popular[/COLOR]"
+msgstr ""
+
+msgctxt "#32019"
+msgid "[COLORffFEEE5F]Most Voted[/COLOR]"
+msgstr ""
+
+msgctxt "#32020"
+msgid "[COLORffFEEE5F]Box Office[/COLOR]"
+msgstr ""
+
+msgctxt "#32021"
+msgid "[COLORffFEEE5F]Oscar Winners[/COLOR]"
+msgstr ""
+
+msgctxt "#32022"
+msgid "[COLORffFEEE5F]In Theaters[/COLOR]"
+msgstr ""
+
+msgctxt "#32023"
+msgid "[COLORffFEEE5F]Highly Rated[/COLOR]"
+msgstr ""
+
+msgctxt "#32024"
+msgid "[COLORffFEEE5F]Airing today[/COLOR]"
+msgstr ""
+
+msgctxt "#32025"
+msgid "[COLORffFEEE5F]Returning TV Shows[/COLOR]"
+msgstr ""
+
+msgctxt "#32026"
+msgid "[COLORffFEEE5F]New TV Shows[/COLOR]"
+msgstr ""
+
+msgctxt "#32027"
+msgid "[COLORffFEEE5F]TV Calendar[/COLOR]"
+msgstr ""
+
+msgctxt "#32028"
+msgid "[COLORffFEEE5F]People Search[/COLOR]"
+msgstr ""
+
+msgctxt "#32029"
+msgid "[COLORffFEEE5F]People (Movies)[/COLOR]"
+msgstr ""
+
+msgctxt "#32030"
+msgid "[COLORffFEEE5F]People (TV)[/COLOR]"
+msgstr ""
+
+msgctxt "#32031"
+msgid "[COLORffFEEE5F]Discover[/COLOR]"
+msgstr ""
+
+msgctxt "#32032"
+msgid "[COLORffFEEE5F]Collection[/COLOR]"
+msgstr ""
+
+msgctxt "#32033"
+msgid "[COLORffFEEE5F]Trakt Watchlist[/COLOR]"
+msgstr ""
+
+msgctxt "#32034"
+msgid "[COLORffFEEE5F]IMDb Watchlist[/COLOR]"
+msgstr ""
+
+msgctxt "#32035"
+msgid "[COLORffFEEE5F]Trakt Recommendations[/COLOR]"
+msgstr ""
+
+msgctxt "#32036"
+msgid "[COLORffFEEE5F]History[/COLOR]"
+msgstr ""
+
+msgctxt "#32037"
+msgid "[COLORffFEEE5F]Progress[/COLOR]"
+msgstr ""
+
+msgctxt "#32038"
+msgid "[COLORffFEEE5F]Episodes[/COLOR]"
+msgstr ""
+
+msgctxt "#32039"
+msgid "[COLORffFEEE5F]Movie Lists[/COLOR]"
+msgstr ""
+
+msgctxt "#32040"
+msgid "[COLORffFEEE5F]TV Show Lists[/COLOR]"
+msgstr ""
+
+msgctxt "#32041"
+msgid "[COLORffFEEE5F]Episode Lists[/COLOR]"
+msgstr ""
+
+msgctxt "#32042"
+msgid "[COLORffFEEE5F]No Trakt or IMDb account found.[/COLOR]"
+msgstr ""
+
+msgctxt "#32043"
+msgid "[B]Nightwing[/B] : Settings"
+msgstr ""
+
+msgctxt "#32044"
+msgid "[B]SETTINGS[/B] : Accounts"
+msgstr ""
+
+msgctxt "#32045"
+msgid "[B]SETTINGS[/B] : Playback"
+msgstr ""
+
+msgctxt "#32046"
+msgid "[B]SETTINGS[/B] : Subtitles"
+msgstr ""
+
+msgctxt "#32047"
+msgid "[B]SETTINGS[/B] : Providers"
+msgstr ""
+
+msgctxt "#32048"
+msgid "[B]Nightwing[/B] : Downloads"
+msgstr ""
+
+msgctxt "#32049"
+msgid "[B]Nightwing[/B] : Viewtypes"
+msgstr ""
+
+msgctxt "#32050"
+msgid "[B]Nightwing[/B] : Clear providers..."
+msgstr ""
+
+msgctxt "#32051"
+msgid "[B]Nightwing[/B] : Clear metadata..."
+msgstr ""
+
+msgctxt "#32052"
+msgid "[B]Nightwing[/B] : Clear cache..."
+msgstr ""
+
+msgctxt "#32053"
+msgid "[I]Next Page[/I]"
+msgstr ""
+
+msgctxt "#32054"
+msgid "Seasons"
+msgstr ""
+
+msgctxt "#32055"
+msgid "Season"
+msgstr ""
+
+msgctxt "#32056"
+msgid "Are you sure?"
+msgstr ""
+
+msgctxt "#32057"
+msgid "Process Complete"
+msgstr ""
+
+msgctxt "#32058"
+msgid "This will slow down things until they are re-cached!"
+msgstr ""
+
+msgctxt "#32059"
+msgid "CLICK HERE TO SAVE VIEW"
+msgstr ""
+
+msgctxt "#32060"
+msgid "January|February|March|April|May|June|July|August|September|October|November|December"
+msgstr ""
+
+msgctxt "#32061"
+msgid "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
+msgstr ""
+
+msgctxt "#32062"
+msgid "[B]%s[/B] : %s"
+msgstr ""
+
+msgctxt "#32063"
+msgid "[I]Select source[/I]"
+msgstr ""
+
+msgctxt "#32064"
+msgid "[I]Auto Play[/I]"
+msgstr ""
+
+msgctxt "#32065"
+msgid "[I]Queue item[/I]"
+msgstr ""
+
+msgctxt "#32066"
+msgid "[I]Watched in Nightwing[/I]"
+msgstr ""
+
+msgctxt "#32067"
+msgid "[I]Unwatched in Nightwing[/I]"
+msgstr ""
+
+msgctxt "#32068"
+msgid "[I]Watched in Trakt[/I]"
+msgstr ""
+
+msgctxt "#32069"
+msgid "[I]Unwatched in Trakt[/I]"
+msgstr ""
+
+msgctxt "#32070"
+msgid "[I]Trakt Manager[/I]"
+msgstr ""
+
+msgctxt "#32071"
+msgid "[I]Browse Series[/I]"
+msgstr ""
+
+msgctxt "#32072"
+msgid "[I]Refresh[/I]"
+msgstr ""
+
+msgctxt "#32073"
+msgid "[B]TRAKT[/B] : Authorise"
+msgstr ""
+
+msgctxt "#32074"
+msgid "[B]HELP[/B]"
+msgstr ""
+
+msgctxt "#32075"
+msgid "Utilise your own Trakt API key (optional):"
+msgstr ""
+
+msgctxt "#32076"
+msgid "[B]URLResolver[/B] : Settings"
+msgstr ""
+
+msgctxt "#32077"
+msgid "[COLORffFEEE5F]Trending[/COLOR]"
+msgstr ""
+
+msgctxt "#32078"
+msgid "[B]LambdaScrapers[/B] : Settings"
+msgstr ""
+
+msgctxt "#32079"
+msgid "[B]NightwingScrapers[/B] : Settings"
+msgstr ""
+
+msgctxt "#32080"
+msgid "[B]Orion[/B] : Settings"
+msgstr ""
+
+msgctxt "#32081"
+msgid "[I]Clear Providers[/I]"
+msgstr ""
+
+msgctxt "#32082"
+msgid "[B]ExoScrapers[/B] : Settings"
+msgstr ""
+
+msgctxt "#32083"
+msgid "Choose Provider Source(s)"
+msgstr ""
+
+msgctxt "#32084"
+msgid "Provider Source:"
+msgstr ""
+
+msgctxt "#32085"
+msgid "Open Nightwing Scrapers Settings"
+msgstr ""
+
+msgctxt "#32086"
+msgid "Open NightwingScrapers Settings"
+msgstr ""
+
+msgctxt "#32087"
+msgid "Clear Providers Cache (recommended after provider source change)"
+msgstr ""
+
+msgctxt "#32088"
+msgid "Built-in Providers"
+msgstr ""
+
+msgctxt "#32089"
+msgid "{0} duplicate links removed"
+msgstr ""
+
+msgctxt "#32090"
+msgid "Filter-out duplicate links"
+msgstr ""
+
+msgctxt "#32091"
+msgid "Sync with Trakt watched status on add-on startup"
+msgstr ""
+
+msgctxt "#32092"
+msgid "Nightwing <=> Trakt Synced"
+msgstr ""
+
+msgctxt "#32093"
+msgid "[B]TRAKT[/B] : Sync Watched Status"
+msgstr ""
+
+msgctxt "#32094"
+msgid "Continue watching..."
+msgstr ""
+
+msgctxt "#32095"
+msgid "Resume Point source:"
+msgstr ""
+
+msgctxt "#32096"
+msgid "Trakt scrobbles"
+msgstr ""
+
+msgctxt "#32097"
+msgid "Enable scrobbling"
+msgstr ""
+
+msgctxt "#32098"
+msgid "NOTE: Do Not enable this if you scrobble through the Trakt add-on.[CR]Also note that only scrobble on Stop currently works."
+msgstr ""
+
+msgctxt "#32099"
+msgid "Show notification on scrobble"
+msgstr ""
+
+msgctxt "#32100"
+msgid "[I]Find similar[/I]"
+msgstr ""
+
+msgctxt "#32101"
+msgid "[I]Information[/I]"
+msgstr ""
+
+msgctxt "#32102"
+msgid "To use this you must install and configure an add-on: Orion.[CR]    Account required."
+msgstr ""
+
+msgctxt "#32103"
+msgid "Open Orion module settings"
+msgstr ""
+
+msgctxt "#32104"
+msgid "Stream Type:"
+msgstr ""
+
+msgctxt "#32105"
+msgid "Extra stream info (popularity, age)"
+msgstr ""
+
+msgctxt "#32106"
+msgid "Extra stream info (filename)"
+msgstr ""
+
+msgctxt "#32107"
+msgid "Orion label color:"
+msgstr ""
+
+msgctxt "#32108"
+msgid "[B]Nightwing[/B] : Clean Settings file"
+msgstr ""
+
+msgctxt "#32109"
+msgid "[B]NightwingScrapers[/B] : Clean Settings file"
+msgstr ""
+
+msgctxt "#32110"
+msgid "{} Obsolete Settings Entries Removed"
+msgstr ""
+
+msgctxt "#32111"
+msgid "No Obselete Settings to Remove"
+msgstr ""
+
+msgctxt "#32112"
+msgid "Enable metadata on source list"
+msgstr ""
+
+msgctxt "#32113"
+msgid "Sort by size if available"
+msgstr ""
+
+msgctxt "#32114"
+msgid "Verify torrents cache"
+msgstr ""
+
+msgctxt "#32115"
+msgid "Supported services: Real-Debrid, AllDebrid,[CR]   Premiumize, Debrid-Link"
+msgstr ""
+
+msgctxt "#32116"
+msgid "[B]Nightwing[/B] : Clear debrid checks..."
+msgstr ""
+
+msgctxt "#32117"
+msgid "Username"
+msgstr ""
+
+msgctxt "#32118"
+msgid "Enter your Opensubtitles.org log-in credentials on 'Accounts' tab"
+msgstr ""
+
+msgctxt "#32119"
+msgid "Always choose"
+msgstr ""
+
+msgctxt "#32120"
+msgid "Choose on season/episode level"
+msgstr ""
+
+msgctxt "#32121"
+msgid "Select Trailer:"
+msgstr ""
+
+msgctxt "#32122"
+msgid "Remove CAM/SCR results"
+msgstr ""
+
+msgctxt "#32123"
+msgid "[COLORffFEEE5F]Decade[/COLOR]"
+msgstr ""
+
+msgctxt "#32124"
+msgid "[COLORffFEEE5F]IMDb keyword searches[/COLOR]"
+msgstr ""
+
+msgctxt "#32125"
+msgid "[COLORffFEEE5F]Popular IMDb user lists[/COLOR]"
+msgstr ""
+
+msgctxt "#32126"
+msgid "Remove uncached torrents if cached exist"
+msgstr ""
+
+msgctxt "#32127"
+msgid "Min Quality"
+msgstr ""
+
+msgctxt "#32128"
+msgid "Get episodes ratings from Trakt (slow)"
+msgstr ""
+
+msgctxt "#32129"
+msgid "Enable extra & hq artwork"
+msgstr ""
+
+msgctxt "#32130"
+msgid "Please consider entering your personal Fanart.tv API key on Accounts tab"
+msgstr ""
+
+msgctxt "#32131"
+msgid "Filename when available"
+msgstr ""
+
+msgctxt "#32132"
+msgid "Simplified info"
+msgstr ""
+
+msgctxt "#32133"
+msgid "Min movie size (GB)"
+msgstr ""
+
+msgctxt "#32134"
+msgid "Max movie size (GB)"
+msgstr ""
+
+msgctxt "#32135"
+msgid "Min episode size (GB)"
+msgstr ""
+
+msgctxt "#32136"
+msgid "Max episode size (GB)"
+msgstr ""
+
+msgctxt "#32137"
+msgid "Enable size filtering"
+msgstr ""
+
+msgctxt "#32200"
+msgid "No Color"
+msgstr ""
+
+msgctxt "#32201"
+msgid "[COLOR=blue]Blue[/COLOR]"
+msgstr ""
+
+msgctxt "#32202"
+msgid "[COLOR=red]Red[/COLOR]"
+msgstr ""
+
+msgctxt "#32203"
+msgid "[COLOR=yellow]Yellow[/COLOR]"
+msgstr ""
+
+msgctxt "#32204"
+msgid "[COLOR=deeppink]Deep Pink[/COLOR]"
+msgstr ""
+
+msgctxt "#32205"
+msgid "[COLOR=cyan]Cyan[/COLOR]"
+msgstr ""
+
+msgctxt "#32206"
+msgid "[COLOR=lawngreen]Lawn Green[/COLOR]"
+msgstr ""
+
+msgctxt "#32207"
+msgid "[COLOR=gold]Gold[/COLOR]"
+msgstr ""
+
+msgctxt "#32208"
+msgid "[COLOR=magenta]Magenta[/COLOR]"
+msgstr ""
+
+msgctxt "#32209"
+msgid "[COLOR=yellowgreen]Yellow Green[/COLOR]"
+msgstr ""
+
+msgctxt "#32210"
+msgid "[COLOR=white]White[/COLOR]"
+msgstr ""
+
+msgctxt "#32211"
+msgid "[COLOR=black]Black[/COLOR]"
+msgstr ""
+
+msgctxt "#32212"
+msgid "[COLOR=crimson]Crimson[/COLOR]"
+msgstr ""
+
+msgctxt "#32213"
+msgid "[COLOR=goldenrod]Goldenrod[/COLOR]"
+msgstr ""
+
+msgctxt "#32214"
+msgid "[COLOR=powderblue]Powderblue[/COLOR]"
+msgstr ""
+
+msgctxt "#32215"
+msgid "[COLOR=deepskyblue]Deepsky Blue[/COLOR]"
+msgstr ""
+
+msgctxt "#32216"
+msgid "[COLOR=springgreen]Spring Green[/COLOR]"
+msgstr ""
+
+msgctxt "#32217"
+msgid "[COLOR=darkcyan]Dark Cyan[/COLOR]"
+msgstr ""
+
+msgctxt "#32218"
+msgid "[COLOR=aquamarine]Aquamarine[/COLOR]"
+msgstr ""
+
+msgctxt "#32219"
+msgid "[COLOR=mediumturquoise]Medium Turquoise[/COLOR]"
+msgstr ""
+
+msgctxt "#32220"
+msgid "[COLOR=khaki]Khaki[/COLOR]"
+msgstr ""
+
+msgctxt "#32221"
+msgid "[COLOR=darkorange]Dark Orange[/COLOR]"
+msgstr ""
+
+msgctxt "#32301"
+msgid "Enabled"
+msgstr ""
+
+msgctxt "#32302"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "#32303"
+msgid "User ID"
+msgstr ""
+
+msgctxt "#32304"
+msgid "Email"
+msgstr ""
+
+msgctxt "#32305"
+msgid "ID"
+msgstr ""
+
+msgctxt "#32306"
+msgid "[B]Authorise[/B]"
+msgstr ""
+
+msgctxt "#32307"
+msgid "Password"
+msgstr ""
+
+msgctxt "#32308"
+msgid "PIN"
+msgstr ""
+
+msgctxt "#32309"
+msgid "API"
+msgstr ""
+
+msgctxt "#32310"
+msgid "General"
+msgstr ""
+
+msgctxt "#32311"
+msgid "Appearance"
+msgstr ""
+
+msgctxt "#32312"
+msgid "Providers Timeout"
+msgstr ""
+
+msgctxt "#32313"
+msgid "Indicators"
+msgstr ""
+
+msgctxt "#32314"
+msgid "Local"
+msgstr ""
+
+msgctxt "#32315"
+msgid "Trakt"
+msgstr ""
+
+msgctxt "#32316"
+msgid "Info Language"
+msgstr ""
+
+msgctxt "#32317"
+msgid "Flatten TV seasons"
+msgstr ""
+
+msgctxt "#32318"
+msgid "Enable Fanart"
+msgstr ""
+
+msgctxt "#32319"
+msgid "Menu"
+msgstr ""
+
+msgctxt "#32320"
+msgid "[COLORffFEEE5F]New Movies[/COLOR]"
+msgstr ""
+
+msgctxt "#32321"
+msgid "[COLORffFEEE5F]Featured[/COLOR]"
+msgstr ""
+
+msgctxt "#32322"
+msgid "[COLORffFEEE5F]People Watching[/COLOR]"
+msgstr ""
+
+msgctxt "#32323"
+msgid "[COLORffFEEE5F]Most Popular[/COLOR]"
+msgstr ""
+
+msgctxt "#32324"
+msgid "[COLORffFEEE5F]In Theaters[/COLOR]"
+msgstr ""
+
+msgctxt "#32325"
+msgid "[COLORffFEEE5F]New Episodes[/COLOR]"
+msgstr ""
+
+msgctxt "#32326"
+msgid "[COLORffFEEE5F]Episodes[/COLOR]"
+msgstr ""
+
+msgctxt "#32327"
+msgid "Trakt Progress"
+msgstr ""
+
+msgctxt "#32328"
+msgid "Trakt Episodes"
+msgstr ""
+
+msgctxt "#32329"
+msgid "My Lists"
+msgstr ""
+
+msgctxt "#32330"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#32331"
+msgid "Default action"
+msgstr ""
+
+msgctxt "#32332"
+msgid "Dialog"
+msgstr ""
+
+msgctxt "#32333"
+msgid "Directory"
+msgstr ""
+
+msgctxt "#32334"
+msgid "Auto Play"
+msgstr ""
+
+msgctxt "#32335"
+msgid "Progress Dialog"
+msgstr ""
+
+msgctxt "#32336"
+msgid "Foreground"
+msgstr ""
+
+msgctxt "#32337"
+msgid "Background"
+msgstr ""
+
+msgctxt "#32338"
+msgid "Sources Filters"
+msgstr ""
+
+msgctxt "#32339"
+msgid "Max Quality"
+msgstr ""
+
+msgctxt "#32340"
+msgid "SD Hosters in Auto Play"
+msgstr ""
+
+msgctxt "#32341"
+msgid "Remove pair/captcha hosts"
+msgstr ""
+
+msgctxt "#32342"
+msgid "Sort by Provider"
+msgstr ""
+
+msgctxt "#32343"
+msgid "When playback starts..."
+msgstr ""
+
+msgctxt "#32344"
+msgid "Resume Playback"
+msgstr ""
+
+msgctxt "#32345"
+msgid "Providers"
+msgstr ""
+
+msgctxt "#32346"
+msgid "Accounts"
+msgstr ""
+
+msgctxt "#32347"
+msgid "Downloads"
+msgstr ""
+
+msgctxt "#32348"
+msgid "Enable downloads"
+msgstr ""
+
+msgctxt "#32349"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#32350"
+msgid "TV"
+msgstr ""
+
+msgctxt "#32351"
+msgid "Downloading features are disabled by default."
+msgstr ""
+
+msgctxt "#32352"
+msgid "Set up your download folders in order to enable them."
+msgstr ""
+
+msgctxt "#32353"
+msgid "Subtitles"
+msgstr ""
+
+msgctxt "#32354"
+msgid "Enable subtitles"
+msgstr ""
+
+msgctxt "#32355"
+msgid "Convert subtitles to UTF-8"
+msgstr ""
+
+msgctxt "#32356"
+msgid "Primary Language"
+msgstr ""
+
+msgctxt "#32357"
+msgid "Secondary Language"
+msgstr ""
+
+msgctxt "#32358"
+msgid "Subtitles could be unavailable or out of sync."
+msgstr ""
+
+msgctxt "#32359"
+msgid "In that case use your own subtitles."
+msgstr ""
+
+msgctxt "#32360"
+msgid "Providers Language"
+msgstr ""
+
+msgctxt "#32361"
+msgid "Show notification"
+msgstr ""
+
+msgctxt "#32362"
+msgid "Disable CloudFlare protected providers"
+msgstr ""
+
+msgctxt "#32363"
+msgid "Remove HEVC streams"
+msgstr ""
+
+msgctxt "#32372"
+msgid "When playback ends..."
+msgstr ""
+
+msgctxt "#32373"
+msgid "Refresh watched status"
+msgstr ""
+
+msgctxt "#32401"
+msgid "No stream available"
+msgstr ""
+
+msgctxt "#32402"
+msgid "Playback outside Nightwing is not allowed"
+msgstr ""
+
+msgctxt "#32403"
+msgid "[I]Download[/I]"
+msgstr ""
+
+msgctxt "#32404"
+msgid "Time elapsed: %s seconds"
+msgstr ""
+
+msgctxt "#32405"
+msgid "%s seconds"
+msgstr ""
+
+msgctxt "#32406"
+msgid "Remaining providers: %s"
+msgstr ""
+
+msgctxt "#32407"
+msgid "Are you sure?"
+msgstr ""
+
+msgctxt "#32408"
+msgid "Process Complete"
+msgstr ""
+
+msgctxt "#32501"
+msgid "Start from beginning"
+msgstr ""
+
+msgctxt "#32502"
+msgid "Resume from %s"
+msgstr ""
+
+msgctxt "#32503"
+msgid "Resume"
+msgstr ""
+
+msgctxt "#32511"
+msgid "An account already exists."
+msgstr ""
+
+msgctxt "#32512"
+msgid "Do you want to reset?"
+msgstr ""
+
+msgctxt "#32513"
+msgid "1) Visit : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32514"
+msgid "2) When prompted enter : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32515"
+msgid "Trakt Manager"
+msgstr ""
+
+msgctxt "#32516"
+msgid "Add to [B]Collection[/B]"
+msgstr ""
+
+msgctxt "#32517"
+msgid "Remove from [B]Collection[/B]"
+msgstr ""
+
+msgctxt "#32518"
+msgid "Add to [B]Watchlist[/B]"
+msgstr ""
+
+msgctxt "#32519"
+msgid "Remove from [B]Watchlist[/B]"
+msgstr ""
+
+msgctxt "#32520"
+msgid "Add to [B]new List[/B]"
+msgstr ""
+
+msgctxt "#32521"
+msgid "Add to [B]%s[/B]"
+msgstr ""
+
+msgctxt "#32522"
+msgid "Remove from [B]%s[/B]"
+msgstr ""
+
+msgctxt "#32531"
+msgid "An account already exists."
+msgstr ""
+
+msgctxt "#32532"
+msgid "Do you want to reset?"
+msgstr ""
+
+msgctxt "#32533"
+msgid "1) Visit : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32534"
+msgid "2) When prompted enter : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32535"
+msgid "[I]Play Random[/I]"
+msgstr ""
+
+msgctxt "#32536"
+msgid "Playing"
+msgstr ""
+
+msgctxt "#32537"
+msgid "Nothing found to play"
+msgstr ""
+
+msgctxt "#32538"
+msgid "DEBRID-SERVICE"
+msgstr ""
+
+msgctxt "#32539"
+msgid "Configure Debrid Services in URLResolver Settings."
+msgstr ""
+
+msgctxt "#32540"
+msgid "URLResolver Settings"
+msgstr ""
+
+msgctxt "#32541"
+msgid "Library"
+msgstr ""
+
+msgctxt "#32542"
+msgid "Nightwing folders will be imported to library if they are added to media sources."
+msgstr ""
+
+msgctxt "#32543"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#32544"
+msgid "TV"
+msgstr ""
+
+msgctxt "#32545"
+msgid "Auto update TV Shows"
+msgstr ""
+
+msgctxt "#32546"
+msgid "Show notifications during update"
+msgstr ""
+
+msgctxt "#32547"
+msgid "Update library after adding content"
+msgstr ""
+
+msgctxt "#32548"
+msgid "Avoid creating duplicate content"
+msgstr ""
+
+msgctxt "#32549"
+msgid "Check movie before adding it"
+msgstr ""
+
+msgctxt "#32550"
+msgid "Check first episode of season before adding it"
+msgstr ""
+
+msgctxt "#32551"
+msgid "[I]Add to Library[/I]"
+msgstr ""
+
+msgctxt "#32552"
+msgid "Adding to library..."
+msgstr ""
+
+msgctxt "#32553"
+msgid "Updating TV shows..."
+msgstr ""
+
+msgctxt "#32554"
+msgid "Process Complete"
+msgstr ""
+
+msgctxt "#32555"
+msgid "Are you sure?"
+msgstr ""
+
+msgctxt "#32556"
+msgid "[B]Nightwing[/B] : Library"
+msgstr ""
+
+msgctxt "#32557"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr ""
+
+msgctxt "#32558"
+msgid "[B]Nightwing[/B] : Update library..."
+msgstr ""
+
+msgctxt "#32559"
+msgid "[B]Nightwing[/B] : Movie folder..."
+msgstr ""
+
+msgctxt "#32560"
+msgid "[B]Nightwing[/B] : TV folder..."
+msgstr ""
+
+msgctxt "#32561"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr ""
+
+msgctxt "#32562"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr ""
+
+msgctxt "#32563"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr ""
+
+msgctxt "#32564"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr ""
+
+msgctxt "#32565"
+msgid "Include episodes with unknown air dates"
+msgstr ""
+
+msgctxt "#32566"
+msgid "Include special episodes"
+msgstr ""
+
+msgctxt "#32567"
+msgid "IMDb watchlist/user lists sort by:"
+msgstr ""
+
+msgctxt "#32568"
+msgid "Recently added"
+msgstr ""
+
+msgctxt "#32569"
+msgid "Title"
+msgstr ""
+
+msgctxt "#32570"
+msgid "Show unaired seasons/episodes"
+msgstr ""
+
+msgctxt "#32571"
+msgid "Hide movies in cinema"
+msgstr ""
+
+msgctxt "#32572"
+msgid "Protected Link. Please enter account credentials in the settings."
+msgstr ""
+
+msgctxt "#32580"
+msgid "Films/TV Movies"
+msgstr ""
+
+msgctxt "#32581"
+msgid "Results Limit"
+msgstr ""
+
+msgctxt "#32582"
+msgid "Personal API keys provide quicker API responses.[CR]Please support the metadata sites however you can (tmdb, tvdb, fanart.tv)"
+msgstr ""
+
+msgctxt "#32583"
+msgid "Become a VIP member for many benefits at: https://fanart.tv/vip"
+msgstr ""
+
+msgctxt "#32584"
+msgid "Sort order for Trakt Watched Progress"
+msgstr ""
+
+msgctxt "#32585"
+msgid "Recently aired"
+msgstr ""
+
+msgctxt "#32586"
+msgid "Recently watched"
+msgstr ""
+
+msgctxt "#32587"
+msgid "Extra source info"
+msgstr ""
+
+msgctxt "#32588"
+msgid "Premium Source Identifier Color"
+msgstr ""
+
+msgctxt "#32599"
+msgid "Getting genre information from Trakt"
+msgstr ""
+
+msgctxt "#32600"
+msgid "Preparing sources"
+msgstr ""
+
+msgctxt "#32601"
+msgid "Total"
+msgstr ""
+
+msgctxt "#32602"
+msgid "Waiting for"
+msgstr ""
+
+msgctxt "#32603"
+msgid "New search..."
+msgstr ""
+
+msgctxt "#32604"
+msgid "[B]Nightwing[/B] : Clear search history..."
+msgstr ""
+
+msgctxt "#32605"
+msgid "Click to clear search history"
+msgstr ""
+
+msgctxt "#32606"
+msgid "Prem"
+msgstr ""
+
+msgctxt "#32607"
+msgid "Norm"
+msgstr ""
+
+msgctxt "#32608"
+msgid "Auto Syncing Trakt Library"
+msgstr ""
+
+msgctxt "#32609"
+msgid "Client ID"
+msgstr ""
+
+msgctxt "#32610"
+msgid "Client Secret"
+msgstr ""
+
+msgctxt "#32611"
+msgid "[B]Nightwing[/B] : Clear all cache..."
+msgstr ""
+
+msgctxt "#32612"
+msgid "24HR delay before import"
+msgstr ""
+
+msgctxt "#32613"
+msgid "Show Special Episodes"
+msgstr ""
+
+msgctxt "#32614"
+msgid "Auto Trakt Collections Syncing"
+msgstr ""
+
+msgctxt "#32615"
+msgid "Sync on Kodi Start"
+msgstr ""
+
+msgctxt "#32616"
+msgid "Schedule Updates Every _ Hour/s"
+msgstr ""
+
+msgctxt "#32617"
+msgid "0 Value Disables Scheduling"
+msgstr ""
+
+msgctxt "#32618"
+msgid "Pre-emptive Termination"
+msgstr ""
+
+msgctxt "#32619"
+msgid "Pre-emptive Limit"
+msgstr ""
+
+msgctxt "#32620"
+msgid "Autoplay SD Quality only"
+msgstr ""
+
+msgctxt "#32621"
+msgid "Debrid Sources Only"
+msgstr ""
+
+msgctxt "#32622"
+msgid "Trakt Bookmarks"
+msgstr ""
+
+msgctxt "#32623"
+msgid "Auto Resume"
+msgstr ""
+
+msgctxt "#32624"
+msgid "FANART.TV"
+msgstr ""
+
+msgctxt "#32625"
+msgid "TMDb"
+msgstr ""
+
+msgctxt "#32626"
+msgid "Secondary Color"
+msgstr ""
+
+msgctxt "#32627"
+msgid "IMDb"
+msgstr ""
+
+msgctxt "#32628"
+msgid "Source selection appearance"
+msgstr ""
+
+msgctxt "#32629"
+msgid "Single line"
+msgstr ""
+
+msgctxt "#32630"
+msgid "Double line"
+msgstr ""
+
+msgctxt "#32631"
+msgid "Simple"
+msgstr ""

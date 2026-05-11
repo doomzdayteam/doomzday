@@ -1,0 +1,276 @@
+{
+    "Authorize Real Debrid": {
+        "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
+        "items": [
+            {
+                "name": "Authorize ResolveURL Real-Debrid",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_rd)"
+            },
+            {
+                "name": "Authorize Realizer Cloud",
+                "url": "RunPlugin(plugin://plugin.video.realizerx/?action=authRealdebrid)"
+            },
+            {
+                "name": "Authorize Seren Real Debrid",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authRealDebrid)"
+            },
+            {
+                "name": "Authorize Umbrella Real Debrid",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Authorize)"
+            },
+            {
+                "name": "Authorize FEN Real Debrid",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.authenticate)"
+            },
+			{
+                "name": "Authorize EZRA Real Debrid",
+                "url": "RunScript(script.module.myaccounts, action=realdebridAuth)"
+            },
+            {
+                "name": "Revoke ResolveURL Real-Debrid",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_rd)"
+            },
+            {
+                "name": "Revoke Umbrella Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Revoke)"
+            },
+            {
+                "name": "Revoke FEN Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.revoke_authentication)"
+            },
+			{
+                "name": "Revoke EZRA Real-Debrid",
+                "url": "RunScript(script.module.myaccounts, action=realdebridRevoke)"
+            },
+            {
+                "name": "Check If your VPN is compatible with Real Debrid",
+                "url": "ActivateWindow(10001,plugin://script.RealDebrid.vpn/,return)"
+            }
+        ]
+    },
+    "Authorize Trakt": {
+        "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+        "items": [
+			{
+                "name": "Authorize Trakt Addon",
+                "url": "RunScript(script.trakt,action=auth_info)"
+            },
+            {
+                "name": "Authorize TMDBH Trakt",
+                "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
+            },
+            {
+                "name": "Authorize Seren Trakt",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
+            },
+            {
+                "name": "Authorize Umbrella Trakt",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)"
+            },
+            {
+                "name": "Authorize FEN Trakt",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_authenticate)"
+            },
+			{
+                "name": "Authorize EZRA Trakt",
+                "url": "RunScript(script.module.myaccounts, action=traktAuth)"
+            },
+            {
+                "name": "Authorize Premiumizer Cloud Trakt",
+                "url": "RunPlugin(plugin://plugin.video.premiumizerx/?action=authTrakt)"
+            },
+            {
+                "name": "Authorize The Crew Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
+            },
+            {
+                "name": "Authorize The Promise Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thepromise/?action=authTrakt)"
+            },
+            {
+                "name": "Authorize Homelander Trakt",
+                "url": "RunPlugin(plugin://plugin.video.homelander/?action=authTrakt)"
+            },
+            {
+                "name": "Authorize Scrubs Trakt",
+                "url": "RunPlugin(plugin://plugin.video.scrubsv2/?action=auth_trakt)"
+            },
+            {
+                "name": "Authorize Magic Dragon Trakt",
+                "url": "RunPlugin(plugin://plugin.video.magicdragon?mode=157&url=False)"
+            },
+            {
+                "name": "Authorize Asgard Trakt",
+                "url": "RunPlugin(plugin://plugin.video.asgard?mode=157&url=False)"
+            },
+            {
+                "name": "Authorize Kodiverse Trakt",
+                "url": "RunPlugin(plugin://plugin.video.KodiVerse?mode=157&url=False)"
+            },
+            {
+                "name": "Authorize The Chains Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thechains?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize Ghost Trakt",
+                "url": "RunPlugin(plugin://plugin.video.ghost?mode=157&url=False)"
+            },
+            {
+                "name": "Authorize Shadow Trakt",
+                "url": "RunPlugin(plugin://plugin.video.shadow?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize Moria Trakt",
+                "url": "RunPlugin(plugin://plugin.video.moria/?action=authTrakt)"
+            },
+			{
+                "name": "Authorize METV Trakt",
+                "url": "RunPlugin(plugin://plugin.video.metv19?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize Patriot Trakt",
+                "url": "RunPlugin(plugin://plugin.video.patriot?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize Genocide Trakt",
+                "url": "RunPlugin(plugin://plugin.video.Genocide?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize Black Lightning Trakt",
+                "url": "RunPlugin(plugin://plugin.video.blacklightning?mode=157&url=False)"
+            },
+			{
+                "name": "Authorize 4K Trakt",
+                "url": "RunPlugin(plugin://plugin.video.4k?mode=157&url=False)"
+            },
+            {
+                "name": "Revoke Seren Trakt",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=revokeTrakt)"
+            },
+			{
+                "name": "Revoke EZRA Trakt",
+                "url": "RunScript(script.module.myaccounts, action=traktRevoke)"
+            },
+            {
+                "name": "Revoke Umbrella Trakt",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktRevoke)"
+            },
+            {
+                "name": "Revoke FEN Trakt",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_revoke_authentication)"
+            }
+        ]
+    },
+    "Authorize Premiumize": {
+        "icon": "https://play-lh.googleusercontent.com/LCdGKehB8Cqa36eh0hQwy3CIWMI4bzSB9SUrAKmRQaXkZsFUNdcxuBgKM7nmBUyIVg",
+        "items": [
+            {
+                "name": "Authorize ResolveURL Premiumize.me",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)"
+            },
+            {
+                "name": "Authorize Premiumizer Cloud",
+                "url": "RunPlugin(plugin://plugin.video.premiumizerx/?action=authPremiumize)"
+            },
+            {
+                "name": "Authorize Seren Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authPremiumize)"
+            },
+            {
+                "name": "Authorize Umbrella Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Authorize)"
+            },
+            {
+                "name": "Authorize FEN Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.authenticate)"
+            },
+			{
+                "name": "Authorize EZRA Premiumize",
+                "url": "RunScript(script.module.myaccounts, action=premiumizeAuth)"
+            },
+            {
+                "name": "Revoke ResolveURL Premiumize.me",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_pm)"
+            },
+            {
+                "name": "Revoke Umbrella Premiumize.me",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Revoke)"
+            },
+			{
+                "name": "Revoke EZRA Premiumize.me",
+                "url": "RunScript(script.module.myaccounts, action=premiumizeRevoke)"
+            },
+            {
+                "name": "Revoke FEN Premiumize.me",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.revoke_authentication)"
+            }
+        ]
+    },
+    "Authorize All Debrid": {
+        "icon": "http://4.bp.blogspot.com/-D-mA8RDa9KI/U11fxrpEUHI/AAAAAAAAAYY/uxM3YucdoeI/s1600/alldebrid.jpg",
+        "items": [
+            {
+                "name": "Authorize ResolveURL AllDebrid",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ad)"
+            },
+            {
+                "name": "Authorize Seren Alldebrid",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authAllDebrid)"
+            },
+            {
+                "name": "Authorize Umbrella Alldebrid",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Authorize)"
+            },
+            {
+                "name": "Authorize FEN Alldebrid",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.authenticate)"
+            },
+			{
+                "name": "Authorize EZRA Alldebrid",
+                "url": "RunScript(script.module.myaccounts, action=alldebridAuth)"
+            },
+            {
+                "name": "Revoke ResolveURL AllDebrid",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ad)"
+            },
+            {
+                "name": "Revoke FEN AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.revoke_authentication)"
+            },
+			{
+                "name": "Revoke EZRA AllDebrid",
+                "url": "RunScript(script.module.myaccounts, action=alldebridRevoke)"
+            },
+            {
+                "name": "Revoke Umbrella AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Revoke)"
+            }
+        ]
+    },
+    "Authorize Link Snappy": {
+        "icon": "https://multihoster.org/wp-content/uploads/2018/10/logo-3.png",
+        "items": [
+            {
+                "name": "Authorize ResolveURL Link Snappy",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ls)"
+            },
+            {
+                "name": "Revoke ResolveURL Link Snappy",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ls)"
+            }
+        ]
+    },
+    "Authorize Debrid Link": {
+        "icon": "https://cdn.debrid-link.com/img/cover.png",
+        "items": [
+            {
+                "name": "Authorize ResolveURL Debrid-Link.fr",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_dl)"
+            },
+            {
+                "name": "Revoke ResolveURL Debrid-Link.fr",
+                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_dl)"
+            }
+        ]
+    }
+}
