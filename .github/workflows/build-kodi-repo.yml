@@ -10,7 +10,9 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 env:
   KODI_REPO_VERSION: ${{ inputs.repo_version }}
@@ -22,11 +24,12 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -69,18 +72,24 @@ jobs:
           grep -F "${addon_id}-${version}.zip" index.html
           python -c "import hashlib, pathlib; data=pathlib.Path('_zipfiles/addons.xml').read_bytes(); expected=pathlib.Path('_zipfiles/addons.xml.md5').read_text().strip(); actual=hashlib.md5(data).hexdigest(); raise SystemExit(0 if actual == expected else f'addons.xml.md5 mismatch: {actual} != {expected}')"
 
-      - name: Commit generated repository files
+      - name: Prepare Pages site
         shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A _zipfiles
-          git add repository.doomzday/addon.xml
-          git add -A 'repository.doomzday-*.zip'
-          git add index.html
-          if git diff --cached --quiet; then
-            echo "No generated repository changes to commit."
-          else
-            git commit -m "Build Kodi repository"
-            git push
-          fi
+          addon_id="$(python -c "import configparser; c=configparser.ConfigParser(); c.read('_tools/config.ini'); print(c.get('addon', 'id'))")"
+          version="${KODI_REPO_VERSION}"
+          rm -rf _site
+          mkdir -p _site
+          cp -R _zipfiles _site/_zipfiles
+          cp "${addon_id}-${version}.zip" _site/
+          cp index.html _site/
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+          include-hidden-files: true
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
