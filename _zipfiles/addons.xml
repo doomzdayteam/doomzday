@@ -30,12 +30,12 @@
 	</extension>
 </addon>
 
-<addon id="repository.doomzday" name="Doomzday Repo" version="1.1.4" provider-name="DD Team">
+<addon id="repository.doomzday" name="Doomzday Repo" version="1.1.5" provider-name="DD Team">
     <extension point="xbmc.addon.repository" name="Doomzday Repo">
 		<dir>
-			<info compressed="false">url=https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/addons.xml</info>
-			<checksum>url=https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/addons.xml.md5</checksum>
-			<datadir zip="true">url=https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/</datadir>
+			<info compressed="false">https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/doomzdayteam/doomzday/master/_zipfiles/</datadir>
 			<hashes>false</hashes>
 		</dir>
         <dir>
