@@ -10,7 +10,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -71,6 +71,20 @@ jobs:
           grep -F "version=\"${version}\"" "_zipfiles/${addon_id}/addon.xml"
           grep -F "${addon_id}-${version}.zip" index.html
           python -c "import hashlib, pathlib; data=pathlib.Path('_zipfiles/addons.xml').read_bytes(); expected=pathlib.Path('_zipfiles/addons.xml.md5').read_text().strip(); actual=hashlib.md5(data).hexdigest(); raise SystemExit(0 if actual == expected else f'addons.xml.md5 mismatch: {actual} != {expected}')"
+
+      - name: Commit generated repository output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No generated repository changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Kodi repository ${KODI_REPO_VERSION}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Prepare Pages site
         shell: bash
