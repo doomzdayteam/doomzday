@@ -28,14 +28,14 @@ class mpd_play_video(Plugin):
         title = item["title"]
         thumbnail = item.get("thumbnail", default_icon)
         liz = xbmcgui.ListItem(title)
-        liz.setInfo('video', {'Title': title})
+        from resources.lib.infotagger.helpers import set_video_info
+        set_video_info(liz, {"title": title})
         liz.setArt({'thumb': thumbnail, 'icon': thumbnail})   
         
         mpd_url = '' 
                                        
         if  'X-forwarded-for' in link :
             xf_url = link.split("|X-forwarded-for=")
-            # link = xf_url[0]
             header_url = xf_url[-1]
             if not header_url. startswith('http'): header_url = 'http://' + header_url
             

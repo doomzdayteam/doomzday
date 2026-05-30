@@ -1,4 +1,5 @@
 from resources.lib.plugin import Plugin
+from resources.lib.infotagger.helpers import set_video_info
 import datetime, time, xbmc
 
 
@@ -27,7 +28,7 @@ class guidedata(Plugin):
             item["summary"] = "\n".join(times)
         if "summary" in item:
             summary = item["summary"]
-            item["list_item"].setInfo(
-                "video", {"plot": summary, "plotoutline": summary}
+            set_video_info(item["list_item"],
+                {"plot": summary, "plotoutline": summary}
             )
         return item

@@ -34,9 +34,6 @@ class airtable(Plugin):
                     summary = res.get("summary", "")         
                     name = res['name']
                     links = []
-                    # for i in range(1, 5):
-                        # if "link" + str(i) in res:
-                            # link = res["link" + str(i)]
                     for k in keys:
                         if not 'link' in k : continue
                         elif 'link' in k and res[k] == '-' : continue

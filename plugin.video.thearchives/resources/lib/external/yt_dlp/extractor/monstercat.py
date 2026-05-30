@@ -31,7 +31,7 @@ class MonstercatIE(InfoExtractor):
     }]
 
     def _extract_tracks(self, table, album_meta):
-        for td in re.findall(r'<tr[^<]*>((?:(?!</tr>)[\w\W])+)', table):  # regex by chatgpt due to lack of get_elements_by_tag
+        for td in re.findall(r'<tr[^<]*>((?:(?!</tr>)[\w\W])+)', table):
             title = clean_html(try_call(
                 lambda: get_element_by_class('d-inline-flex flex-column', td).partition(' <span')[0]))
             ids = extract_attributes(try_call(lambda: get_element_html_by_class('btn-play cursor-pointer mr-small', td)) or '')

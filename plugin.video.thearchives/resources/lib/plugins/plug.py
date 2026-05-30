@@ -21,15 +21,16 @@ class plugplay(Plugin):
                 z = 'plugin://plugin.video.dailymotion_com/?'+ this_plug.split('?')[-1]                
                 xbmc.executebuiltin('RunAddon({})'.format(u))
                 
-            elif 'resolveurl_auth' in this_plug.lower():
-                u = 'script.module.resolveurl/?mode=auth_rd'
-                z = 'plugin://script.module.resolveurl/?mode=auth_rd'
-                xbmc.executebuiltin('RunPlugin({})'.format(z))
-                
-            elif 'resolveurl_settings' in this_plug.lower():
-                u = 'script.module.resolveurl'
-                z = 'plugin://script.module.resolveurl'
-                xbmcaddon.Addon(u).openSettings()
+            elif 'choose_scraper' in this_plug.lower():
+                xbmc.executebuiltin(f'RunPlugin(plugin://{xbmcaddon.Addon().getAddonInfo("id")}/choose_scraper)')
+
+            elif 'open_scraper_settings' in this_plug.lower():
+                xbmc.executebuiltin(f'RunPlugin(plugin://{xbmcaddon.Addon().getAddonInfo("id")}/open_scraper_settings)')
+
+            elif 'auth_service/' in this_plug.lower() or 'revoke_service/' in this_plug.lower():
+                if not this_link.startswith('plugin://'):
+                    this_link = f'plugin://{xbmcaddon.Addon().getAddonInfo("id")}/{this_link.lstrip("/")}'
+                xbmc.executebuiltin(f'RunPlugin({this_link})')
                 
             else:
                 this_plug = urlparse(this_plug)

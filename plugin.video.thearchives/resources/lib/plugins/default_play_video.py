@@ -1,7 +1,7 @@
 from ..plugin import Plugin
+from resources.lib.infotagger.helpers import set_video_info
 import xbmc, xbmcgui, xbmcaddon
 import json
-import resolveurl
 
 addon_id = xbmcaddon.Addon().getAddonInfo('id')
 default_icon = xbmcaddon.Addon(addon_id).getAddonInfo('icon')
@@ -21,11 +21,19 @@ class default_play_video(Plugin):
         summary = item.get("summary", "")
         liz = xbmcgui.ListItem(title)
         if item.get("infolabels"):
-            liz.setInfo("video", item["infolabels"])
+            set_video_info(liz, item["infolabels"])
         else:
-            liz.setInfo("video", {"title": title, "plot": summary})
+            set_video_info(liz, {"title": title, "plot": summary})
         liz.setArt({"thumb": thumbnail, "icon": thumbnail, "poster": thumbnail})
-        if resolveurl.HostedMediaFile(link).valid_url():
-            url = resolveurl.HostedMediaFile(link).resolve()
-            return xbmc.Player().play(url,liz)
-        return xbmc.Player().play(link,liz)
+        return self._play_with_history(link, liz, item)
+
+    def _play_with_history(self, url, liz, item):
+        try:
+            from resources.lib.plugins.history import HistoryPlayer
+
+            return HistoryPlayer(item).play(url, liz)
+        except Exception as e:
+            xbmc.log(f"[TheArchives] HistoryPlayer error: {e}", xbmc.LOGERROR)
+            import traceback
+            xbmc.log(f"[TheArchives] HistoryPlayer traceback: {traceback.format_exc()}", xbmc.LOGERROR)
+            return xbmc.Player().play(url, liz)

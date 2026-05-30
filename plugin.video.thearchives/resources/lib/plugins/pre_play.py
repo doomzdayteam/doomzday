@@ -29,7 +29,7 @@ class pre_player(Plugin):
         			if x.strip().endswith(')'):
         				label = x.split('(')[-1].replace(')', '')
         			elif x.lower() == 'search':
-        				label = 'Search Using Microjen Scrapers'
+        				label = 'Search Using The Archives Scrapers'
         			else:
         				label = 'Link ' + str(counter)
         			labels.append(label)

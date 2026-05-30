@@ -9,6 +9,7 @@ import xbmcgui
 from xbmcaddon import Addon
 from bs4 import BeautifulSoup
 from ..plugin import Plugin
+from resources.lib.infotagger.helpers import set_audio_info
 from ..DI import DI
 
 FANART = Addon().getAddonInfo('fanart')
@@ -146,7 +147,7 @@ class Flo(Plugin):
                     track_id = track['Id']
                     link = f'{self.base_url}/music/vkstream/{track_id}'
                     liz = xbmcgui.ListItem(title)
-                    liz.setInfo('audio', {'title': title, 'plot': summary})
+                    set_audio_info(liz, {'title': title, 'plot': summary})
                     liz.setArt({"thumb": thumbnail, "icon": thumbnail, "poster": thumbnail, 'fanart': FANART})
                     playlist.add(url=link, listitem=liz)
                     itemlist.append(
@@ -166,7 +167,7 @@ class Flo(Plugin):
                     track_id = track['audio'].split('#Play')[-1]
                     link = f'{self.base_url}/music/vkstream/{track_id}'
                     liz = xbmcgui.ListItem(title)
-                    liz.setInfo('audio', {'title': title, 'plot': summary})
+                    set_audio_info(liz, {'title': title, 'plot': summary})
                     liz.setArt({"thumb": thumbnail, "icon": thumbnail, "poster": thumbnail, 'fanart': FANART})
                     playlist.add(url=link, listitem=liz)
                     itemlist.append(

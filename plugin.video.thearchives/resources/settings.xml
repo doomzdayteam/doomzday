@@ -1,70 +1,155 @@
-<settings>   
-
-    
-
-    <!-- General Settings - future features for playlisters and developers -->
+<settings>
 
     <category label="Settings">
 
-        <setting id="use_cache" type="bool" label="Use Cache" visible="true" default="true" />
+        <setting id="use_cache" type="bool" label="Use Cache" visible="true" default="false" />
 
-        <setting id="time_cache" type="number" label="[COLOR khaki]    Cache Update Interval [I][COLOR white](minutes)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default=60 />
+        <setting id="time_cache" type="number" label="[COLOR khaki]    Cache Update Interval [I][COLOR white](minutes)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="60" />
 
         <setting id="clear_cache" type="action" label="[COLOR khaki]    Clear Cache [/COLOR]" subsetting="true" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/clear_cache)"/>
 
-        <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open MicroJen Scrapers Settings[/COLOR]" option="close" action="RunPlugin(plugin://script.module.microjenscrapers/?mode=microjenscrapersettings)" />
+        <setting id="scraper.module" type="text" label="Selected Scraper Module" visible="false" default="" />
 
-        <!-- <setting id="debrid.only" type="bool" label="Debrid Sources Only" default="true" /> -->
+        <setting id="scraper.name" type="text" label="Selected Scraper Name" visible="false" default="" />
+
+        <setting id="choose.scraper" subsetting="false" type="action" label="[COLOR lawngreen]Choose Scraper Module[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
+
+        <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open Scraper Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
+
+        <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
 
     </category>
    
     <category label="TMDB">
-    
-        <setting id="items_per_page" label="Items Per Page For TMDB Lists" type="enum" values="20|40|60|80|100" default="60" />
-        
-        <setting id="full_meta" type="bool" label="Enable Full Meta For TMDB Lists" visible="true" default="true" />
+        <setting id="tmdb.api_key" type="text" label="[B][COLOR white]Addon TMDb API Key[/COLOR][/B]" option="hidden" visible="false" default="e7d229e4725ffe65f9458953c3287235"/>
 
-        <setting id="item_meta" type="bool" label="[COLOR khaki]    Fetch Metadata For Manually Made Lists [I][COLOR white](Slow Loading)[/I][/COLOR]" visible="true" default="true" />
+        <setting id="tmdb.access_token" type="text" label="[B][COLOR white]Addon TMDb Read Access Token[/COLOR][/B]" option="hidden" visible="false" default="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2QyMjllNDcyNWZmZTY1Zjk0NTg5NTNjMzI4NzIzNSIsIm5iZiI6MTQ1MDY0ODM4NS41MzksInN1YiI6IjU2NzcyMzQxOTI1MTQxNzlkYjAwNmEzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FWTeOhPZn5Xqc9DSHaTWbSLZK8nTlJfhtdaMqAZy1NM" />
 
-        <setting id="tmdb.api_key" type="text" label="API Key" option="hidden" visible="false" default="e7d229e4725ffe65f9458953c3287235"/>
+        <setting id="lsep.tmdb.1" type="lsep" label="" />
+        <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />
 
-        <setting id="tmdb.access_token" type="text" label="Access Token" option="hidden" visible="false" default="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2QyMjllNDcyNWZmZTY1Zjk0NTg5NTNjMzI4NzIzNSIsInN1YiI6IjU2NzcyMzQxOTI1MTQxNzlkYjAwNmEzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n58LKh-GwsBdr0AW5-_yk4oXfiLt9jEWV1vTRAEo0qY" />
+        <setting id="tmdb.revoke" type="action" label="[COLOR red]Revoke TMDb Account Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_revoke)" />
+
+        <setting id="tmdb.token" type="text" label="TMDb Token" visible="false" default="" />
+        <setting id="tmdb.account_id" type="text" label="TMDb Account ID" visible="false" default="" />
+        <setting id="tmdb.username" type="text" label="TMDb Username" visible="false" default="" />
+        <setting id="tmdb.session_id" type="text" label="TMDb Session ID" visible="false" default="" />
+        <setting id="tmdb.account_session_id" type="text" label="TMDb Account Session ID" visible="false" default="" />
+
+        <setting id="lsep.tmdb.2" type="lsep" label="" />
+        <setting id="items_per_page" label="[B][COLOR white]Items Per Page For TMDB Lists[/COLOR][/B]" type="enum" values="20|40|60|80|100" />
+
+        <setting id="full_meta" type="bool" label="[B][COLOR white]Enable Full Meta For TMDB Lists[/COLOR][/B]" visible="true" default="true" />
+
+        <setting id="item_meta" type="bool" label="[COLOR khaki]    Fetch Metadata For Manually Made Lists [I][COLOR white](Slow Loading)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" default="false" />
+
+        <setting id="lsep.tmdb.3" type="lsep" label="" />
+        <setting id="tmdbsort.watchlist" type="enum" label="[B][COLOR white]Watchlist Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
+
+        <setting id="tmdbsort.favorites" type="enum" label="[B][COLOR white]Favorites Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
 
     </category>
 
     <category label="Trakt">
+        <setting id="trakt.api_client_id" type="text" label="[B][COLOR white]Addon Trakt Client ID[/COLOR][/B]" visible="false" default="2dc6f1180d00b3ae9ed3d853b41af40ab3c26af23f730f50e0a262f277c2780c"/>
 
-        <setting id="trakt.client_id" type="text" label="Client ID" option="hidden" visible="false" default="2dc6f1180d00b3ae9ed3d853b41af40ab3c26af23f730f50e0a262f277c2780c"/>
+        <setting id="trakt.api_client_secret" type="text" label="[B][COLOR white]Addon Trakt Client Secret[/COLOR][/B]" visible="false" default="dca4571439aef5da45b7b03db43b792464069694cf0a35b19bde453de70981be"/>
 
-        <setting id="trakt.client_secret" type="text" label="Client Secret" option="hidden" visible="false" default="dca4571439aef5da45b7b03db43b792464069694cf0a35b19bde453de70981be"/>
+        <setting id="lsep.trakt.1" type="lsep" label="" />
+        <setting id="trakt.authorize" type="action" label="[COLOR lawngreen]Authorize Trakt Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)"/>
+
+        <setting id="trakt.clear" type="action" label="[COLOR red]Revoke Trakt Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/clear)"/>
 
         <setting id="trakt.access_token" type="text" label="Access Token" visible="false" default=""/>
-
         <setting id="trakt.refresh_token" type="text" label="Refresh Token" visible="false" default=""/>
-
         <setting id="trakt.user_id" type="text" label="User ID" visible="false" default=""/>
+        <setting id="trakt.expires" type="text" label="Token Expires" visible="false" default="0"/>
 
-        <setting id="trakt.authorize" type="action" label="Authorize" svisible="true" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)"/>
+        <setting id="lsep.trakt.2" type="lsep" label="" />
+        <setting id="watched_indicators" type="enum" label="[B][COLOR white]Watched Indicators[/COLOR][/B]" values="The Archives|Trakt" default="0" />
 
-        <setting id="trakt.clear" type="action" label="Clear Trakt Authorization" svisible="true" option="close" action="PlayMedia(plugin://$ID/trakt/clear)"/>
+        <setting id="lsep.trakt.3" type="lsep" label="" />
+        <setting id="trakt.sync_interval" type="number" label="[B][COLOR white]Sync Interval [I][COLOR khaki](minutes)[/I][/COLOR][/B]" option="int" default="60" />
+
+        <setting id="trakt.refresh_widgets" type="bool" label="[B][COLOR white]Refresh Widgets on Sync[/COLOR][/B]" default="true" />
+
+        <setting id="lsep.trakt.4" type="lsep" label="" />
+        <setting id="trakt.calendar_sort_order" type="enum" label="[B][COLOR white]Calendar Sort Order[/COLOR][/B]" values="Descending|Ascending" default="0" />
+
+        <setting id="trakt.calendar_previous_days" type="number" label="[COLOR khaki]    Previous Days[/COLOR]" option="int" default="7" />
+
+        <setting id="trakt.calendar_future_days" type="number" label="[COLOR khaki]    Future Days[/COLOR]" option="int" default="7" />
+
+        <setting id="lsep.trakt.5" type="lsep" label="" />
+        <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
 
     </category>
 
-    
+    <category label="Sources Accounts">
+        <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
+        <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />
 
-    <!-- initial settings  -->
+        <setting id="lsep.1" type="lsep" label="" />
+        <setting id="rd.enabled" type="bool" label="[B][COLOR white]REAL-DEBRID[/COLOR][/B]" default="false" />
+        <setting id="rd.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/rd)" />
+        <setting id="rd.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/rd)" />
+        <setting id="rd.token" type="text" label="Token" visible="false" default="" />
+        <setting id="rd.client_id" type="text" label="Client ID" visible="false" default="" />
+        <setting id="rd.secret" type="text" label="Client Secret" visible="false" default="" />
+        <setting id="rd.refresh" type="text" label="Refresh Token" visible="false" default="" />
+        <setting id="provider.rd_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-6,true)" default="false" />
+        <setting id="rd.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-7,true)" default="false" />
+        <setting id="rd.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-8,true)" option="int" default="10" />
+
+        <setting id="lsep.2" type="lsep" label="" />
+        <setting id="pm.enabled" type="bool" label="[B][COLOR white]PREMIUMIZE[/COLOR][/B]" default="false" />
+        <setting id="pm.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/pm)" />
+        <setting id="pm.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/pm)" />
+        <setting id="pm.token" type="text" label="Token" visible="false" default="" />
+        <setting id="pm.client_id" type="text" label="[COLOR khaki]    OAuth Client ID[/COLOR]" subsetting="true" visible="eq(-4,true)" default="" />
+        <setting id="provider.pm_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-5,true)" default="false" />
+        <setting id="pm.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-6,true)" default="true" />
+        <setting id="pm.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-7,true)" option="int" default="10" />
+
+        <setting id="lsep.3" type="lsep" label="" />
+        <setting id="ad.enabled" type="bool" label="[B][COLOR white]ALL-DEBRID[/COLOR][/B]" default="false" />
+        <setting id="ad.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/ad)" />
+        <setting id="ad.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/ad)" />
+        <setting id="ad.token" type="text" label="Token" visible="false" default="" />
+        <setting id="provider.ad_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-4,true)" default="false" />
+        <setting id="ad.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="true" />
+        <setting id="ad.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-6,true)" option="int" default="10" />
+
+        <setting id="lsep.4" type="lsep" label="" />
+        <setting id="tb.enabled" type="bool" label="[B][COLOR white]TORBOX[/COLOR][/B]" default="false" />
+        <setting id="tb.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/tb)" />
+        <setting id="tb.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/tb)" />
+        <setting id="tb.token" type="text" label="Token" visible="false" default="" />
+        <setting id="provider.tb_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-4,true)" default="false" />
+        <setting id="tb.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="true" />
+        <setting id="tb.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-6,true)" option="int" default="10" />
+
+        <setting id="lsep.5" type="lsep" label="" />
+        <setting id="provider.easynews" type="bool" label="[B][COLOR white]EASYNEWS[/COLOR][/B]" default="false" />
+        <setting id="easynews.username" type="text" label="[COLOR khaki]    Username[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
+        <setting id="easynews.password" type="text" label="[COLOR khaki]    Password[/COLOR]" subsetting="true" visible="eq(-2,true)" option="hidden" default="" />
+        <setting id="en.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="7" />
+
+        <setting id="lsep.6" type="lsep" label="" />
+        <setting id="provider.folders" type="bool" label="[B][COLOR white]LOCAL MEDIA FOLDERS[/COLOR][/B]" default="false" />
+        <setting id="folders.movie_folder" type="folder" label="[COLOR khaki]    Movie Folder[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
+        <setting id="folders.tv_folder" type="folder" label="[COLOR khaki]    TV Show Folder[/COLOR]" subsetting="true" visible="eq(-2,true)" default="" />
+        <setting id="folders.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="6" />
+
+    </category>
 
     <category label="Home Page">
 
-        <setting id="root_xml" type="text" label="Root XML Location" default="file://main.xml" visible="true"/>
+        <setting id="root_xml" type="text" label="Root XML Location" default="file://main.json" visible="true"/>
 
         <setting id="message_xml_url" type="text" label="News File Location" default="file://news.xml" visible="true"/>
 
     </category>
-
-    
-
-    <!-- Dev Mode - future features for playlisters and developers -->
 
     <category label="Dev Mode">
 
@@ -75,4 +160,5 @@
 
 
 </settings>
+
 

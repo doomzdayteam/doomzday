@@ -23,7 +23,6 @@ class xml_convert(Plugin):
             if "<?xml" in response:
                 reg1 = "(<\?)(.+?)(\?>)"
                 reg2 = "(<layou[tt|t]ype)(.+?)(<\/layou[tt|t]ype>)"
-                # reg2 = '(<[layouttype|layoutype])(.+?)(<\/[layouttype|layoutype]>)'
                 reg3 = "(<\!-)(.+?)(->)"
                 reg_list = [reg1, reg2, reg3]
                 response1 = response
@@ -75,8 +74,6 @@ class xml_convert(Plugin):
                 "animated_fanart",
             ]
 
-            # jsdata = {'items' : []}
-            # jsinfo = []
 
             myData = list_pattern.findall(response)
 
@@ -130,8 +127,5 @@ class xml_convert(Plugin):
 
                 jsinfo.append(idict)
 
-        # jsdata = {'items' : []}
-        # for i in jsinfo :
-        # jsdata['items'].append(i)
 
         return jsinfo

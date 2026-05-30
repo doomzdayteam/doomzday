@@ -17,7 +17,6 @@ class xml(Plugin):
                 import re
                 reg1 = '(<\?)(.+?)(\?>)' 
                 reg2 = '(<layou[tt|t]ype)(.+?)(<\/layou[tt|t]ype>)'  
-                # reg2 = '(<[layouttype|layoutype])(.+?)(<\/[layouttype|layoutype]>)'
                 reg3 = '(<\!-)(.+?)(->)'    
                 reg_list = [reg1, reg2, reg3] 
                 response1 = response
@@ -35,7 +34,6 @@ class xml(Plugin):
                 except ET.ParseError:
                     _xml = ET.fromstringlist(["<root>", response, "</root>"])            
             except :   
-                # return
                 pass
             itemlist = []
             if _xml:           

@@ -1,0 +1,18 @@
+{
+    "items": [
+        {
+			"type": "dir",
+			"title": "Pluto TV",
+			"link": "https://pluto.tv",
+			"thumbnail": "resources/media/pluto_tv.png",
+			"summary": "Free live TV channels and on-demand movies & series from Pluto TV"
+		},
+		{
+			"type": "dir",
+			"title": "Comet TV",
+			"link": "https://comettv.com",
+			"thumbnail": "resources/media/comet_tv.png",
+			"summary": "Free live sci-fi, fantasy, horror & supernatural TV from Comet TV"
+		}
+    ]
+}

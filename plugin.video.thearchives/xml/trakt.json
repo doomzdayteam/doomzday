@@ -1,0 +1,64 @@
+﻿{
+    "items":  [
+                  {
+                      "title":  "Personal Movies Collection",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/collection/movies",
+                      "summary":  "Movies you have collected through Trakt"
+                  },
+                  {
+                      "title":  "Personal TV Shows Collection",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/collection/shows",
+                      "summary":  "TV Shows you have collected through Trakt"
+                  },
+                  {
+                      "title":  "My Trakt Lists",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/lists",
+                      "summary":  "Lists you have created on Trakt"
+                  },
+                  {
+                      "title":  "Liked Trakt Lists",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/liked_lists",
+                      "summary":  "Trakt lists you have liked"
+                  },
+                  {
+                      "title":  "Search Trakt Lists",
+                      "type":  "dir",
+                      "link":  "trakt/lists/search",
+                      "summary":  "Search public Trakt lists"
+                  },
+                  {
+                      "title":  "Personal Movie Recommendations",
+                      "type":  "dir",
+                      "link":  "trakt/recommendations/movies",
+                      "summary":  "Trakt Recommended Movies"
+                  },
+                  {
+                      "title":  "Personal Show Recommendations",
+                      "type":  "dir",
+                      "link":  "trakt/recommendations/shows",
+                      "summary":  "Trakt Recommended TV Shows"
+                  },
+                  {
+                      "title":  "[B][COLOR gold]Personal Watched Movies[/COLOR][/B]",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/watched/movies",
+                      "summary":  "Your Watch History for Movies - Warning Long Load Time"
+                  },
+                  {
+                      "title":  "[B][COLOR gold]Personal Watched Shows[/COLOR][/B]",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/watched/shows",
+                      "summary":  "Your Watch History for TV Shows - Warning Long Load Time"
+                  },
+                  {
+                      "title":  "[B][COLOR gold]Personal Watchlist[/COLOR][/B]",
+                      "type":  "dir",
+                      "link":  "trakt/user/self/watchlist",
+                      "summary":  "Watchlists you have created on Trakt. Will not work if you have not created any"
+                  }
+              ]
+}

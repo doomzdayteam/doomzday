@@ -664,31 +664,51 @@ def sanitize_filename(s, restricted=False, is_id=NO_DEFAULT):
     return result
 
 
+def _sanitize_path_parts(parts):
+    sanitized_parts = []
+    for part in parts:
+        if not part or part == '.':
+            continue
+        elif part == '..':
+            if sanitized_parts and sanitized_parts[-1] != '..':
+                sanitized_parts.pop()
+            sanitized_parts.append('..')
+            continue
+        # Replace invalid segments with `#`
+        # - trailing dots and spaces (`asdf...` => `asdf..#`)
+        # - invalid chars (`<>` => `##`)
+        sanitized_part = re.sub(r'[/<>:"\|\\?\*]|[\s.]$', '#', part)
+        sanitized_parts.append(sanitized_part)
+
+    return sanitized_parts
+
+
 def sanitize_path(s, force=False):
     """Sanitizes and normalizes path on Windows"""
-    # XXX: this handles drive relative paths (c:sth) incorrectly
-    if sys.platform == 'win32':
-        force = False
-        drive_or_unc, _ = os.path.splitdrive(s)
-    elif force:
-        drive_or_unc = ''
-    else:
-        return s
+    if sys.platform != 'win32':
+        if not force:
+            return s
+        root = '/' if s.startswith('/') else ''
+        return root + '/'.join(_sanitize_path_parts(s.split('/')))
 
-    norm_path = os.path.normpath(remove_start(s, drive_or_unc)).split(os.path.sep)
-    if drive_or_unc:
-        norm_path.pop(0)
-    sanitized_path = [
-        path_part if path_part in ['.', '..'] else re.sub(r'(?:[/<>:"\|\\?\*]|[\s.]$)', '#', path_part)
-        for path_part in norm_path]
-    if drive_or_unc:
-        sanitized_path.insert(0, drive_or_unc + os.path.sep)
-    elif force and s and s[0] == os.path.sep:
-        sanitized_path.insert(0, os.path.sep)
-    # TODO: Fix behavioral differences <3.12
-    # The workaround using `normpath` only superficially passes tests
-    # Ref: https://github.com/python/cpython/pull/100351
-    return os.path.normpath(os.path.join(*sanitized_path))
+    normed = s.replace('/', '\\')
+
+    if normed.startswith('\\\\'):
+        # UNC path (`\\SERVER\SHARE`) or device path (`\\.`, `\\?`)
+        parts = normed.split('\\')
+        root = '\\'.join(parts[:4]) + '\\'
+        parts = parts[4:]
+    elif normed[1:2] == ':':
+        # absolute path or drive relative path
+        offset = 3 if normed[2:3] == '\\' else 2
+        root = normed[:offset]
+        parts = normed[offset:].split('\\')
+    else:
+        # relative/drive root relative path
+        root = '\\' if normed[:1] == '\\' else ''
+        parts = normed.split('\\')
+
+    return root + '\\'.join(_sanitize_path_parts(parts))
 
 
 def sanitize_url(url, *, scheme='http'):
@@ -804,14 +824,18 @@ class Popen(subprocess.Popen):
         _startupinfo = None
 
     @staticmethod
-    def _fix_pyinstaller_ld_path(env):
-        """Restore LD_LIBRARY_PATH when using PyInstaller
-            Ref: https://github.com/pyinstaller/pyinstaller/blob/develop/doc/runtime-information.rst#ld_library_path--libpath-considerations
-                 https://github.com/yt-dlp/yt-dlp/issues/4573
-        """
+    def _fix_pyinstaller_issues(env):
         if not hasattr(sys, '_MEIPASS'):
             return
 
+        # Force spawning independent subprocesses for exes bundled with PyInstaller>=6.10
+        # Ref: https://pyinstaller.org/en/v6.10.0/CHANGES.html#incompatible-changes
+        #      https://github.com/yt-dlp/yt-dlp/issues/11259
+        env['PYINSTALLER_RESET_ENVIRONMENT'] = '1'
+
+        # Restore LD_LIBRARY_PATH when using PyInstaller
+        # Ref: https://pyinstaller.org/en/v6.10.0/runtime-information.html#ld-library-path-libpath-considerations
+        #      https://github.com/yt-dlp/yt-dlp/issues/4573
         def _fix(key):
             orig = env.get(f'{key}_ORIG')
             if orig is None:
@@ -825,7 +849,7 @@ class Popen(subprocess.Popen):
     def __init__(self, args, *remaining, env=None, text=False, shell=False, **kwargs):
         if env is None:
             env = os.environ.copy()
-        self._fix_pyinstaller_ld_path(env)
+        self._fix_pyinstaller_issues(env)
 
         self.__text_mode = kwargs.get('encoding') or kwargs.get('errors') or text or kwargs.get('universal_newlines')
         if text is True:
@@ -1180,12 +1204,20 @@ def parse_iso8601(date_str, delimiter='T', timezone=None):
 
     with contextlib.suppress(ValueError, TypeError):
         date_format = f'%Y-%m-%d{delimiter}%H:%M:%S'
-        dt_ = dt.datetime.strptime(date_str, date_format) - timezone
+        dt_ = datetime_strptime(date_str, date_format) - timezone
         return calendar.timegm(dt_.timetuple())
 
 
 def date_formats(day_first=True):
     return DATE_FORMATS_DAY_FIRST if day_first else DATE_FORMATS_MONTH_FIRST
+
+
+def datetime_strptime(date_str, date_format):
+    strptime = getattr(dt.datetime, 'strptime', None)
+    if strptime:
+        with contextlib.suppress(TypeError):
+            return strptime(date_str, date_format)
+    return dt.datetime(*time.strptime(date_str, date_format)[:6])
 
 
 def unified_strdate(date_str, day_first=True):
@@ -1202,7 +1234,7 @@ def unified_strdate(date_str, day_first=True):
 
     for expression in date_formats(day_first):
         with contextlib.suppress(ValueError):
-            upload_date = dt.datetime.strptime(date_str, expression).strftime('%Y%m%d')
+            upload_date = datetime_strptime(date_str, expression).strftime('%Y%m%d')
     if upload_date is None:
         timetuple = email.utils.parsedate_tz(date_str)
         if timetuple:
@@ -1237,7 +1269,7 @@ def unified_timestamp(date_str, day_first=True):
 
     for expression in date_formats(day_first):
         with contextlib.suppress(ValueError):
-            dt_ = dt.datetime.strptime(date_str, expression) - timezone + dt.timedelta(hours=pm_delta)
+            dt_ = datetime_strptime(date_str, expression) - timezone + dt.timedelta(hours=pm_delta)
             return calendar.timegm(dt_.timetuple())
 
     timetuple = email.utils.parsedate_tz(date_str)
@@ -1301,7 +1333,7 @@ def datetime_from_str(date_str, precision='auto', format='%Y%m%d'):
             return datetime_round(new_date, unit)
         return new_date
 
-    return datetime_round(dt.datetime.strptime(date_str, format), precision)
+    return datetime_round(datetime_strptime(date_str, format), precision)
 
 
 def date_from_str(date_str, format='%Y%m%d', strict=False):
@@ -1964,11 +1996,30 @@ def urljoin(base, path):
     return urllib.parse.urljoin(base, path)
 
 
-def int_or_none(v, scale=1, default=None, get_attr=None, invscale=1):
+def partial_application(func):
+    sig = inspect.signature(func)
+
+    @functools.wraps(func)
+    def wrapped(*args, **kwargs):
+        try:
+            sig.bind(*args, **kwargs)
+        except TypeError:
+            return functools.partial(func, *args, **kwargs)
+        else:
+            return func(*args, **kwargs)
+
+    return wrapped
+
+
+@partial_application
+def int_or_none(v, scale=1, default=None, get_attr=None, invscale=1, base=None):
     if get_attr and v is not None:
         v = getattr(v, get_attr, None)
+    if invscale == 1 and scale < 1:
+        invscale = int(1 / scale)
+        scale = 1
     try:
-        return int(v) * invscale // scale
+        return (int(v) if base is None else int(v, base=base)) * invscale // scale
     except (ValueError, TypeError, OverflowError):
         return default
 
@@ -1986,9 +2037,13 @@ def str_to_int(int_str):
         return int_or_none(int_str)
 
 
+@partial_application
 def float_or_none(v, scale=1, invscale=1, default=None):
     if v is None:
         return default
+    if invscale == 1 and scale < 1:
+        invscale = int(1 / scale)
+        scale = 1
     try:
         return float(v) * invscale / scale
     except (ValueError, TypeError):
@@ -2021,7 +2076,7 @@ def strftime_or_none(timestamp, date_format='%Y%m%d', default=None):
             datetime_object = (dt.datetime.fromtimestamp(0, dt.timezone.utc)
                                + dt.timedelta(seconds=timestamp))
         elif isinstance(timestamp, str):  # assume YYYYMMDD
-            datetime_object = dt.datetime.strptime(timestamp, '%Y%m%d')
+            datetime_object = datetime_strptime(timestamp, '%Y%m%d')
         date_format = re.sub(  # Support %s on windows
             r'(?<!%)(%%)*%s', rf'\g<1>{int(datetime_object.timestamp())}', date_format)
         return datetime_object.strftime(date_format)
@@ -4849,6 +4904,10 @@ class Config:
     parsed_args = None
     filename = None
     __initialized = False
+
+    # Internal only, do not use! Hack to enable --plugin-dirs
+    # TODO(coletdjnz): remove when plugin globals system is implemented
+    _plugin_dirs = None
 
     def __init__(self, parser, label=None):
         self.parser, self.label = parser, label

@@ -5,6 +5,7 @@ import json
 from ..plugin import Plugin
 from .tmdb_plugin import tmdb_api, TMDB
 from ..DI import DI
+from resources.lib.infotagger.helpers import set_video_info, set_video_cast
 
 
 class Meta(Plugin):
@@ -16,28 +17,32 @@ class Meta(Plugin):
         liz = item.get("list_item")
         if liz is None:
             liz = xbmcgui.ListItem(item.get("title", "Unknown Title"))
-        menu = []
+        # Collect all context menu entries to apply at the end
+        all_context = []
         if "contextmenu" in item:
             contextmenu = item.get("contextmenu")
             for c in contextmenu:
-                action = c.get("action")
-                menu.append((c.get("label"), action))
-            item["list_item"].addContextMenuItems(menu)
+                all_context.append((c.get("label", ""), c.get("action", "")))
         if "summary" in item:
             summary = item["summary"]
-            item["list_item"].setInfo(
-                "video", {"plot": summary, "plotoutline": summary}
+            set_video_info(item["list_item"],
+                {"plot": summary, "plotoutline": summary}
             )
         if xbmcaddon.Addon().getSettingBool("full_meta"):
             if "infolabels" in item:
-                liz.setInfo("video", infoLabels=item["infolabels"])
-                liz.setCast(item.get("cast", ""))
+                set_video_info(liz, item["infolabels"])
+                set_video_cast(liz, item.get("cast", ""))
         else:
             xbmcaddon.Addon().setSetting("item_meta", "false")
         if not xbmcaddon.Addon().getSettingBool("item_meta"):
+            # Re-apply context menu to ensure it sticks after any setInfo calls
+            if all_context:
+                liz.addContextMenuItems(all_context)
             return item
         content = item.get("content")
         if content is None:
+            if all_context:
+                liz.addContextMenuItems(all_context)
             return item
         if content == "tvshow":
             content = "tv"
@@ -50,6 +55,8 @@ class Meta(Plugin):
         elif "imdb_id" in item:
             _id = tmdb_api.tmdb_from_imdb(item["imdb_id"])
             if _id is None:
+                if all_context:
+                    liz.addContextMenuItems(all_context)
                 return item
 
         try:
@@ -68,6 +75,8 @@ class Meta(Plugin):
             if from_cache is False:
                 new_item = json.loads(tmdb.get_list(url))
             if new_item is None:
+                if all_context:
+                    liz.addContextMenuItems(all_context)
                 return item
             link = item.get("link")
             if link and from_cache is False:
@@ -81,8 +90,8 @@ class Meta(Plugin):
                     "fanart": new_item.get("fanart"),
                 }
             )
-            liz.setInfo("video", infoLabels=new_item["infolabels"])
-            liz.setCast(new_item.get("cast", ""))
+            set_video_info(liz, new_item["infolabels"])
+            set_video_cast(liz, new_item.get("cast", ""))
             new_item["link"] = f"play_video/{link}"
             new_item["is_dir"] = item["is_dir"]
             if (
@@ -90,11 +99,28 @@ class Meta(Plugin):
                 and not "tmdb/search" in url
             ):
                 DI.db.set(url, json.dumps(new_item))
+            # Carry over private history data from original item
+            if item.get("contextmenu"):
+                new_item["contextmenu"] = item["contextmenu"]
+            if item.get("_private_history_state"):
+                new_item["_private_history_state"] = item["_private_history_state"]
             new_item["list_item"] = liz
+            # Apply private history watched/progress state to new ListItem
+            if new_item.get("_private_history_state"):
+                try:
+                    from resources.lib.util import history_ui
+                    history_ui.apply_listitem_state(liz, new_item)
+                except Exception:
+                    pass
+            # Re-apply all context menu items to the ListItem after all setInfo calls
+            if all_context:
+                liz.addContextMenuItems(all_context)
             return new_item
 
         except Exception as e:
             xbmc.log(f"Error Processing Meta: {e}", xbmc.LOGINFO)
+            if all_context:
+                liz.addContextMenuItems(all_context)
             return item
 
     def process_links(self, link):
@@ -104,9 +130,9 @@ class Meta(Plugin):
         item_link = link_decoded.get("link")
         if type(item_link) == list:
             if "search" not in item_link:
-                item_link.append("search(Search Using Microjen Scrapers)")
+                item_link.append("search(Search Using The Archives Scrapers)")
         elif item_link and item_link != "search":
-            item_link = [item_link, "search(Search Using Microjen Scrapers)"]
+            item_link = [item_link, "search(Search Using The Archives Scrapers)"]
         elif item_link is None:
             item_link = "search"
         link_decoded["link"] = item_link

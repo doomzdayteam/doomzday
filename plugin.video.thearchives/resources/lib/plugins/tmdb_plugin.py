@@ -1,4 +1,4 @@
-import json
+﻿import json
 import requests
 
 from ..DI import DI
@@ -26,10 +26,27 @@ class TMDB_API:
             "authorization": f"Bearer {self.access_token}",
         }
 
+    @property
+    def api_key(self):
+        return get_tmdb_api_key()
+
+    @property
+    def access_token(self):
+        return get_tmdb_read_access_token()
+
+    @property
+    def account_access_token(self):
+        return ownAddon.getSetting("tmdb.token") or self.access_token
+
+    @property
+    def account_headers(self):
+        return {
+            "content-type": "application/json;charset=utf-8",
+            "authorization": f"Bearer {self.account_access_token}",
+        }
+
     base_url = "https://api.themoviedb.org"
     image_url = "https://image.tmdb.org/t/p/w500"
-    api_key = ownAddon.getSetting("tmdb.api_key") or ""
-    access_token = ownAddon.getSetting("tmdb.access_token") or ""
     session = DI.session
 
     def get(self, path: str, paginated: bool = True, full_meta: bool = False, page_count: int = 1):
@@ -66,6 +83,7 @@ class TMDB_API:
             version = 4
         else:
             version = 3
+        request_headers = self.account_headers if version == 4 and self.account_access_token else self.headers
         req = requests.PreparedRequest()
         if full_meta:
             req.prepare_url(
@@ -77,7 +95,7 @@ class TMDB_API:
         )
         response = self.session.get(
             req.url,
-            headers=self.headers,
+            headers=request_headers,
         ).json()
         if  path.startswith("person/"):
             if "cast" in response or "crew" in response:
@@ -94,6 +112,49 @@ class TMDB_API:
                 results.append({"type": "dir", "title": "Next Page", "link": f"tmdb/{path.replace('?with_genres=', '/genre/').replace('?with_networks=', '/network/').replace('?with_companies=', '/company/').replace('?year=', '/year/').replace('?query=', '/')}/{page + 1}"})
             
         return results
+
+    def get_account_lists(self, account_id: str, page: int = 1):
+        req = requests.PreparedRequest()
+        req.prepare_url(
+            f"{self.base_url}/4/account/{account_id}/lists",
+            {"page": page}
+        )
+        response = self.session.get(req.url, headers=self.account_headers).json()
+        results = response.get("results", response if isinstance(response, list) else [])
+        if response.get("total_pages", 1) > page:
+            results.append({"type": "dir", "title": "Next Page", "link": f"tmdb/account/lists/{page + 1}"})
+        return results
+
+    def handle_lists_xml(self, lists):
+        jen_list = []
+        for item in lists or []:
+            if item.get("link", "").startswith("tmdb/"):
+                jen_list.append(item)
+                continue
+            list_id = item.get("id")
+            if not list_id:
+                continue
+            item_count = item.get("number_of_items", item.get("item_count", 0)) or 0
+            if item_count == 0:
+                continue
+            name = item.get("name") or item.get("title") or "TMDb List"
+            description = item.get("description") or item.get("overview") or ""
+            created_by = item.get("created_by", {})
+            if isinstance(created_by, dict):
+                user = created_by.get("username") or created_by.get("name") or ownAddon.getSetting("tmdb.username") or "TMDb"
+            else:
+                user = created_by or ownAddon.getSetting("tmdb.username") or "TMDb"
+            summary_parts = []
+            if description:
+                summary_parts.append(description)
+            summary_parts.append(f"[B]Author:[/B] {user}")
+            jen_list.append({
+                "title": f"{name} [I](x{item_count})[/I]",
+                "summary": "[CR][CR]".join(summary_parts),
+                "type": "dir",
+                "link": f"tmdb/list/{list_id}",
+            })
+        return jen_list
 
     def handle_items(self, items,show_id=None):
         if type(items) == list:
@@ -140,7 +201,6 @@ class TMDB_API:
         
         elif "name" in items:
             if "episodes" in items:
-                # tv episodes
                 show = self.get(f"tv/{show_id}")
                 show = objectview(show)
                 imdb = self.get(f"tv/{show_id}/external_ids")["imdb_id"]
@@ -212,7 +272,6 @@ class TMDB_API:
                     results.append(jen_item)
                 return {"items": results}
             else:
-                # tv shows
                 item = objectview(items)
                 item.poster_path = poster
                 item.backdrop_path = backdrop
@@ -333,12 +392,12 @@ class TMDB_API:
             for video in videos:
                 if video['type'] == 'Trailer':
                     video_id = video['key']
-                    trailer = f'plugin://plugin.video.youtube/play/?video_id={video_id}'
+                    trailer = f'plugin://plugin.video.thearchives/ytdlp/play/{video_id}'
             if trailer == '':
                 for video in videos:
                     if video['type'] == 'Teaser':
                         video_id = video['key']
-                        trailer = f'plugin://plugin.video.youtube/play/?video_id={video_id}'
+                        trailer = f'plugin://plugin.video.thearchives/ytdlp/play/{video_id}'
         except KeyError:
             trailer = ''
         
@@ -389,6 +448,13 @@ class TMDB(Plugin):
             api = TMDB_API()
             splitted = url.split("/")
             kind = splitted[1]
+            if kind == "account" and len(splitted) > 2 and splitted[2] == "lists":
+                if not self.__check_auth():
+                    return json.dumps({"items": []})
+                page = int(splitted[3]) if len(splitted) > 3 and str.isdigit(splitted[3]) else 1
+                account_id = ownAddon.getSetting("tmdb.account_id")
+                lists = api.get_account_lists(account_id, page=page)
+                return json.dumps({"items": api.handle_lists_xml(lists)})
             if len(splitted) > 3:
                 kind = splitted[1]
                 list_id = splitted[3]
@@ -446,6 +512,12 @@ class TMDB(Plugin):
         jen_json = json.dumps(jen_list)
         return jen_json
 
+    def __check_auth(self):
+        if ownAddon.getSetting("tmdb.token") == "" or ownAddon.getSetting("tmdb.account_id") == "":
+            xbmcgui.Dialog().ok("TMDb Account", "This action requires a TMDb account. Please authorize TMDb in the addon settings.")
+            return False
+        return True
+
     def from_keyboard(self, default_text='', header='Search'):
         from xbmc import Keyboard
         kb = Keyboard(default_text, header, False)
@@ -458,3 +530,5 @@ class TMDB(Plugin):
             return None
 
 tmdb_api = TMDB_API()
+
+

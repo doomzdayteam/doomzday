@@ -1,4 +1,4 @@
-from resources.lib.plugins.tmdb_plugin import TMDB_API
+﻿from resources.lib.plugins.tmdb_plugin import TMDB_API
 from ..DI import DI
 from ..plugin import Plugin
 import json, time, requests
@@ -18,6 +18,12 @@ class Trakt(Plugin):
             if split[1] == "list":
                 list = api.get_list(split[2], page=page)
                 return api.handle_list(list, page_link=page_split[0] + "|" + str(page + 1))
+            if split[1] == "lists" and len(split) > 2 and split[2] == "search":
+                query = xbmcgui.Dialog().input("Search Trakt Lists")
+                if not query:
+                    return json.dumps({"items": []})
+                lists = api.search_lists(query, page=page)
+                return json.dumps({"items": api.handle_lists_xml(lists, list_type="search")})
             if split[1] == "movies":
                 movies = api.get_movies_chart(split[2], page=page)
                 return api.handle_list(movies, page_link=page_split[0] + "|" + str(page + 1))
@@ -43,7 +49,10 @@ class Trakt(Plugin):
                     return api.handle_list(collection, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "lists":
                     lists = api.get_lists(user_id)
-                    return json.dumps({"items": api.handle_lists_xml(lists)})
+                    return json.dumps({"items": api.handle_lists_xml(lists, list_type="my_lists")})
+                elif split[3] == "liked_lists":
+                    lists = api.get_liked_lists(page=page)
+                    return json.dumps({"items": api.handle_lists_xml(lists, list_type="liked_lists")})
                 elif split[3] == "list":
                     list = api.get_user_list(user_id, split[4], page=page)
                     return api.handle_list(list, page_link=page_split[0] + "|" + str(page + 1))
@@ -67,6 +76,9 @@ class Trakt(Plugin):
 
     def __auth(self):
         api = Trakt_API()
+        if not api.client_id or not api.client_secret:
+            xbmcgui.Dialog().ok("Trakt Authorization", "The addon is missing its Trakt API credentials.\nPlease add the addon Client ID and Client Secret before authorizing a Trakt account.")
+            return False
         device_code = api.device_code()
         progress_dialog = xbmcgui.DialogProgress()
         progress_dialog.create(
@@ -85,6 +97,8 @@ class Trakt(Plugin):
                     token = token.json()
                     xbmcaddon.Addon().setSetting("trakt.access_token", token["access_token"])
                     xbmcaddon.Addon().setSetting("trakt.refresh_token", token["refresh_token"])
+                    import time as _time
+                    xbmcaddon.Addon().setSetting("trakt.expires", str(_time.time() + token.get("expires_in", 7776000)))
                     user = api.get_user_settings()
                     xbmcaddon.Addon().setSetting("trakt.user_id", user["user"]["ids"]["slug"])
                     xbmcgui.Dialog().notification("Trakt", "Device authorization was successful!", xbmcgui.NOTIFICATION_INFO)
@@ -115,10 +129,12 @@ class Trakt(Plugin):
 
         @plugin.route(f"/{self.name}/clear")
         def clear():
-            if xbmcgui.Dialog().yesno("Clear Trakt Authorization", "Are you sure you want to clear the saved access token for Trakt?"):
+            if xbmcgui.Dialog().yesno("Revoke Trakt Authorization", "Are you sure you want to revoke the Trakt authorization?"):
                 xbmcaddon.Addon().setSetting("trakt.access_token", "")
                 xbmcaddon.Addon().setSetting("trakt.refresh_token", "")
                 xbmcaddon.Addon().setSetting("trakt.user_id", "")
+                xbmcaddon.Addon().setSetting("trakt.expires", "0")
+                xbmcaddon.Addon().setSetting("watched_indicators", "0")
 
 class Trakt_API:
     @property
@@ -137,8 +153,8 @@ class Trakt_API:
     base_url = "https://api.trakt.tv"
 
     def __init__(self):
-        self.client_id = ownAddon.getSetting("trakt.client_id") or ""
-        self.client_secret = ownAddon.getSetting("trakt.client_secret") or ""
+        self.client_id = get_trakt_api_client_id()
+        self.client_secret = get_trakt_api_client_secret()
 
     def device_code(self):
         response = self.session.post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.headers)
@@ -194,6 +210,16 @@ class Trakt_API:
         trakt_lists = response.json()
         return trakt_lists
 
+
+    def get_liked_lists(self, page: int = 1):
+        response = self.session.get(f"{self.base_url}/users/likes/lists", headers=self.headers, params={"page": page, "limit": 25})
+        trakt_lists = response.json()
+        return trakt_lists
+
+    def search_lists(self, query: str, page: int = 1):
+        response = self.session.get(f"{self.base_url}/search/list", headers=self.headers, params={"query": query, "page": page, "limit": 25})
+        trakt_lists = response.json()
+        return trakt_lists
     def get_list(self, list_id, page: int = 1):
         response = self.session.get(f"{self.base_url}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
         trakt_list = response.json()
@@ -317,13 +343,37 @@ class Trakt_API:
             })
         return jen_list
     
-    def handle_lists_xml(self, lists):
-        return [{
-            "title": list["name"],
-            "summary": list["description"],
-            "type": "dir",
-            "link": f"trakt/user/{list['user']['ids']['slug']}/list/{list['ids']['trakt']}"
-        } for list in lists]
+    def handle_lists_xml(self, lists, list_type="my_lists"):
+        jen_list = []
+        for item in lists or []:
+            list_info = item.get("list", item) if isinstance(item, dict) else {}
+            if not list_info:
+                continue
+            item_count = list_info.get("item_count", 0) or 0
+            if item_count == 0:
+                continue
+            user = list_info.get("user", {}).get("ids", {}).get("slug") or list_info.get("username") or "Trakt"
+            ids = list_info.get("ids", {})
+            slug = ids.get("slug") or ids.get("trakt")
+            if not slug:
+                continue
+            name = list_info.get("name") or "Trakt List"
+            description = list_info.get("description") or ""
+            if list_type in ("liked_lists", "search"):
+                title = f"{name} | [I]{user} (x{item_count})[/I]"
+            else:
+                title = f"{name} [I](x{item_count})[/I]"
+            summary_parts = []
+            if description:
+                summary_parts.append(description)
+            summary_parts.append(f"[B]Author:[/B] {user}")
+            jen_list.append({
+                "title": title,
+                "summary": "[CR][CR]".join(summary_parts),
+                "type": "dir",
+                "link": f"trakt/user/{user}/list/{slug}"
+            })
+        return jen_list
 
     def handle_list(self, items, pagination: bool = True, page_link: str = ""):
         items = self.process_items(items)
