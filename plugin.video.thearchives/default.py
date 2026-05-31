@@ -269,7 +269,7 @@ def _premiumize_activation_message(verify_url, user_code):
 
 def _auth_premiumize(addon, addon_name):
     import xbmc, xbmcgui, json, time, requests
-    default_client_id = ''
+    default_client_id = '210740667'
     client_id = addon.getSetting('pm.client_id') or default_client_id
 
     def start_device_flow(value):
