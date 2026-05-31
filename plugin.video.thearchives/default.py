@@ -151,6 +151,34 @@ def choose_scraper():
     else:
         xbmcgui.Dialog().ok(addon_name, f'[B]{module_name}[/B] is not a compatible scraper module.\nPlease choose a different one.')
 
+@plugin.route("/inputstream_helper")
+def inputstream_helper():
+    import xbmc, xbmcgui
+    addon = xbmcaddon.Addon()
+    addon_name = addon.getAddonInfo('name')
+    helper_id = 'script.module.inputstreamhelper'
+    if not xbmc.getCondVisibility(f'System.HasAddon({helper_id})'):
+        install = xbmcgui.Dialog().yesno(
+            addon_name,
+            'InputStream Helper is needed for Roku Widevine playback.\nInstall it now?'
+        )
+        if install:
+            xbmc.executebuiltin(f'InstallAddon({helper_id})')
+        return
+    try:
+        import inputstreamhelper
+        helper = inputstreamhelper.Helper('mpd', drm='com.widevine.alpha')
+        if helper.check_inputstream():
+            xbmcgui.Dialog().notification(
+                addon_name,
+                'InputStream Adaptive / Widevine is ready',
+                xbmcgui.NOTIFICATION_INFO,
+                3000
+            )
+    except Exception as e:
+        do_log(f'inputstream_helper - Error opening helper: {e}')
+        xbmc.executebuiltin(f'Addon.OpenSettings({helper_id})')
+
 @plugin.route("/open_scraper_settings")
 def open_scraper_settings():
     import xbmc, xbmcgui

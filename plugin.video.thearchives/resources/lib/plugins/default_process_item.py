@@ -63,6 +63,9 @@ class default_process_item(Plugin):
             
             elif str(link).lower() == "clear_cache":
                 link = "clear_cache"
+
+            elif str(link).lower() == "inputstream_helper":
+                link = "inputstream_helper"
                 
             elif str(link).lower().startswith("message/") :   
                 link = f"show_message/{link}"

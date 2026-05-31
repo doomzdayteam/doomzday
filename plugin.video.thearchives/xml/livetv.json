@@ -9,10 +9,31 @@
 		},
 		{
 			"type": "dir",
+			"title": "The Roku Channel",
+			"link": "https://therokuchannel.roku.com",
+			"thumbnail": "resources/media/roku.png",
+			"summary": "Browse free movies, shows, originals, and live TV from The Roku Channel"
+		},
+		{
+			"type": "dir",
 			"title": "Comet TV",
 			"link": "https://comettv.com",
 			"thumbnail": "resources/media/comet_tv.png",
 			"summary": "Free live sci-fi, fantasy, horror & supernatural TV from Comet TV"
+		},
+		{
+			"type": "dir",
+			"title": "Tubi TV",
+			"link": "https://tubitv.com",
+			"thumbnail": "resources/media/tubi_tv.png",
+			"summary": "Free ad-supported movies, TV shows & live TV from Tubi"
+		},
+		{
+			"type": "dir",
+			"title": "LG Channels",
+			"link": "https://lgchannels.com",
+			"thumbnail": "resources/media/lg.png",
+			"summary": "Free live TV channels and on-demand discovery from LG Channels"
 		}
     ]
 }
