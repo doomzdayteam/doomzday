@@ -446,9 +446,82 @@ def revoke_service(service):
         addon.setSetting('tb.enabled', 'false')
     xbmcgui.Dialog().ok(addon_name, f'[B]{name}[/B] authorization revoked.')
 
+def _finish_tmdb_auth(addon, addon_name, access_token, account_id, headers, requests, xbmcgui):
+    session_resp = requests.post('https://api.themoviedb.org/3/authentication/session/convert/4',
+        json={'access_token': access_token}, headers=headers, timeout=20).json()
+    session_id = session_resp.get('session_id', '')
+    if not session_resp.get('success') or not session_id:
+        xbmcgui.Dialog().ok(addon_name, 'Failed to create TMDb session.\nAuthorization incomplete.')
+        return False
+
+    acct_resp = requests.get('https://api.themoviedb.org/3/account',
+        params={'session_id': session_id}, headers=headers, timeout=20).json()
+    username = acct_resp.get('username', '')
+    account_session_id = str(acct_resp.get('id', ''))
+    addon.setSetting('tmdb.token', access_token)
+    addon.setSetting('tmdb.account_id', str(account_id))
+    addon.setSetting('tmdb.username', username)
+    addon.setSetting('tmdb.session_id', session_id)
+    addon.setSetting('tmdb.account_session_id', account_session_id)
+    xbmcgui.Dialog().ok(addon_name, f'[B]TMDb Account[/B] authorized successfully!\nUsername: [B]{username}[/B]')
+    return True
+
+def _poll_tmdb_auth(dialog, request_token, headers, requests, xbmc):
+    count = 120
+    while not dialog.cancelled and count >= 0 and dialog.response is None:
+        count -= 1
+        xbmc.sleep(2500)
+        try:
+            resp = requests.post('https://api.themoviedb.org/4/auth/access_token',
+                json={'request_token': request_token}, headers=headers, timeout=20).json()
+            if resp.get('success') and resp.get('access_token'):
+                dialog.response = resp
+                dialog.close()
+                return
+        except Exception as e:
+            do_log(f'tmdb auth poll error: {e}')
+    dialog.cancelled = True
+    try:
+        dialog.close()
+    except:
+        pass
+
+def _show_tmdb_qr_auth_window(addon_name, qr_url, token_url, request_token, headers, requests, xbmc, xbmcgui):
+    import threading
+
+    class TMDbQRAuthDialog(xbmcgui.WindowXMLDialog):
+        ACTION_PREVIOUS_MENU = 10
+        ACTION_NAV_BACK = 92
+
+        def __init__(self, *args, **kwargs):
+            super(TMDbQRAuthDialog, self).__init__(*args, **kwargs)
+            self.cancelled = False
+            self.response = None
+
+        def onAction(self, action):
+            if action.getId() in (self.ACTION_PREVIOUS_MENU, self.ACTION_NAV_BACK):
+                self.cancelled = True
+                self.close()
+
+    dialog = TMDbQRAuthDialog('tmdb_auth_qr.xml', PATH, 'Default', '1080i')
+    dialog.setProperty('tmdb.title', f'{addon_name} - TMDb Account')
+    dialog.setProperty('tmdb.qr_url', qr_url)
+    dialog.setProperty('tmdb.auth_url', token_url)
+    worker = threading.Thread(target=_poll_tmdb_auth, args=(dialog, request_token, headers, requests, xbmc))
+    worker.daemon = True
+    worker.start()
+    dialog.doModal()
+    dialog.cancelled = True
+    worker.join(0.1)
+    return dialog.response
+
 @plugin.route("/tmdb_auth")
 def tmdb_auth():
-    import xbmc, xbmcgui, time, requests
+    import xbmc, xbmcgui, xbmcvfs, requests
+    try:
+        from resources.lib.util.tmdb_qr import build_qr_image_url
+    except ImportError:
+        from .resources.lib.util.tmdb_qr import build_qr_image_url
     addon = xbmcaddon.Addon()
     addon_name = addon.getAddonInfo('name')
     read_access_token = get_tmdb_read_access_token()
@@ -467,47 +540,18 @@ def tmdb_auth():
             return
         request_token = data['request_token']
         token_url = 'https://www.themoviedb.org/auth/access?request_token=%s' % request_token
-        progress = xbmcgui.DialogProgress()
-        progress.create(f'{addon_name} - TMDb Account',
-            f'Go to:\n[B][COLOR lawngreen]{token_url}[/COLOR][/B]\n\nApprove access to your TMDb account, then wait...')
-        count = 120
-        success = None
-        response = None
-        while not progress.iscanceled() and count >= 0 and success is None:
-            count -= 1
-            percent = int(((120 - count) / 120.0) * 100)
-            progress.update(percent)
-            xbmc.sleep(2500)
-            try:
-                resp = requests.post('https://api.themoviedb.org/4/auth/access_token',
-                    json={'request_token': request_token}, headers=headers, timeout=20).json()
-                if resp.get('success') and resp.get('access_token'):
-                    success = True
-                    response = resp
-            except:
-                pass
-        progress.close()
-        if not success:
+        qr_url = build_qr_image_url(token_url, size=800)
+        url_file = xbmcvfs.translatePath('special://profile/addon_data/plugin.video.thearchives/tmdb_auth_url.txt')
+        try:
+            with open(url_file, 'w') as handle:
+                handle.write(token_url)
+        except Exception as e:
+            do_log(f'tmdb_auth url file error: {e}')
+        response = _show_tmdb_qr_auth_window(addon_name, qr_url, token_url, request_token, headers, requests, xbmc, xbmcgui)
+        if not response:
             xbmcgui.Dialog().ok(addon_name, 'TMDb authorization timed out or was cancelled.')
             return
-        access_token = response['access_token']
-        account_id = response['account_id']
-        session_resp = requests.post('https://api.themoviedb.org/3/authentication/session/convert/4',
-            json={'access_token': access_token}, headers=headers, timeout=20).json()
-        session_id = session_resp.get('session_id', '')
-        if session_resp.get('success') and session_id:
-            acct_resp = requests.get('https://api.themoviedb.org/3/account',
-                params={'session_id': session_id}, headers=headers, timeout=20).json()
-            username = acct_resp.get('username', '')
-            account_session_id = str(acct_resp.get('id', ''))
-            addon.setSetting('tmdb.token', access_token)
-            addon.setSetting('tmdb.account_id', str(account_id))
-            addon.setSetting('tmdb.username', username)
-            addon.setSetting('tmdb.session_id', session_id)
-            addon.setSetting('tmdb.account_session_id', account_session_id)
-            xbmcgui.Dialog().ok(addon_name, f'[B]TMDb Account[/B] authorized successfully!\nUsername: [B]{username}[/B]')
-        else:
-            xbmcgui.Dialog().ok(addon_name, 'Failed to create TMDb session.\nAuthorization incomplete.')
+        _finish_tmdb_auth(addon, addon_name, response['access_token'], response['account_id'], headers, requests, xbmcgui)
     except Exception as e:
         do_log(f'tmdb_auth error: {e}')
         xbmcgui.Dialog().ok(addon_name, f'TMDb authorization failed.\n{str(e)}')

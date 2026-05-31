@@ -30,6 +30,20 @@
 		},
 		{
 			"type": "dir",
+			"title": "Samsung TV Plus",
+			"link": "https://www.samsungtvplus.com",
+			"thumbnail": "resources/media/samsung.png",
+			"summary": "Free live TV channels from Samsung TV Plus"
+		},
+		{
+			"type": "dir",
+			"title": "Xumo Play",
+			"link": "https://play.xumo.com",
+			"thumbnail": "resources/media/xumo.png",
+			"summary": "Free live TV channels from Xumo Play"
+		},
+		{
+			"type": "dir",
 			"title": "LG Channels",
 			"link": "https://lgchannels.com",
 			"thumbnail": "resources/media/lg.png",

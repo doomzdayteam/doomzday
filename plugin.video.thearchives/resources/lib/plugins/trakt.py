@@ -74,12 +74,24 @@ class Trakt(Plugin):
         else:
             return True
 
+    def _clear_auth_settings(self):
+        xbmcaddon.Addon().setSetting("trakt.access_token", "")
+        xbmcaddon.Addon().setSetting("trakt.refresh_token", "")
+        xbmcaddon.Addon().setSetting("trakt.user_id", "")
+        xbmcaddon.Addon().setSetting("trakt.expires", "0")
+
     def __auth(self):
         api = Trakt_API()
         if not api.client_id or not api.client_secret:
             xbmcgui.Dialog().ok("Trakt Authorization", "The addon is missing its Trakt API credentials.\nPlease add the addon Client ID and Client Secret before authorizing a Trakt account.")
             return False
-        device_code = api.device_code()
+        try:
+            device_code = api.device_code()
+        except Exception as e:
+            xbmc.log(str(e), xbmc.LOGERROR)
+            self._clear_auth_settings()
+            xbmcgui.Dialog().ok("Trakt Authorization Failed", str(e))
+            return False
         progress_dialog = xbmcgui.DialogProgress()
         progress_dialog.create(
             "Trakt Authorization",
@@ -92,32 +104,40 @@ class Trakt(Plugin):
                 break
             try:
                 time.sleep(device_code["interval"])
-                token = api.device_token(device_code["device_code"])
-                if token.status_code == 200:
-                    token = token.json()
+                token_response = api.device_token(device_code["device_code"])
+                if token_response.status_code == 200:
+                    token = api._json_or_error(token_response, "reading the Trakt access token")
                     xbmcaddon.Addon().setSetting("trakt.access_token", token["access_token"])
                     xbmcaddon.Addon().setSetting("trakt.refresh_token", token["refresh_token"])
                     import time as _time
                     xbmcaddon.Addon().setSetting("trakt.expires", str(_time.time() + token.get("expires_in", 7776000)))
-                    user = api.get_user_settings()
-                    xbmcaddon.Addon().setSetting("trakt.user_id", user["user"]["ids"]["slug"])
+                    user = api.get_user_settings(token['access_token'])
+                    ids = user.get("user", {}).get("ids", {})
+                    user_id = ids.get("slug") or user.get("user", {}).get("username", "")
+                    if not user_id:
+                        raise Exception("Trakt did not return a username for this account.")
+                    xbmcaddon.Addon().setSetting("trakt.user_id", user_id)
                     xbmcgui.Dialog().notification("Trakt", "Device authorization was successful!", xbmcgui.NOTIFICATION_INFO)
                     success = True
                     break
-                elif token.status_code == 404:
-                    xbmcgui.Dialog().notification("Error", "The device token is invalid.", xbmcgui.NOTIFICATION_ERROR)
+                elif token_response.status_code == 404:
+                    self._clear_auth_settings()
+                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token is invalid. Please try authorizing again.")
                     break
-                elif token.status_code == 410:
-                    xbmcgui.Dialog().notification("Error", "This token has expired. Please try again.", xbmcgui.NOTIFICATION_ERROR)
+                elif token_response.status_code == 410:
+                    self._clear_auth_settings()
+                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "This token has expired. Please try authorizing again.")
                     break
-                elif token.status_code == 418:
-                    xbmcgui.Dialog().notification("Error", "The device token was denied.", xbmcgui.NOTIFICATION_ERROR)
+                elif token_response.status_code == 418:
+                    self._clear_auth_settings()
+                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token was denied.")
                     break
                 i += device_code["interval"]
                 progress_dialog.update(int((i / device_code["expires_in"]) * 100))
             except Exception as e:
                 xbmc.log(str(e), xbmc.LOGERROR)
-                xbmcgui.Dialog().notification("Error", "There was an error when verifying the token.", xbmcgui.NOTIFICATION_ERROR)
+                self._clear_auth_settings()
+                xbmcgui.Dialog().ok("Trakt Authorization Failed", str(e))
                 break
         progress_dialog.close()
         return success
@@ -130,20 +150,22 @@ class Trakt(Plugin):
         @plugin.route(f"/{self.name}/clear")
         def clear():
             if xbmcgui.Dialog().yesno("Revoke Trakt Authorization", "Are you sure you want to revoke the Trakt authorization?"):
-                xbmcaddon.Addon().setSetting("trakt.access_token", "")
-                xbmcaddon.Addon().setSetting("trakt.refresh_token", "")
-                xbmcaddon.Addon().setSetting("trakt.user_id", "")
-                xbmcaddon.Addon().setSetting("trakt.expires", "0")
+                self._clear_auth_settings()
                 xbmcaddon.Addon().setSetting("watched_indicators", "0")
 
 class Trakt_API:
     @property
-    def headers(self):
-        headers = {
+    def app_headers(self):
+        return {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'trakt-api-version': '2',
             'trakt-api-key': self.client_id
         }
+
+    @property
+    def headers(self):
+        headers = self.app_headers.copy()
         access_token = ownAddon.getSetting("trakt.access_token") or ""
         if access_token != "":
             headers["Authorization"] = "Bearer "  + access_token
@@ -156,18 +178,33 @@ class Trakt_API:
         self.client_id = get_trakt_api_client_id()
         self.client_secret = get_trakt_api_client_secret()
 
+    def _json_or_error(self, response, action):
+        try:
+            return response.json()
+        except Exception:
+            body = (getattr(response, "text", "") or "").strip()
+            if len(body) > 200:
+                body = body[:200] + "..."
+            raise Exception(
+                "Trakt returned a non-JSON response while %s. HTTP %s. %s" %
+                (action, getattr(response, "status_code", "unknown"), body)
+            )
+
     def device_code(self):
-        response = self.session.post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.headers)
-        code = response.json()
+        response = self.session.post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.app_headers)
+        code = self._json_or_error(response, "starting device authorization")
         return code
     
     def device_token(self, code) -> requests.Response:
-        response = self.session.post(f"{self.base_url}/oauth/device/token", data=json.dumps({"code": code, "client_id": self.client_id, "client_secret": self.client_secret}), headers=self.headers)
+        response = self.session.post(f"{self.base_url}/oauth/device/token", data=json.dumps({"code": code, "client_id": self.client_id, "client_secret": self.client_secret}), headers=self.app_headers)
         return response
     
-    def get_user_settings(self):
-        response = self.session.get(f"{self.base_url}/users/settings", headers=self.headers)
-        settings = response.json()
+    def get_user_settings(self, access_token=None):
+        headers = self.headers.copy()
+        if access_token:
+            headers["Authorization"] = "Bearer " + access_token
+        response = self.session.get(f"{self.base_url}/users/settings", headers=headers)
+        settings = self._json_or_error(response, "loading Trakt user settings")
         return settings
     
     def get_movies_chart(self, chart: str, period: str = "weekly", page: int = 1):
