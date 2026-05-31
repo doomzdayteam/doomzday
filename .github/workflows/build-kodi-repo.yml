@@ -6,7 +6,7 @@ on:
       repo_version:
         description: "repository.doomzday version to build"
         required: true
-        default: "1.1.0"
+        default: "1.1.6"
         type: string
 
 permissions:
@@ -70,6 +70,9 @@ jobs:
           grep -F "version=\"${version}\"" "${addon_id}/addon.xml"
           grep -F "version=\"${version}\"" "_zipfiles/${addon_id}/addon.xml"
           grep -F "${addon_id}-${version}.zip" index.html
+          grep -F "https://doomzdayteam.github.io/doomzday/_zipfiles/addons.xml.md5" "${addon_id}/addon.xml"
+          grep -F "https://doomzdayteam.github.io/doomzday/_zipfiles/addons.xml.md5" "_zipfiles/${addon_id}/addon.xml"
+          ! grep -R "https://raw.githubusercontent.com/doomzdayteam/doomzday" "${addon_id}/addon.xml" "_zipfiles/${addon_id}/addon.xml" "_zipfiles/addons.xml"
           python -c "import hashlib, pathlib; data=pathlib.Path('_zipfiles/addons.xml').read_bytes(); expected=pathlib.Path('_zipfiles/addons.xml.md5').read_text().strip(); actual=hashlib.md5(data).hexdigest(); raise SystemExit(0 if actual == expected else f'addons.xml.md5 mismatch: {actual} != {expected}')"
 
       - name: Commit generated repository output
