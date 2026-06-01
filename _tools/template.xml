@@ -12,11 +12,6 @@
            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
            <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
         </dir>
-		<dir>
-        <info compressed="false">https://the-hermit.com/_repo/addons.xml</info>
-        <checksum>https://the-hermit.com/_repo/addonsmd5.txt</checksum>
-        <datadir zip="true">https://the-hermit.com/_repo/</datadir>
-		</dir>
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">{summary}</summary>
