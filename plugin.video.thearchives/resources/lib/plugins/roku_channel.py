@@ -271,7 +271,7 @@ def _page_id_from_url(url, prefix):
 
 
 class RokuChannel(Plugin):
-   
+    """The Roku Channel free streaming catalog."""
 
     name = "roku_channel"
     priority = 1050
@@ -393,6 +393,15 @@ class RokuChannel(Plugin):
         itemlist = []
 
         if url == self.base_url:
+            itemlist.append({
+                "type": "item",
+                "title": "[COLOR khaki]Requires Widevine[/COLOR]",
+                "link": (
+                    "message/Roku Channel playback uses Widevine DRM. "
+                    "Use the InputStream Helper link below to install or configure Widevine."
+                ),
+                "summary": "Roku Channel live TV and TV episodes require Widevine DRM support.",
+            })
             itemlist.append({
                 "type": "item",
                 "title": "[COLOR lawngreen]Widevine / InputStream Helper[/COLOR]",

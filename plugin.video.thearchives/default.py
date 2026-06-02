@@ -216,6 +216,50 @@ def auth_service(service):
         do_log(f'auth_service - Error authorizing {name}: {e}')
         xbmcgui.Dialog().ok(addon_name, f'Authorization failed for {name}.\n{str(e)}')
 
+def build_debrid_qr_image_url(verification_url, size=800):
+    try:
+        from resources.lib.util.tmdb_qr import build_qr_image_url
+    except ImportError:
+        from .resources.lib.util.tmdb_qr import build_qr_image_url
+    return build_qr_image_url(verification_url or '', size=size)
+
+def format_debrid_user_code(user_code):
+    return (user_code or '').replace('-', '').upper()
+
+def _show_debrid_qr_auth_window(addon_name, service_name, verification_url, user_code, poller):
+    import threading, xbmcgui
+
+    class DebridQRAuthDialog(xbmcgui.WindowXMLDialog):
+        ACTION_PREVIOUS_MENU = 10
+        ACTION_NAV_BACK = 92
+
+        def __init__(self, *args, **kwargs):
+            super(DebridQRAuthDialog, self).__init__(*args, **kwargs)
+            self.cancelled = False
+            self.response = None
+            self.error = None
+
+        def onAction(self, action):
+            if action.getId() in (self.ACTION_PREVIOUS_MENU, self.ACTION_NAV_BACK):
+                self.cancelled = True
+                self.close()
+
+    dialog = DebridQRAuthDialog('debrid_auth_qr.xml', PATH, 'Default', '1080i')
+    dialog.setProperty('debrid.title', f'{addon_name} - {service_name}')
+    dialog.setProperty('debrid.service', service_name)
+    dialog.setProperty('debrid.qr_url', build_debrid_qr_image_url(verification_url, size=800))
+    dialog.setProperty('debrid.auth_url', verification_url or '')
+    dialog.setProperty('debrid.user_code', format_debrid_user_code(user_code))
+    worker = threading.Thread(target=poller, args=(dialog,))
+    worker.daemon = True
+    worker.start()
+    dialog.doModal()
+    dialog.cancelled = True
+    worker.join(0.1)
+    if dialog.error:
+        raise dialog.error
+    return dialog.response
+
 def _auth_real_debrid(addon, addon_name):
     import xbmc, xbmcgui, json, time, requests
     base_url = 'https://api.real-debrid.com/oauth/v2/'
@@ -228,28 +272,31 @@ def _auth_real_debrid(addon, addon_name):
     verify_url = resp.get('verification_url', 'https://real-debrid.com/device')
     interval = resp.get('interval', 5)
     expires_in = resp.get('expires_in', 600)
-    progress = xbmcgui.DialogProgress()
-    progress.create(f'{addon_name} - Real-Debrid',
-        f'Go to: [B]{verify_url}[/B]\nEnter code: [B][COLOR lawngreen]{user_code}[/COLOR][/B]')
-    start = time.time()
-    client_secret = ''
-    new_client_id = ''
-    while not progress.iscanceled() and (time.time() - start) < expires_in:
-        xbmc.sleep(interval * 1000)
-        percent = int(((time.time() - start) / expires_in) * 100)
-        progress.update(percent)
+
+    def poll_credentials(dialog):
+        start = time.time()
+        while not dialog.cancelled and (time.time() - start) < expires_in:
+            xbmc.sleep(interval * 1000)
+            try:
+                poll = requests.get(f'{base_url}device/credentials?client_id={client_id}&code={device_code}').json()
+                if 'client_id' in poll:
+                    dialog.response = poll
+                    dialog.close()
+                    return
+            except:
+                continue
+        dialog.cancelled = True
         try:
-            poll = requests.get(f'{base_url}device/credentials?client_id={client_id}&code={device_code}').json()
-            if 'client_id' in poll:
-                new_client_id = poll['client_id']
-                client_secret = poll['client_secret']
-                break
+            dialog.close()
         except:
-            continue
-    progress.close()
-    if not new_client_id:
+            pass
+
+    credentials = _show_debrid_qr_auth_window(addon_name, 'Real-Debrid', verify_url, user_code, poll_credentials)
+    if not credentials:
         xbmcgui.Dialog().ok(addon_name, 'Real-Debrid authorization timed out or was cancelled.')
         return
+    new_client_id = credentials['client_id']
+    client_secret = credentials['client_secret']
     data = {
         'client_id': new_client_id,
         'client_secret': client_secret,
@@ -295,38 +342,47 @@ def _auth_premiumize(addon, addon_name):
     verify_url = resp.get('verification_uri') or resp.get('verification_url') or 'https://www.premiumize.me/device'
     interval = resp.get('interval', 5)
     expires_in = resp.get('expires_in', 600)
-    progress = xbmcgui.DialogProgress()
-    progress.create(f'{addon_name} - Premiumize', _premiumize_activation_message(verify_url, user_code))
-    start = time.time()
-    token = ''
-    while not progress.iscanceled() and (time.time() - start) < expires_in:
-        xbmc.sleep(interval * 1000)
-        percent = int(((time.time() - start) / expires_in) * 100)
-        progress.update(percent)
-        try:
-            poll = requests.post('https://www.premiumize.me/token', data={
-                'grant_type': 'device_code',
-                'code': device_code,
-                'client_id': client_id,
-            }).json()
-            if 'access_token' in poll:
-                token = poll['access_token']
-                break
-            error = poll.get('error', '')
-            if error == 'authorization_pending':
-                continue
-            if error == 'slow_down':
-                interval += 5
-                continue
-            if error in ('access_denied', 'invalid_grant'):
-                progress.close()
-                xbmcgui.Dialog().ok(addon_name, f'Premiumize authorization failed.\n{poll.get("error_description", error)}')
+
+    def poll_token(dialog):
+        poll_interval = interval
+        start = time.time()
+        while not dialog.cancelled and (time.time() - start) < expires_in:
+            xbmc.sleep(poll_interval * 1000)
+            try:
+                poll = requests.post('https://www.premiumize.me/token', data={
+                    'grant_type': 'device_code',
+                    'code': device_code,
+                    'client_id': client_id,
+                }).json()
+                if 'access_token' in poll:
+                    dialog.response = poll
+                    dialog.close()
+                    return
+                error = poll.get('error', '')
+                if error == 'authorization_pending':
+                    continue
+                if error == 'slow_down':
+                    poll_interval += 5
+                    continue
+                if error in ('access_denied', 'invalid_grant'):
+                    dialog.response = poll
+                    dialog.close()
+                    return
+            except Exception as e:
+                dialog.error = e
+                dialog.close()
                 return
-        except Exception as e:
-            progress.close()
-            xbmcgui.Dialog().ok(addon_name, f'Premiumize authorization failed.\n{str(e)}')
-            return
-    progress.close()
+        dialog.cancelled = True
+        try:
+            dialog.close()
+        except:
+            pass
+
+    poll = _show_debrid_qr_auth_window(addon_name, 'Premiumize', verify_url, user_code, poll_token)
+    if poll and poll.get('error') in ('access_denied', 'invalid_grant'):
+        xbmcgui.Dialog().ok(addon_name, f'Premiumize authorization failed.\n{poll.get("error_description", poll.get("error"))}')
+        return
+    token = poll.get('access_token', '') if poll else ''
     if not token:
         xbmcgui.Dialog().ok(addon_name, 'Premiumize authorization timed out or was cancelled.')
         return
@@ -372,25 +428,29 @@ def _auth_alldebrid(addon, addon_name):
     if not user_code or not check:
         xbmcgui.Dialog().ok(addon_name, 'AllDebrid did not return an authorization PIN.')
         return
-    progress = xbmcgui.DialogProgress()
-    progress.create(f'{addon_name} - AllDebrid',
-        f'Go to: [B]{verify_url}[/B]\nEnter code: [B][COLOR lawngreen]{user_code}[/COLOR][/B]')
-    start = time.time()
-    token = ''
-    while not progress.iscanceled() and (time.time() - start) < expires_in:
-        xbmc.sleep(5000)
-        percent = int(((time.time() - start) / expires_in) * 100)
-        progress.update(percent)
+
+    def poll_pin(dialog):
+        start = time.time()
+        while not dialog.cancelled and (time.time() - start) < expires_in:
+            xbmc.sleep(5000)
+            try:
+                poll_data = alldebrid_client.check_pin(requests, user_code, check)
+                if poll_data.get('activated'):
+                    dialog.response = poll_data
+                    dialog.close()
+                    return
+            except Exception as e:
+                dialog.error = e
+                dialog.close()
+                return
+        dialog.cancelled = True
         try:
-            poll_data = alldebrid_client.check_pin(requests, user_code, check)
-            if poll_data.get('activated'):
-                token = poll_data.get('apikey', '')
-                break
-        except Exception as e:
-            progress.close()
-            xbmcgui.Dialog().ok(addon_name, f'AllDebrid authorization failed.\n{str(e)}')
-            return
-    progress.close()
+            dialog.close()
+        except:
+            pass
+
+    poll_data = _show_debrid_qr_auth_window(addon_name, 'AllDebrid', verify_url, user_code, poll_pin)
+    token = poll_data.get('apikey', '') if poll_data else ''
     if not token:
         xbmcgui.Dialog().ok(addon_name, 'AllDebrid authorization timed out or was cancelled.')
         return
@@ -398,20 +458,92 @@ def _auth_alldebrid(addon, addon_name):
     xbmcgui.Dialog().ok(addon_name, '[B]AllDebrid[/B] authorized successfully!')
 
 def _auth_torbox(addon, addon_name):
-    import xbmcgui, requests
+    import xbmc, xbmcgui, requests, time
     try:
         from resources.lib.plugins import torbox_client
     except ImportError:
         from .resources.lib.plugins import torbox_client
 
-    api_key = xbmcgui.Dialog().input(f'{addon_name} - TorBox', 'Enter your TorBox API Key')
-    api_key = (api_key or '').strip()
-    if not api_key:
+    choice = xbmcgui.Dialog().select(
+        f'{addon_name} - TorBox',
+        ['Authorize with QR Code', 'Enter API key']
+    )
+    if choice == -1:
         return
-    try:
-        torbox_client.verify_token(requests, api_key)
-    except Exception as e:
-        xbmcgui.Dialog().ok(addon_name, f'TorBox API key verification failed.\n{str(e)}')
+    if choice == 1:
+        api_key = xbmcgui.Dialog().input(f'{addon_name} - TorBox', 'Enter your TorBox API Key')
+        api_key = (api_key or '').strip()
+        if not api_key:
+            return
+        try:
+            torbox_client.verify_token(requests, api_key)
+        except Exception as e:
+            xbmcgui.Dialog().ok(addon_name, f'TorBox API key verification failed.\n{str(e)}')
+            return
+        addon.setSetting('tb.token', api_key)
+        addon.setSetting('tb.enabled', 'true')
+        xbmcgui.Dialog().ok(addon_name, '[B]TorBox[/B] authorized successfully!')
+        return
+
+    start_resp = requests.get(
+        'https://api.torbox.app/v1/api/user/auth/device/start',
+        params={'app': 'TheArchives'},
+        timeout=20,
+    ).json()
+    data = start_resp.get('data', start_resp)
+    device_code = data.get('device_code', '')
+    user_code = data.get('code', '')
+    verify_url = data.get('verification_url') or data.get('friendly_verification_url') or 'https://torbox.app/oauth/device'
+    interval = int(data.get('interval') or 5)
+    if interval < 1:
+        interval = 5
+    if not device_code or not user_code:
+        error = start_resp.get('detail') or start_resp.get('error') or 'TorBox did not return an authorization code.'
+        xbmcgui.Dialog().ok(addon_name, f'TorBox authorization failed.\n{error}')
+        return
+
+    def poll_token(dialog):
+        start = time.time()
+        expires_in = 600
+        while not dialog.cancelled and (time.time() - start) < expires_in:
+            xbmc.sleep(interval * 1000)
+            try:
+                poll = requests.post(
+                    'https://api.torbox.app/v1/api/user/auth/device/token',
+                    json={'device_code': device_code},
+                    timeout=20,
+                ).json()
+                poll_data = poll.get('data') or {}
+                if poll.get('success') and poll_data.get('access_token'):
+                    dialog.response = poll
+                    dialog.close()
+                    return
+                error = (poll.get('error') or '').lower()
+                detail = (poll.get('detail') or '').lower()
+                if any(text in error or text in detail for text in ('pending', 'not authorized', 'waiting')):
+                    continue
+                if poll.get('success') is False and error:
+                    dialog.response = poll
+                    dialog.close()
+                    return
+            except Exception as e:
+                dialog.error = e
+                dialog.close()
+                return
+        dialog.cancelled = True
+        try:
+            dialog.close()
+        except:
+            pass
+
+    poll = _show_debrid_qr_auth_window(addon_name, 'TorBox', verify_url, user_code, poll_token)
+    poll_data = poll.get('data') if poll else {}
+    api_key = poll_data.get('access_token', '') if isinstance(poll_data, dict) else ''
+    if not api_key:
+        if poll:
+            xbmcgui.Dialog().ok(addon_name, f'TorBox authorization failed.\n{poll.get("detail") or poll.get("error") or "No token returned."}')
+        else:
+            xbmcgui.Dialog().ok(addon_name, 'TorBox authorization timed out or was cancelled.')
         return
     addon.setSetting('tb.token', api_key)
     addon.setSetting('tb.enabled', 'true')

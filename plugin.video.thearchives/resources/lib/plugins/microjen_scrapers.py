@@ -1,7 +1,7 @@
 ﻿
 from ..plugin import Plugin
 from resources.lib.infotagger.helpers import set_video_info
-import json, re, sys, os, xbmc
+import base64, html, json, re, sys, os, xbmc
 import xbmcaddon
 import xbmcgui
 from urllib.parse import urlencode
@@ -284,6 +284,10 @@ class TheArchivesScrapers(Plugin):
                 progress.close()
                 all_sources = list(filter(lambda source: source, all_sources))
 
+            easynews_sources = self._get_easynews_sources(item)
+            if easynews_sources:
+                all_sources.extend(easynews_sources)
+
             if not all_sources:
                 xbmcgui.Dialog().notification(addon_name, 'No scraper sources found', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                 return True
@@ -304,11 +308,11 @@ class TheArchivesScrapers(Plugin):
                 pass
 
             all_sources = self._prepare_source_results(all_sources)
-            cache_summary = f'{self.name} - cached debrid sources after filtering: {len(all_sources)}'
+            cache_summary = f'{self.name} - playable sources after filtering: {len(all_sources)}'
             do_log(cache_summary)
             xbmc.log(f'TheArchivesScrapers - {cache_summary}', getattr(xbmc, 'LOGINFO', 1))
             if not all_sources:
-                xbmcgui.Dialog().notification(addon_name, 'No cached debrid sources found', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
+                xbmcgui.Dialog().notification(addon_name, 'No playable sources found', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                 return True
 
             play_sources = self._source_display_labels(all_sources)
@@ -568,6 +572,145 @@ class TheArchivesScrapers(Plugin):
 
     def _host_filters(self):
         return []
+
+    def _get_easynews_sources(self, item):
+        if str(ownAddon.getSetting("provider.easynews") or "").lower() != "true":
+            return []
+        username = ownAddon.getSetting("easynews.username") or ""
+        password = ownAddon.getSetting("easynews.password") or ""
+        if not username or not password:
+            do_log(f'{self.name} - Easynews enabled but username/password is missing')
+            return []
+        query = self._easynews_query(item)
+        if not query:
+            return []
+        try:
+            return self._easynews_search(query, username, password)
+        except Exception as e:
+            do_log(f'{self.name} - Easynews search failed: {e}')
+            xbmc.log(f'TheArchivesScrapers - Easynews search failed: {e}', getattr(xbmc, 'LOGERROR', 4))
+            return []
+
+    def _easynews_query(self, item):
+        content = str(item.get("content") or "").lower()
+        if content == "episode":
+            show = item.get("tv_show_title") or item.get("title") or ""
+            try:
+                season = int(item.get("season") or 0)
+                episode = int(item.get("episode") or 0)
+                if show and season and episode:
+                    return f"{show} S{season:02d}E{episode:02d}"
+            except Exception:
+                pass
+            return " ".join([str(value) for value in (show, item.get("season"), item.get("episode")) if value])
+        title = re.sub(r"(\[.+?\])", "", item.get("title") or "").strip()
+        year = str(item.get("year") or "").strip()
+        return f"{title} {year}".strip()
+
+    def _easynews_search(self, query, username, password):
+        import requests
+        from urllib.parse import quote_plus
+
+        extensions = "m4v,3gp,mov,divx,xvid,wmv,avi,mpg,mpeg,mp4,mkv,avc,flv,webm"
+        url = (
+            "https://members.easynews.com/2.0/search/solr-search/advanced"
+            "?st=adv&sb=1&fex=%s&fty[]=VIDEO&spamf=1&u=1&gx=1&pno=1"
+            "&sS=3&s1=dsize&s1d=-&s2=relevance&s2d=-&s3=dtime&s3d=-"
+            "&pby=50&safeO=0&gps=%s"
+        ) % (extensions, quote_plus(query))
+        response = requests.get(
+            url,
+            auth=(username, password),
+            headers={"User-Agent": "Kodi TheArchives"},
+            timeout=20,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        results = []
+        for row in payload.get("data") or []:
+            item = self._easynews_source_item(payload, row, username, password)
+            if item:
+                results.append(item)
+        do_log(f'{self.name} - Easynews query "{query}" returned {len(results)} playable sources')
+        xbmc.log(f'TheArchivesScrapers - Easynews returned {len(results)} playable sources', getattr(xbmc, 'LOGINFO', 1))
+        return results
+
+    def _easynews_source_item(self, payload, row, username, password):
+        from urllib.parse import quote
+
+        if row.get("passwd") or row.get("password") or row.get("virus"):
+            return None
+        source_url = self._easynews_stream_url(payload, row, quote)
+        if not source_url:
+            return None
+        if not self._is_direct_playable_url(source_url):
+            return None
+        auth = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
+        stream_url = f"{source_url}|Authorization={quote('Basic ' + auth, safe='')}&User-Agent=Kodi%20TheArchives"
+        title = html.unescape(row.get("fn") or row.get("10") or row.get("subject") or "Easynews")
+        size = row.get("rawSize") or row.get("size") or row.get("4") or 0
+        quality = self._easynews_quality(row, title)
+        return {
+            "provider": "Easynews",
+            "origin": "Easynews",
+            "source": "usenet",
+            "quality": quality,
+            "info": self._format_size(size),
+            "size": size,
+            "name": title,
+            "url": stream_url,
+            "direct": True,
+            "debrid_cached": False,
+        }
+
+    def _easynews_stream_url(self, payload, row, quote):
+        down_url = str(payload.get("downURL") or "https://members.easynews.com/dl").rstrip("/")
+        dl_farm = str(payload.get("dlFarm") or "auto").strip("/")
+        dl_port = str(payload.get("dlPort") or "443").strip("/")
+        post_hash = str(row.get("0") or row.get("hash") or "").strip()
+        post_title = str(row.get("10") or row.get("fn") or "").strip()
+        extension = str(row.get("11") or row.get("extension") or row.get("2") or "").strip()
+        if not post_hash or not post_title or not extension:
+            return ""
+        if not extension.startswith("."):
+            extension = "." + extension
+        file_id = quote(f"{post_hash}{extension}", safe="")
+        file_name = quote(f"{post_title}{extension}", safe="")
+        return f"{down_url}/{dl_farm}/{dl_port}/{file_id}/{file_name}"
+
+    def _easynews_quality(self, row, title):
+        height = str(row.get("yres") or row.get("height") or "")
+        if height:
+            try:
+                value = int(float(height))
+                if value >= 2160:
+                    return "4K"
+                if value >= 1080:
+                    return "1080p"
+                if value >= 720:
+                    return "720p"
+            except Exception:
+                pass
+        name = str(title or "").lower()
+        if "2160" in name or "4k" in name:
+            return "4K"
+        if "1080" in name:
+            return "1080p"
+        if "720" in name:
+            return "720p"
+        return "SD"
+
+    def _format_size(self, value):
+        try:
+            size = float(value)
+        except Exception:
+            match = re.search(r"(\d+(?:\.\d+)?)\s*([kmgt]?b)", str(value), re.I)
+            return match.group(0).upper() if match else "Size Unknown"
+        for unit in ("B", "KB", "MB", "GB", "TB"):
+            if size < 1024 or unit == "TB":
+                return f"{size:.1f} {unit}" if unit != "B" else f"{int(size)} {unit}"
+            size /= 1024
+        return "Size Unknown"
 
     def _prepare_source_results(self, sources):
         prepared = []
@@ -1269,4 +1412,3 @@ class TheArchivesScrapers(Plugin):
             return int(float(value))
         except Exception:
             return 0
-

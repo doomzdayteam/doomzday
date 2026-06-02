@@ -70,6 +70,12 @@
     },
     {
       "type": "dir",
+      "title": "Reddit Videos",
+      "link": "https://www.reddit.com",
+      "summary": "Search Reddit for native videos and live streams"
+    },
+    {
+      "type": "dir",
       "title": "Playlists",
       "link": "file://playlists.json",
       "thumbnail": "resources/media/playlists.png",

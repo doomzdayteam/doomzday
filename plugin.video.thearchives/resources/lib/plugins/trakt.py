@@ -7,6 +7,71 @@ try:
 except ImportError:
     from .resources.lib.util.common import *
 
+def build_trakt_qr_image_url(device_code, size=800):
+    try:
+        from resources.lib.util.tmdb_qr import build_qr_image_url
+    except ImportError:
+        from ..util.tmdb_qr import build_qr_image_url
+    verification_url = device_code.get("verification_url") or device_code.get("verification_uri") or "https://trakt.tv/activate"
+    return build_qr_image_url(verification_url, size=size)
+
+def _poll_trakt_auth(dialog, api, device_code):
+    interval = int(device_code.get("interval") or 5)
+    expires_in = int(device_code.get("expires_in") or 600)
+    elapsed = 0
+    while not dialog.cancelled and elapsed < expires_in and dialog.response is None:
+        xbmc.sleep(interval * 1000)
+        elapsed += interval
+        try:
+            token_response = api.device_token(device_code["device_code"])
+            if token_response.status_code in (200, 404, 410, 418):
+                dialog.response = token_response
+                dialog.close()
+                return
+        except Exception as e:
+            dialog.error = e
+            dialog.close()
+            return
+    dialog.cancelled = True
+    try:
+        dialog.close()
+    except:
+        pass
+
+def _show_trakt_qr_auth_window(api, device_code):
+    import threading
+
+    class TraktQRAuthDialog(xbmcgui.WindowXMLDialog):
+        ACTION_PREVIOUS_MENU = 10
+        ACTION_NAV_BACK = 92
+
+        def __init__(self, *args, **kwargs):
+            super(TraktQRAuthDialog, self).__init__(*args, **kwargs)
+            self.cancelled = False
+            self.response = None
+            self.error = None
+
+        def onAction(self, action):
+            if action.getId() in (self.ACTION_PREVIOUS_MENU, self.ACTION_NAV_BACK):
+                self.cancelled = True
+                self.close()
+
+    verification_url = device_code.get("verification_url") or device_code.get("verification_uri") or "https://trakt.tv/activate"
+    dialog = TraktQRAuthDialog("trakt_auth_qr.xml", PATH, "Default", "1080i")
+    dialog.setProperty("trakt.title", "Trakt Account Authorization")
+    dialog.setProperty("trakt.qr_url", build_trakt_qr_image_url(device_code, size=800))
+    dialog.setProperty("trakt.auth_url", verification_url)
+    dialog.setProperty("trakt.user_code", device_code.get("user_code", ""))
+    worker = threading.Thread(target=_poll_trakt_auth, args=(dialog, api, device_code))
+    worker.daemon = True
+    worker.start()
+    dialog.doModal()
+    dialog.cancelled = True
+    worker.join(0.1)
+    if dialog.error:
+        raise dialog.error
+    return dialog.response
+
 class Trakt(Plugin):
     name = "trakt"
     def get_list(self, url):
@@ -92,54 +157,42 @@ class Trakt(Plugin):
             self._clear_auth_settings()
             xbmcgui.Dialog().ok("Trakt Authorization Failed", str(e))
             return False
-        progress_dialog = xbmcgui.DialogProgress()
-        progress_dialog.create(
-            "Trakt Authorization",
-            f"Go to {device_code['verification_url']} in a browser and enter the following code:\n\n{device_code['user_code']}"
-        )
-        i = 0
         success = False
-        while i < device_code["expires_in"]:
-            if progress_dialog.iscanceled():
-                break
-            try:
-                time.sleep(device_code["interval"])
-                token_response = api.device_token(device_code["device_code"])
-                if token_response.status_code == 200:
-                    token = api._json_or_error(token_response, "reading the Trakt access token")
-                    xbmcaddon.Addon().setSetting("trakt.access_token", token["access_token"])
-                    xbmcaddon.Addon().setSetting("trakt.refresh_token", token["refresh_token"])
-                    import time as _time
-                    xbmcaddon.Addon().setSetting("trakt.expires", str(_time.time() + token.get("expires_in", 7776000)))
-                    user = api.get_user_settings(token['access_token'])
-                    ids = user.get("user", {}).get("ids", {})
-                    user_id = ids.get("slug") or user.get("user", {}).get("username", "")
-                    if not user_id:
-                        raise Exception("Trakt did not return a username for this account.")
-                    xbmcaddon.Addon().setSetting("trakt.user_id", user_id)
-                    xbmcgui.Dialog().notification("Trakt", "Device authorization was successful!", xbmcgui.NOTIFICATION_INFO)
-                    success = True
-                    break
-                elif token_response.status_code == 404:
-                    self._clear_auth_settings()
-                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token is invalid. Please try authorizing again.")
-                    break
-                elif token_response.status_code == 410:
-                    self._clear_auth_settings()
-                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "This token has expired. Please try authorizing again.")
-                    break
-                elif token_response.status_code == 418:
-                    self._clear_auth_settings()
-                    xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token was denied.")
-                    break
-                i += device_code["interval"]
-                progress_dialog.update(int((i / device_code["expires_in"]) * 100))
-            except Exception as e:
-                xbmc.log(str(e), xbmc.LOGERROR)
+        try:
+            token_response = _show_trakt_qr_auth_window(api, device_code)
+            if not token_response:
+                xbmcgui.Dialog().ok("Trakt Authorization", "Trakt authorization timed out or was cancelled.")
+                return False
+            if token_response.status_code == 200:
+                token = api._json_or_error(token_response, "reading the Trakt access token")
+                xbmcaddon.Addon().setSetting("trakt.access_token", token["access_token"])
+                xbmcaddon.Addon().setSetting("trakt.refresh_token", token["refresh_token"])
+                import time as _time
+                xbmcaddon.Addon().setSetting("trakt.expires", str(_time.time() + token.get("expires_in", 7776000)))
+                user = api.get_user_settings(token['access_token'])
+                ids = user.get("user", {}).get("ids", {})
+                user_id = ids.get("slug") or user.get("user", {}).get("username", "")
+                if not user_id:
+                    raise Exception("Trakt did not return a username for this account.")
+                xbmcaddon.Addon().setSetting("trakt.user_id", user_id)
+                xbmcgui.Dialog().notification("Trakt", "Device authorization was successful!", xbmcgui.NOTIFICATION_INFO)
+                success = True
+            elif token_response.status_code == 404:
                 self._clear_auth_settings()
-                xbmcgui.Dialog().ok("Trakt Authorization Failed", str(e))
-                break
-        progress_dialog.close()
+                xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token is invalid. Please try authorizing again.")
+            elif token_response.status_code == 410:
+                self._clear_auth_settings()
+                xbmcgui.Dialog().ok("Trakt Authorization Failed", "This token has expired. Please try authorizing again.")
+            elif token_response.status_code == 418:
+                self._clear_auth_settings()
+                xbmcgui.Dialog().ok("Trakt Authorization Failed", "The device token was denied.")
+            else:
+                self._clear_auth_settings()
+                xbmcgui.Dialog().ok("Trakt Authorization Failed", "Trakt returned HTTP %s while authorizing." % token_response.status_code)
+        except Exception as e:
+            xbmc.log(str(e), xbmc.LOGERROR)
+            self._clear_auth_settings()
+            xbmcgui.Dialog().ok("Trakt Authorization Failed", str(e))
         return success
 
     def routes(self, plugin):

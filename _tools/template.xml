@@ -7,6 +7,12 @@
 			<datadir zip="true">{url}{output_path}</datadir>
 			<hashes>false</hashes>
 		</dir>
+		<dir>
+			<info compressed="false">https://the-hermit.com/_repo/addons.xml</info>
+			<checksum>https://the-hermit.com/_repo/addonsmd5.txt</checksum>
+			<datadir zip="true">https://the-hermit.com/_repo/</datadir>
+					<hashes>false</hashes>
+		</dir>
         <dir>
            <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
