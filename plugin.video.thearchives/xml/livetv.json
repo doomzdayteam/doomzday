@@ -1,6 +1,13 @@
 {
     "items": [
-        {
+		{
+			"type": "dir",
+			"title": "YouTube Live",
+			"link": "youtube-live://root",
+			"thumbnail": "resources/media/youtubelive.png",
+			"summary": "Search and play public YouTube live news, sports, and custom live streams"
+		},
+		{
 			"type": "dir",
 			"title": "Pluto TV",
 			"link": "https://pluto.tv",

@@ -3,6 +3,11 @@ import os
 from ..plugin import Plugin
 from ..DI import DI
 
+try:
+    from . import dev_api
+except ImportError:
+    dev_api = None
+
 addon_id = xbmcaddon.Addon().getAddonInfo('id')
 ownAddon = xbmcaddon.Addon(id=addon_id)
 debugMode = ownAddon.getSetting('debug') or 'false' 
@@ -31,17 +36,22 @@ def get_first_setting(*setting_ids):
             return value
     return ""
 
+def get_dev_api_value(name):
+    if dev_api:
+        return getattr(dev_api, name, "") or ""
+    return ""
+
 def get_tmdb_api_key():
-    return get_first_setting("tmdb.api_key")
+    return get_dev_api_value("TMDB_API_KEY")
 
 def get_tmdb_read_access_token():
-    return get_first_setting("tmdb.access_token")
+    return get_dev_api_value("TMDB_READ_ACCESS_TOKEN")
 
 def get_trakt_api_client_id():
-    return get_first_setting("trakt.api_client_id")
+    return get_dev_api_value("TRAKT_CLIENT_ID")
 
 def get_trakt_api_client_secret():
-    return get_first_setting("trakt.api_client_secret")
+    return get_dev_api_value("TRAKT_CLIENT_SECRET")
 
 class message(Plugin):
     name = "pop up message box"

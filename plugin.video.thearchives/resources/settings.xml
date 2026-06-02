@@ -10,9 +10,6 @@
     <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
   </category>
   <category label="TMDB">
-    <setting id="tmdb.api_key" type="text" label="[B][COLOR white]Addon TMDb API Key[/COLOR][/B]" option="hidden" visible="true" default="" />
-    <setting id="tmdb.access_token" type="text" label="[B][COLOR white]Addon TMDb Read Access Token[/COLOR][/B]" option="hidden" visible="true" default="" />
-    <setting id="lsep.tmdb.1" type="lsep" label="" />
     <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />
     <setting id="tmdb.revoke" type="action" label="[COLOR red]Revoke TMDb Account Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_revoke)" />
     <setting id="tmdb.token" type="text" label="TMDb Token" visible="false" default="" />
@@ -29,9 +26,6 @@
     <setting id="tmdbsort.favorites" type="enum" label="[B][COLOR white]Favorites Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
   </category>
   <category label="Trakt">
-    <setting id="trakt.api_client_id" type="text" label="[B][COLOR white]Addon Trakt Client ID[/COLOR][/B]" visible="true" default="" />
-    <setting id="trakt.api_client_secret" type="text" label="[B][COLOR white]Addon Trakt Client Secret[/COLOR][/B]" visible="true" default="" />
-    <setting id="lsep.trakt.1" type="lsep" label="" />
     <setting id="trakt.authorize" type="action" label="[COLOR lawngreen]Authorize Trakt Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)" />
     <setting id="trakt.clear" type="action" label="[COLOR red]Revoke Trakt Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/clear)" />
     <setting id="trakt.access_token" type="text" label="Access Token" visible="false" default="" />
