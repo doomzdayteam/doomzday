@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.thearchives" name="The Archives" version="1.1.8.2" provider-name="The Archivist's">
+<addon id="plugin.video.thearchives" name="The Archives" version="1.1.8.3" provider-name="The Archivist's">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" />
@@ -76,7 +76,7 @@
 	</extension>
 </addon>
 
-<addon id="repository.doomzday" name="Doomzday Repo" version="1.2.1" provider-name="DD Team">
+<addon id="repository.doomzday" name="Doomzday Repo" version="1.2.2" provider-name="DD Team">
     <extension point="xbmc.addon.repository" name="Doomzday Repo">
 		<dir>
 			<info compressed="false">https://doomzdayteam.github.io/doomzday/_zipfiles/addons.xml</info>
