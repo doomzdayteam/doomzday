@@ -35,12 +35,12 @@ class RealDebridApiError(Exception):
 
 
 def get_scraper_module_id():
-    """Return the addon id of the user-chosen scraper module, or empty string."""
+    
     return ownAddon.getSetting('scraper.module') or ''
 
 
 def get_scrapers_addon():
-    """Return the xbmcaddon.Addon object for the chosen scraper module."""
+    
     module_id = get_scraper_module_id()
     if not module_id:
         return None
@@ -51,7 +51,7 @@ def get_scrapers_addon():
 
 
 def import_scraper_sources():
-    """Import and return the sources() function from the chosen scraper module."""
+    
     module_id = get_scraper_module_id()
     if not module_id:
         xbmcgui.Dialog().ok(addon_name, 'No scraper module selected.\nPlease choose one in Settings > Choose Scraper Module.')
@@ -82,7 +82,7 @@ class TheArchivesScrapers(Plugin):
     priority = 121
 
     def _play_with_history(self, url, liz, item):
-        """Play video with HistoryPlayer for progress/watched tracking."""
+       
         try:
             from resources.lib.plugins.history import HistoryPlayer
             return HistoryPlayer(item).play(url, liz)
@@ -120,7 +120,7 @@ class TheArchivesScrapers(Plugin):
     hostDict = []
 
     def _get_scrapers_setting_bool(self, setting_id):
-        """Safely read a bool setting from the chosen scraper addon."""
+        
         scrapers_addon = get_scrapers_addon()
         if scrapers_addon:
             try:

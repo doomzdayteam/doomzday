@@ -495,6 +495,7 @@ def _auth_torbox(addon, addon_name):
     user_code = data.get('code', '')
     verify_url = data.get('verification_url') or data.get('friendly_verification_url') or 'https://torbox.app/oauth/device'
     interval = int(data.get('interval') or 5)
+    expires_in = int(data.get('expires_in') or data.get('expires') or 600)
     if interval < 1:
         interval = 5
     if not device_code or not user_code:
@@ -504,7 +505,6 @@ def _auth_torbox(addon, addon_name):
 
     def poll_token(dialog):
         start = time.time()
-        expires_in = 600
         while not dialog.cancelled and (time.time() - start) < expires_in:
             xbmc.sleep(interval * 1000)
             try:
@@ -520,12 +520,25 @@ def _auth_torbox(addon, addon_name):
                     return
                 error = (poll.get('error') or '').lower()
                 detail = (poll.get('detail') or '').lower()
-                if any(text in error or text in detail for text in ('pending', 'not authorized', 'waiting')):
+                pending_messages = (
+                    'pending',
+                    'not authorized',
+                    'waiting',
+                    'auth failed',
+                    'auth_error',
+                    'no auth',
+                    'no token',
+                    'not authenticated',
+                )
+                if any(text in error or text in detail for text in pending_messages):
                     continue
-                if poll.get('success') is False and error:
+                terminal_messages = ('expired', 'denied', 'invalid device')
+                if any(text in error or text in detail for text in terminal_messages):
                     dialog.response = poll
                     dialog.close()
                     return
+                if poll.get('success') is False and error:
+                    continue
             except Exception as e:
                 dialog.error = e
                 dialog.close()
