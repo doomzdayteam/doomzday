@@ -352,7 +352,7 @@ class TMDB_API:
         
         rating = items.get('vote_average', 0)
         
-        votes = items.get('vote_count', '')
+        votes = items.get('vote_count', 0) or 0
         
         try:
             if media_type == 'movie':
@@ -530,5 +530,4 @@ class TMDB(Plugin):
             return None
 
 tmdb_api = TMDB_API()
-
 
