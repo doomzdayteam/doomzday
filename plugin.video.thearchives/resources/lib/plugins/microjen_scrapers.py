@@ -4,6 +4,7 @@ from resources.lib.infotagger.helpers import set_video_info
 import base64, html, json, re, sys, os, xbmc
 import xbmcaddon
 import xbmcgui
+from threading import Semaphore
 from urllib.parse import urlencode
 try:
     from resources.lib.util.common import *
@@ -21,6 +22,8 @@ debrid_only = ownAddon.getSetting('debrid.only') or 'false'
 addon_name = xbmcaddon.Addon().getAddonInfo('name')
 
 DEFAULT_TIMEOUT = 12
+REAL_DEBRID_MAGNET_SEMAPHORE = Semaphore(3)
+_REAL_DEBRID_SESSION = None
 
 
 class RealDebridApiError(Exception):
@@ -319,6 +322,10 @@ class TheArchivesScrapers(Plugin):
             if easynews_sources:
                 all_sources.extend(easynews_sources)
 
+            rd_cloud_sources = self._get_real_debrid_cloud_sources(item)
+            if rd_cloud_sources:
+                all_sources.extend(rd_cloud_sources)
+
             if not all_sources:
                 xbmcgui.Dialog().notification(addon_name, 'No scraper sources found', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                 return True
@@ -365,6 +372,15 @@ class TheArchivesScrapers(Plugin):
                         self._play_with_history(url, liz, item, selected_source)
                         return True
                     xbmcgui.Dialog().notification(addon_name, 'Unable to resolve selected magnet with enabled debrid services', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
+                    return True
+
+                if selected_source.get("rd_cloud_link"):
+                    token = ownAddon.getSetting("rd.token") or ""
+                    url = self._resolve_real_debrid_cloud_link(selected_source, token)
+                    if url:
+                        self._play_with_history(url, liz, item, selected_source)
+                        return True
+                    xbmcgui.Dialog().notification(addon_name, 'Unable to resolve selected Real-Debrid cloud file', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                     return True
 
                 if selected_source.get("direct") or self._is_direct_playable_url(source_url):
@@ -603,6 +619,114 @@ class TheArchivesScrapers(Plugin):
 
     def _host_filters(self):
         return []
+
+    def _get_real_debrid_cloud_sources(self, item):
+        if str(ownAddon.getSetting("provider.rd_cloud") or "").lower() != "true":
+            return []
+        if str(ownAddon.getSetting("rd.enabled") or "").lower() != "true":
+            return []
+        token = ownAddon.getSetting("rd.token") or ""
+        if not token:
+            do_log(f'{self.name} - Real-Debrid cloud scraping enabled but token is missing')
+            return []
+        content = str(item.get("content") or "").lower()
+        if content not in ("movie", "episode"):
+            return []
+        try:
+            torrents = self._real_debrid_api_request("get", "torrents?limit=1000", token, timeout=20)
+        except Exception as e:
+            do_log(f'{self.name} - Real-Debrid cloud torrent list failed: {e}')
+            xbmc.log(f'TheArchivesScrapers - Real-Debrid cloud torrent list failed: {e}', getattr(xbmc, 'LOGERROR', 4))
+            return []
+        results = []
+        for torrent in torrents or []:
+            if not isinstance(torrent, dict):
+                continue
+            status = str(torrent.get("status") or "").lower()
+            if status and status != "downloaded":
+                continue
+            torrent_id = torrent.get("id")
+            if not torrent_id:
+                continue
+            try:
+                info = self._real_debrid_api_request("get", f"torrents/info/{torrent_id}", token, timeout=20)
+                results.extend(self._real_debrid_cloud_sources_from_torrent(item, torrent, info))
+            except Exception as e:
+                do_log(f'{self.name} - Real-Debrid cloud torrent {torrent_id} failed: {e}')
+        if results:
+            xbmc.log(f'TheArchivesScrapers - Real-Debrid cloud returned {len(results)} playable sources', getattr(xbmc, 'LOGINFO', 1))
+        return results
+
+    def _real_debrid_cloud_sources_from_torrent(self, media_item, torrent, info):
+        if not isinstance(info, dict):
+            return []
+        links = info.get("links") or []
+        files = info.get("files") or []
+        selected_files = [file_item for file_item in files if file_item.get("selected", 1)]
+        torrent_name = torrent.get("filename") or info.get("filename") or ""
+        results = []
+        for index, file_item in enumerate(selected_files):
+            if index >= len(links):
+                break
+            file_path = file_item.get("path") or ""
+            if not self._is_video_file(file_path):
+                continue
+            combined_name = f"{torrent_name} {file_path}"
+            if not self._real_debrid_cloud_file_matches(media_item, combined_name):
+                continue
+            size = file_item.get("bytes") or 0
+            name = os.path.basename(file_path.strip("/\\")) or file_path or torrent_name or "Real-Debrid Cloud"
+            results.append({
+                "provider": "Real-Debrid Cloud",
+                "origin": "Real-Debrid Cloud",
+                "source": "cloud",
+                "quality": self._quality_from_name(combined_name),
+                "info": self._format_size(size),
+                "size": size,
+                "name": name,
+                "url": links[index],
+                "rd_cloud_link": links[index],
+                "rd_cloud_torrent_id": torrent.get("id") or info.get("id"),
+                "direct": False,
+                "debrid_cached": True,
+                "debrid_service": "Real-Debrid",
+                "cached_service_id": "rd",
+            })
+        return results
+
+    def _real_debrid_cloud_file_matches(self, item, filename):
+        content = str(item.get("content") or "").lower()
+        normalized_name = self._normalize_match_text(filename)
+        if content == "episode":
+            try:
+                season = int(item.get("season") or 0)
+                episode = int(item.get("episode") or 0)
+            except Exception:
+                return False
+            if not season or not episode:
+                return False
+            episode_pattern = re.compile(r"(?:s%02de%02d|s%de%d|%dx%02d|%dx%d)" % (season, episode, season, episode, season, episode, season, episode), re.I)
+            if not episode_pattern.search(filename):
+                return False
+            show = self._normalize_match_text(item.get("tv_show_title") or item.get("title") or "")
+            return not show or show in normalized_name
+        title = self._normalize_match_text(item.get("title") or "")
+        if not title:
+            return True
+        return title in normalized_name
+
+    def _normalize_match_text(self, value):
+        return re.sub(r"[^a-z0-9]+", "", str(value or "").lower())
+
+    def _quality_from_name(self, name):
+        value = str(name or "").lower()
+        if "2160" in value or "4k" in value:
+            return "4K"
+        if "1080" in value:
+            return "1080p"
+        if "720" in value:
+            return "720p"
+        return "SD"
 
     def _get_easynews_sources(self, item):
         if str(ownAddon.getSetting("provider.easynews") or "").lower() != "true":
@@ -1206,9 +1330,8 @@ class TheArchivesScrapers(Plugin):
         if not client_id or not client_secret or not refresh_token:
             do_log(f'{self.name} - Real-Debrid token refresh skipped; missing OAuth credentials')
             return ""
-        import requests
-        response = requests.post(
-            "https://api.real-debrid.com/oauth/v2/token",
+        response = self._real_debrid_session().post(
+            self._real_debrid_base_url("oauth") + "token",
             data={
                 "client_id": client_id,
                 "client_secret": client_secret,
@@ -1230,17 +1353,45 @@ class TheArchivesScrapers(Plugin):
             ownAddon.setSetting("rd.refresh", data.get("refresh_token", ""))
         return data.get("access_token", "")
 
-    def _real_debrid_api_request(self, method, endpoint, token, data=None, timeout=30, retry=True):
-        import requests
+    def _real_debrid_base_url(self, area="rest"):
+        alternate = str(ownAddon.getSetting("rd.alternate_api") or "").lower() == "true"
+        host = "app.real-debrid.com" if alternate else "api.real-debrid.com"
+        if area == "oauth":
+            return f"https://{host}/oauth/v2/"
+        return f"https://{host}/rest/1.0/"
 
-        base_url = "https://api.real-debrid.com/rest/1.0/"
+    def _real_debrid_session(self):
+        global _REAL_DEBRID_SESSION
+        if _REAL_DEBRID_SESSION is not None:
+            return _REAL_DEBRID_SESSION
+        import requests
+        from requests.adapters import HTTPAdapter
+        try:
+            from urllib3.util.retry import Retry
+        except ImportError:
+            from requests.packages.urllib3.util.retry import Retry
+
+        session = requests.Session()
+        retries = Retry(total=5, backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
+        adapter = HTTPAdapter(max_retries=retries, pool_maxsize=100)
+        session.mount("https://api.real-debrid.com", adapter)
+        session.mount("https://app.real-debrid.com", adapter)
+        _REAL_DEBRID_SESSION = session
+        return _REAL_DEBRID_SESSION
+
+    def _real_debrid_api_request(self, method, endpoint, token, data=None, timeout=30, retry=True):
+        base_url = self._real_debrid_base_url("rest")
         current_token = ownAddon.getSetting("rd.token") or token
         headers = {"Authorization": f"Bearer {current_token}"}
-        request = getattr(requests, method.lower())
         kwargs = {"headers": headers, "timeout": timeout}
         if data is not None:
             kwargs["data"] = data
-        response = request(base_url + endpoint, **kwargs)
+        try:
+            response = self._real_debrid_session().request(method.lower(), base_url + endpoint, **kwargs)
+        except Exception as e:
+            raise RealDebridApiError(str(e))
+        if "Temporarily Down For Maintenance" in getattr(response, "text", ""):
+            raise RealDebridApiError("Real-Debrid Temporarily Down For Maintenance")
         try:
             payload = response.json()
         except Exception:
@@ -1255,6 +1406,36 @@ class TheArchivesScrapers(Plugin):
             message = payload.get("error") if isinstance(payload, dict) else getattr(response, "text", "")
             raise RealDebridApiError(message or f"HTTP {status_code}", status_code, error_code)
         return payload
+
+    def _real_debrid_ensure_available_slot(self, token):
+        try:
+            active_count = self._real_debrid_api_request("get", "torrents/activeCount", token, timeout=15)
+        except RealDebridApiError as e:
+            do_log(f'{self.name} - Real-Debrid active count check failed: {e}')
+            return True
+        if not isinstance(active_count, dict):
+            return True
+        try:
+            active_total = int(active_count.get("nb", 0))
+            active_limit = int(active_count.get("limit", 0))
+        except Exception:
+            return True
+        if active_limit <= 0 or active_total < active_limit:
+            return True
+        active_hashes = active_count.get("list") or []
+        if not active_hashes:
+            raise RealDebridApiError("Real-Debrid active torrent limit reached")
+        torrents = self._real_debrid_api_request("get", "torrents/", token, timeout=15)
+        if isinstance(torrents, list):
+            active_hashes = [str(item).lower() for item in active_hashes]
+            for torrent in torrents:
+                torrent_hash = str(torrent.get("hash", "")).lower()
+                torrent_id = torrent.get("id")
+                if torrent_id and torrent_hash in active_hashes:
+                    do_log(f'{self.name} - Real-Debrid active limit reached; deleting active torrent {torrent_id}')
+                    self._real_debrid_api_request("delete", f"torrents/delete/{torrent_id}", token, timeout=15)
+                    return True
+        raise RealDebridApiError("Real-Debrid active torrent limit reached")
 
     def _resolve_premiumize_magnet(self, source_item, media_item, token):
         import requests
@@ -1273,9 +1454,33 @@ class TheArchivesScrapers(Plugin):
             return link + "|" + urlencode({"User-Agent": "The Archives", "Authorization": f"Bearer {token}"})
         return None
 
+    def _resolve_real_debrid_cloud_link(self, source_item, token):
+        cloud_link = source_item.get("rd_cloud_link") or source_item.get("url")
+        if not cloud_link:
+            return None
+        unrestricted = self._real_debrid_api_request("post", "unrestrict/link", token, data={"link": cloud_link}, timeout=30)
+        return self._real_debrid_unrestricted_download(unrestricted)
+
+    def _real_debrid_unrestricted_download(self, unrestricted):
+        if not isinstance(unrestricted, dict):
+            return None
+        download_url = unrestricted.get("download")
+        if download_url and download_url.lower().endswith((".rar", ".zip")):
+            raise RealDebridApiError(f"Real-Debrid returned an archive download: {download_url}")
+        if download_url:
+            download_path = download_url.split("?", 1)[0].lower()
+            if not download_path.endswith(self._video_extensions()):
+                raise RealDebridApiError(f"Real-Debrid returned unsupported file extension: {download_url}")
+        return download_url
+
     def _resolve_real_debrid_magnet(self, source_item, media_item, token):
+        with REAL_DEBRID_MAGNET_SEMAPHORE:
+            return self._resolve_real_debrid_magnet_locked(source_item, media_item, token)
+
+    def _resolve_real_debrid_magnet_locked(self, source_item, media_item, token):
         torrent_id = None
         try:
+            self._real_debrid_ensure_available_slot(token)
             added = self._real_debrid_api_request(
                 "post",
                 "torrents/addMagnet",
@@ -1315,10 +1520,7 @@ class TheArchivesScrapers(Plugin):
                 data={"link": file_item.get("link")},
                 timeout=30,
             )
-            download_url = unrestricted.get("download")
-            if download_url and download_url.lower().endswith((".rar", ".zip")):
-                raise RealDebridApiError(f"Real-Debrid returned an archive download: {download_url}")
-            return download_url
+            return self._real_debrid_unrestricted_download(unrestricted)
         finally:
             if torrent_id:
                 try:
@@ -1439,7 +1641,10 @@ class TheArchivesScrapers(Plugin):
         return sorted(valid_files, key=lambda item: self._size_as_int(item.get(size_key)), reverse=True)[0]
 
     def _is_video_file(self, filename):
-        return str(filename or "").lower().split("?", 1)[0].endswith((".mkv", ".mp4", ".avi", ".mov", ".m4v", ".ts", ".wmv", ".flv", ".webm"))
+        return str(filename or "").lower().split("?", 1)[0].endswith(self._video_extensions())
+
+    def _video_extensions(self):
+        return (".mkv", ".mp4", ".avi", ".mov", ".m4v", ".ts", ".wmv", ".flv", ".webm")
 
     def _size_as_int(self, value):
         try:

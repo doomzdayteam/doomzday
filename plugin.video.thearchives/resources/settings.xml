@@ -55,9 +55,10 @@
     <setting id="rd.client_id" type="text" label="Client ID" visible="false" default="" />
     <setting id="rd.secret" type="text" label="Client Secret" visible="false" default="" />
     <setting id="rd.refresh" type="text" label="Refresh Token" visible="false" default="" />
-    <setting id="provider.rd_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-6,true)" default="false" />
-    <setting id="rd.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-7,true)" default="false" />
-    <setting id="rd.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-8,true)" option="int" default="10" />
+    <setting id="rd.alternate_api" type="bool" label="[COLOR khaki]    Alternate API Host[/COLOR]" subsetting="true" visible="eq(-7,true)" default="false" />
+    <setting id="provider.rd_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-8,true)" default="false" />
+    <setting id="rd.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-9,true)" default="false" />
+    <setting id="rd.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-10,true)" option="int" default="10" />
     <setting id="lsep.2" type="lsep" label="" />
     <setting id="pm.enabled" type="bool" label="[B][COLOR white]PREMIUMIZE[/COLOR][/B]" default="false" />
     <setting id="pm.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/pm)" />
