@@ -321,7 +321,7 @@ class TMDB_API:
         elif media_type == 'episode':
             premiered = items.get('air_date', '')
         
-        genre = [genra.get('name') for genra in items.get('genres')] if items.get('genres') else ''
+        genre = [genre.get('name') for genre in items.get('genres', []) if genre.get('name')]
           
         try:
             mpaa = ''
@@ -334,40 +334,34 @@ class TMDB_API:
         except KeyError:
             mpaa = ''
         
+        director = []
+        writer = []
         try:
             if media_type == 'episode':
                 crew = items['crew']
             else:
                 crew = items['credits']['crew']
-            director = []
-            writer = []
             for job in crew:
-                if job['job'] == 'Director':
+                if job.get('job') == 'Director':
                     director.append(job['name'])
-                if job['job'] == 'Writer' or job['job'] == 'Screenplay' or job['department'] == 'Writing':
+                if job.get('job') == 'Writer' or job.get('job') == 'Screenplay' or job.get('department') == 'Writing':
                     writer.append(job['name'])
         except KeyError:
-            director = ''
-            writer = ''
+            pass
         
         rating = items.get('vote_average', 0)
         
         votes = items.get('vote_count', 0) or 0
         
-        try:
-            if media_type == 'movie':
-                studio = [studio['name'] for studio in items['production_companies']]
-            else:
-                studio = [studio['name'] for studio in items['networks']]
-                for company in items['production_companies']:
+        if media_type == 'movie':
+            studio = [studio['name'] for studio in items.get('production_companies', []) if studio.get('name')]
+        else:
+            studio = [studio['name'] for studio in items.get('networks', []) if studio.get('name')]
+            for company in items.get('production_companies', []):
+                if company.get('name'):
                     studio.append(company['name'])
-        except KeyError:
-            studio = ''
-        
-        try:
-            country = [country['name'] for country in items['production_countries']]
-        except KeyError:
-            country = ''
+
+        country = [country['name'] for country in items.get('production_countries', []) if country.get('name')]
         
         if items.get('belongs_to_collection'):
             _set = items['belongs_to_collection'].get('name', '')
@@ -530,4 +524,3 @@ class TMDB(Plugin):
             return None
 
 tmdb_api = TMDB_API()
-

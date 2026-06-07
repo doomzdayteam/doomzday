@@ -373,10 +373,11 @@ class Trakt_API:
         cast = tmdb.get_cast(r)
         poster_path = tmdb.image_url + r["poster_path"] if r.get("poster_path") else ""
         backdrop_path = tmdb.image_url + r["backdrop_path"] if r.get("backdrop_path") else ""
+        show_imdb = show.get("ids", {}).get("imdb") or ""
         return {
             "title": show["title"],
             "content": "tv",
-            "link": f"trakt/seasons/{show['ids']['trakt']}::{show['ids']['tmdb']}::{show['title']}",
+            "link": f"trakt/seasons/{show['ids']['trakt']}::{show['ids']['tmdb']}::{show['title']}::{show.get('year') or ''}::{show_imdb}",
             "summary": show["overview"],
             "tmdb_id": show["ids"]["tmdb"],
             "imdb_id": show["ids"]["imdb"],
@@ -409,22 +410,38 @@ class Trakt_API:
     def handle_episodes_xml(self, show, season):
         tmdb = TMDB_API()
         jen_list = []
+        show_parts = show.split("::")
+        show_tmdb = show_parts[1] if len(show_parts) > 1 else ""
+        show_title = show_parts[2] if len(show_parts) > 2 else ""
+        show_year = show_parts[3] if len(show_parts) > 3 else ""
+        show_imdb = show_parts[4] if len(show_parts) > 4 else ""
+        if not show_imdb and show_tmdb:
+            try:
+                show_imdb = (tmdb.get(f"tv/{show_tmdb}/external_ids") or {}).get("imdb_id") or ""
+            except Exception:
+                show_imdb = ""
         for episode in season:
-            r = tmdb.get(f"tv/{show.split('::')[1]}/season/{episode['season']}/episode/{episode['number']}", full_meta=ownAddon.getSettingBool("full_meta"))
+            r = tmdb.get(f"tv/{show_tmdb}/season/{episode['season']}/episode/{episode['number']}", full_meta=ownAddon.getSettingBool("full_meta"))
             infolabels = tmdb.get_infolabels(r, media_type="tvshow")
             cast = tmdb.get_cast(r)
             still_path = tmdb.image_url + r["still_path"] if r.get("still_path") else ""
+            first_aired = episode.get("first_aired") or ""
+            premiered = first_aired.split("T")[0] if first_aired else "2000-01-01"
+            year = show_year or premiered.split("-")[0]
+            episode_imdb = episode.get("ids", {}).get("imdb") or ""
             
             jen_list.append({
                 "title": episode["title"],
                 "summary": episode['overview'] if episode["overview"] else "N/A",
                 "content": "episode",
                 "tmdb_id": episode["ids"]["tmdb"],
-                "imdb_id": episode["ids"]["imdb"],
+                "imdb_id": show_imdb or episode_imdb,
+                "episode_imdb_id": episode_imdb,
                 "season": episode['season'],
                 "episode": episode['number'],
-                "premiered": (episode["first_aired"] if episode["first_aired"] else "2000-01-01").split("-")[0],
-                "tv_show_title": show.split("::")[2],
+                "premiered": premiered,
+                "year": int(year) if str(year).isdigit() else 0,
+                "tv_show_title": show_title,
                 "infolabels": infolabels,
                 "cast": cast,
                 "thumbnail": still_path,
