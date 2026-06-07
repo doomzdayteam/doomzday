@@ -81,8 +81,39 @@ class TheArchivesScrapers(Plugin):
     description = "Scrape with chosen Scraper Module"
     priority = 121
 
-    def _play_with_history(self, url, liz, item):
-       
+    def _is_debrid_source(self, source_item):
+        if not isinstance(source_item, dict):
+            return False
+        return bool(
+            source_item.get("debrid_cached")
+            or source_item.get("debrid_uncached")
+            or source_item.get("debrid_service")
+            or source_item.get("cached_service_id")
+        )
+
+    def _is_easynews_source(self, source_item):
+        if not isinstance(source_item, dict):
+            return False
+        values = (
+            source_item.get("provider"),
+            source_item.get("origin"),
+            source_item.get("source"),
+            source_item.get("debrid_service"),
+        )
+        return any("easynews" in str(value or "").lower() for value in values)
+
+    def _uses_history(self, source_item):
+        return self._is_debrid_source(source_item) or self._is_easynews_source(source_item)
+
+    def _play_with_history(self, url, liz, item, source_item=None):
+        if not self._uses_history(source_item):
+            try:
+                liz.setContentLookup(False)
+            except AttributeError:
+                pass
+            xbmc.Player().play(url, liz)
+            return True
+
         try:
             from resources.lib.plugins.history import HistoryPlayer
             return HistoryPlayer(item).play(url, liz)
@@ -331,13 +362,13 @@ class TheArchivesScrapers(Plugin):
                 if self._is_magnet_url(source_url):
                     url = self._resolve_magnet_source(selected_source, item)
                     if url:
-                        self._play_with_history(url, liz, item)
+                        self._play_with_history(url, liz, item, selected_source)
                         return True
                     xbmcgui.Dialog().notification(addon_name, 'Unable to resolve selected magnet with enabled debrid services', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                     return True
 
                 if selected_source.get("direct") or self._is_direct_playable_url(source_url):
-                    self._play_with_history(source_url, liz, item)
+                    self._play_with_history(source_url, liz, item, selected_source)
                     return True
                 else:
                     xbmcgui.Dialog().notification(addon_name, 'Selected source is not directly playable without a resolver', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
@@ -1284,7 +1315,10 @@ class TheArchivesScrapers(Plugin):
                 data={"link": file_item.get("link")},
                 timeout=30,
             )
-            return unrestricted.get("download")
+            download_url = unrestricted.get("download")
+            if download_url and download_url.lower().endswith((".rar", ".zip")):
+                raise RealDebridApiError(f"Real-Debrid returned an archive download: {download_url}")
+            return download_url
         finally:
             if torrent_id:
                 try:

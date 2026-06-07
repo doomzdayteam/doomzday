@@ -10,6 +10,26 @@ default_icon = xbmcaddon.Addon(addon_id).getAddonInfo('icon')
 class default_play_video(Plugin):
     name = "default video playback"
     priority = 0
+
+    def _is_debrid_item(self, item):
+        return bool(
+            item.get("debrid_cached")
+            or item.get("debrid_uncached")
+            or item.get("debrid_service")
+            or item.get("cached_service_id")
+        )
+
+    def _is_easynews_item(self, item):
+        values = (
+            item.get("provider"),
+            item.get("origin"),
+            item.get("source"),
+            item.get("debrid_service"),
+        )
+        return any("easynews" in str(value or "").lower() for value in values)
+
+    def _uses_history(self, item):
+        return self._is_debrid_item(item) or self._is_easynews_item(item)
     
     def play_video(self, item):
         item = json.loads(item)
@@ -25,15 +45,14 @@ class default_play_video(Plugin):
         else:
             set_video_info(liz, {"title": title, "plot": summary})
         liz.setArt({"thumb": thumbnail, "icon": thumbnail, "poster": thumbnail})
-        return self._play_with_history(link, liz, item)
-
-    def _play_with_history(self, url, liz, item):
         try:
-            from resources.lib.plugins.history import HistoryPlayer
-
-            return HistoryPlayer(item).play(url, liz)
-        except Exception as e:
-            xbmc.log(f"[TheArchives] HistoryPlayer error: {e}", xbmc.LOGERROR)
-            import traceback
-            xbmc.log(f"[TheArchives] HistoryPlayer traceback: {traceback.format_exc()}", xbmc.LOGERROR)
-            return xbmc.Player().play(url, liz)
+            liz.setContentLookup(False)
+        except AttributeError:
+            pass
+        if self._uses_history(item):
+            try:
+                from resources.lib.plugins.history import HistoryPlayer
+                return HistoryPlayer(item).play(link, liz)
+            except Exception as e:
+                xbmc.log(f"[TheArchives] HistoryPlayer error: {e}", xbmc.LOGERROR)
+        return xbmc.Player().play(link, liz)

@@ -73,7 +73,7 @@
     <setting id="ad.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/ad)" />
     <setting id="ad.token" type="text" label="Token" visible="false" default="" />
     <setting id="provider.ad_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-4,true)" default="false" />
-    <setting id="ad.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="true" />
+    <setting id="ad.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="false" />
     <setting id="ad.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-6,true)" option="int" default="10" />
     <setting id="lsep.4" type="lsep" label="" />
     <setting id="tb.enabled" type="bool" label="[B][COLOR white]TORBOX[/COLOR][/B]" default="false" />
@@ -81,7 +81,7 @@
     <setting id="tb.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/tb)" />
     <setting id="tb.token" type="text" label="Token" visible="false" default="" />
     <setting id="provider.tb_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-4,true)" default="false" />
-    <setting id="tb.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="true" />
+    <setting id="tb.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="false" />
     <setting id="tb.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-6,true)" option="int" default="10" />
     <setting id="lsep.5" type="lsep" label="" />
     <setting id="provider.easynews" type="bool" label="[B][COLOR white]EASYNEWS[/COLOR][/B]" default="false" />

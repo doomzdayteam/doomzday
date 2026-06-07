@@ -182,6 +182,10 @@ class AudiophileFM(Plugin):
             'icon': thumbnail,
             'fanart': FANART
         })
+        try:
+            liz.setContentLookup(False)
+        except AttributeError:
+            pass
         liz.setProperty('IsPlayable', 'true')
         xbmc.Player().play(stream_url, liz)
         return True

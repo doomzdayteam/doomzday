@@ -51,6 +51,12 @@ SEARCH_PRESETS = {
         "default": "live sports",
         "terms": ["sports", "football", "soccer", "basketball", "mma"],
     },
+    "gaming": {
+        "title": "Live Gaming",
+        "prompt": "Search live gaming",
+        "default": "live gaming",
+        "terms": ["gaming", "gameplay", "esports", "live gaming", "gaming livestream"],
+    },
     "custom": {
         "title": "Search YouTube Live",
         "prompt": "Search YouTube live",
@@ -200,6 +206,14 @@ class YouTubeLive(Plugin):
                 "thumbnail": ADDON_ICON,
                 "fanart": ADDON_FANART,
                 "summary": "Browse active YouTube sports live streams.",
+            },
+            {
+                "type": "dir",
+                "title": "Live Gaming",
+                "link": "youtube-live://live/gaming",
+                "thumbnail": ADDON_ICON,
+                "fanart": ADDON_FANART,
+                "summary": "Browse active YouTube gaming live streams.",
             },
             {
                 "type": "dir",

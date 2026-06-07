@@ -5,6 +5,8 @@ import sys
 from urllib.parse import urlencode
 import xbmc
 import xbmcgui
+import xbmcvfs
+from xbmcaddon import Addon
 from ..plugin import Plugin, run_hook
 from ..DI import DI
 
@@ -17,10 +19,35 @@ def load_ytdlp():
     return yt_dlp
 
 
+def ytdlp_cache_dir():
+    addon_id = Addon().getAddonInfo("id") or "plugin.video.thearchives"
+    special_path = f"special://profile/addon_data/{addon_id}/yt-dlp-cache"
+    try:
+        if hasattr(xbmcvfs, "mkdirs"):
+            xbmcvfs.mkdirs(special_path)
+        else:
+            xbmcvfs.mkdir(special_path)
+    except Exception:
+        pass
+
+    cache_path = xbmcvfs.translatePath(special_path)
+    if isinstance(cache_path, bytes):
+        cache_path = cache_path.decode("utf-8")
+
+    try:
+        os.makedirs(cache_path, exist_ok=True)
+    except Exception as exc:
+        xbmc.log(f"[TheArchives] yt-dlp cache directory unavailable: {exc}", getattr(xbmc, "LOGWARNING", 2))
+        return False
+
+    return cache_path
+
+
 def ytdlp_params(extra=None):
     params = {
         "quiet": True,
         "no_warnings": True,
+        "cachedir": ytdlp_cache_dir(),
         "extractor_args": {
             "youtube": {
                 "player_client": ["mweb"],

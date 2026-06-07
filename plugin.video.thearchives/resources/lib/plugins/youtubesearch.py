@@ -10,6 +10,7 @@ from xbmcaddon import Addon
 from ..plugin import Plugin
 from resources.lib.infotagger.helpers import set_video_info
 from ..DI import DI
+from .youtube_live_core import clean_stream_url, extract_search_results
 
 FANART = Addon().getAddonInfo('fanart')
 
@@ -83,50 +84,37 @@ class YouTubeSearch(Plugin):
     def _message_response(title: str, summary: str = '') -> str:
         return json.dumps({'_yt_route': 'message', 'title': title, 'summary': summary})
 
-    def _ytdlp_search(self, query: str, limit: int = 50) -> list:
-        from .youtube import load_ytdlp, ytdlp_params
-
-        yt_dlp = load_ytdlp()
-        params = ytdlp_params({
-            'cachedir': False,
-            'extract_flat': 'in_playlist',
-            'noplaylist': True,
-        })
-        with yt_dlp.YoutubeDL(params) as ydl:
-            info = ydl.extract_info(f'ytsearch{limit}:{query}', download=False)
-        return info.get('entries', [])
-
-    def _ytdlp_url_entries(self, url: str, limit: int = 50) -> list:
-        from .youtube import load_ytdlp, ytdlp_params
-
-        yt_dlp = load_ytdlp()
-        params = ytdlp_params({
-            'cachedir': False,
-            'extract_flat': 'in_playlist',
-            'noplaylist': False,
-            'playlistend': limit,
-        })
-        with yt_dlp.YoutubeDL(params) as ydl:
-            info = ydl.extract_info(url, download=False)
-        return info.get('entries', [])
-
-    def _fallback_items(
+    def _html_search_items(
             self,
             query: str,
             limit: int,
             failure_title: str,
-            failure_summary: str = '') -> List[Dict[str, str]]:
+            failure_summary: str = '',
+            sp: str = '') -> List[Dict[str, str]]:
+        params = {'search_query': query}
+        if sp:
+            params['sp'] = sp
         try:
-            entries = self._ytdlp_search(query, limit)
+            response = self.session.get(
+                f'{self.base_url}/results',
+                params=params,
+                headers={
+                    'User-Agent': self.user_agent,
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                },
+                timeout=15)
+            if hasattr(response, 'raise_for_status'):
+                response.raise_for_status()
+            entries = extract_search_results(getattr(response, 'text', '') or '', limit)
         except Exception as exc:
             summary = str(exc)
             if failure_summary:
-                summary = f'{failure_summary}; yt-dlp fallback failed: {summary}'
+                summary = f'{failure_summary}; YouTube HTML fallback failed: {summary}'
             return [self._message_item(failure_title, summary)]
 
         items = []
         for entry in entries:
-            item = self._ytdlp_entry_to_item(entry)
+            item = self._html_entry_to_item(entry)
             if item:
                 items.append(item)
 
@@ -318,7 +306,7 @@ class YouTubeSearch(Plugin):
             for video in popular[:20]:
                 itemlist.append(self._video_to_item(video))
         except Exception:
-            itemlist.extend(self._fallback_items(
+            itemlist.extend(self._html_search_items(
                 'popular videos today',
                 20,
                 'YouTube popular failed'))
@@ -335,7 +323,7 @@ class YouTubeSearch(Plugin):
                 'sort_by': 'relevance',
             })
         except Exception as exc:
-            return self._fallback_items(
+            return self._html_search_items(
                 query,
                 50,
                 'YouTube search failed',
@@ -381,18 +369,33 @@ class YouTubeSearch(Plugin):
         return itemlist
 
     def _parse_channel_search(self, query: str) -> List[Dict[str, str]]:
-       
-        url = f'{self.base_url}/results?search_query={quote(query)}&sp=EgIQAg%253D%253D'
         try:
-            entries = self._ytdlp_url_entries(url)
+            results = self._api_get('/search', params={
+                'q': query,
+                'type': 'channel',
+                'sort_by': 'relevance',
+            })
         except Exception as exc:
-            return [self._message_item('YouTube channel search failed', str(exc))]
+            return self._html_channel_search_items(query, str(exc))
 
         itemlist = []
-        for entry in entries:
-            item = self._ytdlp_channel_to_item(entry)
-            if item:
-                itemlist.append(item)
+        for item in results:
+            if item.get('type') != 'channel':
+                continue
+            thumbs = item.get('authorThumbnails', [])
+            thumbnail = self._best_thumbnail(thumbs)
+            sub_count = item.get('subCount', 0)
+            title = item.get('author', 'Unknown Channel')
+            desc = f'{self._format_views(sub_count).replace(" views", " subscribers")}'
+            itemlist.append({
+                'type': 'dir',
+                'title': f'[COLOR deepskyblue]{title}[/COLOR]',
+                'link': self._make_channel_link(
+                    f'{self.base_url}/channel/{item.get("authorId", "")}/videos',
+                    item.get('authorId', '')),
+                'thumbnail': thumbnail,
+                'summary': desc,
+            })
 
         if not itemlist:
             return [self._message_item('No YouTube channels found', query)]
@@ -400,23 +403,11 @@ class YouTubeSearch(Plugin):
         return itemlist
 
     def _parse_live(self, query: str = 'live streams now') -> List[Dict[str, str]]:
-        
-        url = f'{self.base_url}/results?search_query={quote(query)}&sp=EgJAAQ%253D%253D'
-        try:
-            entries = self._ytdlp_url_entries(url)
-        except Exception as exc:
-            return [self._message_item('YouTube live search failed', str(exc))]
-
-        itemlist = []
-        for entry in entries:
-            item = self._ytdlp_entry_to_item(entry)
-            if item:
-                itemlist.append(item)
-
-        if not itemlist:
-            return [self._message_item('No YouTube live streams found', query)]
-
-        return itemlist
+        return self._html_search_items(
+            query,
+            50,
+            'YouTube live search failed',
+            sp='EgJAAQ==')
 
     def _parse_trending(self, category: str = '') -> List[Dict[str, str]]:
        
@@ -429,7 +420,7 @@ class YouTubeSearch(Plugin):
             trending = self._api_get('/trending', params=params)
         except Exception as exc:
             query = f'trending {category} videos' if category else 'trending videos today'
-            return self._fallback_items(
+            return self._html_search_items(
                 query,
                 50,
                 'YouTube trending failed',
@@ -532,15 +523,10 @@ class YouTubeSearch(Plugin):
         if feed_items:
             return feed_items
 
-        try:
-            entries = self._ytdlp_url_entries(channel_url)
-        except Exception as exc:
-            summary = str(exc)
-            if failure_summary:
-                summary = f'{failure_summary}; yt-dlp channel fallback failed: {summary}'
-            return [self._message_item('YouTube channel failed', summary)]
-
-        itemlist = self._channel_entries_to_items(entries, channel_url)
+        itemlist = self._html_video_items_from_url(
+            self._normalize_channel_url(channel_url),
+            'YouTube channel failed',
+            failure_summary)
 
         if not itemlist:
             return [self._message_item('No YouTube channel videos found', channel_url)]
@@ -686,7 +672,7 @@ class YouTubeSearch(Plugin):
             'is_playable': 'true',
         }
 
-    def _ytdlp_entry_to_item(self, entry: dict) -> Optional[Dict[str, str]]:
+    def _html_entry_to_item(self, entry: dict) -> Optional[Dict[str, str]]:
         
         video_id = entry.get('id', '')
         if not re.fullmatch(r'[^"&?/\s]{11}', video_id or ''):
@@ -703,7 +689,7 @@ class YouTubeSearch(Plugin):
             return None
 
         title = entry.get('title') or 'Untitled'
-        author = entry.get('uploader') or entry.get('channel') or ''
+        author = entry.get('uploader') or entry.get('channel') or entry.get('author') or ''
         thumbnail = entry.get('thumbnail') or ''
         if not thumbnail:
             thumbs = entry.get('thumbnails') or []
@@ -726,46 +712,107 @@ class YouTubeSearch(Plugin):
             'is_playable': 'true',
         }
 
-    def _ytdlp_channel_to_item(self, entry: dict) -> Optional[Dict[str, str]]:
-        
-        channel_url = entry.get('url') or entry.get('webpage_url') or ''
-        channel_id = entry.get('channel_id') or entry.get('id') or ''
+    def _decode_json_text(self, value: str) -> str:
+        try:
+            return clean_stream_url(json.loads('"%s"' % value))
+        except Exception:
+            return clean_stream_url(value)
 
-        if '/channel/' in channel_url:
-            channel_id = channel_url.rstrip('/').split('/channel/')[-1].split('/')[0]
-        elif channel_id.startswith('UC'):
-            channel_url = f'{self.base_url}/channel/{channel_id}'
-        elif channel_url.startswith('/'):
-            channel_url = f'{self.base_url}{channel_url}'
+    def _extract_channel_search_results(self, html: str, limit: int = 30) -> List[Dict[str, str]]:
+        results = []
+        seen = set()
+        for match in re.finditer(r'"channelRenderer"\s*:\s*\{\s*"channelId"\s*:\s*"(UC[^"]+)"', html or ''):
+            channel_id = match.group(1)
+            if channel_id in seen:
+                continue
+            seen.add(channel_id)
+            block = html[match.start():match.start() + 5000]
+            title_match = re.search(
+                r'"title"\s*:\s*\{\s*"simpleText"\s*:\s*"((?:\\.|[^"\\])*)"',
+                block)
+            if not title_match:
+                title_match = re.search(
+                    r'"title"\s*:\s*\{\s*"runs"\s*:\s*\[\s*\{\s*"text"\s*:\s*"((?:\\.|[^"\\])*)"',
+                    block)
+            thumbnail_match = re.search(r'"thumbnail"\s*:\s*\{.*?"url"\s*:\s*"((?:\\.|[^"\\])*)"', block)
+            subscriber_match = re.search(r'"subscriberCountText".*?"simpleText"\s*:\s*"((?:\\.|[^"\\])*)"', block)
+            title = self._decode_json_text(title_match.group(1)) if title_match else 'YouTube Channel'
+            thumbnail = self._decode_json_text(thumbnail_match.group(1)) if thumbnail_match else ''
+            summary = self._decode_json_text(subscriber_match.group(1)) if subscriber_match else ''
+            results.append({
+                'id': channel_id,
+                'title': title,
+                'thumbnail': thumbnail,
+                'summary': summary,
+            })
+            if len(results) >= limit:
+                break
+        return results
 
-        if not channel_url and channel_id:
-            channel_url = f'{self.base_url}/channel/{channel_id}'
-        if not channel_url:
-            return None
+    def _html_channel_search_items(
+            self,
+            query: str,
+            failure_summary: str = '') -> List[Dict[str, str]]:
+        try:
+            response = self.session.get(
+                f'{self.base_url}/results',
+                params={
+                    'search_query': query,
+                    'sp': 'EgIQAg==',
+                },
+                headers={
+                    'User-Agent': self.user_agent,
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                },
+                timeout=15)
+            if hasattr(response, 'raise_for_status'):
+                response.raise_for_status()
+            channels = self._extract_channel_search_results(getattr(response, 'text', '') or '')
+        except Exception as exc:
+            summary = str(exc)
+            if failure_summary:
+                summary = f'{failure_summary}; YouTube HTML fallback failed: {summary}'
+            return [self._message_item('YouTube channel search failed', summary)]
 
-        title = entry.get('title') or entry.get('channel') or 'YouTube Channel'
-        thumbnail = entry.get('thumbnail') or ''
-        if not thumbnail:
-            thumbs = entry.get('thumbnails') or []
-            if thumbs:
-                thumbnail = thumbs[-1].get('url', '')
+        itemlist = []
+        for channel in channels:
+            itemlist.append({
+                'type': 'dir',
+                'title': f'[COLOR deepskyblue]{channel.get("title", "YouTube Channel")}[/COLOR]',
+                'link': self._make_channel_link('', channel.get('id', '')),
+                'thumbnail': channel.get('thumbnail', ''),
+                'summary': channel.get('summary', ''),
+            })
+        return itemlist or [self._message_item('No YouTube channels found', query)]
 
-        sub_count = (
-            entry.get('channel_follower_count') or
-            entry.get('subscriber_count') or
-            entry.get('view_count') or
-            0
-        )
-        summary = self._format_views(sub_count).replace(' views', ' subscribers')
-        link = self._make_channel_link(channel_url, channel_id)
+    def _html_video_items_from_url(
+            self,
+            url: str,
+            failure_title: str,
+            failure_summary: str = '') -> List[Dict[str, str]]:
+        try:
+            response = self.session.get(
+                url,
+                headers={
+                    'User-Agent': self.user_agent,
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                },
+                timeout=15)
+            if hasattr(response, 'raise_for_status'):
+                response.raise_for_status()
+            entries = extract_search_results(getattr(response, 'text', '') or '', 50)
+        except Exception as exc:
+            summary = str(exc)
+            if failure_summary:
+                summary = f'{failure_summary}; YouTube HTML fallback failed: {summary}'
+            return [self._message_item(failure_title, summary)]
 
-        return {
-            'type': 'dir',
-            'title': f'[COLOR deepskyblue]{title}[/COLOR]',
-            'link': link,
-            'thumbnail': thumbnail,
-            'summary': summary,
-        }
+        items = []
+        for entry in entries:
+            item = self._html_entry_to_item(entry)
+            if item:
+                items.append(item)
+        return items
 
     def _make_channel_link(self, channel_url: str = '', channel_id: str = '') -> str:
         if not channel_url and channel_id:
@@ -798,46 +845,6 @@ class YouTubeSearch(Plugin):
             path = f'{path}/videos'
 
         return f'{parsed.scheme or "https"}://{netloc}{path}'
-
-    def _channel_entries_to_items(
-            self,
-            entries: list,
-            source_url: str,
-            depth: int = 0) -> List[Dict[str, str]]:
-        itemlist = []
-        follow_urls = []
-
-        for entry in entries:
-            if not entry:
-                continue
-
-            nested = entry.get('entries') or []
-            if nested:
-                itemlist.extend(self._channel_entries_to_items(nested, source_url, depth + 1))
-
-            item = self._ytdlp_entry_to_item(entry)
-            if item:
-                itemlist.append(item)
-                continue
-
-            candidate = entry.get('url') or entry.get('webpage_url') or ''
-            if candidate and candidate != source_url:
-                follow_urls.append(candidate)
-
-        if itemlist or depth >= 1:
-            return itemlist
-
-        for follow_url in follow_urls[:3]:
-            try:
-                next_url = self._normalize_channel_url(follow_url)
-                next_entries = self._ytdlp_url_entries(next_url)
-                itemlist.extend(self._channel_entries_to_items(next_entries, next_url, depth + 1))
-            except Exception:
-                continue
-            if itemlist:
-                break
-
-        return itemlist
 
 
 

@@ -554,15 +554,15 @@ class ArchiveOrg(Plugin):
 
         if ext in AUDIO_EXTS:
             set_video_info(liz, {'title': item.split('/')[-1]})
-            try:
-                liz.setContentLookup(False)
-            except AttributeError:
-                pass
         elif ext in VIDEO_EXTS:
             set_video_info(liz, {'title': item.split('/')[-1]})
             liz.setMimeType(f'video/{ext}')
 
         liz.setProperty('IsPlayable', 'true')
+        try:
+            liz.setContentLookup(False)
+        except AttributeError:
+            pass
         xbmc.Player().play(item, liz)
         return True
 
