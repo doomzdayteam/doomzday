@@ -75,8 +75,14 @@
         {
             "type": "dir",
             "title": "Genres",
-            "link": "file://moviegenres.json",
+            "link": "tmdb/genres/movie",
             "summary": "Movie genres"
+        },
+        {
+            "type": "dir",
+            "title": "Recent Searches",
+            "link": "tmdb/recent_searches/movie",
+            "summary": "Saved movie search words"
         },
         {
             "type": "dir",

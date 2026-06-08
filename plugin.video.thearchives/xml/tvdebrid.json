@@ -63,8 +63,14 @@
         {
             "type": "dir",
             "title": "Genres",
-            "link": "file://tvgenres.json",
+            "link": "tmdb/genres/tv",
             "summary": "TV show genres"
+        },
+        {
+            "type": "dir",
+            "title": "Recent Searches",
+            "link": "tmdb/recent_searches/tv",
+            "summary": "Saved TV search words"
         },
         {
             "type": "dir",

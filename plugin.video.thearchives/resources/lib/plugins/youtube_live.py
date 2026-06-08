@@ -12,7 +12,6 @@ from resources.lib.infotagger.helpers import set_video_info
 from .youtube_live_core import (
     DEFAULT_USER_AGENT,
     extract_search_results,
-    parse_channel_text,
     resolve_live_hls,
 )
 
@@ -20,23 +19,6 @@ from .youtube_live_core import (
 ADDON = xbmcaddon.Addon()
 ADDON_ICON = ADDON.getAddonInfo("icon")
 ADDON_FANART = ADDON.getAddonInfo("fanart")
-
-DEFAULT_CHANNELS = """## FORMAT: <channel name> || <channel id> || <category>
-Sky News || SkyNews.yt || News
-https://www.youtube.com/watch?v=9Auq9mYxFEE
-
-France 24 English || France24En.yt || News
-https://www.youtube.com/watch?v=tkDUSYHoKxE
-
-ABC News US || ABCNewsUS.yt || News
-https://www.youtube.com/watch?v=OOtxXPaQvoM
-
-Al Jazeera English || AlJazeera.yt || News
-https://www.youtube.com/watch?v=gCNeDWCI0vo
-
-DW News || DWNews.yt || News
-https://www.youtube.com/watch?v=pqabxBKzZ6M
-"""
 
 SEARCH_PRESETS = {
     "news": {
@@ -103,17 +85,6 @@ class YouTubeLive(Plugin):
         if path in ("", "root"):
             return json.dumps({"kind": "root"})
 
-        if path == "pinned":
-            return json.dumps({"kind": "pinned", "channels": self._load_channels()})
-
-        if path.startswith("category/"):
-            category = unquote(path.split("/", 1)[1])
-            channels = [
-                channel for channel in self._load_channels()
-                if channel.get("category") == category
-            ]
-            return json.dumps({"kind": "channels", "channels": channels})
-
         if path.startswith("search/"):
             preset = path.split("/", 1)[1]
             return json.dumps({"kind": "search", "preset": preset, "items": self._search(preset)})
@@ -133,10 +104,6 @@ class YouTubeLive(Plugin):
 
         if kind == "root":
             return self._root_items()
-        if kind == "pinned":
-            return self._category_items(data.get("channels") or [])
-        if kind == "channels":
-            return [self._channel_item(channel) for channel in data.get("channels") or []]
         if kind == "live":
             preset = data.get("preset", "")
             title = SEARCH_PRESETS.get(preset, {}).get("title", "Live Streams")
@@ -224,46 +191,6 @@ class YouTubeLive(Plugin):
                 "summary": "Search for any live stream by keyword.",
             },
         ]
-
-    def _category_items(self, channels):
-        categories = sorted({channel.get("category") or "Uncategorized" for channel in channels})
-        if not categories:
-            return [_message_item("No pinned channels", "Add channels to xml/youtube_live_channels.txt.")]
-        return [
-            {
-                "type": "dir",
-                "title": category,
-                "link": "youtube-live://category/%s" % quote(category),
-                "thumbnail": ADDON_ICON,
-                "fanart": ADDON_FANART,
-                "summary": "Pinned YouTube live channels in %s." % category,
-            }
-            for category in categories
-        ]
-
-    def _channel_item(self, channel):
-        title = channel.get("title") or "YouTube Live"
-        url = channel.get("url") or ""
-        return {
-            "type": "item",
-            "title": title,
-            "link": "youtube-live-play://%s" % quote(url, safe=""),
-            "youtube_live_url": url,
-            "thumbnail": channel.get("thumbnail") or ADDON_ICON,
-            "fanart": channel.get("fanart") or ADDON_FANART,
-            "summary": "Resolve a fresh YouTube live HLS stream for %s." % title,
-        }
-
-    def _load_channels(self):
-        try:
-            import os
-
-            path = os.path.join(ADDON.getAddonInfo("path"), "xml", "youtube_live_channels.txt")
-            with open(path, "r", encoding="utf-8", errors="ignore") as handle:
-                text = handle.read()
-        except Exception:
-            text = DEFAULT_CHANNELS
-        return parse_channel_text(text)
 
     def _youtube_items_for_query(self, query, empty_title="No live streams found"):
         query = query.strip()

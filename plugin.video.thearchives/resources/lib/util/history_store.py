@@ -99,6 +99,16 @@ class HistoryStore:
                 )
                 """
             )
+            con.execute(
+                """
+                CREATE TABLE IF NOT EXISTS recent_searches (
+                    media_type TEXT NOT NULL,
+                    query TEXT NOT NULL COLLATE NOCASE,
+                    updated REAL NOT NULL,
+                    PRIMARY KEY (media_type, query)
+                )
+                """
+            )
             con.commit()
 
     def _upsert_item(self, item):
@@ -242,3 +252,60 @@ class HistoryStore:
                 "SELECT item_json FROM history_items WHERE %s ORDER BY updated DESC" % clause
             ).fetchall()
         return [json.loads(row[0]) for row in rows]
+
+    def save_recent_search(self, media_type, query, limit=20):
+        media_type = _clean(media_type).lower()
+        query = _clean(query)
+        if media_type not in ("movie", "tv") or not query:
+            return
+        now = max(time.time(), getattr(self, "_recent_search_updated", 0) + 0.000001)
+        self._recent_search_updated = now
+        with closing(self._connect()) as con:
+            con.execute(
+                """
+                INSERT INTO recent_searches (media_type, query, updated)
+                VALUES (?, ?, ?)
+                ON CONFLICT(media_type, query) DO UPDATE SET
+                    query = excluded.query,
+                    updated = excluded.updated
+                """,
+                (media_type, query, now),
+            )
+            rows = con.execute(
+                """
+                SELECT query FROM recent_searches
+                WHERE media_type = ?
+                ORDER BY updated DESC
+                LIMIT -1 OFFSET ?
+                """,
+                (media_type, int(limit)),
+            ).fetchall()
+            if rows:
+                con.executemany(
+                    "DELETE FROM recent_searches WHERE media_type = ? AND query = ?",
+                    [(media_type, row[0]) for row in rows],
+                )
+            con.commit()
+
+    def list_recent_searches(self, media_type):
+        media_type = _clean(media_type).lower()
+        if media_type not in ("movie", "tv"):
+            return []
+        with closing(self._connect()) as con:
+            rows = con.execute(
+                """
+                SELECT query FROM recent_searches
+                WHERE media_type = ?
+                ORDER BY updated DESC
+                """,
+                (media_type,),
+            ).fetchall()
+        return [row[0] for row in rows]
+
+    def clear_recent_searches(self, media_type):
+        media_type = _clean(media_type).lower()
+        if media_type not in ("movie", "tv"):
+            return
+        with closing(self._connect()) as con:
+            con.execute("DELETE FROM recent_searches WHERE media_type = ?", (media_type,))
+            con.commit()
