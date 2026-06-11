@@ -176,6 +176,17 @@ class HistoryStore:
             con.commit()
         return bool(new_value)
 
+    def set_favorite(self, item, enabled=True):
+        item_key = self._upsert_item(item)
+        new_value = 1 if enabled else 0
+        with closing(self._connect()) as con:
+            con.execute(
+                "UPDATE history_items SET favorite = ?, updated = ? WHERE item_key = ?",
+                (new_value, time.time(), item_key),
+            )
+            con.commit()
+        return bool(new_value)
+
     def mark_watched(self, item):
         item_key = self._upsert_item(item)
         with closing(self._connect()) as con:

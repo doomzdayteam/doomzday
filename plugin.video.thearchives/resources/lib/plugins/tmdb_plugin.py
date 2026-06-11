@@ -127,6 +127,36 @@ def _genre_items(media_type, genres):
     return items
 
 
+def _profile_thumbnail(image_url, profile_path):
+    if not profile_path:
+        return ""
+    profile_path = str(profile_path)
+    if profile_path.startswith(("http://", "https://")):
+        return profile_path
+    if not profile_path.startswith("/"):
+        profile_path = "/" + profile_path
+    return f"{image_url}{profile_path}"
+
+
+def _cast_member_items(cast, image_url):
+    items = []
+    for actor in cast or []:
+        person_id = actor.get("id")
+        name = actor.get("name")
+        if not person_id or not name:
+            continue
+        role = actor.get("character") or actor.get("job") or actor.get("known_for_department") or ""
+        items.append({
+            "type": "dir",
+            "content": "person",
+            "title": name,
+            "link": f"tmdb/person/{person_id}",
+            "thumbnail": _profile_thumbnail(image_url, actor.get("profile_path")),
+            "summary": role,
+        })
+    return items
+
+
 class objectview(object):
     def __init__(self, d):
         self.__dict__ = d
@@ -586,6 +616,14 @@ class TMDB(Plugin):
             if kind == "genres" and len(splitted) > 2:
                 media_type = splitted[2]
                 return json.dumps({"items": _genre_items(media_type, api.get_genres(media_type))})
+            if kind == "cast" and len(splitted) > 3:
+                media_type = splitted[2]
+                media_id = splitted[3]
+                if media_type not in ("movie", "tv"):
+                    return json.dumps({"items": []})
+                details = api.get(f"{media_type}/{media_id}", paginated=False, full_meta=True)
+                cast = (details.get("credits") or {}).get("cast", []) if isinstance(details, dict) else []
+                return json.dumps({"items": _cast_member_items(cast, api.image_url)})
             if kind == "search":
                 media_type = splitted[2] if len(splitted) > 2 else ""
                 if len(splitted) >= 4:

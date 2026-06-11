@@ -34,6 +34,8 @@ def add_folder_label(url, label):
 
 def infer_content_category(jen_list):
     content = {str(item.get("content", "")).lower() for item in jen_list if item.get("content")}
+    if not content:
+        return "tvshows"
     if "episode" in content:
         return "episodes"
     if content & {"tv", "tvshow", "season"}:

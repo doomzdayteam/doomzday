@@ -25,6 +25,7 @@
       "type": "dir",
       "title": "TMDb",
       "link": "file://tmdb.json",
+	  "thumbnail": "resources/media/tmdb.png",
       "summary": "Personal TMDb lists"
     },
     {
@@ -38,6 +39,7 @@
       "type": "dir",
       "title": "In Progress",
       "link": "history/in_progress",
+	  "thumbnail": "resources/media/progress.png",
       "summary": "Items with private resume progress"
     },
     {
@@ -72,6 +74,7 @@
       "type": "dir",
       "title": "Reddit Videos",
       "link": "https://www.reddit.com",
+	  "thumbnail": "resources/media/reddit.png",
       "summary": "Search Reddit for native videos and live streams"
     },
     {

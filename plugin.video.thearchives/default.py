@@ -70,7 +70,10 @@ def _get_list(url):
     if response:           
         if ownAddon.getSettingBool("use_cache") and not "tmdb/search" in url:
             DI.db.set(url, response)
-        jen_list = run_hook("parse_list", url, response) 
+        jen_list = run_hook("parse_list", url, response)
+        if not jen_list:
+            run_hook("display_list", [])
+            return
         jen_list = [run_hook("process_item", item) for item in jen_list]
         jen_list = [
         run_hook("get_metadata", item, return_item_on_failure=True) for item in jen_list
@@ -263,9 +266,10 @@ def _show_debrid_qr_auth_window(addon_name, service_name, verification_url, user
 def _auth_real_debrid(addon, addon_name):
     import xbmc, xbmcgui, json, time, requests
     base_url = 'https://api.real-debrid.com/oauth/v2/'
-    client_id = addon.getSetting('rd.client_id') or ''
+    client_id = addon.getSetting('rd.client_id') or get_real_debrid_client_id()
     if not client_id:
-        client_id = 'X245A4XAIBGVM'
+        xbmcgui.Dialog().ok(addon_name, 'The addon is missing its Real-Debrid Client ID.\nPlease add the addon API credentials before authorizing Real-Debrid.')
+        return
     resp = requests.get(f'{base_url}device/code?client_id={client_id}&new_credentials=yes').json()
     user_code = resp['user_code']
     device_code = resp['device_code']
@@ -316,7 +320,10 @@ def _premiumize_activation_message(verify_url, user_code):
 
 def _auth_premiumize(addon, addon_name):
     import xbmc, xbmcgui, json, time, requests
-    default_client_id = '210740667'
+    default_client_id = get_premiumize_client_id()
+    if not default_client_id:
+        xbmcgui.Dialog().ok(addon_name, 'The addon is missing its Premiumize Client ID.\nPlease add the addon API credentials before authorizing Premiumize.')
+        return
     client_id = addon.getSetting('pm.client_id') or default_client_id
 
     def start_device_flow(value):

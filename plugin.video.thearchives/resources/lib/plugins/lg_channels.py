@@ -361,8 +361,14 @@ class LGChannels(Plugin):
             images = program.get('images', [])
             if isinstance(images, list) and images:
                 image = _absolute_url(images[0].get('imageUrl', '')) if isinstance(images[0], dict) else ''
+            if not image:
+                image = _absolute_url(
+                    program.get('imageUrl', '')
+                    or program.get('thumbnailUrl', '')
+                    or program.get('previewImgUrl', '')
+                )
             return {
-                'title': program.get('title', ''),
+                'title': program.get('title', '') or program.get('programTitle', ''),
                 'description': _strip_html(program.get('description', '')),
                 'image': image,
             }

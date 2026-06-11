@@ -215,6 +215,10 @@ def _api_params(region_slug, **params):
     return params
 
 
+def _normalised_search_text(*parts):
+    return ' '.join(str(part or '') for part in parts).lower()
+
+
 class PlutoTV(Plugin):
     
     name = "pluto_tv"
@@ -238,7 +242,10 @@ class PlutoTV(Plugin):
         self.region_url     = f'{self.base_url}/region'
         self.live_url       = f'{self.base_url}/live'
         self.live_cat_url   = f'{self.base_url}/live/category'
+        self.live_search_url = f'{self.base_url}/live/search'
         self.vod_url        = f'{self.base_url}/vod'
+        self.vod_movies_url = f'{self.base_url}/vod/movies'
+        self.vod_shows_url  = f'{self.base_url}/vod/shows'
         self.vod_cat_url    = f'{self.base_url}/vod/category'
         self.vod_item_url   = f'{self.base_url}/vod/item'
         self.vod_series_url = f'{self.base_url}/vod/series'
@@ -325,7 +332,7 @@ class PlutoTV(Plugin):
     def _build_vod_stream(self, raw_url):
         
         token = self._boot()
-        # Strip the host portion and prepend stitcher base
+        
         path = re.sub(r'^https?://[^/]+', '', raw_url.split('?')[0])
         if path.startswith('/stitch/'):
             path = f'/v2{path}'
@@ -338,16 +345,27 @@ class PlutoTV(Plugin):
 
         
         if route_url == self.search_url:
-            query = self.from_keyboard()
+            query = self.from_keyboard(header='Search Pluto On Demand')
             if not query:
                 sys.exit()
             headers = self._auth_headers()
             params = _api_params(region_slug, includeItems='true', deviceType='web')
             resp = self.session.get(VOD_CATEGORIES, headers=headers, params=params)
-            # We'll filter in parse_list using the query
+            
             return json.dumps({'_query': query, '_data': resp.json()})
 
-        
+        if route_url == self.live_search_url:
+            query = self.from_keyboard(header='Search Pluto Live TV')
+            if not query:
+                sys.exit()
+            if not region_slug:
+                self._boot()
+            if not region_slug and self._token_channels:
+                return json.dumps({'_query': query, '_data': self._token_channels})
+            headers = self._auth_headers()
+            resp = self.session.get(CHANNELS_API, headers=headers, params=_api_params(region_slug))
+            return json.dumps({'_query': query, '_data': resp.json()})
+
         if route_url == self.live_url or route_url.startswith(self.live_cat_url + '/'):
             if not region_slug:
                 self._boot()
@@ -361,6 +379,12 @@ class PlutoTV(Plugin):
 
         
         if route_url == self.vod_url:
+            headers = self._auth_headers()
+            params = _api_params(region_slug, includeItems='true', deviceType='web')
+            resp = self.session.get(VOD_CATEGORIES, headers=headers, params=params)
+            return resp.text
+
+        if route_url in (self.vod_movies_url, self.vod_shows_url):
             headers = self._auth_headers()
             params = _api_params(region_slug, includeItems='true', deviceType='web')
             resp = self.session.get(VOD_CATEGORIES, headers=headers, params=params)
@@ -427,6 +451,11 @@ class PlutoTV(Plugin):
             })
             itemlist.append({
                 'type': 'dir',
+                'title': '[COLOR deepskyblue]Search Live TV[/COLOR]',
+                'link': self._region_link(region_slug, self.live_search_url),
+            })
+            itemlist.append({
+                'type': 'dir',
                 'title': '[COLOR orange]── Live TV ──[/COLOR]',
                 'link': self._region_link(region_slug, self.base_url),
             })
@@ -448,7 +477,17 @@ class PlutoTV(Plugin):
             })
             itemlist.append({
                 'type': 'dir',
-                'title': '[COLOR limegreen]▶ Browse All VOD Categories[/COLOR]',
+                'title': '[COLOR red]▶ All On Demand Movies[/COLOR]',
+                'link': self._region_link(region_slug, self.vod_movies_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR deepskyblue]▶ All On Demand TV Shows[/COLOR]',
+                'link': self._region_link(region_slug, self.vod_shows_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR limegreen]â–¶ Browse All VOD Categories[/COLOR]',
                 'link': self._region_link(region_slug, self.vod_url),
             })
             return itemlist
@@ -532,6 +571,28 @@ class PlutoTV(Plugin):
                 })
             return itemlist
 
+        if route_url == self.live_search_url:
+            try:
+                envelope = json.loads(response)
+                query = envelope.get('_query', '').lower()
+                channels = envelope.get('_data', [])
+            except (json.JSONDecodeError, TypeError):
+                return itemlist
+
+            if not isinstance(channels, list):
+                channels = []
+
+            for ch in channels:
+                self._add_live_channel_item(itemlist, ch, query_filter=query)
+
+            if not itemlist:
+                itemlist.append({
+                    'type': 'dir',
+                    'title': '[COLOR grey]No live channels found[/COLOR]',
+                    'link': self._region_link(region_slug, self.base_url),
+                })
+            return itemlist
+
         
         if route_url == self.live_url or route_url.startswith(self.live_cat_url + '/'):
             try:
@@ -585,6 +646,25 @@ class PlutoTV(Plugin):
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No channels found for this category[/COLOR]',
+                    'link': self._region_link(region_slug, self.base_url),
+                })
+            return itemlist
+
+        if route_url in (self.vod_movies_url, self.vod_shows_url):
+            try:
+                data = json.loads(response)
+            except (json.JSONDecodeError, TypeError):
+                return itemlist
+
+            media_type = 'movie' if route_url == self.vod_movies_url else 'series'
+            for item in self._iter_vod_items(data.get('categories', []), media_type=media_type):
+                self._add_vod_item(itemlist, item, region_slug)
+
+            if not itemlist:
+                label = 'movies' if media_type == 'movie' else 'TV shows'
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR grey]No on demand {label} available[/COLOR]',
                     'link': self._region_link(region_slug, self.base_url),
                 })
             return itemlist
@@ -790,6 +870,149 @@ class PlutoTV(Plugin):
             return itemlist
 
         return itemlist
+
+    def _iter_vod_items(self, categories, media_type=None, query_filter=None, category_id=None):
+        seen = set()
+        if not isinstance(categories, list):
+            return
+        query_filter = str(query_filter or '').lower()
+
+        for cat in categories:
+            if not isinstance(cat, dict):
+                continue
+            if category_id and cat.get('_id', '') != category_id:
+                continue
+            for item in cat.get('items', []):
+                if not isinstance(item, dict):
+                    continue
+                identifier = item.get('_id', '')
+                name = item.get('name', '')
+                item_type = item.get('type', '')
+                if not identifier or not name:
+                    continue
+                if media_type and item_type != media_type:
+                    continue
+                searchable = _normalised_search_text(
+                    name,
+                    item.get('summary', ''),
+                    item.get('genre', ''),
+                    item.get('rating', ''),
+                    item_type,
+                )
+                if query_filter and query_filter not in searchable:
+                    continue
+                key = f'{item_type}:{identifier}'
+                if key in seen:
+                    continue
+                seen.add(key)
+                yield item
+
+    def _vod_info_line(self, item):
+        info_parts = []
+        genre = item.get('genre', '')
+        rating = item.get('rating', '')
+        duration = _duration_str(item.get('duration', 0))
+        captions = item.get('cc', False)
+        if genre:
+            info_parts.append(genre)
+        if rating:
+            info_parts.append(rating)
+        if duration:
+            info_parts.append(duration)
+        if captions:
+            info_parts.append('CC')
+        return ' | '.join(info_parts)
+
+    def _add_vod_item(self, itemlist, item, region_slug):
+        identifier = item.get('_id', '')
+        name = item.get('name', '')
+        media_type = item.get('type', '')
+        if not identifier or not name:
+            return
+
+        thumb = _img_url(_best_image(item))
+        summary = _strip_html(item.get('summary', ''))
+        info_line = self._vod_info_line(item)
+
+        if media_type == 'series':
+            seasons = item.get('seasonsNumbers', [])
+            season_count = len(seasons) if seasons else 0
+            season_text = f'{season_count} season{"s" if season_count != 1 else ""}'
+            display = f'[COLOR deepskyblue]📺[/COLOR] {name}'
+            if season_count:
+                display += f' [COLOR grey]({season_text})[/COLOR]'
+            itemlist.append({
+                'type': 'dir',
+                'title': display,
+                'link': self._region_link(region_slug, f'{self.vod_series_url}/{identifier}'),
+                'thumbnail': thumb,
+                'summary': f'{info_line}\n{summary}' if info_line else summary,
+            })
+            return
+
+        if media_type != 'movie':
+            return
+
+        urls = item.get('stitched', {}).get('urls', [])
+        stream_raw = urls[0].get('url', '') if urls else ''
+        if not stream_raw:
+            return
+        stream_url = self._build_vod_stream(stream_raw)
+        display = f'[COLOR red]▶[/COLOR] {name}'
+        if info_line:
+            display += f' [COLOR grey]({info_line})[/COLOR]'
+        itemlist.append({
+            'type': 'item',
+            'title': display,
+            'link': stream_url,
+            'thumbnail': thumb,
+            'summary': summary,
+            'is_playable': 'true',
+        })
+
+    def _add_live_channel_item(self, itemlist, ch, cat_filter=None, query_filter=None):
+        if not isinstance(ch, dict):
+            return
+
+        ch_id = ch.get('_id', '')
+        ch_name = ch.get('name', '')
+        ch_number = ch.get('number', '')
+        ch_category = ch.get('category', '')
+        ch_summary = _strip_html(ch.get('summary', ''))
+        if not ch_id or not ch_name:
+            return
+
+        category_slug = _category_slug(ch_category)
+        if cat_filter:
+            cat_filter = cat_filter.lower()
+            if cat_filter not in ch_category.lower() and cat_filter not in category_slug:
+                return
+
+        query_filter = str(query_filter or '').lower()
+        if query_filter:
+            searchable = _normalised_search_text(ch_name, ch_summary, ch_category, ch_number)
+            if query_filter not in searchable:
+                return
+
+        art = _live_channel_art(ch)
+        stream_url = self._build_live_stream(ch_id)
+        number_str = f'[COLOR grey]{ch_number}[/COLOR] ' if ch_number else ''
+        display = f'[COLOR cyan]▶[/COLOR] {number_str}{ch_name}'
+
+        itemlist.append({
+            'type': 'item',
+            'title': display,
+            'link': stream_url,
+            'thumbnail': art['thumbnail'],
+            'icon': art['icon'],
+            'poster': art['poster'],
+            'landscape': art['landscape'],
+            'fanart': art['fanart'],
+            'banner': art['banner'],
+            'clearlogo': art['clearlogo'],
+            'summary': ch_summary,
+            'is_playable': 'true',
+        })
 
   
 

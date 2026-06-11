@@ -39,7 +39,7 @@ def _run_action(action, item):
     return "RunPlugin(plugin://%s/history/%s/%s)" % (_addon_id(), action, encode_item(item))
 
 
-def decorate_item(item, source_item=None):
+def decorate_item(item, source_item=None, include_watch_actions=True):
     source = storage_item(source_item or item)
     state = get_store().get_state(source)
     context = item.get("contextmenu") or []
@@ -47,17 +47,18 @@ def decorate_item(item, source_item=None):
         context = []
 
     if state["favorite"]:
-        context.append({"label": "[B]Remove from Private Favorites[/B]", "action": _run_action("toggle_favorite", source)})
+        context.append({"label": "[B]Remove Private Favorite[/B]", "action": _run_action("remove_favorite", source)})
     else:
-        context.append({"label": "[B]Add to Private Favorites[/B]", "action": _run_action("toggle_favorite", source)})
+        context.append({"label": "[B]Add to Private Favorites[/B]", "action": _run_action("add_favorite", source)})
 
-    if state["watched"]:
-        context.append({"label": "[B]Mark Private Unwatched[/B]", "action": _run_action("mark_unwatched", source)})
-    else:
-        context.append({"label": "[B]Mark Private Watched[/B]", "action": _run_action("mark_watched", source)})
+    if include_watch_actions:
+        if state["watched"]:
+            context.append({"label": "[B]Mark Private Unwatched[/B]", "action": _run_action("mark_unwatched", source)})
+        else:
+            context.append({"label": "[B]Mark Private Watched[/B]", "action": _run_action("mark_watched", source)})
 
-    if state["resume_point"] > 0:
-        context.append({"label": "[B]Clear Private Progress[/B]", "action": _run_action("clear_progress", source)})
+        if state["resume_point"] > 0:
+            context.append({"label": "[B]Clear Private Progress[/B]", "action": _run_action("clear_progress", source)})
 
     item["contextmenu"] = context
     item["_private_history_state"] = state

@@ -36,6 +36,20 @@ class History(Plugin):
         return json.dumps({"items": items})
 
     def routes(self, plugin):
+        @plugin.route("/history/add_favorite/<path:payload>")
+        def add_favorite(payload):
+            item = decode_payload(payload)
+            get_store().set_favorite(item, True)
+            _notify("Private Favorites", "Added")
+            _refresh()
+
+        @plugin.route("/history/remove_favorite/<path:payload>")
+        def remove_favorite(payload):
+            item = decode_payload(payload)
+            get_store().set_favorite(item, False)
+            _notify("Private Favorites", "Removed")
+            _refresh()
+
         @plugin.route("/history/toggle_favorite/<path:payload>")
         def toggle_favorite(payload):
             item = decode_payload(payload)
