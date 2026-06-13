@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]Search Pluto On Demand[/COLOR]",
+      "link": "https://pluto.tv/region/auto/search",
+      "thumbnail": "resources/media/pluto_tv.png",
+      "summary": "Search Pluto TV on-demand movies and shows."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR red]>[/COLOR] Pluto Movies",
+      "link": "https://pluto.tv/region/auto/vod/movies",
+      "thumbnail": "resources/media/pluto_tv.png",
+      "summary": "All Pluto TV on-demand movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]>[/COLOR] Pluto TV Shows",
+      "link": "https://pluto.tv/region/auto/vod/shows",
+      "thumbnail": "resources/media/pluto_tv.png",
+      "summary": "All Pluto TV on-demand TV shows."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR limegreen]>[/COLOR] Pluto VOD Categories",
+      "link": "https://pluto.tv/region/auto/vod",
+      "thumbnail": "resources/media/pluto_tv.png",
+      "summary": "Browse Pluto TV on-demand genres and categories."
+    }
+  ]
+}

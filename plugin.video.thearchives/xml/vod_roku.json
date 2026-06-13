@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "[COLOR khaki]The Roku Channel VOD Requires Widevine[/COLOR]",
+      "link": "message/Roku Channel playback uses Widevine DRM. Use the InputStream Helper link below to install or configure Widevine.",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Roku Channel TV episodes and some free streams require Widevine DRM support."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]Search The Roku Channel[/COLOR]",
+      "link": "https://therokuchannel.roku.com/vod/search",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Search The Roku Channel free movies and TV."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR red]>[/COLOR] Roku Free Movies & TV",
+      "link": "https://therokuchannel.roku.com/page/free-movies-and-tv",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "The Roku Channel free movies and TV page."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]>[/COLOR] Roku TV Shows",
+      "link": "https://therokuchannel.roku.com/section/tv-shows",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Recently added TV shows from The Roku Channel."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR limegreen]>[/COLOR] Roku VOD Categories",
+      "link": "file://vod_roku_categories.json",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Browse Roku VOD category pages."
+    }
+  ]
+}

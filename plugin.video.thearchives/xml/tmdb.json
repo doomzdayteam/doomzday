@@ -1,0 +1,10 @@
+﻿{
+    "items":  [
+                  {
+                      "type":  "dir",
+                      "title":  "My TMDb Lists",
+                      "link":  "tmdb/account/lists",
+                      "summary":  "Lists you have created on TMDb"
+                  }
+              ]
+}

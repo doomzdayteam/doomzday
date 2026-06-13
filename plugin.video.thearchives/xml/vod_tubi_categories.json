@@ -1,0 +1,214 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Most Popular",
+      "link": "https://tubitv.com/category/most_popular",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Most Popular."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Recently Added",
+      "link": "https://tubitv.com/category/recently_added",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Recently Added."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Tubi Originals",
+      "link": "https://tubitv.com/category/tubi_originals",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Originals."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Action",
+      "link": "https://tubitv.com/category/action",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Action."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Adult Animation",
+      "link": "https://tubitv.com/category/adult_animation",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Adult Animation."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Anime",
+      "link": "https://tubitv.com/category/anime",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Anime."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Classic TV & Movies",
+      "link": "https://tubitv.com/category/classics",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Classic TV and Movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Comedy",
+      "link": "https://tubitv.com/category/comedy",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Comedy."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Crime TV",
+      "link": "https://tubitv.com/category/crime_tv",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Crime TV."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Documentaries",
+      "link": "https://tubitv.com/category/documentary",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Documentaries."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Docuseries",
+      "link": "https://tubitv.com/category/docuseries",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Docuseries."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Drama",
+      "link": "https://tubitv.com/category/drama",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Drama."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Family Movies",
+      "link": "https://tubitv.com/category/family_movies",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Family Movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Family Shows",
+      "link": "https://tubitv.com/category/family_series",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Family Shows."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Horror",
+      "link": "https://tubitv.com/category/horror",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Horror."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Indie Movies",
+      "link": "https://tubitv.com/category/indie_films",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Indie Movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Kid Friendly Classics",
+      "link": "https://tubitv.com/category/kid_classics",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Kid Friendly Classics."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] LGBTQ+ Storytelling",
+      "link": "https://tubitv.com/category/lgbt",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi LGBTQ+ Storytelling."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Lifestyle",
+      "link": "https://tubitv.com/category/lifestyle_tv",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Lifestyle."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Music",
+      "link": "https://tubitv.com/category/music",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Music."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Mystery",
+      "link": "https://tubitv.com/category/mystery",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Mystery."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Reality TV",
+      "link": "https://tubitv.com/category/reality_tv",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Reality TV."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Romance",
+      "link": "https://tubitv.com/category/romance",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Romance."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Sci-Fi & Fantasy",
+      "link": "https://tubitv.com/category/sci_fi_and_fantasy",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Sci-Fi and Fantasy."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Sports Stories",
+      "link": "https://tubitv.com/category/sports_movies_and_tv",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Sports Stories."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Thrillers",
+      "link": "https://tubitv.com/category/thrillers",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Thrillers."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] True Crime",
+      "link": "https://tubitv.com/category/true_crime",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi True Crime."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Westerns",
+      "link": "https://tubitv.com/category/westerns",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Westerns."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Black Cinema",
+      "link": "https://tubitv.com/category/black_cinema",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Black Cinema."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Creatorverse",
+      "link": "https://tubitv.com/category/creators",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi Creatorverse."
+    }
+  ]
+}

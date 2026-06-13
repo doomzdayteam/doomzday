@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]Search Tubi[/COLOR]",
+      "link": "https://tubitv.com/vod/search",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Search Tubi movies and TV shows."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR red]>[/COLOR] Tubi Movies",
+      "link": "https://tubitv.com/movies",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "All Tubi movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR deepskyblue]>[/COLOR] Tubi TV Shows",
+      "link": "https://tubitv.com/tv-shows",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "All Tubi TV shows."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR limegreen]>[/COLOR] Tubi Categories",
+      "link": "file://vod_tubi_categories.json",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Browse Tubi VOD genres and categories."
+    }
+  ]
+}

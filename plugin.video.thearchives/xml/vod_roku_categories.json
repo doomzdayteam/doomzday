@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Free Movies & TV",
+      "link": "https://therokuchannel.roku.com/page/free-movies-and-tv",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Browse Roku free movies and TV."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Roku Originals",
+      "link": "https://therokuchannel.roku.com/page/roku-originals",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Browse Roku Originals."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]>[/COLOR] Kids & Family",
+      "link": "https://therokuchannel.roku.com/page/kids-and-family",
+      "thumbnail": "resources/media/roku.png",
+      "summary": "Browse Roku kids and family VOD."
+    }
+  ]
+}
