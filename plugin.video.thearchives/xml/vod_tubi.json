@@ -2,31 +2,38 @@
   "items": [
     {
       "type": "dir",
-      "title": "[COLOR deepskyblue]Search Tubi[/COLOR]",
-      "link": "https://tubitv.com/vod/search",
+      "title": "[COLOR cyan]United States (US)[/COLOR]",
+      "link": "https://tubitv.com/country/us",
       "thumbnail": "resources/media/tubi_tv.png",
-      "summary": "Search Tubi movies and TV shows."
+      "summary": "Source: https://tubitv.com"
     },
     {
       "type": "dir",
-      "title": "[COLOR red]>[/COLOR] Tubi Movies",
-      "link": "https://tubitv.com/movies",
+      "title": "[COLOR cyan]United Kingdom (GB)[/COLOR]",
+      "link": "https://tubitv.com/country/gb",
       "thumbnail": "resources/media/tubi_tv.png",
-      "summary": "All Tubi movies."
+      "summary": "Source: https://tubitv.com/en-gb"
     },
     {
       "type": "dir",
-      "title": "[COLOR deepskyblue]>[/COLOR] Tubi TV Shows",
-      "link": "https://tubitv.com/tv-shows",
+      "title": "[COLOR cyan]Australia (AU)[/COLOR]",
+      "link": "https://tubitv.com/country/au",
       "thumbnail": "resources/media/tubi_tv.png",
-      "summary": "All Tubi TV shows."
+      "summary": "Source: https://tubitv.com/en-au"
     },
     {
       "type": "dir",
-      "title": "[COLOR limegreen]>[/COLOR] Tubi Categories",
-      "link": "file://vod_tubi_categories.json",
+      "title": "[COLOR cyan]Canada (CA)[/COLOR]",
+      "link": "https://tubitv.com/country/ca",
       "thumbnail": "resources/media/tubi_tv.png",
-      "summary": "Browse Tubi VOD genres and categories."
+      "summary": "Source: https://tubitv.com/fr-ca"
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Mexico (MX)[/COLOR]",
+      "link": "https://tubitv.com/country/mx",
+      "thumbnail": "resources/media/tubi_tv.png",
+      "summary": "Source: https://tubitv.com/es-mx"
     }
   ]
 }

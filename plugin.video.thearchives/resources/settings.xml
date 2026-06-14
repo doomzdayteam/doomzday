@@ -89,7 +89,7 @@
     <setting id="easynews.username" type="text" label="[COLOR khaki]    Username[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
     <setting id="easynews.password" type="text" label="[COLOR khaki]    Password[/COLOR]" subsetting="true" visible="eq(-2,true)" option="hidden" default="" />
     <setting id="en.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="7" />
-    <setting id="lsep.6" type="lsep" label="" />
+    <setting id="lsep.7" type="lsep" label="" />
     <setting id="provider.folders" type="bool" label="[B][COLOR white]LOCAL MEDIA FOLDERS[/COLOR][/B]" default="false" />
     <setting id="folders.movie_folder" type="folder" label="[COLOR khaki]    Movie Folder[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
     <setting id="folders.tv_folder" type="folder" label="[COLOR khaki]    TV Show Folder[/COLOR]" subsetting="true" visible="eq(-2,true)" default="" />

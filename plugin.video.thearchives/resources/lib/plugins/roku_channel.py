@@ -35,6 +35,18 @@ PAGE_IDS = [
     ("roku-originals", "Roku Originals"),
     ("kids-and-family", "Kids & Family"),
 ]
+ROKU_COUNTRIES = [
+    ("us", "United States", "US", ""),
+    ("gb", "United Kingdom", "GB", "en-gb"),
+    ("ca", "Canada", "CA", "en-ca"),
+]
+ROKU_COUNTRY_BY_SLUG = {
+    slug: {"label": label, "country": country, "locale": locale}
+    for slug, label, country, locale in ROKU_COUNTRIES
+}
+ROKU_COUNTRY_BY_LOCALE = {
+    locale: slug for slug, _label, _country, locale in ROKU_COUNTRIES if locale
+}
 
 DRM_KEY_MARKERS = ("#EXT-X-KEY", "METHOD=SAMPLE-AES", "KEYFORMAT")
 
@@ -271,6 +283,15 @@ def _page_id_from_url(url, prefix):
     return unquote(url.replace(prefix, "", 1).split("?", 1)[0].strip("/"))
 
 
+def _route_url(url):
+    return str(url or "").split("?", 1)[0].rstrip("/")
+
+
+def _country_label(slug):
+    info = ROKU_COUNTRY_BY_SLUG.get(slug or "")
+    return info.get("label") if info else "The Roku Channel"
+
+
 class RokuChannel(Plugin):
     
 
@@ -291,6 +312,8 @@ class RokuChannel(Plugin):
             "Accept": "application/json, text/html",
         }
         self._device_id = str(uuid4())
+        self.country_url = f"{self.base_url}/country"
+        self.live_countries_url = f"{self.base_url}/live-countries"
         self.search_url = f"{self.base_url}/search"
         self.vod_search_url = f"{self.base_url}/vod/search"
         self.home_url = f"{self.base_url}/home"
@@ -298,6 +321,44 @@ class RokuChannel(Plugin):
         self.tv_url = f"{self.base_url}/section/tv-shows"
         self.page_url = f"{self.base_url}/page"
         self.details_url = f"{self.base_url}/details"
+
+    def _country_context(self, url):
+        clean_url = _route_url(url)
+        if clean_url.startswith(self.country_url + "/"):
+            route = clean_url.replace(self.country_url + "/", "", 1)
+            slug, _, tail = route.partition("/")
+            if slug not in ROKU_COUNTRY_BY_SLUG:
+                return None, clean_url
+            inner_url = f"{self.base_url}/{tail}" if tail else self.base_url
+            return slug, inner_url.rstrip("/")
+
+        path = clean_url.replace(self.base_url, "", 1).strip("/")
+        parts = path.split("/") if path else []
+        if parts and parts[0] in ROKU_COUNTRY_BY_LOCALE:
+            slug = ROKU_COUNTRY_BY_LOCALE[parts[0]]
+            tail = "/".join(parts[1:])
+            inner_url = f"{self.base_url}/{tail}" if tail else self.base_url
+            return slug, inner_url.rstrip("/")
+
+        return None, clean_url
+
+    def _country_link(self, country_slug, inner_url):
+        clean_url = _route_url(inner_url)
+        if not country_slug:
+            return clean_url
+        if clean_url == self.base_url:
+            return f"{self.country_url}/{country_slug}"
+        tail = clean_url.replace(self.base_url + "/", "", 1)
+        return f"{self.country_url}/{country_slug}/{tail}"
+
+    def _source_url(self, country_slug, inner_url):
+        clean_url = _route_url(inner_url)
+        info = ROKU_COUNTRY_BY_SLUG.get(country_slug or "")
+        locale = info.get("locale", "") if info else ""
+        if not locale:
+            return clean_url
+        tail = clean_url.replace(self.base_url, "", 1)
+        return f"{self.base_url}/{locale}{tail}"
 
     def _headers(self, referer=BASE_URL + "/", accept="application/json"):
         return {
@@ -318,11 +379,12 @@ class RokuChannel(Plugin):
         return VOD_CACHE.get_or_set_response(self.name, key, kind, fetcher)
 
     def _vod_menu_cache_kind(self, url):
-        if url in (self.search_url, self.vod_search_url):
+        route_url = self._country_context(url)[1]
+        if route_url in (self.search_url, self.vod_search_url):
             return "search"
-        if url in (self.home_url, self.tv_url):
+        if route_url in (self.home_url, self.tv_url):
             return "catalog"
-        if url.startswith(self.page_url + "/") or url.startswith(self.details_url + "/"):
+        if route_url.startswith(self.page_url + "/") or route_url.startswith(self.details_url + "/"):
             return "catalog"
         return ""
 
@@ -342,31 +404,48 @@ class RokuChannel(Plugin):
             return ""
 
     def get_list(self, url):
-        if url == self.base_url:
+        country_slug, route_url = self._country_context(url)
+
+        if route_url == self.live_countries_url:
+            return json.dumps({"kind": "live_countries"})
+
+        if country_slug and route_url == self.base_url:
+            return json.dumps({"kind": "country_root", "country": country_slug})
+
+        if route_url == self.base_url:
             return json.dumps({"root": True})
 
-        if url == self.home_url:
+        if route_url == self.home_url:
             try:
                 return self._cached_vod_response(
-                    vod_cache_key("home", HOME_API),
+                    vod_cache_key("home", country_slug or "default", HOME_API),
                     "catalog",
-                    lambda: self.session.get(HOME_API, headers=self._headers()).text,
+                    lambda: self.session.get(
+                        HOME_API,
+                        headers=self._headers(referer=self._source_url(country_slug, self.home_url)),
+                    ).text,
                 )
             except Exception:
                 return None
 
-        if url in (self.live_url, self.tv_url):
-            collection_title = "Live TV" if url == self.live_url else "Recently Added TV"
+        if route_url in (self.live_url, self.tv_url):
+            collection_title = "Live TV" if route_url == self.live_url else "Recently Added TV"
             try:
-                if url == self.tv_url:
+                if route_url == self.tv_url:
                     raw_page = self._cached_vod_response(
-                        vod_cache_key("tv", FREE_PAGE_API),
+                        vod_cache_key("tv", country_slug or "default", FREE_PAGE_API),
                         "catalog",
-                        lambda: self.session.get(FREE_PAGE_API, headers=self._headers()).text,
+                        lambda: self.session.get(
+                            FREE_PAGE_API,
+                            headers=self._headers(referer=self._source_url(country_slug, self.tv_url)),
+                        ).text,
                     )
                     data = json.loads(raw_page or "{}")
                 else:
-                    data = self.session.get(FREE_PAGE_API, headers=self._headers()).json()
+                    data = self.session.get(
+                        FREE_PAGE_API,
+                        headers=self._headers(referer=self._source_url(country_slug, self.live_url)),
+                    ).json()
                 return json.dumps({
                     "_collection_title": collection_title,
                     "_page": data,
@@ -374,41 +453,47 @@ class RokuChannel(Plugin):
             except Exception:
                 return None
 
-        if url.startswith(self.page_url + "/"):
-            page_id = _page_id_from_url(url, self.page_url)
+        if route_url.startswith(self.page_url + "/"):
+            page_id = _page_id_from_url(route_url, self.page_url)
             api_url = f"{BASE_URL}/api/v2/homescreen/pages/{quote(page_id, safe='')}/rendered?limit=50"
             try:
                 return self._cached_vod_response(
-                    vod_cache_key("page", page_id, api_url),
+                    vod_cache_key("page", country_slug or "default", page_id, api_url),
                     "catalog",
-                    lambda: self.session.get(api_url, headers=self._headers()).text,
+                    lambda: self.session.get(
+                        api_url,
+                        headers=self._headers(referer=self._source_url(country_slug, route_url)),
+                    ).text,
                 )
             except Exception:
                 return None
 
-        if url.startswith(self.details_url + "/"):
-            content_id = _page_id_from_url(url, self.details_url)
+        if route_url.startswith(self.details_url + "/"):
+            content_id = _page_id_from_url(route_url, self.details_url)
             try:
                 api_url = f"{CONTENT_API}/{content_id}?{DETAIL_EXPAND}"
                 return self._cached_vod_response(
-                    vod_cache_key("details", content_id, api_url),
+                    vod_cache_key("details", country_slug or "default", content_id, api_url),
                     "catalog",
-                    lambda: self.session.get(api_url, headers=self._headers()).text,
+                    lambda: self.session.get(
+                        api_url,
+                        headers=self._headers(referer=self._source_url(country_slug, route_url)),
+                    ).text,
                 )
             except Exception:
                 return None
 
-        if url in (self.search_url, self.vod_search_url):
+        if route_url in (self.search_url, self.vod_search_url):
             query = self.from_keyboard()
             if not query:
                 sys.exit()
-            headers = self._headers()
+            headers = self._headers(referer=self._source_url(country_slug, route_url))
             token = self._csrf_token()
             if token:
                 headers["csrf-token"] = token
             try:
                 raw_results = self._cached_vod_response(
-                    vod_cache_key("search", query),
+                    vod_cache_key("search", country_slug or "default", query),
                     "search",
                     lambda: self.session.post(
                         SEARCH_API,
@@ -426,11 +511,12 @@ class RokuChannel(Plugin):
         if not url.startswith(self.base_url):
             return None
 
-        cache_kind = self._vod_menu_cache_kind(url)
+        country_slug, route_url = self._country_context(url)
+        cache_kind = self._vod_menu_cache_kind(route_url)
         if cache_kind:
             return VOD_CACHE.get_or_set_menu(
                 self.name,
-                vod_cache_key("menu", url, response),
+                vod_cache_key("menu", country_slug or "default", route_url, response),
                 cache_kind,
                 lambda: self._parse_list_uncached(url, response),
             )
@@ -441,8 +527,60 @@ class RokuChannel(Plugin):
             return None
 
         itemlist = []
+        country_slug, route_url = self._country_context(url)
 
-        if url == self.base_url:
+        if route_url == self.live_countries_url:
+            for slug, label, country, _locale in ROKU_COUNTRIES:
+                link = self._country_link(slug, self.live_url)
+                itemlist.append({
+                    "type": "dir",
+                    "title": f"[COLOR cyan]{label} ({country})[/COLOR]",
+                    "link": link,
+                    "thumbnail": "resources/media/roku.png",
+                    "summary": f"Source: {self._source_url(slug, self.live_url)}",
+                })
+            return itemlist
+
+        if country_slug and route_url == self.base_url:
+            country_label = _country_label(country_slug)
+            itemlist.append({
+                "type": "item",
+                "title": "[COLOR lawngreen]Roku DRM / Widevine Help[/COLOR]",
+                "link": "inputstream_helper",
+                "thumbnail": "resources/media/roku.png",
+                "summary": (
+                    f"Install or configure InputStream Adaptive and Widevine for "
+                    f"Roku {country_label} VOD playback."
+                ),
+            })
+            itemlist.append({
+                "type": "dir",
+                "title": "[COLOR deepskyblue]Search The Roku Channel[/COLOR]",
+                "link": self._country_link(country_slug, self.vod_search_url),
+                "thumbnail": "resources/media/roku.png",
+            })
+            itemlist.append({
+                "type": "dir",
+                "title": "[COLOR orange]-- Home --[/COLOR]",
+                "link": self._country_link(country_slug, self.home_url),
+                "thumbnail": "resources/media/roku.png",
+            })
+            itemlist.append({
+                "type": "dir",
+                "title": "[COLOR orange]-- TV Shows --[/COLOR]",
+                "link": self._country_link(country_slug, self.tv_url),
+                "thumbnail": "resources/media/roku.png",
+            })
+            for page_id, label in PAGE_IDS:
+                itemlist.append({
+                    "type": "dir",
+                    "title": f"[COLOR cyan]>[/COLOR] {label}",
+                    "link": self._country_link(country_slug, f"{self.page_url}/{quote(page_id)}"),
+                    "thumbnail": "resources/media/roku.png",
+                })
+            return itemlist
+
+        if route_url == self.base_url:
             itemlist.append({
                 "type": "item",
                 "title": "[COLOR khaki]Requires Widevine[/COLOR]",
@@ -491,7 +629,7 @@ class RokuChannel(Plugin):
         except (json.JSONDecodeError, TypeError):
             data = {}
 
-        if url in (self.search_url, self.vod_search_url):
+        if route_url in (self.search_url, self.vod_search_url):
             data = _dictish(data.get("_results"))
 
         collection_title = data.get("_collection_title", "")
@@ -499,41 +637,42 @@ class RokuChannel(Plugin):
             data = _dictish(data.get("_page"))
 
         if (
-            url == self.home_url
-            or url in (self.live_url, self.tv_url)
-            or url.startswith(self.page_url + "/")
-            or url in (self.search_url, self.vod_search_url)
+            route_url == self.home_url
+            or route_url in (self.live_url, self.tv_url)
+            or route_url.startswith(self.page_url + "/")
+            or route_url in (self.search_url, self.vod_search_url)
         ):
             self._add_page_items(
                 itemlist,
                 data,
                 collection_title=collection_title,
-                include_live=(url != self.vod_search_url),
+                include_live=(route_url != self.vod_search_url),
+                country_slug=country_slug,
             )
             if not itemlist:
                 itemlist.append({
                     "type": "dir",
                     "title": "[COLOR grey]No Roku Channel content found[/COLOR]",
-                    "link": self.base_url,
+                    "link": self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
-        if url.startswith(self.details_url + "/"):
-            self._add_detail_items(itemlist, data)
+        if route_url.startswith(self.details_url + "/"):
+            self._add_detail_items(itemlist, data, country_slug=country_slug)
             if not itemlist:
                 itemlist.append({
                     "type": "dir",
                     "title": "[COLOR grey]Content not available[/COLOR]",
-                    "link": self.base_url,
+                    "link": self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
         return itemlist
 
-    def _add_page_items(self, itemlist, data, collection_title="", include_live=True):
+    def _add_page_items(self, itemlist, data, collection_title="", include_live=True, country_slug=None):
         if collection_title:
             for content in _named_collection_contents(data, collection_title):
-                self._add_content_item(itemlist, content, include_live=include_live)
+                self._add_content_item(itemlist, content, include_live=include_live, country_slug=country_slug)
             return
 
         for collection in _listish(data.get("collections")):
@@ -543,15 +682,15 @@ class RokuChannel(Plugin):
                 itemlist.append({
                     "type": "dir",
                     "title": f"[COLOR orange]-- {label} --[/COLOR]",
-                    "link": self.base_url,
+                    "link": self._country_link(country_slug, self.base_url),
                 })
             for entry in view:
-                self._add_content_item(itemlist, _dictish(entry.get("content")), include_live=include_live)
+                self._add_content_item(itemlist, _dictish(entry.get("content")), include_live=include_live, country_slug=country_slug)
 
         for entry in _listish(data.get("view")):
-            self._add_content_item(itemlist, _dictish(entry.get("content")), include_live=include_live)
+            self._add_content_item(itemlist, _dictish(entry.get("content")), include_live=include_live, country_slug=country_slug)
 
-    def _add_detail_items(self, itemlist, item):
+    def _add_detail_items(self, itemlist, item, country_slug=None):
         item_type = str(item.get("type", "")).lower()
         if item_type == "series":
             seasons = _listish(item.get("seasons"))
@@ -562,20 +701,20 @@ class RokuChannel(Plugin):
                     itemlist.append({
                         "type": "dir",
                         "title": f"[COLOR orange]-- Season {season_number or '?'} --[/COLOR]",
-                        "link": self.base_url,
+                        "link": self._country_link(country_slug, self.base_url),
                         "thumbnail": _best_image(season, _best_image(item)),
                         "summary": _description(season) or _description(item),
                     })
                 for episode in episodes:
-                    self._add_content_item(itemlist, episode, series_thumb=_best_image(item))
+                    self._add_content_item(itemlist, episode, series_thumb=_best_image(item), country_slug=country_slug)
             if not itemlist:
                 for episode in _listish(item.get("episodes")):
-                    self._add_content_item(itemlist, episode, series_thumb=_best_image(item))
+                    self._add_content_item(itemlist, episode, series_thumb=_best_image(item), country_slug=country_slug)
             return
 
-        self._add_content_item(itemlist, item, force_playable=True)
+        self._add_content_item(itemlist, item, force_playable=True, country_slug=country_slug)
 
-    def _add_content_item(self, itemlist, item, series_thumb="", force_playable=False, include_live=True):
+    def _add_content_item(self, itemlist, item, series_thumb="", force_playable=False, include_live=True, country_slug=None):
         if not isinstance(item, dict):
             return
         content_id = _content_id(item)
@@ -600,7 +739,7 @@ class RokuChannel(Plugin):
             itemlist.append({
                 "type": "dir",
                 "title": display,
-                "link": f"{self.details_url}/{content_id}",
+                "link": self._country_link(country_slug, f"{self.details_url}/{content_id}"),
                 "thumbnail": thumb,
                 "summary": summary,
             })
@@ -618,18 +757,19 @@ class RokuChannel(Plugin):
         itemlist.append({
             "type": "item",
             "title": display,
-            "link": f"{self.details_url}/{content_id}",
+            "link": self._country_link(country_slug, f"{self.details_url}/{content_id}"),
             "thumbnail": thumb,
             "summary": summary,
             "is_playable": "true",
         })
 
     def _resolve_playback_link(self, link):
-        if link.startswith(self.details_url + "/"):
-            content_id = _page_id_from_url(link, self.details_url)
+        country_slug, route_link = self._country_context(link)
+        if route_link.startswith(self.details_url + "/"):
+            content_id = _page_id_from_url(route_link, self.details_url)
             resp = self.session.get(
                 f"{CONTENT_API}/{content_id}?{DETAIL_EXPAND}",
-                headers=self._headers(),
+                headers=self._headers(referer=self._source_url(country_slug, route_link)),
             )
             item = resp.json()
             dash_options, hls_options = _playback_option_groups(item)

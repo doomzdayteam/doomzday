@@ -45,10 +45,8 @@ LIVE_CATEGORIES = [
 ]
 
 ENGLISH_REGIONS = [
-    ('auto', 'Auto / Local Region', ''),
     ('us', 'United States', 'US'),
     ('gb', 'United Kingdom', 'GB'),
-    ('ca', 'Canada', 'CA'),
     ('au', 'Australia', 'AU'),
 ]
 REGION_BY_SLUG = {slug: {'slug': slug, 'label': label, 'country': country}
@@ -216,6 +214,10 @@ def _api_params(region_slug, **params):
     return params
 
 
+def _route_url(url):
+    return str(url or '').split('?', 1)[0]
+
+
 def _normalised_search_text(*parts):
     return ' '.join(str(part or '') for part in parts).lower()
 
@@ -241,10 +243,12 @@ class PlutoTV(Plugin):
 
         
         self.region_url     = f'{self.base_url}/region'
+        self.live_regions_url = f'{self.base_url}/live-regions'
         self.live_url       = f'{self.base_url}/live'
         self.live_cat_url   = f'{self.base_url}/live/category'
         self.live_search_url = f'{self.base_url}/live/search'
         self.vod_url        = f'{self.base_url}/vod'
+        self.vod_categories_url = f'{self.vod_url}/categories'
         self.vod_movies_url = f'{self.base_url}/vod/movies'
         self.vod_shows_url  = f'{self.base_url}/vod/shows'
         self.vod_cat_url    = f'{self.base_url}/vod/category'
@@ -258,13 +262,14 @@ class PlutoTV(Plugin):
         self._token_channels = None
 
     def _route_context(self, url):
-        if not url.startswith(self.region_url + '/'):
-            return None, url
+        clean_url = _route_url(url)
+        if not clean_url.startswith(self.region_url + '/'):
+            return None, clean_url
 
-        route = url.replace(self.region_url + '/', '', 1)
+        route = clean_url.replace(self.region_url + '/', '', 1)
         slug, _, tail = route.partition('/')
         if slug not in REGION_BY_SLUG:
-            return None, url
+            return None, clean_url
 
         inner_url = f'{self.base_url}/{tail}' if tail else self.base_url
         return slug, inner_url
@@ -380,6 +385,8 @@ class PlutoTV(Plugin):
             return 'search'
         if route_url in (self.vod_url, self.vod_movies_url, self.vod_shows_url):
             return 'catalog'
+        if route_url == self.vod_categories_url:
+            return 'catalog'
         if route_url.startswith(self.vod_cat_url + '/') or route_url.startswith(self.vod_series_url + '/'):
             return 'catalog'
         return ''
@@ -388,7 +395,12 @@ class PlutoTV(Plugin):
     def get_list(self, url):
         region_slug, route_url = self._route_context(url)
 
-        
+        if route_url == self.live_regions_url:
+            return json.dumps({'kind': 'live_regions'})
+
+        if route_url == self.base_url:
+            return json.dumps({'kind': 'regions', 'region': region_slug})
+
         if route_url == self.search_url:
             query = self.from_keyboard(header='Search Pluto On Demand')
             if not query:
@@ -419,7 +431,10 @@ class PlutoTV(Plugin):
             return resp.text
 
         
-        if route_url == self.vod_url:
+        if region_slug and route_url == self.vod_url:
+            return json.dumps({'kind': 'vod_root', 'region': region_slug})
+
+        if route_url == self.vod_url or route_url == self.vod_categories_url:
             return self._vod_categories_response(region_slug)
 
         if route_url in (self.vod_movies_url, self.vod_shows_url):
@@ -468,8 +483,20 @@ class PlutoTV(Plugin):
         region_slug, route_url = self._route_context(url)
         itemlist = []
 
+        if route_url == self.live_regions_url:
+            for slug, label, country in ENGLISH_REGIONS:
+                suffix = f' ({country})' if country else ''
+                link = self._region_link(slug, self.live_url)
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR cyan]{label}{suffix}[/COLOR]',
+                    'link': link,
+                    'summary': f'Source: {link}',
+                })
+            return itemlist
+
         
-        if url == self.base_url:
+        if not region_slug and route_url == self.base_url:
             for slug, label, country in ENGLISH_REGIONS:
                 suffix = f' ({country})' if country else ''
                 itemlist.append({
@@ -532,7 +559,37 @@ class PlutoTV(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': '[COLOR limegreen]â–¶ Browse All VOD Categories[/COLOR]',
+                'link': self._region_link(region_slug, self.vod_categories_url),
+            })
+            return itemlist
+
+        if region_slug and route_url == self.vod_url:
+            region = REGION_BY_SLUG[region_slug]
+            region_label = region['label']
+            itemlist.append({
+                'type': 'dir',
+                'title': f'[COLOR orange]-- {region_label} On Demand --[/COLOR]',
                 'link': self._region_link(region_slug, self.vod_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR deepskyblue]Search On Demand[/COLOR]',
+                'link': self._region_link(region_slug, self.search_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR red]>[/COLOR] All On Demand Movies',
+                'link': self._region_link(region_slug, self.vod_movies_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR deepskyblue]>[/COLOR] All On Demand TV Shows',
+                'link': self._region_link(region_slug, self.vod_shows_url),
+            })
+            itemlist.append({
+                'type': 'dir',
+                'title': '[COLOR limegreen]>[/COLOR] Browse All VOD Categories',
+                'link': self._region_link(region_slug, self.vod_categories_url),
             })
             return itemlist
 
@@ -714,7 +771,7 @@ class PlutoTV(Plugin):
             return itemlist
 
         
-        if route_url == self.vod_url:
+        if route_url == self.vod_url or route_url == self.vod_categories_url:
             try:
                 data = json.loads(response)
             except (json.JSONDecodeError, TypeError):

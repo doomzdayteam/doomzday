@@ -32,6 +32,9 @@ CHANNEL_LIST_URL = (
     f'{API_BASE}/proxy/channels/list/{CHANNEL_LIST_ID}.json'
     f'?sort=hybrid&geoId={CHANNEL_LIST_GEO_ID}'
 )
+XUMO_COUNTRIES = [
+    ('us', 'United States', 'US'),
+]
 MOVIES_PATH = '/free-movies'
 SHOWS_PATH = '/tv-shows'
 BROADCAST_QS = (
@@ -86,6 +89,10 @@ def _overview_from_item(item):
 
 def _clean_title(title):
     return re.sub(r'\[/?COLOR[^\]]*\]', '', str(title or 'Xumo Play')).strip()
+
+
+def _route_url(url):
+    return str(url or '').split('?', 1)[0].rstrip('/')
 
 
 def _with_kodi_headers(url, user_agent, referer=BASE_URL):
@@ -284,7 +291,9 @@ class XumoPlay(Plugin):
             self.session.headers = self.headers
 
         self.live_url = f'{self.base_url}/live'
+        self.live_countries_url = f'{self.base_url}/live-countries'
         self.live_cat_url = f'{self.live_url}/category'
+        self.country_url = f'{self.base_url}/country'
         self.channel_url = f'{self.base_url}/channel'
         self.search_url = f'{self.base_url}/search'
         self.vod_search_url = f'{self.base_url}/vod/search'
@@ -301,6 +310,38 @@ class XumoPlay(Plugin):
         self._page_view_id = None
         self._xumo_session_started = False
         self._asset_metadata = {}
+
+    def _country_by_slug(self, slug):
+        for country in XUMO_COUNTRIES:
+            if country[0] == slug:
+                return country
+        return None
+
+    def _country_context(self, url):
+        route_url = _route_url(url)
+        marker = f'{self.country_url}/'
+        if not route_url.startswith(marker):
+            return None, route_url
+
+        tail = route_url.replace(marker, '', 1).strip('/')
+        parts = tail.split('/', 1) if tail else []
+        slug = parts[0] if parts else ''
+        if not self._country_by_slug(slug):
+            return None, route_url
+
+        if len(parts) == 1:
+            return slug, self.base_url
+        return slug, f'{self.base_url}/{parts[1]}'
+
+    def _country_link(self, slug, route_url):
+        route_url = _route_url(route_url)
+        if not slug or not route_url.startswith(self.base_url):
+            return route_url
+
+        tail = route_url.replace(self.base_url, '', 1).strip('/')
+        if not tail:
+            return f'{self.country_url}/{slug}'
+        return f'{self.country_url}/{slug}/{tail}'
 
     def _api_get(self, url):
         resp = self.session.get(url, headers=self.headers)
@@ -450,6 +491,7 @@ class XumoPlay(Plugin):
         return self._asset_metadata[asset_id]
 
     def _vod_menu_cache_kind(self, url):
+        url = _route_url(url)
         if url in (self.search_url, self.vod_search_url):
             return 'search'
         if url in (self.movies_url, self.shows_url, self.all_movies_url, self.all_shows_url):
@@ -465,7 +507,18 @@ class XumoPlay(Plugin):
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
 
-        if url == self.search_url:
+        country_slug, route_url = self._country_context(url)
+
+        if route_url == self.live_countries_url:
+            return json.dumps({'kind': 'live_countries'})
+
+        if country_slug and route_url == self.base_url:
+            return json.dumps({
+                'kind': 'country_root',
+                'country': country_slug,
+            })
+
+        if route_url == self.search_url:
             query = self.from_keyboard()
             if not query:
                 sys.exit()
@@ -477,7 +530,7 @@ class XumoPlay(Plugin):
                 'shows': self._fetch_page(SHOWS_PATH),
             })
 
-        if url == self.vod_search_url:
+        if route_url == self.vod_search_url:
             query = self.from_keyboard(header='Search Xumo Play VOD')
             if not query:
                 sys.exit()
@@ -488,22 +541,22 @@ class XumoPlay(Plugin):
                 'shows': self._fetch_page(SHOWS_PATH),
             })
 
-        if url in (self.movies_url, self.all_movies_url):
+        if route_url in (self.movies_url, self.all_movies_url):
             return json.dumps({
-                'kind': 'vod_page' if url == self.movies_url else 'vod_all',
+                'kind': 'vod_page' if route_url == self.movies_url else 'vod_all',
                 'route': 'free-movies',
                 'page': self._fetch_page(MOVIES_PATH),
             })
 
-        if url in (self.shows_url, self.all_shows_url):
+        if route_url in (self.shows_url, self.all_shows_url):
             return json.dumps({
-                'kind': 'vod_page' if url == self.shows_url else 'vod_all',
+                'kind': 'vod_page' if route_url == self.shows_url else 'vod_all',
                 'route': 'tv-shows',
                 'page': self._fetch_page(SHOWS_PATH),
             })
 
-        if url.startswith(self.vod_cat_url + '/'):
-            tail = url.replace(self.vod_cat_url + '/', '').split('/')
+        if route_url.startswith(self.vod_cat_url + '/'):
+            tail = route_url.replace(self.vod_cat_url + '/', '').split('/')
             route = unquote(tail[0]) if tail else 'free-movies'
             cat_id = unquote(tail[1]) if len(tail) > 1 else ''
             page_path = SHOWS_PATH if route == 'tv-shows' else MOVIES_PATH
@@ -514,20 +567,20 @@ class XumoPlay(Plugin):
                 'page': self._fetch_page(page_path),
             })
 
-        if url.startswith(self.shows_url + '/'):
+        if route_url.startswith(self.shows_url + '/'):
             return json.dumps({
                 'kind': 'show_detail',
-                'page': self._fetch_page(url),
+                'page': self._fetch_page(route_url),
             })
 
-        if url == self.base_url or url == self.live_url or url.startswith(self.live_cat_url + '/'):
+        if route_url == self.base_url or route_url == self.live_url or route_url.startswith(self.live_cat_url + '/'):
             return json.dumps({
                 'kind': 'catalog',
                 'catalog': self._fetch_catalog(),
             })
 
-        if url.startswith(self.channel_url + '/'):
-            channel_id = unquote(url.replace(self.channel_url + '/', '').split('/')[0])
+        if route_url.startswith(self.channel_url + '/'):
+            channel_id = unquote(route_url.replace(self.channel_url + '/', '').split('/')[0])
             return json.dumps({
                 'kind': 'channel',
                 'channelId': channel_id,
@@ -540,11 +593,12 @@ class XumoPlay(Plugin):
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
 
-        cache_kind = self._vod_menu_cache_kind(url)
+        country_slug, route_url = self._country_context(url)
+        cache_kind = self._vod_menu_cache_kind(route_url)
         if cache_kind:
             return VOD_CACHE.get_or_set_menu(
                 self.name,
-                vod_cache_key('menu', url, response),
+                vod_cache_key('menu', country_slug or 'default', route_url, response),
                 cache_kind,
                 lambda: self._parse_list_uncached(url, response),
             )
@@ -554,11 +608,69 @@ class XumoPlay(Plugin):
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
 
+        country_slug, route_url = self._country_context(url)
         data = _load_json(response)
         catalog = data.get('catalog', data)
         itemlist = []
 
-        if url == self.base_url:
+        if route_url == self.live_countries_url:
+            for slug, name, code in XUMO_COUNTRIES:
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR cyan]{name} ({code})[/COLOR]',
+                    'link': self._country_link(slug, self.live_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': f'Source: {self.base_url}',
+                })
+            return itemlist
+
+        if country_slug and route_url == self.base_url:
+            return [
+                {
+                    'type': 'item',
+                    'title': '[COLOR lawngreen]Xumo DRM / Widevine Help[/COLOR]',
+                    'link': 'inputstream_helper',
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'Install or configure InputStream Adaptive and Widevine for Xumo VOD playback.',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR deepskyblue]Search Xumo Play VOD[/COLOR]',
+                    'link': self._country_link(country_slug, self.vod_search_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'Search Xumo Play VOD.',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR red]>[/COLOR] Xumo Movies',
+                    'link': self._country_link(country_slug, self.all_movies_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'All Xumo Play on-demand movies.',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR deepskyblue]>[/COLOR] Xumo TV Shows',
+                    'link': self._country_link(country_slug, self.all_shows_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'All Xumo Play on-demand TV shows.',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR limegreen]>[/COLOR] Xumo Movie Categories',
+                    'link': self._country_link(country_slug, self.movies_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'Browse Xumo Play movie categories.',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR limegreen]>[/COLOR] Xumo TV Show Categories',
+                    'link': self._country_link(country_slug, self.shows_url),
+                    'thumbnail': 'resources/media/xumo.png',
+                    'summary': 'Browse Xumo Play TV show categories.',
+                },
+            ]
+
+        if route_url == self.base_url:
             return [
                 {
                     'type': 'item',
@@ -604,7 +716,7 @@ class XumoPlay(Plugin):
                 },
             ]
 
-        if url in (self.movies_url, self.shows_url):
+        if route_url in (self.movies_url, self.shows_url):
             route = data.get('route', 'free-movies')
             page = data.get('page', {})
             all_url = self.all_shows_url if route == 'tv-shows' else self.all_movies_url
@@ -612,64 +724,64 @@ class XumoPlay(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': f'[COLOR deepskyblue]>[/COLOR] {all_label}',
-                'link': all_url,
+                'link': self._country_link(country_slug, all_url),
                 'thumbnail': 'resources/media/live_tv.png',
             })
-            self._add_vod_category_items(itemlist, page, route)
-            return itemlist or self._empty('No on demand categories available', self.base_url)
+            self._add_vod_category_items(itemlist, page, route, country_slug)
+            return itemlist or self._empty('No on demand categories available', self._country_link(country_slug, self.base_url))
 
-        if url in (self.all_movies_url, self.all_shows_url):
+        if route_url in (self.all_movies_url, self.all_shows_url):
             route = data.get('route', 'free-movies')
             for card in self._iter_cards(data.get('page', {}), route=route):
-                self._add_vod_card_item(itemlist, card)
-            return itemlist or self._empty('No on demand titles available', self.base_url)
+                self._add_vod_card_item(itemlist, card, country_slug)
+            return itemlist or self._empty('No on demand titles available', self._country_link(country_slug, self.base_url))
 
-        if url.startswith(self.vod_cat_url + '/'):
+        if route_url.startswith(self.vod_cat_url + '/'):
             route = data.get('route', 'free-movies')
             for card in self._iter_cards(
                     data.get('page', {}),
                     route=route,
                     category_id=data.get('categoryId', '')):
-                self._add_vod_card_item(itemlist, card)
-            return itemlist or self._empty('No titles found', self.base_url)
+                self._add_vod_card_item(itemlist, card, country_slug)
+            return itemlist or self._empty('No titles found', self._country_link(country_slug, self.base_url))
 
-        if url.startswith(self.shows_url + '/'):
-            self._add_show_detail_items(itemlist, data.get('page', {}))
-            return itemlist or self._empty('No episodes found', self.shows_url)
+        if route_url.startswith(self.shows_url + '/'):
+            self._add_show_detail_items(itemlist, data.get('page', {}), country_slug)
+            return itemlist or self._empty('No episodes found', self._country_link(country_slug, self.shows_url))
 
-        if url == self.live_url:
+        if route_url == self.live_url:
             for group, count in _groups_from_catalog(catalog):
                 itemlist.append({
                     'type': 'dir',
                     'title': f'[COLOR orange]{group}[/COLOR] ({count})',
-                    'link': f'{self.live_cat_url}/{quote(group, safe="")}',
+                    'link': self._country_link(country_slug, f'{self.live_cat_url}/{quote(group, safe="")}'),
                     'thumbnail': 'resources/media/live_tv.png',
                 })
-            return itemlist or self._empty('No live channels available', self.base_url)
+            return itemlist or self._empty('No live channels available', self._country_link(country_slug, self.base_url))
 
         channels = _channels_from_catalog(catalog)
-        if url in (self.search_url, self.vod_search_url):
+        if route_url in (self.search_url, self.vod_search_url):
             query = data.get('query', '')
             for card in self._iter_cards(data.get('movies', {}), route='free-movies', query=query):
-                self._add_vod_card_item(itemlist, card)
+                self._add_vod_card_item(itemlist, card, country_slug)
             for card in self._iter_cards(data.get('shows', {}), route='tv-shows', query=query):
-                self._add_vod_card_item(itemlist, card)
-            if url == self.search_url:
+                self._add_vod_card_item(itemlist, card, country_slug)
+            if route_url == self.search_url:
                 for channel in _filter_channels(channels, query):
-                    self._add_channel_item(itemlist, channel)
-            return itemlist or self._empty('No results found', self.base_url)
-        elif url.startswith(self.live_cat_url + '/'):
-            group = unquote(url.replace(self.live_cat_url + '/', '').split('/')[0])
+                    self._add_channel_item(itemlist, channel, country_slug)
+            return itemlist or self._empty('No results found', self._country_link(country_slug, self.base_url))
+        elif route_url.startswith(self.live_cat_url + '/'):
+            group = unquote(route_url.replace(self.live_cat_url + '/', '').split('/')[0])
             channels = [channel for channel in channels if channel.get('group') == group]
-        elif url.startswith(self.channel_url + '/'):
-            channel_id = unquote(url.replace(self.channel_url + '/', '').split('/')[0])
+        elif route_url.startswith(self.channel_url + '/'):
+            channel_id = unquote(route_url.replace(self.channel_url + '/', '').split('/')[0])
             channels = [channel for channel in channels if channel.get('id') == channel_id]
         else:
             return None
 
         for channel in channels:
-            self._add_channel_item(itemlist, channel)
-        return itemlist or self._empty('No channels found', self.live_url)
+            self._add_channel_item(itemlist, channel, country_slug)
+        return itemlist or self._empty('No channels found', self._country_link(country_slug, self.live_url))
 
     def _rails_from_page(self, page):
         rails = page.get('rails', []) if isinstance(page, dict) else []
@@ -708,7 +820,7 @@ class XumoPlay(Plugin):
                 seen.add(key)
                 yield card
 
-    def _add_vod_card_item(self, itemlist, card):
+    def _add_vod_card_item(self, itemlist, card, country_slug=None):
         title = card.get('title', 'Xumo Play')
         content_type = str(card.get('contentType') or '').upper()
         thumb = _card_image(card)
@@ -721,7 +833,7 @@ class XumoPlay(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': display,
-                'link': _card_route(card),
+                'link': self._country_link(country_slug, _card_route(card)),
                 'thumbnail': thumb,
                 'summary': summary,
             })
@@ -733,13 +845,13 @@ class XumoPlay(Plugin):
         itemlist.append({
             'type': 'item',
             'title': display,
-            'link': f"{self.asset_url}/{quote(card_id, safe='')}",
+            'link': self._country_link(country_slug, f"{self.asset_url}/{quote(card_id, safe='')}"),
             'thumbnail': thumb,
             'summary': summary,
             'is_playable': 'true',
         })
 
-    def _add_vod_category_items(self, itemlist, page, route):
+    def _add_vod_category_items(self, itemlist, page, route, country_slug=None):
         for rail in self._rails_from_page(page):
             category = rail.get('category', {}) if isinstance(rail, dict) else {}
             cards = rail.get('cards', []) if isinstance(rail, dict) else []
@@ -752,11 +864,11 @@ class XumoPlay(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': f'[COLOR limegreen]>[/COLOR] {name} [COLOR grey]({len(cards)})[/COLOR]',
-                'link': f'{self.vod_cat_url}/{quote(route, safe="")}/{quote(cat_id, safe="")}',
+                'link': self._country_link(country_slug, f'{self.vod_cat_url}/{quote(route, safe="")}/{quote(cat_id, safe="")}'),
                 'thumbnail': _card_image(cards[0]) if cards else 'resources/media/live_tv.png',
             })
 
-    def _add_show_detail_items(self, itemlist, page):
+    def _add_show_detail_items(self, itemlist, page, country_slug=None):
         entity = page.get('entity', {}) if isinstance(page, dict) else {}
         seasons = entity.get('seasons', []) if isinstance(entity, dict) else []
         series_thumb = _card_image(entity) if isinstance(entity, dict) else ''
@@ -776,7 +888,7 @@ class XumoPlay(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': f'[COLOR orange]-- {season_name} ({len(cards)} episodes) --[/COLOR]',
-                'link': self.shows_url,
+                'link': self._country_link(country_slug, self.shows_url),
                 'thumbnail': series_thumb,
                 'summary': series_summary,
             })
@@ -792,7 +904,7 @@ class XumoPlay(Plugin):
                 itemlist.append({
                     'type': 'item',
                     'title': display,
-                    'link': f"{self.asset_url}/{quote(card.get('id', ''), safe='')}",
+                    'link': self._country_link(country_slug, f"{self.asset_url}/{quote(card.get('id', ''), safe='')}"),
                     'thumbnail': _card_image(card) or series_thumb,
                     'summary': _overview_from_item(card) or series_summary,
                     'is_playable': 'true',
@@ -805,14 +917,14 @@ class XumoPlay(Plugin):
             'link': link,
         }]
 
-    def _add_channel_item(self, itemlist, channel):
+    def _add_channel_item(self, itemlist, channel, country_slug=None):
         number = str(channel.get('number') or '').strip()
         name = channel.get('name', 'Xumo Play')
         label = f'{number} - {name}' if number else name
         itemlist.append({
             'type': 'item',
             'title': f'[COLOR red]>[/COLOR] {label}',
-            'link': f"{self.channel_url}/{quote(channel.get('id', ''), safe='')}",
+            'link': self._country_link(country_slug, f"{self.channel_url}/{quote(channel.get('id', ''), safe='')}"),
             'thumbnail': channel.get('logo', '') or 'resources/media/live_tv.png',
             'summary': channel.get('description', '') or channel.get('group', ''),
             'is_playable': 'true',
@@ -908,6 +1020,8 @@ class XumoPlay(Plugin):
 
         if not isinstance(link, str):
             return None
+
+        _, link = self._country_context(link)
 
         if link.startswith(self.channel_url + '/'):
             channel_id = unquote(link.replace(self.channel_url + '/', '').split('/')[0])

@@ -2,31 +2,24 @@
   "items": [
     {
       "type": "dir",
-      "title": "[COLOR deepskyblue]Search Pluto On Demand[/COLOR]",
-      "link": "https://pluto.tv/region/auto/search",
+      "title": "[COLOR cyan]United States (US)[/COLOR]",
+      "link": "https://pluto.tv/region/us/vod",
       "thumbnail": "resources/media/pluto_tv.png",
-      "summary": "Search Pluto TV on-demand movies and shows."
+      "summary": "Source: https://pluto.tv/region/us"
     },
     {
       "type": "dir",
-      "title": "[COLOR red]>[/COLOR] Pluto Movies",
-      "link": "https://pluto.tv/region/auto/vod/movies",
+      "title": "[COLOR cyan]United Kingdom (GB)[/COLOR]",
+      "link": "https://pluto.tv/region/gb/vod",
       "thumbnail": "resources/media/pluto_tv.png",
-      "summary": "All Pluto TV on-demand movies."
+      "summary": "Source: https://pluto.tv/region/gb"
     },
     {
       "type": "dir",
-      "title": "[COLOR deepskyblue]>[/COLOR] Pluto TV Shows",
-      "link": "https://pluto.tv/region/auto/vod/shows",
+      "title": "[COLOR cyan]Australia (AU)[/COLOR]",
+      "link": "https://pluto.tv/region/au/vod",
       "thumbnail": "resources/media/pluto_tv.png",
-      "summary": "All Pluto TV on-demand TV shows."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR limegreen]>[/COLOR] Pluto VOD Categories",
-      "link": "https://pluto.tv/region/auto/vod",
-      "thumbnail": "resources/media/pluto_tv.png",
-      "summary": "Browse Pluto TV on-demand genres and categories."
+      "summary": "Source: https://pluto.tv/region/au"
     }
   ]
 }

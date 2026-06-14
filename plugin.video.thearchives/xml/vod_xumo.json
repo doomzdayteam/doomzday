@@ -1,46 +1,11 @@
 {
   "items": [
     {
-      "type": "item",
-      "title": "[COLOR khaki]Xumo Play VOD Requires Widevine[/COLOR]",
-      "link": "message/Xumo Play on demand movies and episodes may use Widevine DRM. Use the InputStream Helper link below to install or configure Widevine.",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "Some Xumo Play VOD streams require Widevine DRM support."
-    },
-    {
       "type": "dir",
-      "title": "[COLOR deepskyblue]Search Xumo Play VOD[/COLOR]",
-      "link": "https://play.xumo.com/vod/search",
+      "title": "[COLOR cyan]United States (US)[/COLOR]",
+      "link": "https://play.xumo.com/country/us",
       "thumbnail": "resources/media/xumo.png",
-      "summary": "Search Xumo Play VOD."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR red]>[/COLOR] Xumo Movies",
-      "link": "https://play.xumo.com/vod/movies",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "All Xumo Play on-demand movies."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR deepskyblue]>[/COLOR] Xumo TV Shows",
-      "link": "https://play.xumo.com/vod/shows",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "All Xumo Play on-demand TV shows."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR limegreen]>[/COLOR] Xumo Movie Categories",
-      "link": "https://play.xumo.com/free-movies",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "Browse Xumo Play movie categories."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR limegreen]>[/COLOR] Xumo TV Show Categories",
-      "link": "https://play.xumo.com/tv-shows",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "Browse Xumo Play TV show categories."
+      "summary": "Source: https://play.xumo.com"
     }
   ]
 }

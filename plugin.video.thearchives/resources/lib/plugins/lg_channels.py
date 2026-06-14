@@ -2,7 +2,7 @@ import json
 import re
 import sys
 from html import unescape
-from urllib.parse import quote, unquote
+from urllib.parse import quote, unquote, urljoin
 from uuid import uuid4
 
 import xbmc
@@ -19,8 +19,18 @@ FANART = Addon().getAddonInfo('fanart')
 BASE_URL = 'https://lgchannels.com'
 API_BASE = 'https://api.lgchannels.com/api/v1.0'
 LINEUP_API_BASE = 'https://api.lgchannels.com/lineupapi/v1.0'
-COUNTRY = 'US'
+DEFAULT_COUNTRY = 'US'
 LANGUAGE = 'en'
+LG_COUNTRIES = [
+    ('us', 'United States', 'US'),
+    ('au', 'Australia', 'AU'),
+]
+LG_COUNTRY_BY_SLUG = {slug: {'label': label, 'country': country}
+                      for slug, label, country in LG_COUNTRIES}
+LG_COUNTRY_SOURCES = {
+    'au': 'https://tv-experience.lg.com.au/lg-channels',
+    'gb': 'https://www.lg.com/uk/lg-experience/helpful-hints/lg-smart-tv-channels/',
+}
 
 
 def _duration_str(seconds):
@@ -59,7 +69,21 @@ def _with_kodi_headers(url, user_agent, referer=BASE_URL):
     )
 
 
-def _replace_ssai_placeholders(url, user_agent, country=COUNTRY):
+def _country_code(slug):
+    info = LG_COUNTRY_BY_SLUG.get(slug or '')
+    return info.get('country') if info else DEFAULT_COUNTRY
+
+
+def _country_label(slug):
+    info = LG_COUNTRY_BY_SLUG.get(slug or '')
+    return info.get('label') if info else 'LG Channels'
+
+
+def _route_url(url):
+    return str(url or '').split('?', 1)[0]
+
+
+def _replace_ssai_placeholders(url, user_agent, country=DEFAULT_COUNTRY):
     if not isinstance(url, str) or not url:
         return ''
 
@@ -146,6 +170,34 @@ def _clean_title(title):
     return re.sub(r'\[/?COLOR[^\]]*\]', '', str(title or 'LG Channels')).strip()
 
 
+def _source_channels_from_html(html, source_url):
+    channels = []
+    row_re = re.compile(
+        r'<tr[^>]*>.*?'
+        r'<td[^>]*class="[^"]*brand[^"]*"[^>]*>.*?'
+        r'<img[^>]+src="(?P<logo>[^"]+)"[^>]*>.*?</td>.*?'
+        r'<td[^>]*class="[^"]*channel-no[^"]*"[^>]*>(?P<number>.*?)</td>.*?'
+        r'<td[^>]*class="[^"]*channel-name[^"]*"[^>]*>(?P<name>.*?)</td>.*?'
+        r'<td[^>]*class="[^"]*description[^"]*"[^>]*>(?P<description>.*?)</td>.*?'
+        r'</tr>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    for match in row_re.finditer(html or ''):
+        number = _strip_html(match.group('number'))
+        name = _strip_html(match.group('name'))
+        if not name:
+            continue
+        channels.append({
+            'id': f'source:{number}:{name}',
+            'number': number,
+            'name': name,
+            'description': _strip_html(match.group('description')),
+            'logo': urljoin(source_url, unescape(match.group('logo')).strip()),
+            'source': source_url,
+        })
+    return channels
+
+
 class LGChannels(Plugin):
     
 
@@ -160,24 +212,48 @@ class LGChannels(Plugin):
             'AppleWebKit/537.36 (KHTML, like Gecko) '
             'Chrome/125.0.0.0 Safari/537.36'
         )
-        self.headers = {
-            'User-Agent': self.user_agent,
-            'Referer': f'{BASE_URL}/',
-            'Accept': 'application/json, text/plain, */*',
-            'Origin': BASE_URL,
-            'X-Device-Type': 'WEB',
-            'X-Device-Country': COUNTRY,
-            'X-Device-Language': LANGUAGE,
-        }
-        self.session.headers = self.headers
+        self.headers = self._headers(DEFAULT_COUNTRY)
 
+        self.country_url = f'{self.base_url}/country'
         self.live_url = f'{self.base_url}/live'
         self.live_cat_url = f'{self.live_url}/category'
         self.channel_url = f'{self.base_url}/channel'
         self.search_url = f'{self.base_url}/search'
 
-    def _api_get(self, url, params=None, referer=None):
-        headers = dict(self.headers)
+    def _headers(self, country=DEFAULT_COUNTRY):
+        return {
+            'User-Agent': self.user_agent,
+            'Referer': f'{BASE_URL}/',
+            'Accept': 'application/json, text/plain, */*',
+            'Origin': BASE_URL,
+            'X-Device-Type': 'WEB',
+            'X-Device-Country': country or DEFAULT_COUNTRY,
+            'X-Device-Language': LANGUAGE,
+        }
+
+    def _country_context(self, url):
+        clean_url = _route_url(url)
+        if not clean_url.startswith(self.country_url + '/'):
+            return None, clean_url
+
+        route = clean_url.replace(self.country_url + '/', '', 1)
+        slug, _, tail = route.partition('/')
+        if slug not in LG_COUNTRY_BY_SLUG:
+            return None, clean_url
+
+        inner_url = f'{self.base_url}/{tail}' if tail else self.base_url
+        return slug, inner_url
+
+    def _country_link(self, country_slug, inner_url):
+        if not country_slug:
+            return inner_url
+        if inner_url == self.base_url:
+            return f'{self.country_url}/{country_slug}'
+        tail = inner_url.replace(self.base_url + '/', '', 1)
+        return f'{self.country_url}/{country_slug}/{tail}'
+
+    def _api_get(self, url, params=None, referer=None, country=DEFAULT_COUNTRY):
+        headers = self._headers(country)
         if referer:
             headers['Referer'] = referer
         resp = self.session.get(url, params=params or {}, headers=headers)
@@ -186,46 +262,71 @@ class LGChannels(Plugin):
         except ValueError:
             return _load_json(resp.text)
 
-    def _live_payload(self):
-        lineup = self._api_get(f'{LINEUP_API_BASE}/channellist')
-        genres = self._api_get(f'{API_BASE}/channellist', {'deviceType': 'Web'})
+    def _live_payload(self, country=DEFAULT_COUNTRY):
+        lineup = self._api_get(f'{LINEUP_API_BASE}/channellist', country=country)
+        genres = self._api_get(f'{API_BASE}/channellist', {'deviceType': 'Web'}, country=country)
         return {'lineup': lineup, 'genres': genres}
 
-    def _schedule_payload(self, channel_id):
+    def _source_channels(self, country_slug):
+        source_url = LG_COUNTRY_SOURCES.get(country_slug or '')
+        if not source_url:
+            return []
+        try:
+            response = self.session.get(source_url, headers={
+                'User-Agent': self.user_agent,
+                'Accept': 'text/html,application/xhtml+xml',
+            })
+            return _source_channels_from_html(response.text, source_url)
+        except Exception:
+            return []
+
+    def _schedule_payload(self, channel_id, country=DEFAULT_COUNTRY):
         return self._api_get(
             f'{API_BASE}/schedulelist',
             {'channelId': channel_id},
             referer=f'{BASE_URL}/live',
+            country=country,
         )
 
     def get_list(self, url):
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
 
-        if url == self.base_url:
-            return json.dumps({'kind': 'root'})
+        country_slug, route_url = self._country_context(url)
+        country = _country_code(country_slug)
 
-        if url == self.search_url:
+        if country_slug and route_url == self.base_url:
+            return json.dumps({'kind': 'country_root', 'country': country_slug})
+
+        if route_url == self.base_url:
+            return json.dumps({'kind': 'countries'})
+
+        if route_url == self.search_url:
             query = self.from_keyboard()
             if not query:
                 sys.exit()
             return json.dumps({
                 'kind': 'search',
                 'query': query,
-                'live': self._live_payload(),
+                'country': country_slug,
+                'live': self._live_payload(country),
             })
 
-        if url == self.live_url or url.startswith(self.live_cat_url + '/'):
-            payload = self._live_payload()
+        if route_url == self.live_url or route_url.startswith(self.live_cat_url + '/'):
+            payload = self._live_payload(country)
             payload['kind'] = 'live'
+            payload['country'] = country_slug
+            payload['sourceUrl'] = LG_COUNTRY_SOURCES.get(country_slug or '', '')
+            payload['sourceChannels'] = self._source_channels(country_slug)
             return json.dumps(payload)
 
-        if url.startswith(self.channel_url + '/'):
-            channel_id = unquote(url.replace(self.channel_url + '/', '').split('/')[0])
+        if route_url.startswith(self.channel_url + '/'):
+            channel_id = unquote(route_url.replace(self.channel_url + '/', '').split('/')[0])
             return json.dumps({
                 'kind': 'channel',
                 'channelId': channel_id,
-                'schedule': self._schedule_payload(channel_id),
+                'country': country_slug,
+                'schedule': self._schedule_payload(channel_id, country),
             })
 
         return None
@@ -236,102 +337,162 @@ class LGChannels(Plugin):
 
         itemlist = []
         data = _load_json(response)
+        country_slug, route_url = self._country_context(url)
 
-        if url == self.base_url:
+        if country_slug and route_url == self.base_url:
+            country_label = _country_label(country_slug)
             return [
                 {
                     'type': 'dir',
-                    'title': '[COLOR deepskyblue]Search LG Channels[/COLOR]',
-                    'link': self.search_url,
+                    'title': f'[COLOR orange]-- {country_label} --[/COLOR]',
+                    'link': self._country_link(country_slug, self.base_url),
                     'thumbnail': 'resources/media/lg.png',
+                    'summary': f'Source: {self._country_link(country_slug, self.base_url)}',
+                },
+                {
+                    'type': 'dir',
+                    'title': '[COLOR deepskyblue]Search LG Channels[/COLOR]',
+                    'link': self._country_link(country_slug, self.search_url),
+                    'thumbnail': 'resources/media/lg.png',
+                    'summary': f'Source: {self._country_link(country_slug, self.search_url)}',
                 },
                 {
                     'type': 'dir',
                     'title': '[COLOR orange]-- Live TV --[/COLOR]',
-                    'link': self.live_url,
+                    'link': self._country_link(country_slug, self.live_url),
                     'thumbnail': 'resources/media/lg.png',
-                    'summary': 'Browse LG Channels live linear channels by category.',
+                    'summary': f'Source: {self._country_link(country_slug, self.live_url)}',
                 },
             ]
 
-        if url == self.search_url:
+        if route_url == self.base_url:
+            for slug, label, country in LG_COUNTRIES:
+                source = f'{self.country_url}/{slug}'
+                source_summary = LG_COUNTRY_SOURCES.get(slug, source)
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR cyan]{label} ({country})[/COLOR]',
+                    'link': source,
+                    'thumbnail': 'resources/media/lg.png',
+                    'summary': f'Source: {source_summary}',
+                })
+            return itemlist
+
+        if route_url == self.search_url:
             query = str(data.get('query', '')).lower()
             live = data.get('live', {})
+            country_slug = data.get('country') or country_slug
             for category in _merge_lineup_and_logos(live.get('lineup', {}), live.get('genres', {})):
                 for channel in category.get('channels', []):
                     haystack = f"{channel.get('number', '')} {channel.get('name', '')} {category.get('name', '')}".lower()
                     if query in haystack:
-                        self._add_channel_item(itemlist, channel)
+                        self._add_channel_item(itemlist, channel, country_slug)
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No results found[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
-        if url == self.live_url:
+        if route_url == self.live_url:
+            country_slug = data.get('country') or country_slug
             categories = _merge_lineup_and_logos(data.get('lineup', {}), data.get('genres', {}))
             for category in categories:
+                category_link = self._country_link(
+                    country_slug,
+                    f"{self.live_cat_url}/{quote(category['name'], safe='')}",
+                )
                 itemlist.append({
                     'type': 'dir',
                     'title': f"[COLOR orange]{category['name']}[/COLOR] ({len(category['channels'])})",
-                    'link': f"{self.live_cat_url}/{quote(category['name'], safe='')}",
+                    'link': category_link,
                     'thumbnail': 'resources/media/live_tv.png',
+                    'summary': f'Source: {category_link}',
+                })
+            if not itemlist:
+                for channel in data.get('sourceChannels') or []:
+                    self._add_source_channel_item(itemlist, channel)
+            if not itemlist and data.get('sourceUrl'):
+                itemlist.append({
+                    'type': 'dir',
+                    'title': '[COLOR grey]No channel list found on LG source page[/COLOR]',
+                    'link': 'message/LG does not publish a channel table or Kodi-playable stream URLs at this country source page.',
+                    'thumbnail': 'resources/media/lg.png',
+                    'summary': f"Source: {data.get('sourceUrl')}",
                 })
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No live channels available[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
-        if url.startswith(self.live_cat_url + '/'):
-            wanted = unquote(url.replace(self.live_cat_url + '/', '').split('/')[0])
+        if route_url.startswith(self.live_cat_url + '/'):
+            country_slug = data.get('country') or country_slug
+            wanted = unquote(route_url.replace(self.live_cat_url + '/', '').split('/')[0])
             categories = _merge_lineup_and_logos(data.get('lineup', {}), data.get('genres', {}))
             for category in categories:
                 if category.get('name') != wanted:
                     continue
                 for channel in category.get('channels', []):
-                    self._add_channel_item(itemlist, channel)
+                    self._add_channel_item(itemlist, channel, country_slug)
                 break
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No channels found[/COLOR]',
-                    'link': self.live_url,
+                    'link': self._country_link(country_slug, self.live_url),
                 })
             return itemlist
 
-        if url.startswith(self.channel_url + '/'):
+        if route_url.startswith(self.channel_url + '/'):
+            country_slug = data.get('country') or country_slug
             channel = self._channel_from_schedule(data.get('schedule', {}))
             if channel:
-                self._add_schedule_channel_item(itemlist, channel)
+                self._add_schedule_channel_item(itemlist, channel, _country_code(country_slug))
             else:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]Stream not available[/COLOR]',
-                    'link': self.live_url,
+                    'link': self._country_link(country_slug, self.live_url),
                 })
             return itemlist
 
         return None
 
-    def _add_channel_item(self, itemlist, channel):
+    def _add_channel_item(self, itemlist, channel, country_slug=None):
         title = channel.get('name', 'LG Channel')
         number = channel.get('number', '')
         display = f'[COLOR red]>[/COLOR] {number} - {title}' if number else f'[COLOR red]>[/COLOR] {title}'
+        link = f"{self.channel_url}/{quote(channel.get('id', ''), safe='')}"
         itemlist.append({
             'type': 'item',
             'title': display,
-            'link': f"{self.channel_url}/{quote(channel.get('id', ''), safe='')}",
+            'link': self._country_link(country_slug, link),
             'thumbnail': channel.get('logo', '') or 'resources/media/live_tv.png',
             'summary': channel.get('category', ''),
             'is_playable': 'true',
         })
 
-    def _add_schedule_channel_item(self, itemlist, channel):
+    def _add_source_channel_item(self, itemlist, channel):
+        title = channel.get('name', 'LG Channel')
+        number = channel.get('number', '')
+        display = f'[COLOR red]>[/COLOR] {number} - {title}' if number else f'[COLOR red]>[/COLOR] {title}'
+        message = (
+            f'{title} is listed by LG, but LG does not publish a '
+            'Kodi-playable stream URL for this channel source.'
+        )
+        itemlist.append({
+            'type': 'dir',
+            'title': display,
+            'link': f'message/{message}',
+            'thumbnail': channel.get('logo', '') or 'resources/media/live_tv.png',
+            'summary': f"{channel.get('description', '')}\nSource: {channel.get('source', '')}".strip(),
+        })
+
+    def _add_schedule_channel_item(self, itemlist, channel, country=DEFAULT_COUNTRY):
         now = self._current_program(channel)
         title = channel.get('channelName', 'LG Channel')
         if now.get('title'):
@@ -339,7 +500,7 @@ class LGChannels(Plugin):
         itemlist.append({
             'type': 'item',
             'title': f'[COLOR red]>[/COLOR] {title}',
-            'link': self._stream_from_channel(channel),
+            'link': self._stream_from_channel(channel, country),
             'thumbnail': channel.get('channelLogoUrl', '') or now.get('image', '') or 'resources/media/live_tv.png',
             'summary': now.get('description', '') or channel.get('channelName', ''),
             'is_playable': 'true',
@@ -374,8 +535,8 @@ class LGChannels(Plugin):
             }
         return {}
 
-    def _stream_from_channel(self, channel):
-        stream_url = _replace_ssai_placeholders(channel.get('mediaStaticUrl', ''), self.user_agent)
+    def _stream_from_channel(self, channel, country=DEFAULT_COUNTRY):
+        stream_url = _replace_ssai_placeholders(channel.get('mediaStaticUrl', ''), self.user_agent, country)
         return _with_kodi_headers(stream_url, self.user_agent, BASE_URL) if stream_url else ''
 
     def play_video(self, item):
@@ -392,12 +553,15 @@ class LGChannels(Plugin):
         if not isinstance(link, str):
             return None
 
-        if link.startswith(self.channel_url + '/'):
-            channel_id = unquote(link.replace(self.channel_url + '/', '').split('/')[0])
+        country_slug, route_link = self._country_context(link)
+        country = _country_code(country_slug)
+
+        if route_link.startswith(self.channel_url + '/'):
+            channel_id = unquote(route_link.replace(self.channel_url + '/', '').split('/')[0])
             try:
-                schedule = self._schedule_payload(channel_id)
+                schedule = self._schedule_payload(channel_id, country)
                 channel = self._channel_from_schedule(schedule)
-                stream = self._stream_from_channel(channel) if channel else ''
+                stream = self._stream_from_channel(channel, country) if channel else ''
                 if not stream:
                     xbmcgui.Dialog().notification(
                         'LG Channels', 'Stream not available',

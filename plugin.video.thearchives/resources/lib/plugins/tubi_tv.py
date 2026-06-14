@@ -8,7 +8,7 @@ import json
 import re
 from datetime import datetime, timezone
 from html import unescape
-from urllib.parse import quote, unquote, urlencode, urlparse, parse_qs
+from urllib.parse import quote, unquote, urlencode, urlparse, parse_qs, urlunparse
 from typing import List, Optional, Dict
 from uuid import uuid4
 import xbmc
@@ -37,6 +37,20 @@ PLAYBACK_RESOURCES = (
     'hlsv6_playready_psshv0',
     'hlsv6_fairplay',
 )
+TUBI_COUNTRIES = [
+    ('us', 'United States', 'US', ''),
+    ('gb', 'United Kingdom', 'GB', 'en-gb'),
+    ('au', 'Australia', 'AU', 'en-au'),
+    ('ca', 'Canada', 'CA', 'fr-ca'),
+    ('mx', 'Mexico', 'MX', 'es-mx'),
+]
+TUBI_COUNTRY_BY_SLUG = {
+    slug: {'label': label, 'country': country, 'locale': locale}
+    for slug, label, country, locale in TUBI_COUNTRIES
+}
+TUBI_COUNTRY_BY_LOCALE = {
+    locale: slug for slug, _label, _country, locale in TUBI_COUNTRIES if locale
+}
 
 
 VOD_CATEGORIES = [
@@ -157,6 +171,48 @@ def _configure_hls_inputstream(liz, user_agent):
 
 def _clean_title(title):
     return re.sub(r'\[/?COLOR[^\]]*\]', '', str(title or 'Tubi TV')).strip()
+
+
+def _drop_folder_label(url):
+    parsed = urlparse(str(url or ''))
+    query_items = []
+    for key, values in parse_qs(parsed.query, keep_blank_values=True).items():
+        if key == 'folder_label':
+            continue
+        for value in values:
+            query_items.append((key, value))
+    return urlunparse((
+        parsed.scheme,
+        parsed.netloc,
+        parsed.path.rstrip('/') or '/',
+        '',
+        urlencode(query_items),
+        '',
+    ))
+
+
+def _country_label(slug):
+    info = TUBI_COUNTRY_BY_SLUG.get(slug or '')
+    return info.get('label') if info else 'Tubi'
+
+
+def _country_source_url(slug, inner_url):
+    info = TUBI_COUNTRY_BY_SLUG.get(slug or '')
+    locale = info.get('locale', '') if info else ''
+    clean_url = _drop_folder_label(inner_url)
+    if not locale:
+        return clean_url
+
+    parsed = urlparse(clean_url)
+    path = parsed.path if parsed.path and parsed.path != '/' else ''
+    return urlunparse((
+        parsed.scheme or 'https',
+        parsed.netloc or 'tubitv.com',
+        f'/{locale}{path}',
+        '',
+        parsed.query,
+        '',
+    ))
 
 
 def _content_id_from_url(url):
@@ -444,6 +500,8 @@ class TubiTV(Plugin):
 
         
         self.category_url   = f'{self.base_url}/category'
+        self.country_url    = f'{self.base_url}/country'
+        self.live_countries_url = f'{self.base_url}/live-countries'
         self.movies_url     = f'{self.base_url}/movies'
         self.tv_url         = f'{self.base_url}/tv-shows'
         self.live_url       = f'{self.base_url}/live'
@@ -457,6 +515,45 @@ class TubiTV(Plugin):
         self._anon_token = ''
         self._anon_token_expires = 0
         self._drm_only_cache = {}
+
+    def _country_context(self, url):
+        clean_url = _drop_folder_label(url)
+        if clean_url.startswith(self.country_url + '/'):
+            route = clean_url.replace(self.country_url + '/', '', 1)
+            slug, _, tail = route.partition('/')
+            if slug not in TUBI_COUNTRY_BY_SLUG:
+                return None, clean_url
+            inner_url = f'{self.base_url}/{tail}' if tail else self.base_url
+            return slug, inner_url
+
+        parsed = urlparse(clean_url)
+        parts = [part for part in parsed.path.split('/') if part]
+        if parts and parts[0] in TUBI_COUNTRY_BY_LOCALE:
+            slug = TUBI_COUNTRY_BY_LOCALE[parts[0]]
+            inner_path = '/' + '/'.join(parts[1:]) if len(parts) > 1 else '/'
+            inner_url = urlunparse((
+                parsed.scheme,
+                parsed.netloc,
+                inner_path,
+                '',
+                parsed.query,
+                '',
+            ))
+            return slug, inner_url
+
+        return None, clean_url
+
+    def _country_link(self, country_slug, inner_url):
+        if not country_slug:
+            return _drop_folder_label(inner_url)
+        clean_url = _drop_folder_label(inner_url)
+        if clean_url == self.base_url or clean_url == self.base_url + '/':
+            return f'{self.country_url}/{country_slug}'
+        tail = clean_url.replace(self.base_url + '/', '', 1)
+        return f'{self.country_url}/{country_slug}/{tail}'
+
+    def _source_url(self, country_slug, inner_url):
+        return _country_source_url(country_slug, inner_url)
 
    
     def _cached_vod_page(self, key, url, headers, kind='catalog'):
@@ -599,7 +696,7 @@ class TubiTV(Plugin):
             return 'catalog'
         return ''
 
-    def _container_dirs(self, data, content_mode=''):
+    def _container_dirs(self, data, content_mode='', country_slug=None):
         itemlist = []
         containers = data.get('containers', [])
         if not isinstance(containers, list):
@@ -612,10 +709,11 @@ class TubiTV(Plugin):
             if not container_id or not title:
                 continue
             query = f'?content_mode={quote(content_mode)}' if content_mode else ''
+            link = f'{self.category_url}/{quote(str(container_id))}{query}'
             itemlist.append({
                 'type': 'dir',
                 'title': f'[COLOR cyan]>[/COLOR] {title}',
-                'link': f'{self.category_url}/{quote(str(container_id))}{query}',
+                'link': self._country_link(country_slug, link),
                 'thumbnail': _best_image(container),
                 'summary': _strip_html(container.get('description', '')),
             })
@@ -643,45 +741,75 @@ class TubiTV(Plugin):
 
 
     def get_list(self, url):
+        country_slug, route_url = self._country_context(url)
         headers = {
             'User-Agent': self.user_agent,
             'Referer': f'{BASE_URL}/',
             'Accept': 'text/html,application/json',
         }
 
+        if country_slug and route_url == self.base_url:
+            return json.dumps({'kind': 'country_root', 'country': country_slug})
+
+        if route_url == self.live_countries_url:
+            return json.dumps({'kind': 'live_countries'})
+
+        if route_url == self.base_url:
+            return json.dumps({'kind': 'countries'})
+
         
-        if url in (self.search_url, self.vod_search_url):
+        if route_url in (self.search_url, self.vod_search_url):
             query = self.from_keyboard()
             if not query:
                 sys.exit()
-            search_page = f'{BASE_URL}/search/{quote(query)}'
-            html = self._cached_vod_page(vod_cache_key('search', query), search_page, headers, kind='search')
-            return json.dumps({'_query': query, '_html': html})
+            search_page = self._source_url(country_slug, f'{BASE_URL}/search/{quote(query)}')
+            html = self._cached_vod_page(
+                vod_cache_key('search', country_slug or 'default', query),
+                search_page,
+                headers,
+                kind='search',
+            )
+            return json.dumps({'_query': query, '_html': html, 'country': country_slug})
 
         
-        if url.startswith(self.video_url + '/'):
-            video_id = url.replace(self.video_url + '/', '').split('/')[0]
+        if route_url.startswith(self.video_url + '/'):
+            video_id = route_url.replace(self.video_url + '/', '').split('/')[0]
             try:
                 return json.dumps(self._content_detail(video_id))
             except Exception:
-                resp = self.session.get(f'{BASE_URL}/video/{video_id}', headers=headers)
+                resp = self.session.get(self._source_url(country_slug, f'{BASE_URL}/video/{video_id}'), headers=headers)
                 return resp.text
 
-        if url.startswith(self.live_cat_url + '/'):
+        if route_url.startswith(self.live_cat_url + '/') and country_slug and country_slug != 'us':
+            return self._cached_vod_page(
+                vod_cache_key('country', country_slug, 'live'),
+                self._source_url(country_slug, self.live_url),
+                headers,
+                kind='catalog',
+            )
+
+        if route_url.startswith(self.live_cat_url + '/'):
             return self._cached_api_response(
                 'live_epg',
                 '/epg',
                 {'is_kids_mode': 'false', 'platform': 'web'},
             )
 
-        if url.startswith(self.live_url + '/'):
-            channel_id = url.replace(self.live_url + '/', '').split('/')[0]
-            resp = self.session.get(f'{BASE_URL}/live/{channel_id}', headers=headers)
+        if route_url.startswith(self.live_url + '/'):
+            channel_id = route_url.replace(self.live_url + '/', '').split('/')[0]
+            resp = self.session.get(self._source_url(country_slug, f'{BASE_URL}/live/{channel_id}'), headers=headers)
             return resp.text
 
         
-        if url.startswith(self.series_url + '/'):
-            series_id = url.replace(self.series_url + '/', '').split('/')[0]
+        if route_url.startswith(self.series_url + '/'):
+            series_id = route_url.replace(self.series_url + '/', '').split('/')[0]
+            if country_slug and country_slug != 'us':
+                page_url = self._source_url(country_slug, f'{BASE_URL}/tv-shows/{series_id}')
+                return self._cached_vod_page(
+                    vod_cache_key('country', country_slug, 'series', series_id),
+                    page_url,
+                    headers,
+                )
             try:
                 return VOD_CACHE.get_or_set_response(
                     self.name,
@@ -694,15 +822,29 @@ class TubiTV(Plugin):
                 return self._cached_vod_page(vod_cache_key('series', series_id), page_url, headers)
 
         
-        if url.startswith(self.category_url + '/'):
-            cat_slug, content_mode = _category_parts(url)
+        if route_url.startswith(self.category_url + '/') and country_slug and country_slug != 'us':
+            return self._cached_vod_page(
+                vod_cache_key('country', country_slug, 'category', route_url),
+                self._source_url(country_slug, route_url),
+                headers,
+            )
+
+        if route_url.startswith(self.category_url + '/'):
+            cat_slug, content_mode = _category_parts(route_url)
             params = {'is_kids_mode': 'false'}
             if content_mode:
                 params['content_mode'] = content_mode
             return self._cached_api_response(f'container:{cat_slug}:{content_mode}', f'/containers/{cat_slug}', params)
 
         
-        if url == self.movies_url:
+        if route_url == self.movies_url and country_slug and country_slug != 'us':
+            return self._cached_vod_page(
+                vod_cache_key('country', country_slug, 'movies'),
+                self._source_url(country_slug, self.movies_url),
+                headers,
+            )
+
+        if route_url == self.movies_url:
             return self._cached_api_response(
                 'browse:movie',
                 '/browse_list',
@@ -710,7 +852,14 @@ class TubiTV(Plugin):
             )
 
         
-        if url == self.tv_url:
+        if route_url == self.tv_url and country_slug and country_slug != 'us':
+            return self._cached_vod_page(
+                vod_cache_key('country', country_slug, 'tv'),
+                self._source_url(country_slug, self.tv_url),
+                headers,
+            )
+
+        if route_url == self.tv_url:
             return self._cached_api_response(
                 'browse:tv',
                 '/browse_list',
@@ -718,7 +867,15 @@ class TubiTV(Plugin):
             )
 
         
-        if url == self.live_url:
+        if route_url == self.live_url and country_slug and country_slug != 'us':
+            return self._cached_vod_page(
+                vod_cache_key('country', country_slug, 'live'),
+                self._source_url(country_slug, self.live_url),
+                headers,
+                kind='catalog',
+            )
+
+        if route_url == self.live_url:
             return self._cached_api_response(
                 'live_epg',
                 '/epg',
@@ -734,11 +891,12 @@ class TubiTV(Plugin):
         if not url.startswith(self.base_url):
             return None
 
-        cache_kind = self._vod_menu_cache_kind(url)
+        country_slug, route_url = self._country_context(url)
+        cache_kind = self._vod_menu_cache_kind(route_url)
         if cache_kind:
             return VOD_CACHE.get_or_set_menu(
                 self.name,
-                vod_cache_key('menu', url, response),
+                vod_cache_key('menu', country_slug or 'default', route_url, response),
                 cache_kind,
                 lambda: self._parse_list_uncached(url, response),
             )
@@ -750,9 +908,71 @@ class TubiTV(Plugin):
             return None
 
         itemlist = []
+        country_slug, route_url = self._country_context(url)
 
         
-        if url == self.base_url:
+        if country_slug and route_url == self.base_url:
+            country_label = _country_label(country_slug)
+            itemlist.append({
+                'type': 'item',
+                'title': '[COLOR lawngreen]Tubi DRM / Widevine Help[/COLOR]',
+                'link': 'inputstream_helper',
+                'thumbnail': 'resources/media/tubi_tv.png',
+                'summary': (
+                    f'Install or configure InputStream Adaptive and Widevine for '
+                    f'Tubi {country_label} VOD playback.'
+                ),
+            })
+            links = [
+                ('[COLOR deepskyblue]Search Tubi[/COLOR]', self.search_url),
+                ('[COLOR orange]-- Movies --[/COLOR]', self.movies_url),
+                ('[COLOR orange]-- TV Shows --[/COLOR]', self.tv_url),
+            ]
+            for title, link in links:
+                itemlist.append({
+                    'type': 'dir',
+                    'title': title,
+                    'link': self._country_link(country_slug, link),
+                    'thumbnail': 'resources/media/tubi_tv.png',
+                    'summary': f'Source: {self._source_url(country_slug, link)}',
+                })
+            for slug, label in VOD_CATEGORIES:
+                link = f'{self.category_url}/{slug}'
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR cyan]>[/COLOR] {label}',
+                    'link': self._country_link(country_slug, link),
+                    'thumbnail': 'resources/media/tubi_tv.png',
+                    'summary': f'Source: {self._source_url(country_slug, link)}',
+                })
+            return itemlist
+
+        if route_url == self.live_countries_url:
+            for slug, label, country, _locale in TUBI_COUNTRIES:
+                link = self._country_link(slug, self.live_url)
+                itemlist.append({
+                    'type': 'dir',
+                    'title': f'[COLOR cyan]{label} ({country})[/COLOR]',
+                    'link': link,
+                    'thumbnail': 'resources/media/tubi_tv.png',
+                    'summary': f'Source: {self._source_url(slug, self.live_url)}',
+                })
+            return itemlist
+
+        if route_url == self.base_url:
+            data = _json_response(response)
+            if data.get('kind') == 'countries':
+                for slug, label, country, _locale in TUBI_COUNTRIES:
+                    link = self._country_link(slug, self.base_url)
+                    itemlist.append({
+                        'type': 'dir',
+                        'title': f'[COLOR cyan]{label} ({country})[/COLOR]',
+                        'link': link,
+                        'thumbnail': 'resources/media/tubi_tv.png',
+                        'summary': f'Source: {self._source_url(slug, self.base_url)}',
+                    })
+                return itemlist
+
             itemlist.append({
                 'type': 'dir',
                 'title': '[COLOR deepskyblue]Search Tubi[/COLOR]',
@@ -787,7 +1007,7 @@ class TubiTV(Plugin):
             return itemlist
 
         
-        if url in (self.search_url, self.vod_search_url):
+        if route_url in (self.search_url, self.vod_search_url):
             try:
                 envelope = json.loads(response)
                 query = envelope.get('_query', '').lower()
@@ -800,36 +1020,42 @@ class TubiTV(Plugin):
             contents = _collect_contents(props)
 
             for item in contents:
-                self._add_content_item(itemlist, item, query_filter=query, include_live=(url == self.search_url))
+                self._add_content_item(
+                    itemlist,
+                    item,
+                    query_filter=query,
+                    include_live=(route_url == self.search_url),
+                    country_slug=country_slug,
+                )
 
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No results found[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
         
-        if url == self.live_url:
+        if route_url == self.live_url:
             next_data = _json_response(response) or _extract_next_data(response)
             for group in _live_groups(next_data):
                 itemlist.append({
                     'type': 'dir',
                     'title': f"[COLOR orange]{group['name']}[/COLOR] ({len(group['contents'])})",
-                    'link': f"{self.live_cat_url}/{quote(group['slug'])}",
+                    'link': self._country_link(country_slug, f"{self.live_cat_url}/{quote(group['slug'])}"),
                 })
 
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No live channels available[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
-        if url.startswith(self.live_cat_url + '/'):
-            slug = unquote(url.replace(self.live_cat_url + '/', '').split('/')[0])
+        if route_url.startswith(self.live_cat_url + '/'):
+            slug = unquote(route_url.replace(self.live_cat_url + '/', '').split('/')[0])
             next_data = _json_response(response) or _extract_next_data(response)
             groups = [group for group in _live_groups(next_data) if group['slug'] == slug]
             contents = next_data.get('contents', {}) if isinstance(next_data, dict) else {}
@@ -839,7 +1065,7 @@ class TubiTV(Plugin):
                     if channel:
                         channel = dict(channel)
                         channel.setdefault('type', 'linear')
-                    self._add_content_item(itemlist, channel)
+                    self._add_content_item(itemlist, channel, country_slug=country_slug)
                 except Exception:
                     continue
 
@@ -847,18 +1073,18 @@ class TubiTV(Plugin):
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No live channels available[/COLOR]',
-                    'link': self.live_url,
+                    'link': self._country_link(country_slug, self.live_url),
                 })
             return itemlist
 
-        if (url == self.movies_url or url == self.tv_url or
-                url.startswith(self.category_url + '/')):
+        if (route_url == self.movies_url or route_url == self.tv_url or
+                route_url.startswith(self.category_url + '/')):
             api_data = _json_response(response)
-            if url == self.movies_url and api_data:
-                itemlist.extend(self._container_dirs(api_data, 'movie'))
+            if route_url == self.movies_url and api_data:
+                itemlist.extend(self._container_dirs(api_data, 'movie', country_slug))
                 return itemlist
-            if url == self.tv_url and api_data:
-                itemlist.extend(self._container_dirs(api_data, 'tv'))
+            if route_url == self.tv_url and api_data:
+                itemlist.extend(self._container_dirs(api_data, 'tv', country_slug))
                 return itemlist
 
             next_data = api_data or _extract_next_data(response)
@@ -866,18 +1092,18 @@ class TubiTV(Plugin):
             contents = _collect_contents(props)
 
             for item in contents:
-                self._add_content_item(itemlist, item)
+                self._add_content_item(itemlist, item, country_slug=country_slug)
 
             if not itemlist:
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No content available[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
             return itemlist
 
        
-        if url.startswith(self.series_url + '/'):
+        if route_url.startswith(self.series_url + '/'):
             next_data = _json_response(response) or _extract_next_data(response)
             props = _page_data(next_data)
 
@@ -896,7 +1122,7 @@ class TubiTV(Plugin):
                 itemlist.append({
                     'type': 'dir',
                     'title': '[COLOR grey]No episodes available[/COLOR]',
-                    'link': self.base_url,
+                    'link': self._country_link(country_slug, self.base_url),
                 })
                 return itemlist
 
@@ -915,7 +1141,7 @@ class TubiTV(Plugin):
                         continue
                     season_items = []
                     for ep in eps:
-                        self._add_episode_item(season_items, ep, series_thumb)
+                        self._add_episode_item(season_items, ep, series_thumb, country_slug)
                     if not season_items:
                         continue
                     season_title = season.get('title') or f'Season {idx}'
@@ -925,7 +1151,7 @@ class TubiTV(Plugin):
                             f'[COLOR orange]â”€â”€ {season_title} '
                             f'({len(eps)} episode{"s" if len(eps) != 1 else ""}) â”€â”€[/COLOR]'
                         ),
-                        'link': self.base_url,
+                        'link': self._country_link(country_slug, self.base_url),
                         'thumbnail': series_thumb,
                         'summary': series_summary,
                     })
@@ -954,7 +1180,7 @@ class TubiTV(Plugin):
                     eps = seasons[sn]
                     season_items = []
                     for ep in eps:
-                        self._add_episode_item(season_items, ep, series_thumb)
+                        self._add_episode_item(season_items, ep, series_thumb, country_slug)
                     if not season_items:
                         continue
                     itemlist.append({
@@ -970,13 +1196,13 @@ class TubiTV(Plugin):
                     itemlist.extend(season_items)
             else:
                 for ep in (ungrouped or children):
-                    self._add_episode_item(itemlist, ep, series_thumb)
+                    self._add_episode_item(itemlist, ep, series_thumb, country_slug)
 
             return itemlist
 
         
-        if url.startswith(self.video_url + '/'):
-            content_id = _content_id_from_url(url)
+        if route_url.startswith(self.video_url + '/'):
+            content_id = _content_id_from_url(route_url)
             data = _json_response(response) or _extract_next_data(response)
             item = _find_content(data, content_id)
             stream_url = _stream_url_from_item(item)
@@ -1007,7 +1233,7 @@ class TubiTV(Plugin):
 
    
 
-    def _add_content_item(self, itemlist, item, query_filter=None, include_live=True):
+    def _add_content_item(self, itemlist, item, query_filter=None, include_live=True, country_slug=None):
         if not isinstance(item, dict):
             return
 
@@ -1050,7 +1276,7 @@ class TubiTV(Plugin):
             itemlist.append({
                 'type': 'dir',
                 'title': display,
-                'link': f'{self.series_url}/{content_id}',
+                'link': self._country_link(country_slug, f'{self.series_url}/{content_id}'),
                 'thumbnail': thumb,
                 'summary': summary,
             })
@@ -1063,11 +1289,11 @@ class TubiTV(Plugin):
                 stream_url = _stream_url_from_item(item)
                 link = (
                     _with_kodi_headers(stream_url, self.user_agent, BASE_URL)
-                    if stream_url else f'{self.live_url}/{content_id}'
+                    if stream_url else self._country_link(country_slug, f'{self.live_url}/{content_id}')
                 )
                 playback_type = 'live'
             else:
-                link = f'{self.video_url}/{content_id}'
+                link = self._country_link(country_slug, f'{self.video_url}/{content_id}')
                 playback_type = 'vod'
 
             itemlist.append({
@@ -1080,7 +1306,7 @@ class TubiTV(Plugin):
                 'is_playable': 'true',
             })
 
-    def _add_episode_item(self, itemlist, ep, series_thumb=''):
+    def _add_episode_item(self, itemlist, ep, series_thumb='', country_slug=None):
         if not isinstance(ep, dict):
             return
         if _is_drm_only_item(ep):
@@ -1113,7 +1339,7 @@ class TubiTV(Plugin):
             display += f' [COLOR grey]({info_line})[/COLOR]'
 
         if ep_id:
-            link = f'{self.video_url}/{ep_id}'
+            link = self._country_link(country_slug, f'{self.video_url}/{ep_id}')
         else:
             return
 
@@ -1144,6 +1370,7 @@ class TubiTV(Plugin):
         if not isinstance(link, str):
             return None
 
+        country_slug, route_link = self._country_context(link)
         
         is_tubi = any(domain in link for domain in (
             'tubitv.com', 'tubi.io', 'tubi.video', 'adrise.tv',
@@ -1159,12 +1386,12 @@ class TubiTV(Plugin):
             self.tv_url + '/',
             self.live_url + '/',
         )
-        if any(link.startswith(prefix) for prefix in detail_prefixes):
-            if link.startswith(self.live_url + '/'):
+        if any(route_link.startswith(prefix) for prefix in detail_prefixes):
+            if route_link.startswith(self.live_url + '/'):
                 playback_type = 'live'
             elif not playback_type:
                 playback_type = 'vod'
-            content_id = _content_id_from_url(link)
+            content_id = _content_id_from_url(route_link)
             try:
                 vdata = self._content_detail(content_id)
                 stream_url = _stream_url_from_item(vdata)
@@ -1175,7 +1402,7 @@ class TubiTV(Plugin):
                     )
                     return True
                 if not stream_url:
-                    page_url = link.split('|')[0]
+                    page_url = self._source_url(country_slug, route_link).split('|')[0]
                     resp = self.session.get(page_url, headers={
                         'User-Agent': self.user_agent,
                         'Referer': f'{BASE_URL}/',

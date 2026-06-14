@@ -15,13 +15,6 @@
       "summary": "Roku Channel TV episodes and some free streams require Widevine DRM support."
     },
     {
-      "type": "item",
-      "title": "[COLOR lawngreen]Click to Install Widevine / InputStream Helper[/COLOR]",
-      "link": "inputstream_helper",
-      "thumbnail": "resources/media/settings.png",
-      "summary": "Install or configure InputStream Adaptive and Widevine for DRM VOD playback."
-    },
-    {
       "type": "dir",
       "title": "[COLOR orange]Pluto TV VOD[/COLOR]",
       "link": "file://vod_pluto.json",

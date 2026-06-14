@@ -10,16 +10,16 @@
 		{
 			"type": "dir",
 			"title": "Pluto TV",
-			"link": "https://pluto.tv/region/auto/live",
+			"link": "https://pluto.tv/live-regions",
 			"thumbnail": "resources/media/pluto_tv.png",
-			"summary": "Free live TV channels from Pluto TV"
+			"summary": "Choose a Pluto TV country source: United States, United Kingdom, or Australia"
 		},
 		{
 			"type": "dir",
 			"title": "The Roku Channel",
-			"link": "https://therokuchannel.roku.com/section/live-tv",
+			"link": "https://therokuchannel.roku.com/live-countries",
 			"thumbnail": "resources/media/roku.png",
-			"summary": "Free live TV channels from The Roku Channel"
+			"summary": "Choose a Roku Channel country source: United States, United Kingdom, or Canada"
 		},
 		{
 			"type": "dir",
@@ -31,9 +31,16 @@
 		{
 			"type": "dir",
 			"title": "Tubi TV",
-			"link": "https://tubitv.com/live",
+			"link": "https://tubitv.com/live-countries",
 			"thumbnail": "resources/media/tubi_tv.png",
-			"summary": "Free live TV channels from Tubi"
+			"summary": "Choose a Tubi country source: United States, United Kingdom, Australia, Canada, or Mexico"
+		},
+		{
+			"type": "dir",
+			"title": "Plex Live TV",
+			"link": "https://www.plex.tv/watch-free-tv",
+			"thumbnail": "resources/media/live_tv.png",
+			"summary": "Free live TV channels and live hub rows from Plex"
 		},
 		{
 			"type": "dir",
@@ -45,9 +52,9 @@
 		{
 			"type": "dir",
 			"title": "Xumo Play",
-			"link": "https://play.xumo.com/live",
+			"link": "https://play.xumo.com/live-countries",
 			"thumbnail": "resources/media/xumo.png",
-			"summary": "Free live TV channels from Xumo Play"
+			"summary": "Choose a Xumo Play country source: United States"
 		},
 		{
 			"type": "dir",
