@@ -41,6 +41,13 @@
       "link": "file://vod_tubi.json",
       "thumbnail": "resources/media/tubi_tv.png",
       "summary": "Search and browse Tubi movies, TV shows, and VOD categories."
+    },
+	{
+      "type": "dir",
+      "title": "Documentary Area",
+      "link": "https://www.documentaryarea.com/",
+      "thumbnail": "resources/media/documentary_area.png",
+      "summary": "Browse and watch documentaries from Documentary Area"
     }
   ]
 }
