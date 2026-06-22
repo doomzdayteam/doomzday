@@ -567,6 +567,12 @@ class RokuChannel(Plugin):
             })
             itemlist.append({
                 "type": "dir",
+                "title": "[COLOR orange]-- Live TV --[/COLOR]",
+                "link": self._country_link(country_slug, self.live_url),
+                "thumbnail": "resources/media/roku.png",
+            })
+            itemlist.append({
+                "type": "dir",
                 "title": "[COLOR orange]-- TV Shows --[/COLOR]",
                 "link": self._country_link(country_slug, self.tv_url),
                 "thumbnail": "resources/media/roku.png",
@@ -953,6 +959,7 @@ class RokuChannel(Plugin):
         liz.setMimeType("application/dash+xml")
         liz.setProperty("inputstream", "inputstream.adaptive")
         liz.setProperty("inputstream.adaptive.manifest_type", "mpd")
+        liz.setProperty("inputstream.adaptive.manifest_headers", _kodi_header_query(self.user_agent))
         liz.setProperty("inputstream.adaptive.stream_headers", _kodi_header_query(self.user_agent))
         liz.setProperty("inputstream.adaptive.license_type", "com.widevine.alpha")
         liz.setProperty("inputstream.adaptive.license_key", license_key)

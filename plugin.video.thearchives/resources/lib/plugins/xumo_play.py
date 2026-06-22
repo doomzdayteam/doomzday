@@ -96,10 +96,8 @@ def _route_url(url):
 
 
 def _with_kodi_headers(url, user_agent, referer=BASE_URL):
-    return (
-        f'{url}|User-Agent={quote(user_agent, safe="")}'
-        f'&Referer={quote(referer + "/", safe="")}'
-    )
+    referer = referer if referer.endswith('/') else f'{referer}/'
+    return f'{url}|{_kodi_header_query(user_agent, referer)}'
 
 
 def _kodi_header_query(user_agent, referer=f'{BASE_URL}/'):
@@ -158,7 +156,7 @@ def _duration_str(seconds):
 
 
 def _logo_url(channel_id, size=168):
-    return f'https://image.xumo.com/v1/channels/channel/{channel_id}/{size}x{size}.png'
+    return f'https://image.xumo.com/v1/channels/channel/{channel_id}/{size}x{size}.webp?type=color_onBlack'
 
 
 def _channels_from_catalog(catalog):
@@ -282,11 +280,7 @@ class XumoPlay(Plugin):
             'AppleWebKit/537.36 (KHTML, like Gecko) '
             'Chrome/125.0.0.0 Safari/537.36'
         )
-        self.headers = {
-            'User-Agent': self.user_agent,
-            'Referer': f'{BASE_URL}/',
-            'Accept': 'application/json, text/plain, */*',
-        }
+        self.headers = self._headers()
         if self.session:
             self.session.headers = self.headers
 
@@ -310,6 +304,14 @@ class XumoPlay(Plugin):
         self._page_view_id = None
         self._xumo_session_started = False
         self._asset_metadata = {}
+
+    def _headers(self, referer=f'{BASE_URL}/', accept='application/json, text/plain, */*'):
+        return {
+            'User-Agent': self.user_agent,
+            'Referer': referer,
+            'Origin': BASE_URL,
+            'Accept': accept,
+        }
 
     def _country_by_slug(self, slug):
         for country in XUMO_COUNTRIES:
@@ -343,15 +345,15 @@ class XumoPlay(Plugin):
             return f'{self.country_url}/{slug}'
         return f'{self.country_url}/{slug}/{tail}'
 
-    def _api_get(self, url):
-        resp = self.session.get(url, headers=self.headers)
+    def _api_get(self, url, referer=f'{BASE_URL}/'):
+        resp = self.session.get(url, headers=self._headers(referer=referer))
         try:
             return resp.json()
         except ValueError:
             return _load_json(resp.text)
 
-    def _api_post(self, url, body=None, headers=None):
-        request_headers = dict(self.headers)
+    def _api_post(self, url, body=None, headers=None, referer=f'{BASE_URL}/'):
+        request_headers = self._headers(referer=referer)
         if headers:
             request_headers.update(headers)
         resp = self.session.post(url, headers=request_headers, json=body or {})
@@ -390,7 +392,7 @@ class XumoPlay(Plugin):
         for key, value in payload.items():
             if value is not None:
                 data[key] = value
-        self.session.get(f'{BEACON_URL}?{urlencode(data)}', headers=self.headers)
+        self.session.get(f'{BEACON_URL}?{urlencode(data)}', headers=self._headers())
 
     def _start_xumo_session(self, asset_id=''):
         if self._xumo_session_started:
@@ -461,7 +463,7 @@ class XumoPlay(Plugin):
     def _fetch_page(self, path_or_url):
         url = path_or_url if path_or_url.startswith('http') else f'{self.base_url}{path_or_url}'
         def fetch():
-            resp = self.session.get(url, headers=self.headers)
+            resp = self.session.get(url, headers=self._headers(referer=url, accept='text/html,application/xhtml+xml'))
             return resp.text
 
         response = VOD_CACHE.get_or_set_response(
@@ -483,7 +485,7 @@ class XumoPlay(Plugin):
                     self.name,
                     vod_cache_key('asset', asset_id),
                     'catalog',
-                    lambda: self.session.get(url, headers=self.headers).text,
+                    lambda: self.session.get(url, headers=self._headers()).text,
                 )
                 self._asset_metadata[asset_id] = _load_json(response or '{}')
             except Exception:
