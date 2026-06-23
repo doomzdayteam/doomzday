@@ -1,46 +1,18 @@
 {
   "items": [
     {
-      "type": "item",
-      "title": "[COLOR khaki]Xumo Play VOD Requires Widevine[/COLOR]",
-      "link": "message/Xumo Play on demand movies and episodes may use Widevine DRM. Use the InputStream Helper link below to install or configure Widevine.",
-      "thumbnail": "resources/media/xumo.png",
-      "summary": "Some Xumo Play VOD streams require Widevine DRM support."
-    },
-    {
-      "type": "item",
-      "title": "[COLOR khaki]The Roku Channel VOD Requires Widevine[/COLOR]",
-      "link": "message/Roku Channel playback uses Widevine DRM. Use the InputStream Helper link below to install or configure Widevine.",
-      "thumbnail": "resources/media/roku.png",
-      "summary": "Roku Channel TV episodes and some free streams require Widevine DRM support."
-    },
-    {
       "type": "dir",
       "title": "[COLOR orange]Pluto TV VOD[/COLOR]",
       "link": "file://vod_pluto.json",
       "thumbnail": "resources/media/pluto_tv.png",
       "summary": "Search and browse Pluto TV on-demand movies, shows, and VOD categories."
     },
-    {
+	{
       "type": "dir",
       "title": "[COLOR orange]Xumo Play VOD[/COLOR]",
       "link": "file://vod_xumo.json",
       "thumbnail": "resources/media/xumo.png",
       "summary": "Search and browse Xumo Play on-demand movies, shows, and categories."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR orange]The Roku Channel VOD[/COLOR]",
-      "link": "file://vod_roku.json",
-      "thumbnail": "resources/media/roku.png",
-      "summary": "Search and browse The Roku Channel free on-demand pages."
-    },
-    {
-      "type": "dir",
-      "title": "[COLOR orange]Tubi VOD[/COLOR]",
-      "link": "file://vod_tubi.json",
-      "thumbnail": "resources/media/tubi_tv.png",
-      "summary": "Search and browse Tubi movies, TV shows, and VOD categories."
     },
 	{
       "type": "dir",

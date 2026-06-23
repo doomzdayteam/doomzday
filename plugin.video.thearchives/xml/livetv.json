@@ -16,24 +16,10 @@
 		},
 		{
 			"type": "dir",
-			"title": "The Roku Channel",
-			"link": "https://therokuchannel.roku.com/live-countries",
-			"thumbnail": "resources/media/roku.png",
-			"summary": "Choose a Roku Channel country source: United States, United Kingdom, or Canada"
-		},
-		{
-			"type": "dir",
 			"title": "Comet TV",
 			"link": "https://comettv.com",
 			"thumbnail": "resources/media/comet_tv.png",
 			"summary": "Free live sci-fi, fantasy, horror & supernatural TV from Comet TV"
-		},
-		{
-			"type": "dir",
-			"title": "Tubi TV",
-			"link": "https://tubitv.com/live-countries",
-			"thumbnail": "resources/media/tubi_tv.png",
-			"summary": "Choose a Tubi country source: United States, United Kingdom, Australia, Canada, or Mexico"
 		},
 		{
 			"type": "dir",
@@ -62,6 +48,13 @@
 			"link": "https://lgchannels.com",
 			"thumbnail": "resources/media/lg.png",
 			"summary": "Free live TV channels and on-demand discovery from LG Channels"
+		},
+		{
+			"type": "dir",
+			"title": "Public IPTV",
+			"link": "https://publiciptv.com/",
+			"thumbnail": "resources/media/live_tv.png",
+			"summary": "Browse public live IPTV channels by country and category"
 		}
     ]
 }
