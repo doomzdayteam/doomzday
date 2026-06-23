@@ -30,6 +30,13 @@
 		},
 		{
 			"type": "dir",
+			"title": "FilmOn Live TV",
+			"link": "https://www.filmon.com/tv/",
+			"thumbnail": "resources/media/live_tv.png",
+			"summary": "Browse FilmOn live TV channel groups and streams"
+		},
+		{
+			"type": "dir",
 			"title": "Samsung TV Plus",
 			"link": "https://www.samsungtvplus.com",
 			"thumbnail": "resources/media/samsung.png",

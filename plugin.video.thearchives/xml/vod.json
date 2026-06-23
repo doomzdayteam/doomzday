@@ -20,6 +20,13 @@
       "link": "https://www.documentaryarea.com/",
       "thumbnail": "resources/media/documentary_area.png",
       "summary": "Browse and watch documentaries from Documentary Area"
+    },
+	{
+      "type": "dir",
+      "title": "FilmOn",
+      "link": "https://www.filmon.com/",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search and browse FilmOn VOD categories."
     }
   ]
 }
