@@ -14,7 +14,6 @@ from xbmcaddon import Addon
 from ..DI import DI
 from ..plugin import Plugin
 from ..vod_cache import VOD_CACHE, vod_cache_key
-from .m_player_archives import build_roku_widevine_license_key
 from resources.lib.infotagger.helpers import set_video_info
 
 
