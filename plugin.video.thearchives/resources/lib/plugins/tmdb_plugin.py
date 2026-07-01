@@ -1,5 +1,6 @@
 import json
 import requests
+from datetime import date
 from urllib.parse import parse_qsl, quote, unquote, urlencode
 
 from ..DI import DI
@@ -18,6 +19,25 @@ except ImportError:
 
 ITEMS_PER_PAGE = [20, 40, 60, 80, 100]
 PAGES = int(ITEMS_PER_PAGE[int(ownAddon.getSetting("items_per_page"))]/20)
+
+
+def _is_future_date(value, today=None):
+    if not value:
+        return False
+    try:
+        release_date = date.fromisoformat(str(value))
+    except (TypeError, ValueError):
+        return False
+    return release_date > (today or date.today())
+
+
+def _color_future_title(title, release_date, today=None):
+    title = str(title or "")
+    if not _is_future_date(release_date, today):
+        return title
+    if title.startswith("[COLOR red]") and title.endswith("[/COLOR]"):
+        return title
+    return f"[COLOR red]{title}[/COLOR]"
 
 
 def _remove_repeated_trailing_letters(query: str):
@@ -345,7 +365,7 @@ class TMDB_API:
             jen_item = {
                 "content": "movie",
                 "type": "item",
-                "title": item.title,
+                "title": _color_future_title(item.title, movie.get("release_date")),
                 "link": "search",
                 "thumbnail": item.poster_path,
                 "fanart": item.backdrop_path,
@@ -385,7 +405,9 @@ class TMDB_API:
                     jen_item = {
                         "content": "episode",
                         "type": "item",
-                        "title": f"{episode_number}{item.name}",
+                        "title": _color_future_title(
+                            f"{episode_number}{item.name}", episode.get("air_date")
+                        ),
                         "link": "search",
                         "thumbnail": still,
                         "fanart": still,
@@ -400,15 +422,6 @@ class TMDB_API:
                     if ownAddon.getSettingBool("full_meta"):
                         jen_item["infolabels"] = self.get_infolabels(ep, media_type="episode")
                         jen_item["cast"] = self.get_cast(ep, media_type="episode")
-                        if jen_item["infolabels"].get("premiered"):
-                            air_date = jen_item["infolabels"]["premiered"]
-                            try:
-                                from datetime import datetime
-                                air_date = datetime.strptime(air_date, '%Y-%m-%d')
-                                if air_date > datetime.today():
-                                    jen_item["title"] = f"[COLOR red]{jen_item['title']}[/COLOR]"
-                            except:
-                                pass
                     result.append(jen_item)
                 return {"items": result}
             elif "seasons" in items:
@@ -441,7 +454,9 @@ class TMDB_API:
                     "link": f"tmdb/tv/{item.id}",
                     "thumbnail": item.poster_path,
                     "fanart": item.backdrop_path,
-                    "title": item.name,
+                    "title": _color_future_title(
+                        item.name, items.get("first_air_date")
+                    ),
                     "summary": item.overview,
                 }
                 if ownAddon.getSettingBool("full_meta"):

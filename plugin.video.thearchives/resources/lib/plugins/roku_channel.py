@@ -1,8 +1,9 @@
 import json
 import re
 import sys
+import gzip
 from html import unescape
-from urllib.parse import quote, unquote
+from urllib.parse import quote, unquote, urlencode
 from typing import Dict, List, Optional
 from uuid import uuid4
 
@@ -13,6 +14,7 @@ from xbmcaddon import Addon
 from ..DI import DI
 from ..plugin import Plugin
 from ..vod_cache import VOD_CACHE, vod_cache_key
+from .m_player_archives import build_roku_widevine_license_key
 from resources.lib.infotagger.helpers import set_video_info
 
 
@@ -25,6 +27,9 @@ FREE_PAGE_API = f"{BASE_URL}/api/v2/homescreen/pages/free-movies-and-tv/rendered
 SEARCH_API = f"{BASE_URL}/api/v1/search"
 CSRF_API = f"{BASE_URL}/api/v1/csrf"
 PLAYBACK_API = f"{BASE_URL}/api/v3/playback"
+ROKU_LIVE_DATA_URL = "https://i.mjh.nz/Roku/.channels.json.gz"
+ROKU_LIVE_EPG_URL = "https://i.mjh.nz/Roku/all.xml.gz"
+ROKU_LIVE_PLAYBACK_URL = "https://jmp2.uk/rok-{id}.m3u8"
 DETAIL_EXPAND = (
     "expand=seasons,seasons.episodes,seasons.episodes.viewOptions,"
     "episodes,episodes.viewOptions,viewOptions"
@@ -101,10 +106,53 @@ def _kodi_header_query(user_agent, referer=BASE_URL + "/"):
     )
 
 
-def _widevine_license_key(license_url, user_agent="Mozilla/5.0"):
-    headers = "Content-Type=application/octet-stream"
-    headers += f"&{_kodi_header_query(user_agent)}"
-    return f"{license_url}|{headers}|R{{SSM}}|"
+def _kodi_headers_from_dict(headers):
+    clean_headers = {
+        str(key): str(value)
+        for key, value in (headers or {}).items()
+        if key and value is not None and str(value) != ""
+    }
+    return urlencode(clean_headers)
+
+
+def _merge_live_headers(base_headers, channel_headers):
+    headers = {}
+    headers.update(_dictish(base_headers))
+    headers.update(_dictish(channel_headers))
+    return headers
+
+
+def _decode_gzip_json_response(response):
+    content = getattr(response, "content", b"")
+    if isinstance(content, bytes) and content:
+        try:
+            return gzip.decompress(content).decode("utf-8")
+        except OSError:
+            return content.decode("utf-8", "replace")
+    return _response_text(response)
+
+
+def _display_channel_number(value):
+    if value in (None, ""):
+        return ""
+    try:
+        number = float(value)
+        if number.is_integer():
+            return str(int(number))
+    except (TypeError, ValueError):
+        pass
+    return str(value)
+
+
+def _roku_live_summary(channel):
+    parts = []
+    groups = channel.get("groups")
+    if isinstance(groups, list) and groups:
+        parts.append(" / ".join(str(group) for group in groups if group))
+    description = str(channel.get("description") or "").strip()
+    if description:
+        parts.append(description)
+    return "\n".join(part for part in parts if part)
 
 
 def _dash_video_from_view_option(option):
@@ -442,10 +490,15 @@ class RokuChannel(Plugin):
                     )
                     data = json.loads(raw_page or "{}")
                 else:
-                    data = self.session.get(
-                        FREE_PAGE_API,
-                        headers=self._headers(referer=self._source_url(country_slug, self.live_url)),
-                    ).json()
+                    return _decode_gzip_json_response(
+                        self.session.get(
+                            ROKU_LIVE_DATA_URL,
+                            headers=self._headers(
+                                referer=self._source_url(country_slug, self.live_url),
+                                accept="application/json",
+                            ),
+                        )
+                    )
                 return json.dumps({
                     "_collection_title": collection_title,
                     "_page": data,
@@ -642,6 +695,16 @@ class RokuChannel(Plugin):
         if collection_title:
             data = _dictish(data.get("_page"))
 
+        if route_url == self.live_url:
+            self._add_roku_live_items(itemlist, data)
+            if not itemlist:
+                itemlist.append({
+                    "type": "dir",
+                    "title": "[COLOR grey]No Roku live channels found[/COLOR]",
+                    "link": self._country_link(country_slug, self.base_url),
+                })
+            return itemlist
+
         if (
             route_url == self.home_url
             or route_url in (self.live_url, self.tv_url)
@@ -719,6 +782,43 @@ class RokuChannel(Plugin):
             return
 
         self._add_content_item(itemlist, item, force_playable=True, country_slug=country_slug)
+
+    def _add_roku_live_items(self, itemlist, data):
+        channels = _dictish(data.get("channels"))
+        base_headers = _dictish(data.get("headers"))
+        sorted_ids = sorted(
+            channels,
+            key=lambda channel_id: (
+                str(_dictish(channels.get(channel_id)).get("chno", "")).zfill(8),
+                str(_dictish(channels.get(channel_id)).get("name", "")).strip().lower(),
+            ),
+        )
+        for channel_id in sorted_ids:
+            channel = _dictish(channels.get(channel_id))
+            title = str(channel.get("name") or "").strip()
+            if not title:
+                continue
+            chno = _display_channel_number(channel.get("chno"))
+            if chno:
+                title = f"{chno} | {title}"
+            stream_url = ROKU_LIVE_PLAYBACK_URL.format(id=quote(str(channel_id), safe=""))
+            headers = _merge_live_headers(base_headers, channel.get("headers"))
+            itemlist.append({
+                "type": "item",
+                "title": title,
+                "link": stream_url,
+                "thumbnail": channel.get("logo", "resources/media/roku.png"),
+                "fanart": channel.get("fanart", FANART),
+                "summary": _roku_live_summary(channel),
+                "is_playable": "true",
+                "content": "video",
+                "roku_live": "true",
+                "roku_live_id": str(channel_id),
+                "roku_live_headers": headers,
+                "manifest": channel.get("manifest", "hls"),
+                "license_url": channel.get("license_url", ""),
+                "epg_url": ROKU_LIVE_EPG_URL,
+            })
 
     def _add_content_item(self, itemlist, item, series_thumb="", force_playable=False, include_live=True, country_slug=None):
         if not isinstance(item, dict):
@@ -825,7 +925,7 @@ class RokuChannel(Plugin):
         return {
             "url": url,
             "type": "widevine",
-            "license_key": _widevine_license_key(license_url, self.user_agent),
+            "license_key": build_roku_widevine_license_key(license_url, self.user_agent),
         }
 
     def _validated_hls_url(self, hls_url):
@@ -881,6 +981,9 @@ class RokuChannel(Plugin):
             link = data.get("link", "")
         except (json.JSONDecodeError, TypeError, AttributeError):
             link = item.decode("utf-8") if isinstance(item, bytes) else item
+
+        if self._is_roku_live_item(data, link):
+            return self._play_roku_live(data, link)
 
         if not isinstance(link, str) or (
             "therokuchannel.roku.com" not in link
@@ -939,6 +1042,67 @@ class RokuChannel(Plugin):
             self._configure_widevine_item(liz, playback["license_key"])
         else:
             liz.setMimeType("application/vnd.apple.mpegurl")
+        try:
+            liz.setContentLookup(False)
+        except AttributeError:
+            pass
+
+        xbmc.Player().play(play_url, liz)
+        return True
+
+    def _is_roku_live_item(self, data, link):
+        if isinstance(data, dict) and data.get("roku_live") == "true":
+            return True
+        return isinstance(link, str) and link.startswith("https://jmp2.uk/rok-")
+
+    def _play_roku_live(self, data, link):
+        title = _clean_title(data.get("title") or "Roku Live")
+        thumb = data.get("thumbnail") or "resources/media/roku.png"
+        summary = data.get("summary", "")
+        headers = _dictish(data.get("roku_live_headers"))
+        manifest = str(data.get("manifest") or "hls").lower()
+        license_url = str(data.get("license_url") or "")
+        header_query = _kodi_headers_from_dict(headers)
+        play_url = link
+        if header_query and "|" not in play_url:
+            play_url = f"{play_url}|{header_query}"
+
+        liz = xbmcgui.ListItem(title, path=play_url)
+        liz.setProperty("IsPlayable", "true")
+        if thumb:
+            liz.setArt({
+                "thumb": thumb,
+                "icon": thumb,
+                "poster": thumb,
+                "fanart": data.get("fanart", FANART),
+            })
+        set_video_info(liz, {"title": title, "plot": summary})
+
+        if manifest == "mpd":
+            liz.setMimeType("application/dash+xml")
+            liz.setProperty("inputstream", "inputstream.adaptive")
+            liz.setProperty("inputstream.adaptive.manifest_type", "mpd")
+            if header_query:
+                liz.setProperty("inputstream.adaptive.manifest_headers", header_query)
+                liz.setProperty("inputstream.adaptive.stream_headers", header_query)
+            if license_url:
+                liz.setProperty("inputstream.adaptive.license_type", "com.widevine.alpha")
+                liz.setProperty(
+                    "inputstream.adaptive.license_key",
+                    build_roku_widevine_license_key(
+                        license_url,
+                        headers.get("User-Agent") or self.user_agent,
+                    ),
+                )
+        else:
+            liz.setMimeType("application/vnd.apple.mpegurl")
+            liz.setProperty("inputstream", "inputstream.adaptive")
+            liz.setProperty("inputstream.adaptive.manifest_type", "hls")
+            liz.setProperty("inputstream.adaptive.is_realtime_stream", "true")
+            if header_query:
+                liz.setProperty("inputstream.adaptive.manifest_headers", header_query)
+                liz.setProperty("inputstream.adaptive.stream_headers", header_query)
+
         try:
             liz.setContentLookup(False)
         except AttributeError:
