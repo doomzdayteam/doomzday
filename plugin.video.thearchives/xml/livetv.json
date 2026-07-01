@@ -51,6 +51,13 @@
 		},
 		{
 			"type": "dir",
+			"title": "Roku Live TV",
+			"link": "https://therokuchannel.roku.com/live-countries",
+			"thumbnail": "resources/media/roku.png",
+			"summary": "Choose a Roku live TV country source: United States, United Kingdom, or Canada"
+		},
+		{
+			"type": "dir",
 			"title": "LG Channels",
 			"link": "https://lgchannels.com",
 			"thumbnail": "resources/media/lg.png",
@@ -62,6 +69,13 @@
 			"link": "https://publiciptv.com/",
 			"thumbnail": "resources/media/live_tv.png",
 			"summary": "Browse public live IPTV channels by country and category"
+		},
+		{
+			"type": "dir",
+			"title": "Famelack TV",
+			"link": "https://famelack.com/tv",
+			"thumbnail": "resources/media/live_tv.png",
+			"summary": "Browse Famelack live TV by country and category"
 		}
     ]
 }
