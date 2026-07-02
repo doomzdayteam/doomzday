@@ -90,13 +90,42 @@ class HistoryPlayer:
         self.item = storage_item(item)
         self.store = get_store()
 
+    def _choose_resume_action(self, state):
+        try:
+            import xbmcaddon
+            import xbmcgui
+
+            value = xbmcaddon.Addon().getSetting("resume.playback.popup")
+            if str(value or "true").lower() != "true":
+                return 1
+            progress = int(round(float(state.get("resume_point") or 0)))
+            selection = xbmcgui.Dialog().yesnocustom(
+                "Resume playback",
+                "Choose playback position",
+                "Close",
+                nolabel="Restart",
+                yeslabel="Resume from %d%%" % progress,
+            )
+            return -1 if selection == 2 else selection
+        except Exception as e:
+            try:
+                import xbmc
+                xbmc.log("[TheArchives] Resume choice dialog error: %s" % e, xbmc.LOGERROR)
+            except Exception:
+                pass
+            return 1
+
     def play(self, url, list_item):
         state = self.store.get_state(self.item)
         if state["resume_point"] > 0:
-            try:
-                list_item.setProperty("StartPercent", str(state["resume_point"]))
-            except Exception:
-                pass
+            action = self._choose_resume_action(state)
+            if action < 0:
+                return True
+            if action == 1:
+                try:
+                    list_item.setProperty("StartPercent", str(state["resume_point"]))
+                except Exception:
+                    pass
         self.player.play(url, list_item)
         self._monitor()
         return True

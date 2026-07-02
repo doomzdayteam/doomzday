@@ -1,6 +1,7 @@
 <settings>
   <category label="Settings">
     <setting id="use_cache" type="bool" label="Use Cache" visible="true" default="true" />
+    <setting id="resume.playback.popup" type="bool" label="Show Resume Playback Popup" visible="true" default="true" />
     <setting id="time_cache" type="number" label="[COLOR khaki]    Cache Update Interval [I][COLOR white](minutes)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="60" />
     <setting id="clear_cache" type="action" label="[COLOR khaki]    Clear Cache [/COLOR]" subsetting="true" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/clear_cache)" />
     <setting id="scraper.module" type="text" label="Selected Scraper Module" visible="false" default="" />

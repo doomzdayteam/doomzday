@@ -1,6 +1,7 @@
 ﻿from resources.lib.plugins.tmdb_plugin import TMDB_API
 from ..DI import DI
 from ..plugin import Plugin
+from resources.lib.plugins.tmdb_plugin import _color_future_title
 import json, time, requests
 try:
     from resources.lib.util.common import *
@@ -352,7 +353,7 @@ class Trakt_API:
         poster_path = tmdb.image_url + r["poster_path"] if r.get("poster_path") else ""
         backdrop_path = tmdb.image_url + r["backdrop_path"] if r.get("backdrop_path") else ""
         return {
-            "title": movie["title"],
+            "title": _color_future_title(movie["title"], r.get("release_date")),
             "year": movie["year"],
             "content": "movie",
             "summary": movie["overview"],
@@ -375,7 +376,7 @@ class Trakt_API:
         backdrop_path = tmdb.image_url + r["backdrop_path"] if r.get("backdrop_path") else ""
         show_imdb = show.get("ids", {}).get("imdb") or ""
         return {
-            "title": show["title"],
+            "title": _color_future_title(show["title"], r.get("first_air_date")),
             "content": "tv",
             "link": f"trakt/seasons/{show['ids']['trakt']}::{show['ids']['tmdb']}::{show['title']}::{show.get('year') or ''}::{show_imdb}",
             "summary": show["overview"],
@@ -431,7 +432,9 @@ class Trakt_API:
             episode_imdb = episode.get("ids", {}).get("imdb") or ""
             
             jen_list.append({
-                "title": episode["title"],
+                "title": _color_future_title(
+                    episode["title"], r.get("air_date") or premiered
+                ),
                 "summary": episode['overview'] if episode["overview"] else "N/A",
                 "content": "episode",
                 "tmdb_id": episode["ids"]["tmdb"],
