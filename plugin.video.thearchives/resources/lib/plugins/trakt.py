@@ -438,6 +438,7 @@ class Trakt_API:
                 "summary": episode['overview'] if episode["overview"] else "N/A",
                 "content": "episode",
                 "tmdb_id": episode["ids"]["tmdb"],
+                "tv_show_tmdb_id": show_tmdb,
                 "imdb_id": show_imdb or episode_imdb,
                 "episode_imdb_id": episode_imdb,
                 "season": episode['season'],

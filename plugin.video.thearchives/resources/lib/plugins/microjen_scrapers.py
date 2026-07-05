@@ -8,20 +8,17 @@ from threading import Semaphore
 from urllib.parse import urlencode
 try:
     from resources.lib.util.common import *
+    from resources.lib.util.debrid_autoplay import should_autoplay_source
     from resources.lib.util.source_picker import select_source
 except ImportError:
     from .resources.lib.util.common import *
+    from .resources.lib.util.debrid_autoplay import should_autoplay_source
     from .resources.lib.util.source_picker import select_source
 
 try:
     from resources.lib.plugins import alldebrid_client
 except ImportError:
     from . import alldebrid_client
-
-try:
-    from resources.lib.plugins import nzb_client
-except ImportError:
-    from . import nzb_client
 
 debrid_only = ownAddon.getSetting('debrid.only') or 'false'
 addon_name = xbmcaddon.Addon().getAddonInfo('name')
@@ -359,7 +356,7 @@ class TheArchivesScrapers(Plugin):
                 return True
 
             play_sources = self._source_display_labels(all_sources)
-            selected = select_source(all_sources, play_sources, item)
+            selected = 0 if should_autoplay_source(item) else select_source(all_sources, play_sources, item)
             if not selected == -1:
                 default_icon = xbmcaddon.Addon().getAddonInfo('icon')
                 title = item["title"]
@@ -386,16 +383,6 @@ class TheArchivesScrapers(Plugin):
                         self._play_with_history(url, liz, item, selected_source)
                         return True
                     xbmcgui.Dialog().notification(addon_name, 'Unable to resolve selected Real-Debrid cloud file', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
-                    return True
-
-                if selected_source.get("nzb") or self._is_nzb_source(selected_source):
-                    try:
-                        result = self._submit_nzb_source(selected_source)
-                        message = 'NZB sent to %s' % result.get("client", "downloader")
-                        xbmcgui.Dialog().notification(addon_name, message, xbmcaddon.Addon().getAddonInfo('icon'), 4000, sound=False)
-                    except Exception as e:
-                        xbmc.log(f'TheArchivesScrapers - NZB submit failed: {e}', getattr(xbmc, 'LOGERROR', 4))
-                        xbmcgui.Dialog().notification(addon_name, 'Unable to send NZB to downloader', xbmcaddon.Addon().getAddonInfo('icon'), 4000, sound=False)
                     return True
 
                 if selected_source.get("direct") or self._is_direct_playable_url(source_url):
@@ -620,30 +607,6 @@ class TheArchivesScrapers(Plugin):
 
     def _is_magnet_url(self, url):
         return str(url or "").lower().startswith("magnet:")
-
-    def _is_nzb_source(self, item):
-        if not isinstance(item, dict):
-            return False
-        if item.get("nzb"):
-            return True
-        source = str(item.get("source") or item.get("provider") or item.get("origin") or "").lower()
-        if source in ("nzb", "usenet-nzb", "newznab"):
-            return True
-        clean_url = str(item.get("url") or item.get("link") or "").lower().split("|", 1)[0].split("?", 1)[0]
-        return clean_url.endswith(".nzb")
-
-    def _nzb_downloader_settings(self):
-        return nzb_client.read_settings(ownAddon)
-
-    def _nzb_downloader_enabled(self):
-        settings = self._nzb_downloader_settings()
-        return bool(settings.get("enabled") and settings.get("url"))
-
-    def _submit_nzb_source(self, source):
-        settings = self._nzb_downloader_settings()
-        if not settings.get("enabled"):
-            raise nzb_client.NzbClientError("NZB downloader is disabled")
-        return nzb_client.submit_nzb(settings, source)
 
     def _is_direct_playable_url(self, url):
         clean_url = str(url or "").lower().split("|", 1)[0].split("?", 1)[0]
@@ -934,11 +897,8 @@ class TheArchivesScrapers(Plugin):
                     item["debrid_service"] = uncached_service["name"]
                     item["cached_service_id"] = uncached_service["id"]
             elif not item.get("debrid_cached") and not item.get("direct") and not self._is_direct_playable_url(source_url):
-                if self._is_nzb_source(item) and self._nzb_downloader_enabled():
-                    item["nzb"] = True
-                else:
-                    rejected_unplayable += 1
-                    continue
+                rejected_unplayable += 1
+                continue
 
             key = self._source_dedupe_key(item)
             if key in seen:
@@ -1060,8 +1020,6 @@ class TheArchivesScrapers(Plugin):
             cache_label = f"{service} Uncached"
         elif item.get("direct") or self._is_direct_playable_url(item.get("url", "")):
             cache_label = "Direct"
-        elif item.get("nzb") or self._is_nzb_source(item):
-            cache_label = "NZB Downloader"
         else:
             cache_label = service
         parts = [
@@ -1080,7 +1038,6 @@ class TheArchivesScrapers(Plugin):
         return (
             self._quality_rank(item.get("quality")),
             0 if item.get("debrid_cached") else 1,
-            1 if item.get("nzb") else 0,
             -self._size_from_source(item),
             str(item.get("origin") or "").lower(),
         )

@@ -1,9 +1,10 @@
 <settings>
   <category label="Settings">
     <setting id="use_cache" type="bool" label="Use Cache" visible="true" default="true" />
-    <setting id="resume.playback.popup" type="bool" label="Show Resume Playback Popup" visible="true" default="true" />
     <setting id="time_cache" type="number" label="[COLOR khaki]    Cache Update Interval [I][COLOR white](minutes)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="60" />
-    <setting id="clear_cache" type="action" label="[COLOR khaki]    Clear Cache [/COLOR]" subsetting="true" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/clear_cache)" />
+    <setting id="clear_cache" type="action" label="[COLOR khaki]    Clear Cache [/COLOR]" subsetting="true" visible="true" option="close" action="PlayMedia(plugin://$ID/clear_cache)" />
+    <setting id="resume.playback.popup" type="bool" label="Show Resume Playback Popup" visible="true" default="true" />
+    <setting id="debrid.intro.skip.seconds" type="number" label="Automatic Intro Skip (seconds)" visible="true" option="int" default="0" />
     <setting id="scraper.module" type="text" label="Selected Scraper Module" visible="false" default="" />
     <setting id="scraper.name" type="text" label="Selected Scraper Name" visible="false" default="" />
     <setting id="choose.scraper" subsetting="false" type="action" label="[COLOR lawngreen]Choose Scraper Module[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
@@ -95,6 +96,10 @@
     <setting id="folders.movie_folder" type="folder" label="[COLOR khaki]    Movie Folder[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
     <setting id="folders.tv_folder" type="folder" label="[COLOR khaki]    TV Show Folder[/COLOR]" subsetting="true" visible="eq(-2,true)" default="" />
     <setting id="folders.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="6" />
+    <setting id="lsep.debrid.autoplay" type="lsep" label="" />
+    <setting id="debrid.autoplay.movies" type="bool" label="Autoplay Debrid Movies" visible="true" default="false" />
+    <setting id="debrid.autoplay.episodes" type="bool" label="Autoplay Debrid TV Episodes" visible="true" default="false" />
+    <setting id="debrid.autoplay.next_episode" type="bool" label="Autoplay Next Debrid Episode" visible="true" default="false" />
   </category>
   <category label="Home Page">
     <setting id="root_xml" type="text" label="Root XML Location" default="file://main.json" visible="true" />

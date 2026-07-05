@@ -199,8 +199,6 @@ class ArchivesSourceResults(xbmcgui.WindowXMLDialog):
 def select_source(sources, labels, meta=None):
     if not sources:
         return -1
-    if len(sources) == 1:
-        return 0
     addon_path = xbmcaddon.Addon().getAddonInfo("path")
     try:
         dialog = ArchivesSourceResults("archives_sources.xml", addon_path, "Default", "1080i", sources=sources, labels=labels, meta=meta or {})
@@ -210,5 +208,4 @@ def select_source(sources, labels, meta=None):
     except Exception as exc:
         xbmc.log("TheArchivesSourcePicker - custom source window failed: %s" % exc, getattr(xbmc, "LOGERROR", 4))
         return xbmcgui.Dialog().select("Select a Cached Debrid Link", labels)
-
 

@@ -117,34 +117,97 @@ class HistoryPlayer:
 
     def play(self, url, list_item):
         state = self.store.get_state(self.item)
+        start_target = float(self._intro_skip_seconds())
         if state["resume_point"] > 0:
             action = self._choose_resume_action(state)
             if action < 0:
                 return True
             if action == 1:
-                try:
-                    list_item.setProperty("StartPercent", str(state["resume_point"]))
-                except Exception:
-                    pass
+                start_target = float(state.get("curr_time") or 0.0)
+                if start_target <= 0:
+                    start_target = (float(state.get("resume_point") or 0.0) / 100.0) * float(state.get("total_time") or 0.0)
+        if start_target > 0:
+            try:
+                list_item.setProperty("StartOffset", str(float(start_target)))
+            except Exception:
+                pass
         self.player.play(url, list_item)
-        self._monitor()
+        self._monitor(start_target)
         return True
 
-    def _monitor(self):
+    def _intro_skip_seconds(self):
+        try:
+            import xbmcaddon
+
+            value = xbmcaddon.Addon().getSetting("debrid.intro.skip.seconds")
+            return max(0, int(float(value or 0)))
+        except Exception as e:
+            try:
+                import xbmc
+                xbmc.log("[TheArchives] Intro skip setting error: %s" % e, xbmc.LOGERROR)
+            except Exception:
+                pass
+            return 0
+
+    def _apply_start_seek(self, target, timeout_ms=15000):
+        target = max(0.0, float(target or 0.0))
+        if target <= 0:
+            return False
         try:
             import xbmc
 
-            xbmc.log("[TheArchives] HistoryPlayer._monitor started", xbmc.LOGINFO)
+            waited = 0
+            while waited < timeout_ms and self.player.isPlaying():
+                try:
+                    total_time = float(self.player.getTotalTime())
+                    current_time = float(self.player.getTime())
+                except Exception:
+                    total_time = 0.0
+                    current_time = 0.0
+                if total_time > 0:
+                    target = min(target, max(0.0, total_time - 1.0))
+                    if current_time + 1.0 < target:
+                        self.player.seekTime(target)
+                        return True
+                    return False
+                xbmc.sleep(250)
+                waited += 250
+        except Exception as e:
+            try:
+                import xbmc
+                xbmc.log("[TheArchives] Playback start seek error: %s" % e, xbmc.LOGERROR)
+            except Exception:
+                pass
+        return False
+
+    def _maybe_autoplay_next_episode(self, best_percent):
+        if best_percent < 95.0 or str(self.item.get("content") or "").lower() != "episode":
+            return False
+        try:
+            from resources.lib.util.debrid_autoplay import launch_next_episode
+
+            return bool(launch_next_episode(self.item))
+        except Exception as e:
+            try:
+                import xbmc
+                xbmc.log("[TheArchives] Next debrid episode launch error: %s" % e, xbmc.LOGERROR)
+            except Exception:
+                pass
+            return False
+
+    def _monitor(self, start_target=0.0):
+        try:
+            import xbmc
+
             waited = 0
             while waited < 30000 and not self.player.isPlaying():
                 xbmc.sleep(250)
                 waited += 250
 
             if not self.player.isPlaying():
-                xbmc.log("[TheArchives] HistoryPlayer._monitor: playback never started", xbmc.LOGINFO)
                 return
 
-            xbmc.log("[TheArchives] HistoryPlayer._monitor: playback detected, monitoring", xbmc.LOGINFO)
+            self._apply_start_seek(start_target)
             last_time = 0.0
             total_time = 0.0
             best_percent = 0.0
@@ -159,15 +222,13 @@ class HistoryPlayer:
                     continue
                 best_percent = max(best_percent, round((last_time / total_time) * 100.0, 1))
 
-            xbmc.log(f"[TheArchives] HistoryPlayer._monitor: playback ended, best_percent={best_percent}, total_time={total_time}, last_time={last_time}", xbmc.LOGINFO)
             if total_time <= 0:
                 return
             if best_percent >= 90.0:
                 self.store.mark_watched(self.item)
-                xbmc.log("[TheArchives] HistoryPlayer._monitor: marked as watched", xbmc.LOGINFO)
+                self._maybe_autoplay_next_episode(best_percent)
             else:
                 self.store.set_progress(self.item, last_time, total_time)
-                xbmc.log(f"[TheArchives] HistoryPlayer._monitor: saved progress {best_percent}%", xbmc.LOGINFO)
         except Exception as e:
             try:
                 import xbmc as _xbmc

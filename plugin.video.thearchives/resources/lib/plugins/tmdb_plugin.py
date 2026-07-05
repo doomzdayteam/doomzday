@@ -412,6 +412,7 @@ class TMDB_API:
                         "thumbnail": still,
                         "fanart": still,
                         "tmdb_id": item.id,
+                        "tv_show_tmdb_id": show_id,
                         "imdb_id": imdb,
                         "tv_show_title": show.name,
                         "year": year,

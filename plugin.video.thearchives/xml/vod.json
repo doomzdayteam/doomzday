@@ -34,6 +34,13 @@
       "link": "https://www.supercartoons.net/",
       "thumbnail": "resources/media/movies.png",
       "summary": "Search and browse classic cartoons by latest additions and series."
+    },
+	{
+      "type": "dir",
+      "title": "OK.ru VOD",
+      "link": "https://ok.ru/",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search and browse OK.ru videos, movies, series, and episodes. ex English movie Title."
     }
   ]
 }
