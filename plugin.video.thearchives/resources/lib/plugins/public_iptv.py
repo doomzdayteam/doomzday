@@ -12,6 +12,7 @@ from xbmcaddon import Addon
 
 from ..DI import DI
 from ..plugin import Plugin
+from ..vod_cache import VOD_CACHE, vod_cache_key
 from resources.lib.infotagger.helpers import set_video_info
 
 
@@ -226,16 +227,34 @@ class PublicIPTV(Plugin):
             query = self.from_keyboard(header="Search Public IPTV")
             if not query:
                 sys.exit()
-            response = self.session.get(CHANNELS_API_URL, headers=self.headers)
-            return json.dumps({"kind": "search", "query": query, "channels": self._load_channels(response.text)})
+            channels_response = VOD_CACHE.get_or_set_response(
+                self.name,
+                vod_cache_key("response", CHANNELS_API_URL),
+                "catalog",
+                lambda: self.session.get(CHANNELS_API_URL, headers=self.headers).text,
+            )
+            return json.dumps({"kind": "search", "query": query, "channels": self._load_channels(channels_response)})
 
-        response = self.session.get(_real_url(url), headers=self.headers)
-        return response.text
+        real_url = _real_url(url)
+        return VOD_CACHE.get_or_set_response(
+            self.name,
+            vod_cache_key("response", real_url),
+            "catalog",
+            lambda: self.session.get(real_url, headers=self.headers).text,
+        )
 
     def parse_list(self, url: str, response: str) -> Optional[List[Dict[str, str]]]:
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
+        cache_kind = "search" if url == self.search_url else "catalog"
+        return VOD_CACHE.get_or_set_menu(
+            self.name,
+            vod_cache_key("menu", url, response),
+            cache_kind,
+            lambda: self._parse_list_uncached(url, response),
+        )
 
+    def _parse_list_uncached(self, url: str, response: str) -> Optional[List[Dict[str, str]]]:
         real_url = _real_url(url)
 
         if real_url.rstrip("/") == self.base_url:

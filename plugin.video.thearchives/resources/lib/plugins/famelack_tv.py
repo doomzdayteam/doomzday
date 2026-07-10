@@ -13,6 +13,7 @@ from xbmcaddon import Addon
 
 from ..DI import DI
 from ..plugin import Plugin
+from ..vod_cache import VOD_CACHE, vod_cache_key
 from resources.lib.infotagger.helpers import set_video_info
 
 
@@ -253,6 +254,15 @@ class FamelackTV(Plugin):
     def parse_list(self, url: str, response: str) -> Optional[List[Dict[str, str]]]:
         if not isinstance(url, str) or not url.startswith(self.base_url):
             return None
+        cache_kind = "search" if url == self.search_url else "catalog"
+        return VOD_CACHE.get_or_set_menu(
+            self.name,
+            vod_cache_key("menu", url, response),
+            cache_kind,
+            lambda: self._parse_list_uncached(url, response),
+        )
+
+    def _parse_list_uncached(self, url: str, response: str) -> Optional[List[Dict[str, str]]]:
         if url == BASE_URL:
             return self._root_menu()
         if url == self.countries_url:
@@ -306,9 +316,18 @@ class FamelackTV(Plugin):
         return True
 
     def _fetch_json(self, url: str, default: Any) -> Any:
-        try:
+        def fetcher():
             response = self.session.get(url, headers=self.headers)
-            data = _decode_json_payload(_response_payload(response))
+            return _response_payload(response)
+
+        try:
+            payload = VOD_CACHE.get_or_set_response(
+                self.name,
+                vod_cache_key("response", url),
+                "catalog",
+                fetcher,
+            )
+            data = _decode_json_payload(payload)
         except Exception as exc:
             xbmc.log(f"Famelack TV request error for {url}: {exc}", xbmc.LOGERROR)
             return default

@@ -37,6 +37,13 @@
     },
 	{
       "type": "dir",
+      "title": "FootReplays",
+      "link": "https://www.footreplays.com/",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search and browse football full-match replays and highlights by competition."
+    },
+	{
+      "type": "dir",
       "title": "OK.ru VOD",
       "link": "https://ok.ru/",
       "thumbnail": "resources/media/movies.png",

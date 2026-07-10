@@ -1,10 +1,14 @@
 import xbmcaddon
+import copy
+from urllib.parse import urlparse
 try:
     from resources.lib.DI import DI
     from resources.lib.plugin import run_hook, register_routes
+    from resources.lib.vod_cache import VOD_CACHE, vod_cache_key
 except ImportError:
     from .resources.lib.DI import DI
     from .resources.lib.plugin import run_hook, register_routes
+    from .resources.lib.vod_cache import VOD_CACHE, vod_cache_key
 
 try:
     from resources.lib.util.common import *
@@ -32,27 +36,95 @@ root_xml_url = get_root_xml_url()
 
 
 plugin = DI.plugin
-short_checker = ([
-    'Adf.ly', 
-    'Bit.ly', 
-    'Chilp.it', 
-    'Clck.ru', 
-    'Cutt.ly', 
-    'Da.gd', 
-    'Git.io', 
-    'goo.gl', 
-    'Is.gd', 
-    'NullPointer', 
-    'Os.db', 
-    'Ow.ly', 
-    'Po.st', 
-    'Qps.ru', 
-    'Short.cm', 
-    'Tiny.cc', 
-    'TinyURL.com', 
-    'Git.io', 
-    'Tiny.cc', 
-     ])
+parsed_list_cache = {}
+short_checker = tuple(
+    check.lower()
+    for check in {
+        'Adf.ly',
+        'Bit.ly',
+        'Chilp.it',
+        'Clck.ru',
+        'Cutt.ly',
+        'Da.gd',
+        'Git.io',
+        'goo.gl',
+        'Is.gd',
+        'NullPointer',
+        'Os.db',
+        'Ow.ly',
+        'Po.st',
+        'Qps.ru',
+        'Short.cm',
+        'Tiny.cc',
+        'TinyURL.com',
+    }
+)
+
+
+def _is_interactive_search_url(url):
+    if "tmdb/search" in url.lower():
+        return True
+    path = urlparse(url).path.rstrip("/").lower()
+    return path.endswith("/search") or path == "search"
+
+
+def _can_cache_list(url):
+    return ownAddon.getSettingBool("use_cache") and not _is_interactive_search_url(url)
+
+
+def _get_cached_list_response(url):
+    if not _can_cache_list(url):
+        return None
+    cached = DI.db.get(url)
+    if cached:
+        return cached[0]
+    return None
+
+
+def _parsed_list_cache_key(url, response):
+    return vod_cache_key("parsed_list", url, response)
+
+
+def _get_cached_parsed_list(url, response):
+    if not _can_cache_list(url):
+        return None
+    cache_key = _parsed_list_cache_key(url, response)
+    cached = parsed_list_cache.get(cache_key)
+    if cached is None:
+        cached = VOD_CACHE.get_menu("default", cache_key, "catalog")
+        if cached is not None:
+            parsed_list_cache[cache_key] = copy.deepcopy(cached)
+    return copy.deepcopy(cached) if cached is not None else None
+
+
+def _set_cached_parsed_list(url, response, jen_list):
+    if not _can_cache_list(url) or jen_list is None:
+        return
+    cache_key = _parsed_list_cache_key(url, response)
+    parsed_list_cache[cache_key] = copy.deepcopy(jen_list)
+    try:
+        VOD_CACHE.set_menu("default", cache_key, jen_list, "catalog")
+    except (TypeError, ValueError):
+        pass
+
+
+def _needs_metadata(item):
+    if item.get("summary") or item.get("guidedata"):
+        return True
+    if ownAddon.getSettingBool("full_meta") and ("infolabels" in item or "cast" in item):
+        return True
+    if not ownAddon.getSettingBool("item_meta"):
+        return False
+    return bool(
+        item.get("content")
+        and (
+            item.get("tmdb_id")
+            or item.get("tmdb")
+            or item.get("imdb")
+            or item.get("imdb_id")
+        )
+    )
+
 
 @plugin.route("/")
 def root() -> None:
@@ -64,19 +136,29 @@ def get_list(url: str) -> None:
     _get_list(url)
 
 def _get_list(url):
-    if any(check.lower() in url.lower() for check in short_checker):
+    url_lower = url.lower()
+    if any(check in url_lower for check in short_checker):
         url = DI.session.get(url).url
-    response = run_hook("get_list", url)
+    response = _get_cached_list_response(url)
+    from_cache = response is not None
+    if response is None:
+        response = run_hook("get_list", url)
     if response:           
-        if ownAddon.getSettingBool("use_cache") and not "tmdb/search" in url:
+        if not from_cache and _can_cache_list(url):
             DI.db.set(url, response)
-        jen_list = run_hook("parse_list", url, response)
+        jen_list = _get_cached_parsed_list(url, response)
+        if jen_list is None:
+            jen_list = run_hook("parse_list", url, response)
+            _set_cached_parsed_list(url, response, jen_list)
         if not jen_list:
             run_hook("display_list", [])
             return
         jen_list = [run_hook("process_item", item) for item in jen_list]
         jen_list = [
-        run_hook("get_metadata", item, return_item_on_failure=True) for item in jen_list
+            run_hook("get_metadata", item, return_item_on_failure=True)
+            if _needs_metadata(item)
+            else item
+            for item in jen_list
         ]
         run_hook("display_list", jen_list)
     else:

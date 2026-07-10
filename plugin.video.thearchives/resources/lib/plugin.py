@@ -55,10 +55,32 @@ class Plugin:
 
 
 plugin_cache = {}
+sorted_plugin_cache = None
+hook_plugin_cache = {}
+
+
+def load_plugins_for_hook(function_name: str, other_args: Tuple[str, ...]) -> None:
+    global sorted_plugin_cache
+    try:
+        from . import plugins
+    except ImportError:
+        return
+
+    loader = getattr(plugins, "load_for_hook", None)
+    if not loader:
+        return
+
+    if loader(function_name, *other_args):
+        sorted_plugin_cache = None
+        hook_plugin_cache.clear()
 
 
 def get_plugins() -> List[Plugin]:
-    from . import plugins
+    global sorted_plugin_cache
+    try:
+        from . import plugins
+    except ImportError:
+        pass
 
     klasses = Plugin.subclasses
     plugins = []
@@ -68,7 +90,32 @@ def get_plugins() -> List[Plugin]:
         else:
             plugin_cache[klass] = klass()
             plugins.append(plugin_cache[klass])
+            sorted_plugin_cache = None
+            hook_plugin_cache.clear()
     return plugins
+
+
+def get_sorted_plugins() -> List[Plugin]:
+    global sorted_plugin_cache
+    if sorted_plugin_cache is None:
+        sorted_plugin_cache = sorted(
+            get_plugins(),
+            key=lambda plugin: plugin.priority,
+            reverse=True,
+        )
+    return sorted_plugin_cache
+
+
+def get_hook_plugins(function_name: str) -> List[Plugin]:
+    if function_name not in hook_plugin_cache:
+        base_method = getattr(Plugin, function_name, None)
+        hook_plugin_cache[function_name] = [
+            plugin
+            for plugin in get_sorted_plugins()
+            if getattr(type(plugin), function_name, None) is not base_method
+        ]
+    return hook_plugin_cache[function_name]
+
 
 def register_routes(plugin_route):
     plugins = get_plugins()
@@ -77,11 +124,10 @@ def register_routes(plugin_route):
 
 
 def run_hook(*args: Tuple[str, ...], return_item_on_failure=False) -> Any:
-    plugins = get_plugins()
     function_name = args[0]
     other_args = args[1:]
-    plugins = sorted(plugins, key=lambda plugin: plugin.priority, reverse=True)
-    for plugin in plugins:
+    load_plugins_for_hook(function_name, other_args)
+    for plugin in get_hook_plugins(function_name):
         result = getattr(plugin, function_name)(*other_args)
         if result:
             return result

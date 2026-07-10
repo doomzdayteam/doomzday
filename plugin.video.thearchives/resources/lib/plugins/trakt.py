@@ -111,8 +111,8 @@ class Trakt(Plugin):
                 else:
                     user_id = split[2]
                 if split[3] == "collection":
-                    collection = api.get_collection(user_id, split[4])
-                    return api.handle_list(collection, page_link=page_split[0] + "|" + str(page + 1))
+                    collection, has_next = api.get_collection(user_id, split[4], page=page)
+                    return api.handle_list(collection, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "lists":
                     lists = api.get_lists(user_id)
                     return json.dumps({"items": api.handle_lists_xml(lists, list_type="my_lists")})
@@ -123,11 +123,11 @@ class Trakt(Plugin):
                     list = api.get_user_list(user_id, split[4], page=page)
                     return api.handle_list(list, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "watched":
-                    watched = api.get_watched(user_id, split[4])
-                    return api.handle_list(watched, pagination=False)
+                    watched, has_next = api.get_watched(user_id, split[4], page=page)
+                    return api.handle_list(watched, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "watchlist":
-                    watched = api.get_watchlist(user_id, split[4] if len(split) > 4 else "", page=page)
-                    return api.handle_list(watched, pagination=False)
+                    watched, has_next = api.get_watchlist(user_id, split[4] if len(split) > 4 else "", page=page)
+                    return api.handle_list(watched, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
             elif split[1] == "recommendations":
                 if self.__check_auth():
                     recommendations = api.get_recommendations(split[2], 25)
@@ -244,6 +244,15 @@ class Trakt_API:
                 (action, getattr(response, "status_code", "unknown"), body)
             )
 
+    def _paged_json(self, response, action, page, limit):
+        items = self._json_or_error(response, action)
+        try:
+            page_count = int(response.headers.get("X-Pagination-Page-Count", ""))
+            has_next = page < page_count
+        except (AttributeError, TypeError, ValueError):
+            has_next = isinstance(items, list) and len(items) >= limit
+        return items, has_next
+
     def device_code(self):
         response = self.session.post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.app_headers)
         code = self._json_or_error(response, "starting device authorization")
@@ -272,24 +281,24 @@ class Trakt_API:
         return chart_list
     
     def get_collection(self, user_id: str, type: str, page: int = 1):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        collection = response.json()
-        return collection
+        limit = 25
+        response = self.session.get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
+        return self._paged_json(response, "loading Trakt collection", page, limit)
     
     def get_likes(self, user_id: str, type: str, page: int = 1):
         response = self.session.get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
         collection = response.json()
         return collection
     
-    def get_watched(self, user_id: str, type: str):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/watched/{type}?extended=full", headers=self.headers)
-        watched = response.json()
-        return watched
+    def get_watched(self, user_id: str, type: str, page: int = 1):
+        limit = 25
+        response = self.session.get(f"{self.base_url}/users/{user_id}/watched/{type}", headers=self.headers, params={"page": page, "limit": limit})
+        return self._paged_json(response, "loading Trakt watched history", page, limit)
     
     def get_watchlist(self, user_id: str, type: str = "", page: int = 1):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/watchlist{'/' + type if type != '' else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        watchlist = response.json()
-        return watchlist
+        limit = 25
+        response = self.session.get(f"{self.base_url}/users/{user_id}/watchlist{'/' + type if type != '' else ''}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
+        return self._paged_json(response, "loading Trakt watchlist", page, limit)
 
     def get_recommendations(self, type: str, limit: int = 10):
         response = self.session.get(f"{self.base_url}/recommendations/{type}?extended=full&limit={limit}", headers=self.headers)
