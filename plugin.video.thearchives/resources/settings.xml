@@ -49,6 +49,20 @@
     <setting id="lsep.trakt.5" type="lsep" label="" />
     <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
   </category>
+  <category label="PunchPlay">
+    <setting id="punchplay.authorize" type="action" label="[COLOR lawngreen]Authorize PunchPlay Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/authorize)" />
+    <setting id="punchplay.test" type="action" label="[COLOR deepskyblue]Test PunchPlay Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/test)" />
+    <setting id="punchplay.clear" type="action" label="[COLOR red]Revoke PunchPlay Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/clear)" />
+    <setting id="punchplay.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="punchplay.refresh_token" type="text" label="Refresh Token" visible="false" default="" />
+    <setting id="punchplay.user_id" type="text" label="User ID" visible="false" default="" />
+    <setting id="punchplay.username" type="text" label="Username" visible="false" default="" />
+    <setting id="punchplay.expires" type="text" label="Token Expires" visible="false" default="0" />
+    <setting id="punchplay.refresh_expires" type="text" label="Refresh Token Expires" visible="false" default="0" />
+    <setting id="punchplay.device_id" type="text" label="Device ID" visible="false" default="" />
+    <setting id="punchplay.scope" type="text" label="Scope" visible="false" default="profile:read playback:read playback:write events:read" />
+    <setting id="punchplay.backend_url" type="text" label="Backend URL" visible="false" default="https://punchplay.tv" />
+  </category>
   <category label="Sources Accounts">
     <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
     <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />

@@ -1,7 +1,7 @@
 import importlib
 import os
 import sys
-from urllib.parse import unquote_plus
+from urllib.parse import unquote_plus, urlsplit
 
 
 CORE_MODULES = [
@@ -103,9 +103,13 @@ def _available_modules():
 
 
 def _current_route():
-    if len(sys.argv) < 3:
-        return ""
-    return unquote_plus(str(sys.argv[2] or "")).strip()
+    if sys.argv:
+        route = unquote_plus(urlsplit(str(sys.argv[0] or "")).path or "").strip()
+        if route and route != "/":
+            return route
+    if len(sys.argv) > 2:
+        return unquote_plus(str(sys.argv[2] or "")).strip()
+    return ""
 
 
 def _current_get_list_url(route):

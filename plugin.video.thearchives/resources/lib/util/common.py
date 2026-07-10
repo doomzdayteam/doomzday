@@ -53,6 +53,12 @@ def get_trakt_api_client_id():
 def get_trakt_api_client_secret():
     return get_dev_api_value("TRAKT_CLIENT_SECRET")
 
+def get_punchplay_api_client_id():
+    return get_dev_api_value("PUNCHPLAY_CLIENT_ID")
+
+def get_punchplay_api_client_secret():
+    return get_dev_api_value("PUNCHPLAY_CLIENT_SECRET")
+
 def get_real_debrid_client_id():
     return get_dev_api_value("REAL_DEBRID_CLIENT_ID")
 
