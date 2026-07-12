@@ -13,6 +13,31 @@
     <setting id="choose.scraper" subsetting="false" type="action" label="[COLOR lawngreen]Choose Scraper Module[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
     <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open Scraper Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
     <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
+    <setting id="lsep.custom.debrid.header" type="lsep" label="" />
+    <setting id="custom.debrid.1.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 1[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.1.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 1" />
+    <setting id="custom.debrid.1.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.1.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.1" type="lsep" label="" />
+    <setting id="custom.debrid.2.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 2[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.2.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 2" />
+    <setting id="custom.debrid.2.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.2.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.2" type="lsep" label="" />
+    <setting id="custom.debrid.3.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 3[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.3.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 3" />
+    <setting id="custom.debrid.3.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.3.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.3" type="lsep" label="" />
+    <setting id="custom.debrid.4.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 4[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.4.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 4" />
+    <setting id="custom.debrid.4.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.4.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.4" type="lsep" label="" />
+    <setting id="custom.debrid.5.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 5[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.5.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 5" />
+    <setting id="custom.debrid.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
   </category>
   <category label="TMDB">
     <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />

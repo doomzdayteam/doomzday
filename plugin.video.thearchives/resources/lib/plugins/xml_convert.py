@@ -1,5 +1,6 @@
 from ..plugin import Plugin
 from typing import Dict, Union
+from urllib.parse import quote
 import xml.etree.ElementTree as ET
 import re, os, json
 import xbmcaddon, xbmc
@@ -9,6 +10,52 @@ try:
     from resources.lib.util.common import *
 except ImportError:
     from .resources.lib.util.common import *
+
+
+DEAD_ART_HOSTS = ("miniaturelife67.co.uk",)
+
+
+def _clean_art(item):
+    for key in ("thumbnail", "fanart", "animated_thumbnail", "animated_fanart"):
+        value = str(item.get(key) or "")
+        if any(host in value.lower() for host in DEAD_ART_HOSTS):
+            item[key] = ""
+    return item
+
+
+def _route_link(prefix, value):
+    value = (value or "").strip()
+    if not value:
+        return ""
+    if value.startswith(f"{prefix}/"):
+        return value
+    return f"{prefix}/{value.lstrip('/')}"
+
+
+def _clean_title(value):
+    value = re.sub(r"\[[^\]]+\]", "", str(value or ""))
+    return " ".join(value.split())
+
+
+def _compat_link(item):
+    if item.get("link"):
+        return item
+    tmdb = (item.get("tmdb") or "").strip()
+    title = _clean_title(item.get("title") or item.get("name"))
+    if tmdb.startswith("list/") and title:
+        item["link"] = f"tmdb/legacy_list/{tmdb.split('/', 1)[1]}/{quote(title, safe='')}"
+        return item
+    for key, prefix in (("tmdb", "tmdb"), ("trakt", "trakt")):
+        route = _route_link(prefix, item.get(key))
+        if route:
+            item["link"] = route
+            return item
+    for key in ("url", "path", "custom"):
+        value = (item.get(key) or "").strip()
+        if value:
+            item["link"] = value
+            return item
+    return item
 
 
 class xml_convert(Plugin):
@@ -57,6 +104,11 @@ class xml_convert(Plugin):
                 "title",
                 "link",
                 "thumbnail",
+                "tmdb",
+                "trakt",
+                "url",
+                "path",
+                "custom",
                 "tmdb_id",
                 "fanart",
                 "meta",
@@ -125,6 +177,7 @@ class xml_convert(Plugin):
                     else:
                         pass
 
+                idict = _compat_link(_clean_art(idict))
                 jsinfo.append(idict)
 
 

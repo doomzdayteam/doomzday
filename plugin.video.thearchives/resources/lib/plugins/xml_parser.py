@@ -1,6 +1,54 @@
 from ..plugin import Plugin
 from typing import Dict
+from urllib.parse import quote
 import xml.etree.ElementTree as ET
+import re
+
+
+DEAD_ART_HOSTS = ("miniaturelife67.co.uk",)
+
+
+def _clean_art(result):
+    for key in ("thumbnail", "fanart", "animated_thumbnail", "animated_fanart"):
+        value = str(result.get(key) or "")
+        if any(host in value.lower() for host in DEAD_ART_HOSTS):
+            result[key] = ""
+    return result
+
+
+def _route_link(prefix, value):
+    value = (value or "").strip()
+    if not value:
+        return ""
+    if value.startswith(f"{prefix}/"):
+        return value
+    return f"{prefix}/{value.lstrip('/')}"
+
+
+def _clean_title(value):
+    value = re.sub(r"\[[^\]]+\]", "", str(value or ""))
+    return " ".join(value.split())
+
+
+def _compat_link(result):
+    if result.get("link"):
+        return result
+    tmdb = (result.get("tmdb") or "").strip()
+    title = _clean_title(result.get("title") or result.get("name"))
+    if tmdb.startswith("list/") and title:
+        result["link"] = f"tmdb/legacy_list/{tmdb.split('/', 1)[1]}/{quote(title, safe='')}"
+        return result
+    for key, prefix in (("tmdb", "tmdb"), ("trakt", "trakt")):
+        route = _route_link(prefix, result.get(key))
+        if route:
+            result["link"] = route
+            return result
+    for key in ("url", "path", "custom"):
+        value = (result.get(key) or "").strip()
+        if value:
+            result["link"] = value
+            return result
+    return result
 
 
 class xml(Plugin):
@@ -46,4 +94,4 @@ class xml(Plugin):
         if item.findall('.//sublink'):
         	result["link"] = [child.text for child in item.findall('.//sublink')]
         result["type"] = item.tag
-        return result
+        return _compat_link(_clean_art(result))

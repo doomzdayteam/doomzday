@@ -23,12 +23,14 @@ ROUTE_MODULES = {
     "nginx dir/": ["nginx_dir"],
     "run_plug/": ["plug"],
     "trakt/": ["trakt", "tmdb_plugin"],
+    "punchplay/": ["punchplay"],
     "ytdlp/": ["youtube"],
 }
 
 URL_MODULE_RULES = [
     ("password//", ["password"]),
     ("m3u", ["m3u_parser"]),
+    ("custom_debrid_lists:", ["custom_debrid_lists"]),
     ("history/", ["history"]),
     ("tmdb", ["tmdb_plugin", "get_meta"]),
     ("trakt", ["trakt", "tmdb_plugin", "get_meta"]),

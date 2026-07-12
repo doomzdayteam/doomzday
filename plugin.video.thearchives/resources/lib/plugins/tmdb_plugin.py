@@ -294,6 +294,33 @@ class TMDB_API:
             results.append({"type": "dir", "title": "Next Page", "link": f"tmdb/account/lists/{page + 1}"})
         return results
 
+    def get_public_list_items(self, list_id: str, page: int = 1):
+        for version in (4, 3):
+            req = requests.PreparedRequest()
+            req.prepare_url(
+                f"{self.base_url}/{version}/list/{list_id}",
+                {"api_key": self.api_key, "language": "en-US", "page": page}
+            )
+            try:
+                response = self.session.get(req.url, headers=self.headers).json()
+            except Exception:
+                continue
+            results = response.get("results") or response.get("items") or []
+            if results:
+                return results
+        return []
+
+    def legacy_list_fallback_items(self, list_id: str, title: str):
+        items = self.get_public_list_items(list_id)
+        if items:
+            return self.handle_items(items)
+        query = quote(title or "", safe="")
+        for media_type in ("tv", "movie"):
+            search_items = self.get(f"search/{media_type}?query={query}")
+            if search_items:
+                return self.handle_items(search_items)
+        return {"items": []}
+
     def handle_lists_xml(self, lists):
         jen_list = []
         for item in lists or []:
@@ -629,6 +656,8 @@ class TMDB(Plugin):
                 return json.dumps({"items": _recent_search_items(splitted[2])})
             if kind == "clear_recent_searches" and len(splitted) > 2:
                 return json.dumps({"items": _clear_recent_searches(splitted[2])})
+            if kind == "legacy_list" and len(splitted) > 3:
+                return json.dumps(api.legacy_list_fallback_items(splitted[2], unquote(splitted[3])))
             if kind == "genres" and len(splitted) > 2:
                 media_type = splitted[2]
                 return json.dumps({"items": _genre_items(media_type, api.get_genres(media_type))})

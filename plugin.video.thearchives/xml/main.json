@@ -105,6 +105,13 @@
       "thumbnail": "resources/media/live_tv.png",
       "summary": "Browse live TV channels from free sources"
     },
+	{
+      "type": "dir",
+      "title": "Custom Debrid Lists",
+      "link": "custom_debrid_lists://root",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "User supplied XML/JSON lists for debrid scraping"
+    },
     {
       "type": "item",
       "title": "Settings",
