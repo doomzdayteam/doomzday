@@ -25,35 +25,42 @@
       "type": "dir",
       "title": "FilmOn",
       "link": "https://www.filmon.com/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse FilmOn VOD categories."
     },
 	{
       "type": "dir",
       "title": "SuperCartoons",
       "link": "https://www.supercartoons.net/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse classic cartoons by latest additions and series."
     },
 	{
       "type": "dir",
       "title": "FootReplays",
       "link": "https://www.footreplays.com/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse football full-match replays and highlights by competition."
+    },
+	{
+      "type": "dir",
+      "title": "Rugby24",
+      "link": "https://rugby24.net/",
+      "thumbnail": "resources/media/vod.png",
+      "summary": "Search and browse rugby full-match replays by latest posts and category."
     },
 	{
       "type": "dir",
       "title": "WatchWrestling",
       "link": "https://watchwrestling.ae/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse wrestling and combat sports replays by latest shows and category."
     },
 	{
       "type": "dir",
       "title": "OK.ru VOD",
       "link": "https://ok.ru/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse OK.ru videos, movies, series, and episodes. ex English movie Title."
     }
   ]

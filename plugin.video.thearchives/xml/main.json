@@ -95,7 +95,7 @@
       "type": "dir",
       "title": "VOD",
       "link": "file://vod.json",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Browse free on-demand movies and TV from Pluto, Xumo, Roku, and Tubi"
     },
 	 {
