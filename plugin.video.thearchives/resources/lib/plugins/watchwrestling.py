@@ -119,6 +119,18 @@ def _decode_item(item) -> (Dict, str):
     return data if isinstance(data, dict) else {}, str(link or "")
 
 
+def _owns_playback_item(data: Dict, link: str) -> bool:
+    if not isinstance(data, dict):
+        return False
+    provider = str(data.get("provider") or data.get("source") or "").lower()
+    if provider == "watchwrestling":
+        return True
+    post_url = str(data.get("post_url") or "")
+    if post_url and _is_post_url(post_url):
+        return True
+    return False
+
+
 def _kodi_header_query(headers: Dict[str, str]) -> str:
     values = [
         f"{key}={quote(str(value), safe='')}"
@@ -425,6 +437,7 @@ class WatchWrestling(Plugin):
                     "thumbnail": details["thumbnail"],
                     "summary": details["summary"] or details["title"],
                     "post_url": post_url,
+                    "provider": self.name,
                     "is_playable": "true",
                 }
                 for source in details["sources"]
@@ -434,6 +447,8 @@ class WatchWrestling(Plugin):
 
     def play_video(self, item: str):
         data, link = _decode_item(item)
+        if not _owns_playback_item(data, link):
+            return None
         resolved = self._resolve_source(link, data)
         if resolved.get("delegate") == "ok_ru":
             try:
