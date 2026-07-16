@@ -1,10 +1,13 @@
 """WatchWrestling VOD provider for The Archives."""
 
 import base64
+import gzip
 import json
 import re
 from html import unescape
 from typing import Dict, List
+import urllib.error
+import urllib.request
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
@@ -23,12 +26,20 @@ ROUTE_PATH = "/_thearchives_watchwrestling"
 PROVIDER_HOSTS = {"watchwrestling.ae", "www.watchwrestling.ae"}
 SNAPTIK_HOSTS = {"snaptik.ae", "www.snaptik.ae"}
 FASTVID_HOSTS = {"fastvid.xyz", "www.fastvid.xyz"}
-BLOCKED_SOURCE_HOSTS = {"dailymotion.com", "www.dailymotion.com", "dai.ly"}
-BLOCKED_SOURCE_TEXT = ("dailymotion", "daily motion")
+DAILYMOTION_HOSTS = {"dailymotion.com", "www.dailymotion.com", "dai.ly"}
+BLOCKED_SOURCE_HOSTS = set()
+BLOCKED_SOURCE_TEXT = ()
 M2LIST_HOSTS = {"m2list.com", "www.m2list.com"}
 NEWSONOMICS_HOSTS = {"newsonomics.top", "www.newsonomics.top"}
 OK_HOSTS = {"ok.ru", "www.ok.ru", "m.ok.ru", "mobile.ok.ru"}
 FANART = Addon().getAddonInfo("fanart")
+DAILYMOTION_METADATA_URL = "https://www.dailymotion.com/player/metadata/video"
+DAILYMOTION_USER_AGENT = (
+    "Mozilla/5.0 (Linux; Android 7.1.1; Pixel Build/NMF26O) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/55.0.2883.91 Mobile Safari/537.36"
+)
+DAILYMOTION_SOURCE_CACHE = {}
 
 
 def _clean_text(value: str) -> str:
@@ -151,6 +162,77 @@ def _merge_headers(*groups: Dict[str, str]) -> Dict[str, str]:
         if isinstance(group, dict):
             headers.update({key: str(value) for key, value in group.items() if value})
     return headers
+
+
+def _dailymotion_source_url(url: str) -> str:
+    parsed = urlparse(str(url or ""))
+    host = (parsed.hostname or "").lower()
+    if host in DAILYMOTION_HOSTS:
+        return str(url or "")
+    if host in SNAPTIK_HOSTS:
+        query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+        video_id = str(query.get("id") or "").strip()
+        if str(query.get("host") or "").strip().lower() == "dm" and re.match(r"^[A-Za-z0-9]+$", video_id):
+            return f"https://www.dailymotion.com/video/{video_id}"
+    return ""
+
+
+def _dailymotion_video_id(url: str) -> str:
+    parsed = urlparse(str(url or ""))
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").strip("/")
+    if host.endswith("dailymotion.com"):
+        match = re.search(r"(?:^|/)video/([A-Za-z0-9]+)", "/" + path)
+        if match:
+            return match.group(1)
+    if host == "dai.ly":
+        return path.split("/", 1)[0]
+    return ""
+
+
+def _dailymotion_source_playable(url: str) -> bool:
+    video_id = _dailymotion_video_id(url)
+    if not video_id:
+        return False
+    if video_id in DAILYMOTION_SOURCE_CACHE:
+        return DAILYMOTION_SOURCE_CACHE[video_id]
+    headers = {
+        "User-Agent": DAILYMOTION_USER_AGENT,
+        "Origin": "https://www.dailymotion.com",
+        "Referer": "https://www.dailymotion.com/",
+        "Cookie": "lang=en_US; ff=on",
+        "Accept-Language": "en-US,en",
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json",
+    }
+    try:
+        request = urllib.request.Request(f"{DAILYMOTION_METADATA_URL}/{video_id}", headers=headers)
+        with urllib.request.urlopen(request, timeout=8) as response:
+            raw = response.read()
+            if "gzip" in (response.headers.get("Content-Encoding") or "").lower():
+                raw = gzip.decompress(raw)
+            data = json.loads(raw.decode("utf-8", "ignore") or "{}")
+    except (OSError, ValueError, urllib.error.URLError, urllib.error.HTTPError) as exc:
+        _log(f"Dailymotion preflight skipped for {video_id}: {exc}", getattr(xbmc, "LOGWARNING", None))
+        return True
+    playable = bool((data or {}).get("qualities")) and not (data or {}).get("error")
+    if not playable:
+        error = (data or {}).get("error") or {}
+        _log(
+            "hiding rejected Dailymotion source "
+            + f"id={video_id} status={error.get('status_code') or ''} title={error.get('title') or ''}",
+            getattr(xbmc, "LOGWARNING", None),
+        )
+    DAILYMOTION_SOURCE_CACHE[video_id] = playable
+    return playable
+
+
+def _source_link(url: str) -> str:
+    return _dailymotion_source_url(url) or url
+
+
+def _source_provider(url: str) -> str:
+    return "dailymotion" if _dailymotion_source_url(url) else "watchwrestling"
 
 
 def _is_blocked_source(url: str, *labels: str) -> bool:
@@ -290,6 +372,13 @@ def _parse_post_details(html: str) -> Dict[str, object]:
             label = _clean_text(anchor.get_text(" ", strip=True))
             if not link or link in seen or _is_blocked_source(link, heading, label):
                 continue
+            source_text = f"{heading} {label}".lower()
+            dailymotion_url = _dailymotion_source_url(link)
+            if "dailymotion" in source_text or "daily motion" in source_text:
+                if not dailymotion_url or not _dailymotion_source_playable(dailymotion_url):
+                    continue
+            elif dailymotion_url and not _dailymotion_source_playable(dailymotion_url):
+                continue
             query = dict(parse_qsl(urlparse(link).query, keep_blank_values=True))
             if "live streaming" in heading.lower() or (query.get("host") or "").strip().lower() == "sawlive":
                 continue
@@ -302,6 +391,9 @@ def _parse_post_details(html: str) -> Dict[str, object]:
         for frame in source_soup.select("iframe[src], iframe[data-src]"):
             link = _normalize_embed_url(frame.get("src") or frame.get("data-src") or "")
             if link and link not in seen and not _is_blocked_source(link):
+                dailymotion_url = _dailymotion_source_url(link)
+                if dailymotion_url and not _dailymotion_source_playable(dailymotion_url):
+                    continue
                 seen.add(link)
                 sources.append({"title": "Video", "url": link})
     return {
@@ -433,11 +525,11 @@ class WatchWrestling(Plugin):
                 {
                     "type": "item",
                     "title": source["title"],
-                    "link": source["url"],
+                    "link": _source_link(source["url"]),
                     "thumbnail": details["thumbnail"],
                     "summary": details["summary"] or details["title"],
                     "post_url": post_url,
-                    "provider": self.name,
+                    "provider": _source_provider(source["url"]),
                     "is_playable": "true",
                 }
                 for source in details["sources"]
@@ -447,6 +539,9 @@ class WatchWrestling(Plugin):
 
     def play_video(self, item: str):
         data, link = _decode_item(item)
+        host = (urlparse(str(link or "")).hostname or "").lower()
+        if host in DAILYMOTION_HOSTS:
+            return None
         if not _owns_playback_item(data, link):
             return None
         resolved = self._resolve_source(link, data)

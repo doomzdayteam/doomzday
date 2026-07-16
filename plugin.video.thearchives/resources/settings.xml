@@ -38,6 +38,31 @@
     <setting id="custom.debrid.5.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 5" />
     <setting id="custom.debrid.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
     <setting id="custom.debrid.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.personal.header" type="lsep" label="" />
+    <setting id="custom.personal.1.enabled" type="bool" label="[B][COLOR white]Personal List 1[/COLOR][/B]" default="false" />
+    <setting id="custom.personal.1.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 1" />
+    <setting id="custom.personal.1.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.personal.1.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.personal.1" type="lsep" label="" />
+    <setting id="custom.personal.2.enabled" type="bool" label="[B][COLOR white]Personal List 2[/COLOR][/B]" default="false" />
+    <setting id="custom.personal.2.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 2" />
+    <setting id="custom.personal.2.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.personal.2.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.personal.2" type="lsep" label="" />
+    <setting id="custom.personal.3.enabled" type="bool" label="[B][COLOR white]Personal List 3[/COLOR][/B]" default="false" />
+    <setting id="custom.personal.3.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 3" />
+    <setting id="custom.personal.3.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.personal.3.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.personal.3" type="lsep" label="" />
+    <setting id="custom.personal.4.enabled" type="bool" label="[B][COLOR white]Personal List 4[/COLOR][/B]" default="false" />
+    <setting id="custom.personal.4.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 4" />
+    <setting id="custom.personal.4.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.personal.4.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.personal.4" type="lsep" label="" />
+    <setting id="custom.personal.5.enabled" type="bool" label="[B][COLOR white]Personal List 5[/COLOR][/B]" default="false" />
+    <setting id="custom.personal.5.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 5" />
+    <setting id="custom.personal.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.personal.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
   </category>
   <category label="TMDB">
     <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />

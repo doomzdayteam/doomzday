@@ -62,6 +62,13 @@
       "link": "https://ok.ru/",
       "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse OK.ru videos, movies, series, and episodes. ex English movie Title."
+    },
+	{
+      "type": "dir",
+      "title": "Dailymotion",
+      "link": "https://www.dailymotion.com/",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search and browse Dailymotion videos, popular uploads, recent uploads, and categories."
     }
   ]
 }

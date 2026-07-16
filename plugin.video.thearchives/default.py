@@ -70,9 +70,39 @@ def _is_interactive_search_url(url):
 
 def _can_cache_list(url):
     url_lower = str(url or "").lower()
-    if url_lower.startswith("custom_debrid_lists:"):
+    if url_lower.startswith(("custom_debrid_lists:", "custom_personal_lists:")):
         return False
     return ownAddon.getSettingBool("use_cache") and not _is_interactive_search_url(url)
+
+
+def _is_custom_personal_list_url(url):
+    return str(url or "").lower().startswith("custom_personal_lists:")
+
+
+def _uses_debrid_scraper_route(item):
+    link = item.get("link", "")
+    links = link if isinstance(link, list) else [link]
+    for value in links:
+        value_l = str(value or "").strip().lower()
+        if (
+            value_l == "search"
+            or value_l.startswith("search(")
+            or value_l.startswith("microjen_scrapers/play/")
+            or "/microjen_scrapers/play/" in value_l
+        ):
+            return True
+    return False
+
+
+def _personal_list_item(item):
+    if not isinstance(item, dict) or not _uses_debrid_scraper_route(item):
+        return item
+    return {
+        "type": "item",
+        "title": "[COLOR grey]Debrid scraper item blocked in personal list[/COLOR]",
+        "link": "message/Personal lists can reference non-debrid The Archives plugin routes, but not scraper search rows.",
+        "thumbnail": "resources/media/settings.png",
+    }
 
 
 def _get_cached_list_response(url):
@@ -156,6 +186,8 @@ def _get_list(url):
         if not jen_list:
             run_hook("display_list", [])
             return
+        if _is_custom_personal_list_url(url):
+            jen_list = [_personal_list_item(item) for item in jen_list]
         jen_list = [run_hook("process_item", item) for item in jen_list]
         jen_list = [
             run_hook("get_metadata", item, return_item_on_failure=True)

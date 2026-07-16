@@ -30,6 +30,7 @@ HQ_DOMAINS = (
 )
 VK_HOSTS = {"vk.com", "www.vk.com", "vkvideo.ru", "www.vkvideo.ru"}
 DAILYMOTION_HOSTS = {"dailymotion.com", "www.dailymotion.com", "dai.ly"}
+OK_HOSTS = {"ok.ru", "www.ok.ru", "m.ok.ru", "mobile.ok.ru"}
 FANART = Addon().getAddonInfo("fanart")
 PACKER_RE = re.compile(
     r"eval\(function\(p,a,c,k,e,d\)\{.*?\}\('((?:[^'\\]|\\.)*)',\s*\d+,\s*\d+,\s*'((?:[^'\\]|\\.)*)'\s*(?:\.split\('\|'\))?\)\)",
@@ -54,7 +55,7 @@ def _absolute_url(value: str) -> str:
 def _normalize_source_url(value: str) -> str:
     url = _absolute_url(value).strip()
     parsed = urlparse(url)
-    if parsed.hostname in {"ok.ru", "www.ok.ru", "m.ok.ru", "mobile.ok.ru"}:
+    if parsed.hostname in OK_HOSTS:
         match = re.match(r"/videoembed/([\d-]+)", parsed.path)
         if match:
             return f"https://ok.ru/video/{match.group(1)}"
@@ -213,35 +214,6 @@ def _with_kodi_headers(url: str, headers: Dict[str, str]) -> str:
     return f"{url}|{header_query}" if header_query else url
 
 
-def _resolve_ytdlp(url: str) -> Dict[str, str]:
-    try:
-        from resources.lib.external import yt_dlp
-
-        with yt_dlp.YoutubeDL({"quiet": True, "skip_download": True, "noplaylist": True}) as ydl:
-            info = ydl.extract_info(url, download=False) or {}
-    except Exception:
-        return {}
-    media = str(info.get("url") or "")
-    protocol = str(info.get("protocol") or "")
-    if not media:
-        formats = [
-            value
-            for value in (info.get("formats") or [])
-            if isinstance(value, dict) and value.get("url")
-        ]
-        selected = formats[-1] if formats else {}
-        media = str(selected.get("url") or "")
-        protocol = str(selected.get("protocol") or selected.get("ext") or "")
-    if not media:
-        return {}
-    if "m3u8" in protocol or ".m3u8" in media:
-        kind = "hls"
-    elif "dash" in protocol or ".mpd" in media:
-        kind = "dash"
-    else:
-        kind = "mp4"
-    return {"url": media, "protocol": kind, "referer": url, "cookie": ""}
-
 
 def _route_url(kind: str, *parts: str) -> str:
     encoded = [quote(str(part), safe="") for part in (kind,) + parts]
@@ -270,6 +242,15 @@ def _is_provider_url(url: str) -> bool:
     except (TypeError, ValueError):
         return False
     return parsed.scheme in ("http", "https") and parsed.hostname in PROVIDER_HOSTS
+
+
+def _source_provider(url: str) -> str:
+    host = (urlparse(str(url or "")).hostname or "").lower()
+    if host in DAILYMOTION_HOSTS:
+        return "dailymotion"
+    if host in OK_HOSTS:
+        return "ok_ru"
+    return "footreplays"
 
 
 def _parse_competitions(html: str) -> List[Dict[str, object]]:
@@ -372,7 +353,11 @@ def _parse_match_details(html: str) -> Dict[str, object]:
             labels = [source_name]
             labels.extend(_clean_text(cell.get_text(" ", strip=True)) for cell in cells[:3])
             labels = [value for value in labels if value]
-            sources.append({"title": " - ".join(labels), "url": url})
+            title = " - ".join(labels)
+            host = (urlparse(url).hostname or "").lower()
+            if "match tv" in title.lower() and host not in OK_HOSTS:
+                continue
+            sources.append({"title": title, "url": url})
     return {
         "title": _clean_text(title_node.get_text(" ", strip=True)) if title_node else "",
         "thumbnail": _absolute_url(image_node.get("content", "")) if image_node else "",
@@ -392,6 +377,7 @@ class FootReplays(Plugin):
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/125.0.0.0 Safari/537.36"
         )
+        self._source_available_cache = {}
         headers = getattr(self.session, "headers", None)
         if isinstance(headers, dict):
             headers.update({"User-Agent": self.user_agent, "Referer": f"{BASE_URL}/"})
@@ -414,6 +400,24 @@ class FootReplays(Plugin):
         except Exception as exc:
             xbmc.log(f"[TheArchives][FootReplays] fetch failed for {url}: {exc}", xbmc.LOGERROR)
             return ""
+
+    def _source_is_listable(self, source: Dict[str, str]) -> bool:
+        title = str((source or {}).get("title") or "").lower()
+        link = _normalize_source_url(str((source or {}).get("url") or ""))
+        host = (urlparse(link).hostname or "").lower()
+        if not any(value in title for value in ("bbc", "fox sports", "foxsports")):
+            return True
+        if host not in HQ_HOSTS:
+            return False
+        if link not in self._source_available_cache:
+            resolved = _resolve_hq_source(self.session, link) if self.session else {}
+            self._source_available_cache[link] = bool(resolved.get("url"))
+            if not self._source_available_cache[link]:
+                xbmc.log(
+                    f"[TheArchives][FootReplays] hiding unresolved source: {source.get('title')} {link}",
+                    xbmc.LOGWARNING,
+                )
+        return self._source_available_cache[link]
 
     @staticmethod
     def _page(parts: List[str], index: int = 1) -> int:
@@ -503,28 +507,32 @@ class FootReplays(Plugin):
             return self._listing_items(str(data.get("html") or ""))
         if kind == "match":
             details = _parse_match_details(str(data.get("html") or ""))
-            items = [
-                {
+            items = []
+            for source in details["sources"]:
+                if not self._source_is_listable(source):
+                    continue
+                items.append({
                     "type": "item",
                     "title": source["title"],
                     "link": _normalize_source_url(source["url"]),
                     "thumbnail": details["thumbnail"],
                     "summary": details["summary"],
+                    "provider": _source_provider(source["url"]),
                     "is_playable": "true",
-                }
-                for source in details["sources"]
-            ]
+                })
             return items or self._empty_items("No replay sources found")
         return self._empty_items()
 
     def play_video(self, item: str):
         data, link = _decode_item(item)
+        if data.get("provider") and data.get("provider") != self.name:
+            return None
         link = _normalize_source_url(link)
         parsed = urlparse(link)
         host = (parsed.hostname or "").lower()
         if host in {
             "youtube.com", "www.youtube.com", "youtu.be",
-            "ok.ru", "www.ok.ru", "m.ok.ru", "mobile.ok.ru",
+            *OK_HOSTS,
         }:
             return None
 
@@ -537,8 +545,6 @@ class FootReplays(Plugin):
             if streams:
                 resolved = dict(streams[0])
                 resolved.update({"referer": "https://vkvideo.ru/", "cookie": ""})
-        elif host in DAILYMOTION_HOSTS:
-            resolved = _resolve_ytdlp(link)
         elif parsed.path.lower().endswith((".m3u8", ".mpd", ".mp4")):
             protocol = "hls" if parsed.path.lower().endswith(".m3u8") else "dash" if parsed.path.lower().endswith(".mpd") else "mp4"
             resolved = {"url": link, "protocol": protocol, "referer": f"{BASE_URL}/", "cookie": ""}

@@ -112,6 +112,13 @@
       "thumbnail": "resources/media/playlists.png",
       "summary": "User supplied XML/JSON lists for debrid scraping"
     },
+	{
+      "type": "dir",
+      "title": "Personal Lists",
+      "link": "custom_personal_lists://root",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "User supplied XML/JSON lists for non-debrid The Archives plugin routes"
+    },
     {
       "type": "item",
       "title": "Settings",
