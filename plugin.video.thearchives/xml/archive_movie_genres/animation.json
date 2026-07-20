@@ -1,0 +1,853 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "The Adventures of the American Rabbit",
+      "link": "https://archive.org/download/the-adventures-of-the-american-rabbit-full/1.%20The%20Adventures%20of%20the%20American%20Rabbit%20%28full%20movie%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wZV8HC4v8nNHSmx8BEBj5ZbtkUi.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/2TuRYSMPuwChtCecbcqMtLmSL0K.jpg",
+      "summary": "To fight evil, a young rabbit can transform into a star spangled superhero.",
+      "content": "movie",
+      "tmdb_id": "87864",
+      "year": "1986",
+      "genre": "Animation / Fantasy / Family",
+      "infolabels": {
+        "title": "The Adventures of the American Rabbit",
+        "plot": "To fight evil, a young rabbit can transform into a star spangled superhero.",
+        "genre": [
+          "Animation",
+          "Fantasy",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1986-01-17",
+        "year": 1986,
+        "rating": 5.528,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-adventures-of-the-american-rabbit-full",
+        "archive_url": "https://archive.org/details/the-adventures-of-the-american-rabbit-full",
+        "archive_title": "The Adventures Of The American Rabbit",
+        "archive_downloads": 268,
+        "archive_file": {
+          "file": "1. The Adventures of the American Rabbit (full movie).ia.mp4",
+          "url": "https://archive.org/download/the-adventures-of-the-american-rabbit-full/1.%20The%20Adventures%20of%20the%20American%20Rabbit%20%28full%20movie%29.ia.mp4",
+          "length_seconds": 4880,
+          "format": "h.264 IA",
+          "size": 206727795
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/87864-the-adventures-of-the-american-rabbit",
+        "tmdb_match_score": 0.7,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Animals United",
+      "link": "https://archive.org/download/animals.-united.-2010.-brri-p.-xvi-d-imagi-ne/Animals.United.2010.BRRiP.XViD-IMAGiNE.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gUCLetZNa3rZknSmLc2gGUdxWH7.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/9bKg2Tft4P3AovKHzb7RTflcX3X.jpg",
+      "summary": "A group of animals waiting for the annual flood they rely on for food and water discover that the humans, who have been destroying their habitats have built a dam for a leisure resort. The animals endeavour to save the delta and send a message to the humans not to interfere with nature.",
+      "content": "movie",
+      "tmdb_id": "50135",
+      "year": "2010",
+      "genre": "Animation / Family / Comedy",
+      "infolabels": {
+        "title": "Animals United",
+        "plot": "A group of animals waiting for the annual flood they rely on for food and water discover that the humans, who have been destroying their habitats have built a dam for a leisure resort. The animals endeavour to save the delta and send a message to the humans not to interfere with nature.",
+        "genre": [
+          "Animation",
+          "Family",
+          "Comedy"
+        ],
+        "country": [
+          "Germany"
+        ],
+        "premiered": "2010-10-07",
+        "year": 2010,
+        "rating": 5.625,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "animals.-united.-2010.-brri-p.-xvi-d-imagi-ne",
+        "archive_url": "https://archive.org/details/animals.-united.-2010.-brri-p.-xvi-d-imagi-ne",
+        "archive_title": "Animals United",
+        "archive_downloads": 254,
+        "archive_file": {
+          "file": "Animals.United.2010.BRRiP.XViD-IMAGiNE.mp4",
+          "url": "https://archive.org/download/animals.-united.-2010.-brri-p.-xvi-d-imagi-ne/Animals.United.2010.BRRiP.XViD-IMAGiNE.mp4",
+          "length_seconds": 5585,
+          "format": "h.264",
+          "size": 569226236
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/50135-konferenz-der-tiere",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Artist's Dreams",
+      "link": "https://archive.org/download/silent-the-artists-dreams/The%20Artist%27s%20Dreams.m2ts",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/Ai5UbUxxDeSZBtbGZNN4y6nLLKW.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/yFIkImHv0WeHItypUh612OmVfeQ.jpg",
+      "summary": "An animated dachshund fools his live-action creator by eating the sausages he has drawn.",
+      "content": "movie",
+      "tmdb_id": "139280",
+      "year": "1913",
+      "genre": "Animation",
+      "infolabels": {
+        "title": "The Artist's Dreams",
+        "plot": "An animated dachshund fools his live-action creator by eating the sausages he has drawn.",
+        "genre": [
+          "Animation"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1913-06-12",
+        "year": 1913,
+        "rating": 6.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "silent-the-artists-dreams",
+        "archive_url": "https://archive.org/details/silent-the-artists-dreams",
+        "archive_title": "The Artist's Dreams",
+        "archive_downloads": 848,
+        "archive_file": {
+          "file": "The Artist's Dreams.m2ts",
+          "url": "https://archive.org/download/silent-the-artists-dreams/The%20Artist%27s%20Dreams.m2ts",
+          "length_seconds": 5494,
+          "format": "MPEG2-TS",
+          "size": 17406807936
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/139280-the-artist-s-dreams",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Astro Boy",
+      "link": "https://archive.org/download/astro-boy-2009_202202/Astro%20Boy%20%282009%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6AK3uOHaIbl6EDaytHYe4FinZMu.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/t39jaNSYMVNecNPQSVVlW6I4opm.jpg",
+      "summary": "Set in the futuristic Metro City, Astro Boy (Atom) is a young robot with incredible powers created by a brilliant scientist in the image of the son he had lost. Unable to fulfill his creator's expectations, Astro embarks on a journey in search of acceptance, experiencing betrayal and a netherworld of robot gladiators, before returning to save Metro City and reconcile with the father who rejected him.",
+      "content": "movie",
+      "tmdb_id": "16577",
+      "year": "2009",
+      "genre": "Animation / Action / Family / Science Fiction",
+      "infolabels": {
+        "title": "Astro Boy",
+        "plot": "Set in the futuristic Metro City, Astro Boy (Atom) is a young robot with incredible powers created by a brilliant scientist in the image of the son he had lost. Unable to fulfill his creator's expectations, Astro embarks on a journey in search of acceptance, experiencing betrayal and a netherworld of robot gladiators, before returning to save Metro City and reconcile with the father who rejected him.",
+        "genre": [
+          "Animation",
+          "Action",
+          "Family",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States",
+          "Hong Kong SAR China"
+        ],
+        "premiered": "2009-10-15",
+        "year": 2009,
+        "rating": 6.341,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "astro-boy-2009_202202",
+        "archive_url": "https://archive.org/details/astro-boy-2009_202202",
+        "archive_title": "Astro Boy (2009)",
+        "archive_downloads": 27194,
+        "archive_file": {
+          "file": "Astro Boy (2009).ia.mp4",
+          "url": "https://archive.org/download/astro-boy-2009_202202/Astro%20Boy%20%282009%29.ia.mp4",
+          "length_seconds": 5628,
+          "format": "h.264 IA",
+          "size": 2549908206
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/16577-astro-boy",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Battle for Terra",
+      "link": "https://archive.org/download/battle-for-terra-2007-dvdrip/Battle%20For%20Terra%202007%20dvdrip.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/iAcPYIsYwFqAyY7KctWkkdkJGhI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/zRHVwKp1rwevnf9HRP2UVhXgdNp.jpg",
+      "summary": "A peaceful alien planet faces annihilation, as the homeless remainder of the human race sets its eyes on Terra. Mala, a rebellious Terrian teenager, will do everything she can to stop it.",
+      "content": "movie",
+      "tmdb_id": "16873",
+      "year": "2007",
+      "genre": "Action / Adventure / Animation / Science Fiction",
+      "infolabels": {
+        "title": "Battle for Terra",
+        "plot": "A peaceful alien planet faces annihilation, as the homeless remainder of the human race sets its eyes on Terra. Mala, a rebellious Terrian teenager, will do everything she can to stop it.",
+        "genre": [
+          "Action",
+          "Adventure",
+          "Animation",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2007-09-06",
+        "year": 2007,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "battle-for-terra-2007-dvdrip",
+        "archive_url": "https://archive.org/details/battle-for-terra-2007-dvdrip",
+        "archive_title": "Battle For Terra 2007 Dvdrip",
+        "archive_downloads": 543,
+        "archive_file": {
+          "file": "Battle For Terra 2007 dvdrip.mp4",
+          "url": "https://archive.org/download/battle-for-terra-2007-dvdrip/Battle%20For%20Terra%202007%20dvdrip.mp4",
+          "length_seconds": 4542,
+          "format": "h.264",
+          "size": 460528851
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/16873-battle-for-terra",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Dot and the Bunny",
+      "link": "https://archive.org/download/dot-and-the-bunny-1983/Dot%20and%20the%20Bunny%20%281983%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/brMQL422gsgaBYBUGncO4cbG6G3.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/yewsHKuptQWEDPQ1SejEpKhMp27.jpg",
+      "summary": "Dot ventures out into the bush determined to finally locate the little lost joey and reunite him with his mother. On her way she meets a silly bunny rabbit who tries to convince Dot that he is the joey she is looking for. Dot is delighted by his antics and names her new companion 'Funny Bunny'. Together they continue the search for the joey. On the way Dot learns that Funny Bunny is really a very lonely rabbit. His family were killed by hunters and he has been on his own ever since. They find mother kangaroo, and though she has not yet found her joey, when she sees the lonely bunny she realises she has found someone else to look after.",
+      "content": "movie",
+      "tmdb_id": "266564",
+      "year": "1983",
+      "genre": "Animation / Family",
+      "infolabels": {
+        "title": "Dot and the Bunny",
+        "plot": "Dot ventures out into the bush determined to finally locate the little lost joey and reunite him with his mother. On her way she meets a silly bunny rabbit who tries to convince Dot that he is the joey she is looking for. Dot is delighted by his antics and names her new companion 'Funny Bunny'. Together they continue the search for the joey. On the way Dot learns that Funny Bunny is really a very lonely rabbit. His family were killed by hunters and he has been on his own ever since. They find mother kangaroo, and though she has not yet found her joey, when she sees the lonely bunny she realises she has found someone else to look after.",
+        "genre": [
+          "Animation",
+          "Family"
+        ],
+        "country": [
+          "Australia",
+          "United States"
+        ],
+        "premiered": "1983-04-03",
+        "year": 1983,
+        "rating": 9.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "dot-and-the-bunny-1983",
+        "archive_url": "https://archive.org/details/dot-and-the-bunny-1983",
+        "archive_title": "Dot and the Bunny (1983)",
+        "archive_downloads": 838,
+        "archive_file": {
+          "file": "Dot and the Bunny (1983).ia.mp4",
+          "url": "https://archive.org/download/dot-and-the-bunny-1983/Dot%20and%20the%20Bunny%20%281983%29.ia.mp4",
+          "length_seconds": 4436,
+          "format": "h.264 IA",
+          "size": 852620029
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/266564-dot-and-the-bunny",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Fantastic Planet",
+      "link": "https://archive.org/download/fantastic-planet__1973/Fantastic.Planet.1973.DUBBED.REMASTERED.1080p.BluRay.H264.AAC.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/prq0j1S0K07UjwLZLF6oMGflRUI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/AwrqoanoZVYoc0MRyE0RiHEKm71.jpg",
+      "summary": "On the planet Ygam, the Draags, extremely technologically and spiritually advanced blue humanoids, consider the tiny Oms, human beings descendants of Terra's inhabitants, as ignorant animals. Those who live in slavery are treated as simple pets and used to entertain Draag children; those who live hidden in the hostile wilderness of the planet are periodically hunted and ruthlessly slaughtered as if they were vermin.",
+      "content": "movie",
+      "tmdb_id": "16306",
+      "year": "1973",
+      "genre": "Animation / Science Fiction",
+      "infolabels": {
+        "title": "Fantastic Planet",
+        "plot": "On the planet Ygam, the Draags, extremely technologically and spiritually advanced blue humanoids, consider the tiny Oms, human beings descendants of Terra's inhabitants, as ignorant animals. Those who live in slavery are treated as simple pets and used to entertain Draag children; those who live hidden in the hostile wilderness of the planet are periodically hunted and ruthlessly slaughtered as if they were vermin.",
+        "genre": [
+          "Animation",
+          "Science Fiction"
+        ],
+        "country": [
+          "France"
+        ],
+        "premiered": "1973-12-01",
+        "year": 1973,
+        "rating": 7.639,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "fantastic-planet__1973",
+        "archive_url": "https://archive.org/details/fantastic-planet__1973",
+        "archive_title": "Fantastic Planet",
+        "archive_downloads": 245316,
+        "archive_file": {
+          "file": "Fantastic.Planet.1973.DUBBED.REMASTERED.1080p.BluRay.H264.AAC.ia.mp4",
+          "url": "https://archive.org/download/fantastic-planet__1973/Fantastic.Planet.1973.DUBBED.REMASTERED.1080p.BluRay.H264.AAC.ia.mp4",
+          "length_seconds": 4335,
+          "format": "h.264 IA",
+          "size": 1477828220
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/16306-la-planete-sauvage",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Firebreather",
+      "link": "https://archive.org/download/firebreather.-2010-tvrip/firebreather.2010%20tvrip.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mTPC0ysx6pa91BK6dnnKvoynjb3.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/lYasFduyooJu9Ebi9w8TpLaJT8y.jpg",
+      "summary": "It's not easy being a teen like Duncan. His mom wants him to pay more attention to his homework, while his dad - a 120-foot-tall monster known as a Kaiju - wants him to become the next King of All Monsters. When these worlds collide, Duncan must use his human wits and his Kaiju powers - including super strength, agility and the ability to breathe fire - to protect his family and friends from a giant monster rampage.",
+      "content": "movie",
+      "tmdb_id": "50337",
+      "year": "2010",
+      "genre": "Fantasy / Animation / Action / Family",
+      "infolabels": {
+        "title": "Firebreather",
+        "plot": "It's not easy being a teen like Duncan. His mom wants him to pay more attention to his homework, while his dad - a 120-foot-tall monster known as a Kaiju - wants him to become the next King of All Monsters. When these worlds collide, Duncan must use his human wits and his Kaiju powers - including super strength, agility and the ability to breathe fire - to protect his family and friends from a giant monster rampage.",
+        "genre": [
+          "Fantasy",
+          "Animation",
+          "Action",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2010-11-24",
+        "year": 2010,
+        "rating": 7.365,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "firebreather.-2010-tvrip",
+        "archive_url": "https://archive.org/details/firebreather.-2010-tvrip",
+        "archive_title": "Firebreather",
+        "archive_downloads": 681,
+        "archive_file": {
+          "file": "firebreather.2010 tvrip.mp4",
+          "url": "https://archive.org/download/firebreather.-2010-tvrip/firebreather.2010%20tvrip.mp4",
+          "length_seconds": 4015,
+          "format": "h.264",
+          "size": 405151901
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/50337-firebreather",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Gulliver's Travels",
+      "link": "https://archive.org/download/gullivers-travels-1939_202312/Gulliver%27s%20Travels%20%281939%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/fiwAJIAnSqWbU3JphqN8Y80mFM6.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/pwP9RTomD5Ft6fQYLmkUTUlKTgv.jpg",
+      "summary": "Gulliver washes ashore on Lilliput and attempts to prevent war between that tiny kingdom and its equally-miniscule rival, Blefiscu, as well as smooth the way for the romance between the Princess and Prince of the opposing lands. In this he is alternately aided and hampered by the Lilliputian town crier and general fussbudget, Gabby. A life-threatening situation develops when the bumbling trio of Blefiscu spies, Sneak, Snoop, and Snitch, manage to steal Gulliver's pistol.",
+      "content": "movie",
+      "tmdb_id": "42518",
+      "year": "1939",
+      "genre": "Animation / Family / Action / Adventure",
+      "infolabels": {
+        "title": "Gulliver's Travels",
+        "plot": "Gulliver washes ashore on Lilliput and attempts to prevent war between that tiny kingdom and its equally-miniscule rival, Blefiscu, as well as smooth the way for the romance between the Princess and Prince of the opposing lands. In this he is alternately aided and hampered by the Lilliputian town crier and general fussbudget, Gabby. A life-threatening situation develops when the bumbling trio of Blefiscu spies, Sneak, Snoop, and Snitch, manage to steal Gulliver's pistol.",
+        "genre": [
+          "Animation",
+          "Family",
+          "Action",
+          "Adventure"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1939-11-10",
+        "year": 1939,
+        "rating": 6.193,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "gullivers-travels-1939_202312",
+        "archive_url": "https://archive.org/details/gullivers-travels-1939_202312",
+        "archive_title": "Gulliver's Travels (1939)",
+        "archive_downloads": 609,
+        "archive_file": {
+          "file": "Gulliver's Travels (1939).ia.mp4",
+          "url": "https://archive.org/download/gullivers-travels-1939_202312/Gulliver%27s%20Travels%20%281939%29.ia.mp4",
+          "length_seconds": 4581,
+          "format": "h.264 IA",
+          "size": 1563147327
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42518-gulliver-s-travels",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Invincible Iron Man",
+      "link": "https://archive.org/download/the-invincible-ironman/The%20Invincible%20Ironman.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/eebNTSRa5Hh5skPKGdGJIJpo9Ls.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/x6gi2yn51sjRBMt6xeVTPVGFeSB.jpg",
+      "summary": "When a cocky industrialist's efforts to raise an ancient Chinese temple leads him to be seriously wounded and captured by enemy forces, he must use his ideas for a revolutionary power armor in order to fight back as a superhero.",
+      "content": "movie",
+      "tmdb_id": "13647",
+      "year": "2007",
+      "genre": "Adventure / Animation / Action / Fantasy / Science Fiction",
+      "infolabels": {
+        "title": "The Invincible Iron Man",
+        "plot": "When a cocky industrialist's efforts to raise an ancient Chinese temple leads him to be seriously wounded and captured by enemy forces, he must use his ideas for a revolutionary power armor in order to fight back as a superhero.",
+        "genre": [
+          "Adventure",
+          "Animation",
+          "Action",
+          "Fantasy",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2007-01-23",
+        "year": 2007,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-invincible-ironman",
+        "archive_url": "https://archive.org/details/the-invincible-ironman",
+        "archive_title": "The Invincible Ironman",
+        "archive_downloads": 1225,
+        "archive_file": {
+          "file": "The Invincible Ironman.mp4",
+          "url": "https://archive.org/download/the-invincible-ironman/The%20Invincible%20Ironman.mp4",
+          "length_seconds": 4984,
+          "format": "h.264",
+          "size": 509904256
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/13647-the-invincible-iron-man",
+        "tmdb_match_score": 0.94,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mighty Kong",
+      "link": "https://archive.org/download/the.-mighty.-kong.-1998.720p/The.Mighty.Kong.1998.720p.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/sQCDOycvbVnWUcFq6KV5eCC2O9A.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/zcZa18Sg7q31pKUo1hgSvBRGgb3.jpg",
+      "summary": "The classic story of the mighty Eighth Wonder of the World is given a musical update, utilizing the talents of Disney musical giants The Sherman Brothers. Boosting this family-friendly take on the 1933 film are the acting talents of Jodi Benson and Dudley Moore.",
+      "content": "movie",
+      "tmdb_id": "291309",
+      "year": "1998",
+      "genre": "Adventure / Animation / Family",
+      "infolabels": {
+        "title": "The Mighty Kong",
+        "plot": "The classic story of the mighty Eighth Wonder of the World is given a musical update, utilizing the talents of Disney musical giants The Sherman Brothers. Boosting this family-friendly take on the 1933 film are the acting talents of Jodi Benson and Dudley Moore.",
+        "genre": [
+          "Adventure",
+          "Animation",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1998-05-29",
+        "year": 1998,
+        "rating": 4.9,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-mighty.-kong.-1998.720p",
+        "archive_url": "https://archive.org/details/the.-mighty.-kong.-1998.720p",
+        "archive_title": "The Mighty Kong (1998)",
+        "archive_downloads": 1335,
+        "archive_file": {
+          "file": "The.Mighty.Kong.1998.720p.mp4",
+          "url": "https://archive.org/download/the.-mighty.-kong.-1998.720p/The.Mighty.Kong.1998.720p.mp4",
+          "length_seconds": 4402,
+          "format": "MPEG4",
+          "size": 705583131
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/291309-the-mighty-kong",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Peanuts Movie",
+      "link": "https://archive.org/download/the-peanuts-movie-2015_202202/The%20Peanuts%20Movie%20%282015%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/aiwdwnl7RFs1vcBanOKr13ye3wE.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/361quVX94drEaExOKScbZYsxijG.jpg",
+      "summary": "Snoopy embarks upon his greatest mission as he and his team take to the skies to pursue their arch-nemesis, while his best pal Charlie Brown begins his own epic quest.",
+      "content": "movie",
+      "tmdb_id": "227973",
+      "year": "2015",
+      "genre": "Animation / Comedy / Family",
+      "infolabels": {
+        "title": "The Peanuts Movie",
+        "plot": "Snoopy embarks upon his greatest mission as he and his team take to the skies to pursue their arch-nemesis, while his best pal Charlie Brown begins his own epic quest.",
+        "genre": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2015-11-05",
+        "year": 2015,
+        "rating": 6.976,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-peanuts-movie-2015_202202",
+        "archive_url": "https://archive.org/details/the-peanuts-movie-2015_202202",
+        "archive_title": "The Peanuts Movie (2015)",
+        "archive_downloads": 36643,
+        "archive_file": {
+          "file": "The Peanuts Movie (2015).ia.mp4",
+          "url": "https://archive.org/download/the-peanuts-movie-2015_202202/The%20Peanuts%20Movie%20%282015%29.ia.mp4",
+          "length_seconds": 5318,
+          "format": "h.264 IA",
+          "size": 1818574427
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/227973-the-peanuts-movie",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Re-Animated",
+      "link": "https://archive.org/download/re-animated-2006/Re-Animated%20%282006%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/53gL2ncVs9U46drnPbAC4UUB5Rj.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/doyGYanPWG8gwApb7rRiXkO4dLj.jpg",
+      "summary": "Jimmy is the kid everybody ignores and uses. One day, he gets into a freak accident. The only way for him to survive is a brain transplant. He gets the brain of Milt Appleday, a famous cartoon creator. And when he wakes up, he can see cartoons!",
+      "content": "movie",
+      "tmdb_id": "212518",
+      "year": "2006",
+      "genre": "Comedy / Family / Animation / TV Movie / Fantasy",
+      "infolabels": {
+        "title": "Re-Animated",
+        "plot": "Jimmy is the kid everybody ignores and uses. One day, he gets into a freak accident. The only way for him to survive is a brain transplant. He gets the brain of Milt Appleday, a famous cartoon creator. And when he wakes up, he can see cartoons!",
+        "genre": [
+          "Comedy",
+          "Family",
+          "Animation",
+          "TV Movie",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2006-12-07",
+        "year": 2006,
+        "rating": 6.4,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "re-animated-2006",
+        "archive_url": "https://archive.org/details/re-animated-2006",
+        "archive_title": "Re-Animated ( 2006)",
+        "archive_downloads": 7844,
+        "archive_file": {
+          "file": "Re-Animated (2006).mp4",
+          "url": "https://archive.org/download/re-animated-2006/Re-Animated%20%282006%29.mp4",
+          "length_seconds": 4674,
+          "format": "MPEG4",
+          "size": 761382830
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/212518-re-animated",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Rudolph the Red-Nosed Reindeer",
+      "link": "https://archive.org/download/rudolph_202111/RUDOLPH.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/xjAElUhXuc7zFJPj3qUHjcySNsE.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/zd3p7GKopxH4rIjGoDQ1ugalUtx.jpg",
+      "summary": "Sam the snowman tells us the story of a young red-nosed reindeer who, after being ousted from the reindeer games because of his glowing nose, teams up with Hermey, an elf who wants to be a dentist, and Yukon Cornelius, the prospector. They run into the Abominable Snowman and find a whole island of misfit toys. Rudolph vows to see if he can get Santa to help the toys, and he goes back to the North Pole on Christmas Eve. But Santa's sleigh is fogged in. But when Santa looks over Rudolph, he gets a very bright idea...",
+      "content": "movie",
+      "tmdb_id": "13382",
+      "year": "1964",
+      "genre": "Animation / Family / TV Movie / Adventure / Fantasy",
+      "infolabels": {
+        "title": "Rudolph the Red-Nosed Reindeer",
+        "plot": "Sam the snowman tells us the story of a young red-nosed reindeer who, after being ousted from the reindeer games because of his glowing nose, teams up with Hermey, an elf who wants to be a dentist, and Yukon Cornelius, the prospector. They run into the Abominable Snowman and find a whole island of misfit toys. Rudolph vows to see if he can get Santa to help the toys, and he goes back to the North Pole on Christmas Eve. But Santa's sleigh is fogged in. But when Santa looks over Rudolph, he gets a very bright idea...",
+        "genre": [
+          "Animation",
+          "Family",
+          "TV Movie",
+          "Adventure",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1964-12-06",
+        "year": 1964,
+        "rating": 7.405,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "rudolph_202111",
+        "archive_url": "https://archive.org/details/rudolph_202111",
+        "archive_title": "Rudolph the Red-Nosed Reindeer",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "RUDOLPH.mp4",
+          "url": "https://archive.org/download/rudolph_202111/RUDOLPH.mp4",
+          "length_seconds": 3117,
+          "format": "h.264",
+          "size": 305080766
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/13382-rudolph-the-red-nosed-reindeer",
+        "tmdb_match_score": 1.0,
+        "manual_addition": true,
+        "note": "Standalone TV special; added manually despite being below the generic 60-minute movie filter."
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Secret of NIMH",
+      "link": "https://archive.org/download/the-secret-of-nimh-1982_202511/The%20Secret%20Of%20NIMH%20%281982%29/mp4/The%20Secret%20of%20NIMH%201982.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/prNrnOKlkV9wl5Sl3zwHu1f3t2z.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/4Q0C49l6KkRbnVlE3N86IljtAXH.jpg",
+      "summary": "A widowed field mouse must move her family -- including an ailing son -- to escape a farmer's plow. Aided by a crow and a pack of superintelligent, escaped lab rats, the brave mother struggles to transplant her home to firmer ground.",
+      "content": "movie",
+      "tmdb_id": "11704",
+      "year": "1982",
+      "genre": "Adventure / Animation / Drama / Family / Fantasy / Mystery / Science Fiction",
+      "infolabels": {
+        "title": "The Secret of NIMH",
+        "plot": "A widowed field mouse must move her family -- including an ailing son -- to escape a farmer's plow. Aided by a crow and a pack of superintelligent, escaped lab rats, the brave mother struggles to transplant her home to firmer ground.",
+        "genre": [
+          "Adventure",
+          "Animation",
+          "Drama",
+          "Family",
+          "Fantasy",
+          "Mystery",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1982-06-17",
+        "year": 1982,
+        "rating": 7.443,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-secret-of-nimh-1982_202511",
+        "archive_url": "https://archive.org/details/the-secret-of-nimh-1982_202511",
+        "archive_title": "The Secret of NIMH (1982)",
+        "archive_downloads": 6552,
+        "archive_file": {
+          "file": "The Secret Of NIMH (1982)/mp4/The Secret of NIMH 1982.ia.mp4",
+          "url": "https://archive.org/download/the-secret-of-nimh-1982_202511/The%20Secret%20Of%20NIMH%20%281982%29/mp4/The%20Secret%20of%20NIMH%201982.ia.mp4",
+          "length_seconds": 4914,
+          "format": "h.264 IA",
+          "size": 728712338
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/11704-the-secret-of-nimh",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Sita Sings the Blues",
+      "link": "https://archive.org/download/Sita_Sings_the_Blues_1080p_dirac_vorbis.ogg/Sita_Sings_the_Blues_1080p_dirac_vorbis.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/hrtW78FNfwFSiIetgey0cR8AT0g.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/u1zRxIN8FLmdXTcGkl2Gt64tREA.jpg",
+      "summary": "Utilizing the 1920s jazz vocals of Annette Hanshaw, the epic Indian tale of exiled prince Ramayana and his bride Sita is mirrored by a spurned woman's contemporary personal life, and light-hearted but knowledgeable discussion of historical background by a trio of Indian shadow puppets.",
+      "content": "movie",
+      "tmdb_id": "20529",
+      "year": "2008",
+      "genre": "Animation / Drama / Music / Romance / Fantasy",
+      "infolabels": {
+        "title": "Sita Sings the Blues",
+        "plot": "Utilizing the 1920s jazz vocals of Annette Hanshaw, the epic Indian tale of exiled prince Ramayana and his bride Sita is mirrored by a spurned woman's contemporary personal life, and light-hearted but knowledgeable discussion of historical background by a trio of Indian shadow puppets.",
+        "genre": [
+          "Animation",
+          "Drama",
+          "Music",
+          "Romance",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2008-02-11",
+        "year": 2008,
+        "rating": 7.012,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Sita_Sings_the_Blues_1080p_dirac_vorbis.ogg",
+        "archive_url": "https://archive.org/details/Sita_Sings_the_Blues_1080p_dirac_vorbis.ogg",
+        "archive_title": "Sita_Sings_the_Blues",
+        "archive_downloads": 38973,
+        "archive_file": {
+          "file": "Sita_Sings_the_Blues_1080p_dirac_vorbis.mp4",
+          "url": "https://archive.org/download/Sita_Sings_the_Blues_1080p_dirac_vorbis.ogg/Sita_Sings_the_Blues_1080p_dirac_vorbis.mp4",
+          "length_seconds": 4891,
+          "format": "h.264",
+          "size": 506551849
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/20529-sita-sings-the-blues",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Tarzoon: Shame of the Jungle!",
+      "link": "https://archive.org/download/Tarzoon1975/Shame.of.the.Jungle.1975.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/7Xnv2inaDpwSg3sWVbOlbMPNSlT.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/z9Pl7xSP6mTHhLKG6RHZEbOsJz3.jpg",
+      "summary": "Shame, the ape man of the jungle, is aghast when his woman, June, is kidnapped by a gang of giant penises. They take her to their queen, Bazunga, a bald woman with fourteen breasts. After tangling with a gang of great white hunters, a marauding lion and the Molar Men, Shame sets off to rescue her with only his faithful friend Flicka at his side. He heads for that darkest of areas",
+      "content": "movie",
+      "tmdb_id": "50237",
+      "year": "1975",
+      "genre": "Animation / Adventure / Comedy",
+      "infolabels": {
+        "title": "Tarzoon: Shame of the Jungle!",
+        "plot": "Shame, the ape man of the jungle, is aghast when his woman, June, is kidnapped by a gang of giant penises. They take her to their queen, Bazunga, a bald woman with fourteen breasts. After tangling with a gang of great white hunters, a marauding lion and the Molar Men, Shame sets off to rescue her with only his faithful friend Flicka at his side. He heads for that darkest of areas",
+        "genre": [
+          "Animation",
+          "Adventure",
+          "Comedy"
+        ],
+        "country": [
+          "Belgium",
+          "France"
+        ],
+        "premiered": "1975-09-04",
+        "year": 1975,
+        "rating": 5.872,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Tarzoon1975",
+        "archive_url": "https://archive.org/details/Tarzoon1975",
+        "archive_title": "Tarzoon, Shame Of The Jungle [1975]",
+        "archive_downloads": 76102,
+        "archive_file": {
+          "file": "Shame.of.the.Jungle.1975.mp4",
+          "url": "https://archive.org/download/Tarzoon1975/Shame.of.the.Jungle.1975.mp4",
+          "length_seconds": 4109,
+          "format": "h.264",
+          "size": 427540433
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/50237-la-honte-de-la-jungle",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Top Cat: The Movie",
+      "link": "https://archive.org/download/top-cat-2011-dvdrip.xvid-g/Top%20Cat%202011%20dvdrip.xvid%20%28G%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/9RQDenX73T35lNbW3dBEqTqjsXp.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/iTWfYuqu315DOZgcH9wwKwcGeI8.jpg",
+      "summary": "There's a new police chief in the neighbourhood who is disappointed with Officer Dibble's performance. The chief and his army of robots declare war on Top Cat and his gang of feisty felines.",
+      "content": "movie",
+      "tmdb_id": "78570",
+      "year": "2011",
+      "genre": "Animation / Family / Comedy",
+      "infolabels": {
+        "title": "Top Cat: The Movie",
+        "plot": "There's a new police chief in the neighbourhood who is disappointed with Officer Dibble's performance. The chief and his army of robots declare war on Top Cat and his gang of feisty felines.",
+        "genre": [
+          "Animation",
+          "Family",
+          "Comedy"
+        ],
+        "country": [
+          "Mexico",
+          "United Kingdom"
+        ],
+        "premiered": "2011-09-16",
+        "year": 2011,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "top-cat-2011-dvdrip.xvid-g",
+        "archive_url": "https://archive.org/details/top-cat-2011-dvdrip.xvid-g",
+        "archive_title": "Top Cat: The Movie",
+        "archive_downloads": 778,
+        "archive_file": {
+          "file": "Top Cat 2011 dvdrip.xvid (G).mp4",
+          "url": "https://archive.org/download/top-cat-2011-dvdrip.xvid-g/Top%20Cat%202011%20dvdrip.xvid%20%28G%29.mp4",
+          "length_seconds": 5439,
+          "format": "h.264",
+          "size": 541600968
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/78570-don-gato-y-su-pandilla",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Animation"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Yellow Submarine",
+      "link": "https://archive.org/download/yellow-submarine-1968-usa/Yellow%20Submarine%20%5B1968%5D%20%5Busa%5D.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/1pmeLKaLFNggcsAk5FiouIvo3ST.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1J2Aox2FsctJjvxp6kBsXmMM1xU.jpg",
+      "summary": "The wicked Blue Meanies take over Pepperland, eliminating all color and music. As the only survivor, the Lord Admiral escapes in the yellow submarine and journeys to Liverpool to enlist the help of the Beatles.",
+      "content": "movie",
+      "tmdb_id": "12105",
+      "year": "1968",
+      "genre": "Music / Animation / Adventure / Comedy / Fantasy",
+      "infolabels": {
+        "title": "Yellow Submarine",
+        "plot": "The wicked Blue Meanies take over Pepperland, eliminating all color and music. As the only survivor, the Lord Admiral escapes in the yellow submarine and journeys to Liverpool to enlist the help of the Beatles.",
+        "genre": [
+          "Music",
+          "Animation",
+          "Adventure",
+          "Comedy",
+          "Fantasy"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1968-07-17",
+        "year": 1968,
+        "rating": 7.22,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "yellow-submarine-1968-usa",
+        "archive_url": "https://archive.org/details/yellow-submarine-1968-usa",
+        "archive_title": "Yellow Submarine [1968] [LaserDisc Preservation]",
+        "archive_downloads": 29120,
+        "archive_file": {
+          "file": "Yellow Submarine [1968] [usa].ia.mp4",
+          "url": "https://archive.org/download/yellow-submarine-1968-usa/Yellow%20Submarine%20%5B1968%5D%20%5Busa%5D.ia.mp4",
+          "length_seconds": 5153,
+          "format": "h.264 IA",
+          "size": 906177948
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/12105-yellow-submarine",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

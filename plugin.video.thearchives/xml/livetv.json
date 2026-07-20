@@ -9,6 +9,13 @@
 		},
 		{
 			"type": "dir",
+			"title": "Dailymotion Live",
+			"link": "https://www.dailymotion.com/_thearchives_dailymotion/live_root",
+			"thumbnail": "resources/media/live_tv.png",
+			"summary": "Browse on-air Dailymotion live streams and live categories"
+		},
+		{
+			"type": "dir",
 			"title": "Pluto TV",
 			"link": "https://pluto.tv/live-regions",
 			"thumbnail": "resources/media/pluto_tv.png",
@@ -76,6 +83,7 @@
 			"link": "https://famelack.com/tv",
 			"thumbnail": "resources/media/live_tv.png",
 			"summary": "Browse Famelack live TV by country and category"
-		}
+		},
+		
     ]
 }

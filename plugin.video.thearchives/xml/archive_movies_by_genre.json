@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Comedy[/COLOR]",
+      "link": "file://archive_movie_genres/comedy.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4853HMKlJl1RozE6OyHBKQemCE0.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/sVCJjlVfoslaUQ19aU4XMgB2yVB.jpg",
+      "summary": "50 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Crime & Mystery[/COLOR]",
+      "link": "file://archive_movie_genres/crime_mystery.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/vfiwnig4WB95Veu7zaQsYgB3SAD.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/5pkFp4k9wDOme95vBIlp4DgKlGT.jpg",
+      "summary": "52 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Science Fiction & Fantasy[/COLOR]",
+      "link": "file://archive_movie_genres/science_fiction_fantasy.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ctOwn1Ibg3SjDG4WulvFvSH0PRT.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/32l2szM3oY7kdI3TMBral5dsc2E.jpg",
+      "summary": "21 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Action & Adventure[/COLOR]",
+      "link": "file://archive_movie_genres/action_adventure.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/f9Opg1xZfH0Irx4CVdyFKTYPL7A.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/exMtRlo1OS5KaDaL4yZdKPyjPw.jpg",
+      "summary": "56 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Drama[/COLOR]",
+      "link": "file://archive_movie_genres/drama.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/dwvMa1b89SJhEL7vhXU8B1ldHU8.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/Aqp6h9tIIpVXlVmGQPDWoZzxZ4e.jpg",
+      "summary": "55 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Animation & Family[/COLOR]",
+      "link": "file://archive_movie_genres/animation_family.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wZV8HC4v8nNHSmx8BEBj5ZbtkUi.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/2TuRYSMPuwChtCecbcqMtLmSL0K.jpg",
+      "summary": "45 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Documentary & History[/COLOR]",
+      "link": "file://archive_movie_genres/documentary_history.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qRUJl8OkbFxafUAyHBCUIva8QiM.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/pIQs691brcUNetFM9SayEMSW4hV.jpg",
+      "summary": "28 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]War & Military[/COLOR]",
+      "link": "file://archive_movie_genres/war_military.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6PcwkwhGRs1MDN8nuOdQdAX2KsK.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/uMJ1LspVhsCIjhN1aidTa56m1gT.jpg",
+      "summary": "24 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Horror & Supernatural[/COLOR]",
+      "link": "file://archive_movie_genres/horror_supernatural.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wozerDO9kpVBN63sq3wiM5zYmSo.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/pvNE91iHqQlowSOwKHXgWV0gCaM.jpg",
+      "summary": "90 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Western[/COLOR]",
+      "link": "file://archive_movie_genres/western.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/AaKgwkMQsi2f4U1xFEJgpgXth6R.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/vqYXjOHa9dFNdxWtVkSZOi9Y6sA.jpg",
+      "summary": "24 full-length English movies."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Music & Variety[/COLOR]",
+      "link": "file://archive_movie_genres/music_variety.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/yGi0L75IRvtB9KN0uts0EtihFZo.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tqzYOwD5sQm353LeOYSVD4dOfD5.jpg",
+      "summary": "1 full-length English movies."
+    }
+  ]
+}

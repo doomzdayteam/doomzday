@@ -1,0 +1,925 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "The Blob",
+      "link": "https://archive.org/download/the.-blob.-1958/The%20Blob%20%281958%29/mp4/The.Blob.1958.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ctOwn1Ibg3SjDG4WulvFvSH0PRT.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/32l2szM3oY7kdI3TMBral5dsc2E.jpg",
+      "summary": "A drive-in favorite, this sci-fi classic follows teenagers Steve and his best girl, Jane, as they try to protect their hometown from a gelatinous alien life form that engulfs everything it touches. The first to discover the substance and live to tell about it, Steve and Jane witness the blob destroying an elderly man, then it growing to a terrifying size. But no one else has seen the goo, and policeman Dave refuses to believe the kids without proof.",
+      "content": "movie",
+      "tmdb_id": "8851",
+      "year": "1958",
+      "genre": "Horror / Science Fiction",
+      "infolabels": {
+        "title": "The Blob",
+        "plot": "A drive-in favorite, this sci-fi classic follows teenagers Steve and his best girl, Jane, as they try to protect their hometown from a gelatinous alien life form that engulfs everything it touches. The first to discover the substance and live to tell about it, Steve and Jane witness the blob destroying an elderly man, then it growing to a terrifying size. But no one else has seen the goo, and policeman Dave refuses to believe the kids without proof.",
+        "genre": [
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1958-09-10",
+        "year": 1958,
+        "rating": 6.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-blob.-1958",
+        "archive_url": "https://archive.org/details/the.-blob.-1958",
+        "archive_title": "The Blob (1958)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "The Blob (1958)/mp4/The.Blob.1958.ia.mp4",
+          "url": "https://archive.org/download/the.-blob.-1958/The%20Blob%20%281958%29/mp4/The.Blob.1958.ia.mp4",
+          "length_seconds": 4947,
+          "format": "h.264 IA",
+          "size": 679082378
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/8851-the-blob",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Cat-Women of the Moon",
+      "link": "https://archive.org/download/CatWomenOfTheMoon/CatWomenOfTheMoon.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jjN6eqMwirmmWmdgXj6uALFuebm.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/dgOEH9LyL9Dw0Ama8N7lPvxLvYh.jpg",
+      "summary": "Astronauts travel to the moon where they discover it is inhabited by attractive young women in black tights.",
+      "content": "movie",
+      "tmdb_id": "43341",
+      "year": "1953",
+      "genre": "Science Fiction",
+      "infolabels": {
+        "title": "Cat-Women of the Moon",
+        "plot": "Astronauts travel to the moon where they discover it is inhabited by attractive young women in black tights.",
+        "genre": [
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1953-09-03",
+        "year": 1953,
+        "rating": 4.13,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "CatWomenOfTheMoon",
+        "archive_url": "https://archive.org/details/CatWomenOfTheMoon",
+        "archive_title": "Cat Women Of The Moon",
+        "archive_downloads": 23968,
+        "archive_file": {
+          "file": "CatWomenOfTheMoon.mp4",
+          "url": "https://archive.org/download/CatWomenOfTheMoon/CatWomenOfTheMoon.mp4",
+          "length_seconds": 3818,
+          "format": "h.264",
+          "size": 396774265
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/43341-cat-women-of-the-moon",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Chinese Room",
+      "link": "https://archive.org/download/TheChineseRoom/thechineseroom.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/onXlBoa4IB7M5dj0wMUyRfPhBd0.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/srJ1TxjgAkmHzPEShXZ2GR23ZyS.jpg",
+      "summary": "An exploration of the Chinese Room paradox and the death of communication in the Age of Artificial Intelligence.",
+      "content": "movie",
+      "tmdb_id": "1278163",
+      "year": "2024",
+      "genre": "Science Fiction",
+      "infolabels": {
+        "title": "The Chinese Room",
+        "plot": "An exploration of the Chinese Room paradox and the death of communication in the Age of Artificial Intelligence.",
+        "genre": [
+          "Science Fiction"
+        ],
+        "country": [
+          "India"
+        ],
+        "premiered": "2024-04-22",
+        "year": 2024,
+        "rating": 10.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheChineseRoom",
+        "archive_url": "https://archive.org/details/TheChineseRoom",
+        "archive_title": "The Chinese Room",
+        "archive_downloads": 59495,
+        "archive_file": {
+          "file": "thechineseroom.mp4",
+          "url": "https://archive.org/download/TheChineseRoom/thechineseroom.mp4",
+          "length_seconds": 5947,
+          "format": "MPEG4",
+          "size": 1301476384
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/1278163-the-chinese-room",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Devil Bat",
+      "link": "https://archive.org/download/thedevilbat/videoplayback.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/g1boVvNLVKYbP2H7MoGol9sQAIH.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1GOo1eE5tLwEMqrysAetuISSE0B.jpg",
+      "summary": "Dr. Paul Carruthers is frustrated because he thinks his employers, Mary Heath and Henry Morton, have cheated him out of the company's profits. He decides to get revenge by altering bats to grow twice their normal size and training them to attack when they smell a perfume of his own making. He mixes the perfume into a lotion, which he offers as a gift to Mary and Henry. When they turn up dead, a newspaper reporter decides to investigate.",
+      "content": "movie",
+      "tmdb_id": "41021",
+      "year": "1940",
+      "genre": "Horror / Science Fiction / Crime",
+      "infolabels": {
+        "title": "The Devil Bat",
+        "plot": "Dr. Paul Carruthers is frustrated because he thinks his employers, Mary Heath and Henry Morton, have cheated him out of the company's profits. He decides to get revenge by altering bats to grow twice their normal size and training them to attack when they smell a perfume of his own making. He mixes the perfume into a lotion, which he offers as a gift to Mary and Henry. When they turn up dead, a newspaper reporter decides to investigate.",
+        "genre": [
+          "Horror",
+          "Science Fiction",
+          "Crime"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1940-12-13",
+        "year": 1940,
+        "rating": 5.3,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "thedevilbat",
+        "archive_url": "https://archive.org/details/thedevilbat",
+        "archive_title": "The Devil Bat",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "videoplayback.mp4",
+          "url": "https://archive.org/download/thedevilbat/videoplayback.mp4",
+          "length_seconds": 4093,
+          "format": "MPEG4",
+          "size": 211542410
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/41021-the-devil-bat",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Devil Girl from Mars",
+      "link": "https://archive.org/download/devil-girl-from-mars-1954/Devil%20Girl%20From%20Mars%20%281954%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/kgQh1yJdQ3ESgwNzTAVNIw3FzMZ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/aNA1B8U4XhBtoLIlW2UcF7hQFC1.jpg",
+      "summary": "Eight people at a remote Scottish inn find themselves confronted by a woman from Mars, who has landed her flying saucer for repairs but intends to soon conquer the Earth and enslave its men for breeding purposes.",
+      "content": "movie",
+      "tmdb_id": "24212",
+      "year": "1954",
+      "genre": "Science Fiction / Horror",
+      "infolabels": {
+        "title": "Devil Girl from Mars",
+        "plot": "Eight people at a remote Scottish inn find themselves confronted by a woman from Mars, who has landed her flying saucer for repairs but intends to soon conquer the Earth and enslave its men for breeding purposes.",
+        "genre": [
+          "Science Fiction",
+          "Horror"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1954-05-01",
+        "year": 1954,
+        "rating": 5.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "devil-girl-from-mars-1954",
+        "archive_url": "https://archive.org/details/devil-girl-from-mars-1954",
+        "archive_title": "Devil Girl From Mars ( 1954)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Devil Girl From Mars (1954).mp4",
+          "url": "https://archive.org/download/devil-girl-from-mars-1954/Devil%20Girl%20From%20Mars%20%281954%29.mp4",
+          "length_seconds": 4577,
+          "format": "MPEG4",
+          "size": 860017977
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/24212-devil-girl-from-mars",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Dr. Cyclops",
+      "link": "https://archive.org/download/dr.-cyclops/Dr.%20Cyclops.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qLsEEx1cy2ouISG7982sX4xNltQ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/nHbIdtHO6oENW1FNOJRX11CdIY1.jpg",
+      "summary": "Four explorers are summoned to Peru by the brilliant physicist Dr Thorkel. They discover a rich source of radium and a half-mad Thorkel who shrinks them down to one-fifth their normal size when they threaten to stop his unorthodox experimentation.",
+      "content": "movie",
+      "tmdb_id": "3593",
+      "year": "1940",
+      "genre": "Adventure / Horror / Science Fiction",
+      "infolabels": {
+        "title": "Dr. Cyclops",
+        "plot": "Four explorers are summoned to Peru by the brilliant physicist Dr Thorkel. They discover a rich source of radium and a half-mad Thorkel who shrinks them down to one-fifth their normal size when they threaten to stop his unorthodox experimentation.",
+        "genre": [
+          "Adventure",
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1940-04-12",
+        "year": 1940,
+        "rating": 6.226,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "dr.-cyclops",
+        "archive_url": "https://archive.org/details/dr.-cyclops",
+        "archive_title": "Dr. Cyclops",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Dr. Cyclops.mp4",
+          "url": "https://archive.org/download/dr.-cyclops/Dr.%20Cyclops.mp4",
+          "length_seconds": 4633,
+          "format": "h.264",
+          "size": 446240422
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/3593-dr-cyclops",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Flatliners",
+      "link": "https://archive.org/download/flatliners-1990/Flatliners%20%281990%29/Flatliners%20-%201990.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wda3j7p7YHXKpFIlSzoTCtP7myF.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kI1wLZdD5n28SknQaRIkSoSRfas.jpg",
+      "summary": "Five medical students experiment with \"near death\" experiences, until the dark consequences of past tragedies begin to jeopardize their lives.",
+      "content": "movie",
+      "tmdb_id": "1551",
+      "year": "1990",
+      "genre": "Drama / Science Fiction / Horror",
+      "infolabels": {
+        "title": "Flatliners",
+        "plot": "Five medical students experiment with \"near death\" experiences, until the dark consequences of past tragedies begin to jeopardize their lives.",
+        "genre": [
+          "Drama",
+          "Science Fiction",
+          "Horror"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1990-08-10",
+        "year": 1990,
+        "rating": 6.509,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "flatliners-1990",
+        "archive_url": "https://archive.org/details/flatliners-1990",
+        "archive_title": "Flatliners (1990)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Flatliners (1990)/Flatliners - 1990.mp4",
+          "url": "https://archive.org/download/flatliners-1990/Flatliners%20%281990%29/Flatliners%20-%201990.mp4",
+          "length_seconds": 6852,
+          "format": "MPEG4",
+          "size": 786999103
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/1551-flatliners",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Fly",
+      "link": "https://archive.org/download/the.-fly.-1958/The%20Fly%20%281958%29/The.Fly.1958.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/kXdBcDh2EbgSIf4Oo1dxKapZM2f.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/wpz62HFxCGaMX6jImELAspwqjT1.jpg",
+      "summary": "Industrialist François Delambre is called late at night by his sister-in-law, Helene, who tells him that she has just killed her husband. Reluctant at first, she eventually explains to the police that he invented a matter transportation apparatus and, while experimenting on himself, a fly entered the chamber.",
+      "content": "movie",
+      "tmdb_id": "11815",
+      "year": "1958",
+      "genre": "Science Fiction / Horror / Drama",
+      "infolabels": {
+        "title": "The Fly",
+        "plot": "Industrialist François Delambre is called late at night by his sister-in-law, Helene, who tells him that she has just killed her husband. Reluctant at first, she eventually explains to the police that he invented a matter transportation apparatus and, while experimenting on himself, a fly entered the chamber.",
+        "genre": [
+          "Science Fiction",
+          "Horror",
+          "Drama"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1958-07-16",
+        "year": 1958,
+        "rating": 7.029,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-fly.-1958",
+        "archive_url": "https://archive.org/details/the.-fly.-1958",
+        "archive_title": "The Fly (1958)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "The Fly (1958)/The.Fly.1958.ia.mp4",
+          "url": "https://archive.org/download/the.-fly.-1958/The%20Fly%20%281958%29/The.Fly.1958.ia.mp4",
+          "length_seconds": 5607,
+          "format": "h.264 IA",
+          "size": 1336190915
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/11815-the-fly",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Frankenstein",
+      "link": "https://archive.org/download/frankenstein.-1931/Frankenstein%20%281931%29/Frankenstein.1931.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mu6wHwH0IwCCaEYtpqujuPJYat1.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/wFbPbJ9uRDpjY7micBTeolgkOA4.jpg",
+      "summary": "Henry Frankenstein pieces together body parts in the hope of bringing a human-like creature to life. The mad scientist’s dreams are shattered by his monstrous creation awakening with rage to a world that hates and fears him.",
+      "content": "movie",
+      "tmdb_id": "3035",
+      "year": "1931",
+      "genre": "Drama / Horror / Science Fiction",
+      "infolabels": {
+        "title": "Frankenstein",
+        "plot": "Henry Frankenstein pieces together body parts in the hope of bringing a human-like creature to life. The mad scientist’s dreams are shattered by his monstrous creation awakening with rage to a world that hates and fears him.",
+        "genre": [
+          "Drama",
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1931-11-21",
+        "year": 1931,
+        "rating": 7.468,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "frankenstein.-1931",
+        "archive_url": "https://archive.org/details/frankenstein.-1931",
+        "archive_title": "Frankenstein (1931)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Frankenstein (1931)/Frankenstein.1931.mp4",
+          "url": "https://archive.org/download/frankenstein.-1931/Frankenstein%20%281931%29/Frankenstein.1931.mp4",
+          "length_seconds": 4212,
+          "format": "MPEG4",
+          "size": 604710753
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/3035-frankenstein",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Kingsman: The Golden Circle",
+      "link": "https://archive.org/download/Popcornarchive-kingsmanTheGoldenCircle2017/Popcornarchive-kingsmanTheGoldenCircle2017.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/34xBL6BXNYFqtHO9zhcgoakS4aP.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/eVHVwP71el20fofkCHo78ebQv7Q.jpg",
+      "summary": "When an attack on the Kingsman headquarters takes place and a new villain rises, Eggsy and Merlin are forced to work together with the American agency known as the Statesman to save the world.",
+      "content": "movie",
+      "tmdb_id": "343668",
+      "year": "2017",
+      "genre": "Action / Adventure / Comedy / Crime / Science Fiction",
+      "infolabels": {
+        "title": "Kingsman: The Golden Circle",
+        "plot": "When an attack on the Kingsman headquarters takes place and a new villain rises, Eggsy and Merlin are forced to work together with the American agency known as the Statesman to save the world.",
+        "genre": [
+          "Action",
+          "Adventure",
+          "Comedy",
+          "Crime",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States",
+          "United Kingdom"
+        ],
+        "premiered": "2017-09-20",
+        "year": 2017,
+        "rating": 6.945,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Popcornarchive-kingsmanTheGoldenCircle2017",
+        "archive_url": "https://archive.org/details/Popcornarchive-kingsmanTheGoldenCircle2017",
+        "archive_title": "Kingsman: The Golden Circle (2017)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Popcornarchive-kingsmanTheGoldenCircle2017.mp4",
+          "url": "https://archive.org/download/Popcornarchive-kingsmanTheGoldenCircle2017/Popcornarchive-kingsmanTheGoldenCircle2017.mp4",
+          "length_seconds": 8462,
+          "format": "h.264 HD",
+          "size": 1776401127
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/343668-kingsman-the-golden-circle",
+        "tmdb_match_score": 1.0,
+        "source_collection": "popcornproject",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Leech Woman",
+      "link": "https://archive.org/download/the-leech-woman/The%20Leech%20woman.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6xMaV4WLDdFQtc3VZiNfy9ViE0A.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kA7A2IgtTPjCyrlYun04i20bZa3.jpg",
+      "summary": "An endocrinologist in a dysfunctional marriage with an aging, alcoholic wife journeys to Africa seeking a drug that will restore youth.",
+      "content": "movie",
+      "tmdb_id": "52745",
+      "year": "1960",
+      "genre": "Horror / Science Fiction",
+      "infolabels": {
+        "title": "The Leech Woman",
+        "plot": "An endocrinologist in a dysfunctional marriage with an aging, alcoholic wife journeys to Africa seeking a drug that will restore youth.",
+        "genre": [
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1960-05-01",
+        "year": 1960,
+        "rating": 4.825,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-leech-woman",
+        "archive_url": "https://archive.org/details/the-leech-woman",
+        "archive_title": "The Leech Woman",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "The Leech woman.mp4",
+          "url": "https://archive.org/download/the-leech-woman/The%20Leech%20woman.mp4",
+          "length_seconds": 4628,
+          "format": "h.264",
+          "size": 445567542
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/52745-the-leech-woman",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Matrix",
+      "link": "https://archive.org/download/Popcornarchive-theMatrix1999/Popcornarchive-theMatrix1999.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
+      "summary": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+      "content": "movie",
+      "tmdb_id": "603",
+      "year": "1999",
+      "genre": "Action / Science Fiction",
+      "infolabels": {
+        "title": "The Matrix",
+        "plot": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+        "genre": [
+          "Action",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1999-03-31",
+        "year": 1999,
+        "rating": 8.251,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Popcornarchive-theMatrix1999",
+        "archive_url": "https://archive.org/details/Popcornarchive-theMatrix1999",
+        "archive_title": "THE MATRIX (1999)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Popcornarchive-theMatrix1999.mp4",
+          "url": "https://archive.org/download/Popcornarchive-theMatrix1999/Popcornarchive-theMatrix1999.mp4",
+          "length_seconds": 7105,
+          "format": "h.264 HD",
+          "size": 897529352
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/603-the-matrix",
+        "tmdb_match_score": 1.0,
+        "source_collection": "popcornproject",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Mesa of Lost Women",
+      "link": "https://archive.org/download/MesaOfLostWomenMPEG2/Mesa%20of%20Lost%20Women.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gTuJoE9Zt6e4g9rhtrtTvdTOZKZ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/zQ8wPuH8gBri5HklctmjrfxF5nL.jpg",
+      "summary": "A mad scientist, Dr. Aranya (Jackie Coogan), has created giant spiders in his Mexican lab in Zarpa Mesa to create a race of superwomen by injecting spiders with human pituitary growth hormones. Women develop miraculous regenerative powers, but men mutate into disfigured dwarves. Spiders grow to human size and intelligence.",
+      "content": "movie",
+      "tmdb_id": "23125",
+      "year": "1953",
+      "genre": "Horror / Science Fiction",
+      "infolabels": {
+        "title": "Mesa of Lost Women",
+        "plot": "A mad scientist, Dr. Aranya (Jackie Coogan), has created giant spiders in his Mexican lab in Zarpa Mesa to create a race of superwomen by injecting spiders with human pituitary growth hormones. Women develop miraculous regenerative powers, but men mutate into disfigured dwarves. Spiders grow to human size and intelligence.",
+        "genre": [
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1953-06-17",
+        "year": 1953,
+        "rating": 2.539,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "MesaOfLostWomenMPEG2",
+        "archive_url": "https://archive.org/details/MesaOfLostWomenMPEG2",
+        "archive_title": "Mesa Of Lost Women",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Mesa of Lost Women.mp4",
+          "url": "https://archive.org/download/MesaOfLostWomenMPEG2/Mesa%20of%20Lost%20Women.mp4",
+          "length_seconds": 4137,
+          "format": "h.264",
+          "size": 431270820
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/23125-mesa-of-lost-women",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Monster on the Campus",
+      "link": "https://archive.org/download/monster-on-campus/Monster%20on%20Campus.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/oHpJmCYZq5qnDP1MSeUAEBE44gU.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/ePaocQD9w1O3WzF7YVYYfcKRBmn.jpg",
+      "summary": "A college paleontology professor acquires a newly discovered specimen of a coelacanth, but while examining it, he is accidentally exposed to its blood, and finds himself periodically turning into a murderous Neanderthal man.",
+      "content": "movie",
+      "tmdb_id": "34593",
+      "year": "1958",
+      "genre": "Horror / Science Fiction",
+      "infolabels": {
+        "title": "Monster on the Campus",
+        "plot": "A college paleontology professor acquires a newly discovered specimen of a coelacanth, but while examining it, he is accidentally exposed to its blood, and finds himself periodically turning into a murderous Neanderthal man.",
+        "genre": [
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1958-10-15",
+        "year": 1958,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "monster-on-campus",
+        "archive_url": "https://archive.org/details/monster-on-campus",
+        "archive_title": "Monster On Campus",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Monster on Campus.mp4",
+          "url": "https://archive.org/download/monster-on-campus/Monster%20on%20Campus.mp4",
+          "length_seconds": 4595,
+          "format": "h.264",
+          "size": 442265129
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/34593-monster-on-the-campus",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mummy's Ghost",
+      "link": "https://archive.org/download/the-mummys-ghost/The%20Mummy%27s%20Ghost.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/eRNWTjYXkUQvqopfgz8DvHolxWA.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/4I9kfIAHK64pii1T4kBQz3n2ijJ.jpg",
+      "summary": "An Egyptian high priest travels to America to reclaim the bodies of ancient Egyptian princess Ananka and her living guardian mummy Kharis. Learning that Ananka's spirit has been reincarnated into another body, he kidnaps a young woman of Egyptian descent with a mysterious resemblance to the princess. However, the high priest's greedy desires cause him to lose control of the mummy...",
+      "content": "movie",
+      "tmdb_id": "29243",
+      "year": "1944",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Ghost",
+        "plot": "An Egyptian high priest travels to America to reclaim the bodies of ancient Egyptian princess Ananka and her living guardian mummy Kharis. Learning that Ananka's spirit has been reincarnated into another body, he kidnaps a young woman of Egyptian descent with a mysterious resemblance to the princess. However, the high priest's greedy desires cause him to lose control of the mummy...",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1944-06-30",
+        "year": 1944,
+        "rating": 5.6,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-ghost",
+        "archive_url": "https://archive.org/details/the-mummys-ghost",
+        "archive_title": "The Mummy's Ghost (1944)",
+        "archive_downloads": 16205,
+        "archive_file": {
+          "file": "The Mummy's Ghost.mp4",
+          "url": "https://archive.org/download/the-mummys-ghost/The%20Mummy%27s%20Ghost.mp4",
+          "length_seconds": 3625,
+          "format": "h.264",
+          "size": 346949771
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/29243-the-mummy-s-ghost",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mummy's Hand",
+      "link": "https://archive.org/download/the-mummys-hand/The%20Mummy%27s%20Hand.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jSSdvLkGXy4oICnSo5Cnz12B6Ae.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/epPy2TZgvU2LJWnOp45ePsHVM9g.jpg",
+      "summary": "A couple of young, out-of-work archaeologists in Egypt discover evidence of the burial place of the ancient Egyptian princess Ananka. After receiving funding from an eccentric magician and his beautiful daughter, they set out into the desert only to be terrorized by a sinister high priest and the living mummy Kharis who are the guardians of Ananka’s tomb.",
+      "content": "movie",
+      "tmdb_id": "31498",
+      "year": "1940",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Hand",
+        "plot": "A couple of young, out-of-work archaeologists in Egypt discover evidence of the burial place of the ancient Egyptian princess Ananka. After receiving funding from an eccentric magician and his beautiful daughter, they set out into the desert only to be terrorized by a sinister high priest and the living mummy Kharis who are the guardians of Ananka’s tomb.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1940-09-20",
+        "year": 1940,
+        "rating": 5.7,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-hand",
+        "archive_url": "https://archive.org/details/the-mummys-hand",
+        "archive_title": "The Mummy's Hand (1940)",
+        "archive_downloads": 18514,
+        "archive_file": {
+          "file": "The Mummy's Hand.mp4",
+          "url": "https://archive.org/download/the-mummys-hand/The%20Mummy%27s%20Hand.mp4",
+          "length_seconds": 4008,
+          "format": "h.264",
+          "size": 383208087
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/31498-the-mummy-s-hand",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mummy's Tomb",
+      "link": "https://archive.org/download/the-mummys-tomb-1942_202105/The%20Mummy%27s%20Tomb%20%281942%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wuaqpLGb5PHpUGUCmQwyS5EVLdw.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/vGdrgwFPcdAqLxOPy4NQobQ6EnS.jpg",
+      "summary": "A high priest of Karnak travels to America with the living mummy Kharis (Lon Chaney Jr.) to kill all those who had desecrated the tomb of the Egyptian princess Ananka thirty years earlier.",
+      "content": "movie",
+      "tmdb_id": "29239",
+      "year": "1942",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Tomb",
+        "plot": "A high priest of Karnak travels to America with the living mummy Kharis (Lon Chaney Jr.) to kill all those who had desecrated the tomb of the Egyptian princess Ananka thirty years earlier.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1942-10-23",
+        "year": 1942,
+        "rating": 5.536,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-tomb-1942_202105",
+        "archive_url": "https://archive.org/details/the-mummys-tomb-1942_202105",
+        "archive_title": "The Mummy's Tomb ( 1942)",
+        "archive_downloads": 19835,
+        "archive_file": {
+          "file": "The Mummy's Tomb (1942).mp4",
+          "url": "https://archive.org/download/the-mummys-tomb-1942_202105/The%20Mummy%27s%20Tomb%20%281942%29.mp4",
+          "length_seconds": 3634,
+          "format": "h.264",
+          "size": 347551451
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/29239-the-mummy-s-tomb",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Quiet Place Part II",
+      "link": "https://archive.org/download/Popcornarchive-aQuietPlacePartIi2020/Popcornarchive-aQuietPlacePartIi2020.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4q2hz2m8hubgvijz8Ez0T2Os2Yv.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/uuBYYlbfiYD7ny5VNj46NG14ykR.jpg",
+      "summary": "Following the events at home, the Abbott family now face the terrors of the outside world. Forced to venture into the unknown, they realize that the creatures that hunt by sound are not the only threats that lurk beyond the sand path.",
+      "content": "movie",
+      "tmdb_id": "520763",
+      "year": "2021",
+      "genre": "Science Fiction / Thriller / Horror",
+      "infolabels": {
+        "title": "A Quiet Place Part II",
+        "plot": "Following the events at home, the Abbott family now face the terrors of the outside world. Forced to venture into the unknown, they realize that the creatures that hunt by sound are not the only threats that lurk beyond the sand path.",
+        "genre": [
+          "Science Fiction",
+          "Thriller",
+          "Horror"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2021-05-21",
+        "year": 2021,
+        "rating": 7.43,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Popcornarchive-aQuietPlacePartIi2020",
+        "archive_url": "https://archive.org/details/Popcornarchive-aQuietPlacePartIi2020",
+        "archive_title": "A Quiet Place Part II (2020)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Popcornarchive-aQuietPlacePartIi2020.mp4",
+          "url": "https://archive.org/download/Popcornarchive-aQuietPlacePartIi2020/Popcornarchive-aQuietPlacePartIi2020.mp4",
+          "length_seconds": 5820,
+          "format": "h.264 HD",
+          "size": 1241377151
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/520763-a-quiet-place-part-ii",
+        "tmdb_match_score": 1.0,
+        "source_collection": "popcornproject",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Thinner",
+      "link": "https://archive.org/download/thinner-1996_202511/Thinner%20%281996%29/Thinner%281996%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/nXqHqsQXA0jJpCaUsyre1Yw18oV.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/3xLT29KkCwLqRgRRtaUHGG6OaZ5.jpg",
+      "summary": "An obese lawyer finds himself growing \"Thinner\" when an old Romani man places a hex on him. Now the lawyer must call upon his friends in organized crime to help him persuade the old man to lift the curse. Time is running out for the desperate lawyer as he draws closer to his own death, and grows ever thinner.",
+      "content": "movie",
+      "tmdb_id": "10280",
+      "year": "1996",
+      "genre": "Fantasy / Horror",
+      "infolabels": {
+        "title": "Thinner",
+        "plot": "An obese lawyer finds himself growing \"Thinner\" when an old Romani man places a hex on him. Now the lawyer must call upon his friends in organized crime to help him persuade the old man to lift the curse. Time is running out for the desperate lawyer as he draws closer to his own death, and grows ever thinner.",
+        "genre": [
+          "Fantasy",
+          "Horror"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1996-10-25",
+        "year": 1996,
+        "rating": 5.9,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "thinner-1996_202511",
+        "archive_url": "https://archive.org/details/thinner-1996_202511",
+        "archive_title": "Thinner (1996)",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "Thinner (1996)/Thinner(1996).ia.mp4",
+          "url": "https://archive.org/download/thinner-1996_202511/Thinner%20%281996%29/Thinner%281996%29.ia.mp4",
+          "length_seconds": 5531,
+          "format": "h.264 IA",
+          "size": 840850894
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/10280-thinner",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Two Faces of Dr. Jekyll",
+      "link": "https://archive.org/download/the-two-faces-of-dr.-jeykll/The%20Two%20Faces%20of%20Dr.%20Jeykll.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/sPhV0P8L1stGYLWtnQOAYYv031q.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/6trIEq8wjlfDBUkJmpTzt8f2yB1.jpg",
+      "summary": "After a series of scientific experiments directed towards freeing the inner man and controlling human personalities, the kindly, generous Dr Henry Jekyll succeeds in freeing his own alter ego, Edward Hyde, a sadistic, evil creature whose pleasure is murder.",
+      "content": "movie",
+      "tmdb_id": "3025",
+      "year": "1960",
+      "genre": "Horror / Science Fiction",
+      "infolabels": {
+        "title": "The Two Faces of Dr. Jekyll",
+        "plot": "After a series of scientific experiments directed towards freeing the inner man and controlling human personalities, the kindly, generous Dr Henry Jekyll succeeds in freeing his own alter ego, Edward Hyde, a sadistic, evil creature whose pleasure is murder.",
+        "genre": [
+          "Horror",
+          "Science Fiction"
+        ],
+        "country": [
+          "United Kingdom",
+          "United States"
+        ],
+        "premiered": "1960-10-24",
+        "year": 1960,
+        "rating": 6.132,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-two-faces-of-dr.-jeykll",
+        "archive_url": "https://archive.org/details/the-two-faces-of-dr.-jeykll",
+        "archive_title": "The Two Faces Of Dr. Jeykll",
+        "archive_downloads": 0,
+        "archive_file": {
+          "file": "The Two Faces of Dr. Jeykll.mp4",
+          "url": "https://archive.org/download/the-two-faces-of-dr.-jeykll/The%20Two%20Faces%20of%20Dr.%20Jeykll.mp4",
+          "length_seconds": 5298,
+          "format": "h.264",
+          "size": 510654992
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/3025-the-two-faces-of-dr-jekyll",
+        "tmdb_match_score": 1.0,
+        "source_collection": "SciFi_Horror",
+        "target_bucket": "Science Fiction & Fantasy"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Werewolf of London",
+      "link": "https://archive.org/download/werewolf-of-london/Werewolf%20of%20London.m4v",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/78kD3Fpvgd8qubKMbhS5dKofjR8.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/mE2TnC4VC5Ilv7dHsZkVfGQy9CA.jpg",
+      "summary": "A strange animal attack turns a botanist into a bloodthirsty monster.",
+      "content": "movie",
+      "tmdb_id": "27970",
+      "year": "1935",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "Werewolf of London",
+        "plot": "A strange animal attack turns a botanist into a bloodthirsty monster.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1935-05-13",
+        "year": 1935,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "werewolf-of-london",
+        "archive_url": "https://archive.org/details/werewolf-of-london",
+        "archive_title": "Werewolf of London - 1935",
+        "archive_downloads": 17598,
+        "archive_file": {
+          "file": "Werewolf of London.m4v",
+          "url": "https://archive.org/download/werewolf-of-london/Werewolf%20of%20London.m4v",
+          "length_seconds": 4500,
+          "format": "MPEG4",
+          "size": 5731943417
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/27970-werewolf-of-london",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

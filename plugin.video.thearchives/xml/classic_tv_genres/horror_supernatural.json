@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "Hot Metal",
+      "link": "file://classic_tv_series/hot_metal_16792.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/AjrIdCt0E3yyAmsts0OgQTxGbbe.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/AjrIdCt0E3yyAmsts0OgQTxGbbe.jpg",
+      "summary": "13 episodes. Hot metal is a London Weekend Television sitcom about the British Newspaper industry broadcast between 1986 and 1988.\n\nThe daily crucible, the dullest newspaper in Fleet Street, is suddenly taken over by media magnate Terence \"Twiggy\" Rathbone. Its editor Harry Stringer is 'promoted' to managing editor, and is replaced in his old job by Russell Spam. Spam then takes the paper shooting downmarket and turns the crucible into a sensation seeking scandal rag, very much in the style of the British tabloids of the 1980s. He is helped along by his ace gutter journalist, Greg Kettle, who intimidates his tabloid victims by claiming to be \"a representative of Her Majesty's press\" and produces stories such as accusing a vicar of being a werewolf. Throughout the first series, a running plot involved cub reporter Bill Tytla gradually uncovering an actual newsworthy story that went to the very heart of government.\n\nWritten by David Renwick and Andrew Marshall, it is very much a continuation in style from their previous sitcom Whoops Apocalypse!. It was produced by Humphrey Barclay.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "16792"
+    },
+    {
+      "type": "dir",
+      "title": "She-Wolf of London",
+      "link": "file://classic_tv_series/she_wolf_of_london_12676.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/e2oxaBvNYx33av1Ldj9l22WuXvg.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/bxZK9NrLkyOTCrT1RsjaI7rYL8C.jpg",
+      "summary": "20 episodes. She-Wolf of London was a short-lived television series that aired in first-run syndication in the USA from October 1990 to April 1991. The first 14 episodes were filmed in England and aired under the She-Wolf title, and a second season of six episodes was filmed in Los Angeles and aired under the title Love and Curses, with a drastically reduced cast.",
+      "content": "tvshow",
+      "year": "1990",
+      "tmdb_id": "12676"
+    },
+    {
+      "type": "dir",
+      "title": "Werewolf",
+      "link": "file://classic_tv_series/werewolf_10424.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/dxTYVBhxhAYiwhyONPmk7MQGDWF.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/jDTa6Tefo3T5FNDlTGoe5jv6j9j.jpg",
+      "summary": "29 episodes. Eric Cord, a college student transformed into a werewolf undergoes a quest to rid himself of his curse by killing the apparent originator of his 'bloodline'.",
+      "content": "tvshow",
+      "year": "1987",
+      "tmdb_id": "10424"
+    }
+  ]
+}

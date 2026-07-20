@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "The Baron",
+      "link": "file://classic_tv_series/baron_6234.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/5tIrG3Cs83BcYqnGu6ptlRDxGBI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/uGbqhDPESGJuLCeMCEJBzM2cFZM.jpg",
+      "summary": "30 episodes. The Baron is a British television series, made in 1965/66 based on the book series by John Creasey, written under the pseudonym Anthony Morton, and produced by ITC Entertainment. It was the first ITC show without marionettes to be produced entirely in colour.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "6234"
+    },
+    {
+      "type": "dir",
+      "title": "Budgie",
+      "link": "file://classic_tv_series/budgie_972.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/a2S5Lha69WVFmu7y0dF1JeXphs2.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/74U4bCX4ntya5d5jTicykmmc7g.jpg",
+      "summary": "26 episodes. Budgie is a popular British television series starring former popstar Adam Faith which was produced by ITV company London Weekend Television and broadcast on the ITV network between 1971 and 1972.\n\nThe series was created by Keith Waterhouse and Willis Hall . The show was produced by Verity Lambert, Rex Firkin was the Executive producer.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "972"
+    },
+    {
+      "type": "dir",
+      "title": "Malibu U",
+      "link": "file://classic_tv_series/malibu_u_14563.json",
+      "thumbnail": "https://archive.org/services/img/Malibu-U-1967",
+      "fanart": "https://archive.org/services/img/Malibu-U-1967",
+      "summary": "7 episodes. Malibu U is an American variety show that aired in the summer of 1967 on ABC. The series stars Ricky Nelson.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "14563"
+    },
+    {
+      "type": "dir",
+      "title": "Shasta McNasty",
+      "link": "file://classic_tv_series/shasta_mcnasty_10384.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/lXq61nq3xDFklCQuiWVv3oBToMJ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/lXq61nq3xDFklCQuiWVv3oBToMJ.jpg",
+      "summary": "22 episodes. Scott, Dennis and Randy are three slacker dudes who also make up the rap/rock band Shasta. Instead of working on their music, they spend most of their time hanging out on Venice Beach trying to score dates, finding new ways to stall the pizza delivery guy, and generally being mediocre.",
+      "content": "tvshow",
+      "year": "2000",
+      "tmdb_id": "10384"
+    },
+    {
+      "type": "dir",
+      "title": "VR.5",
+      "link": "file://classic_tv_series/vr_5_1956.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/A7Ae3Z5UNyOwciavCHJfH34YfId.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/jXuVeUp2jkDWmjw67doFKEEGEZ2.jpg",
+      "summary": "13 episodes. VR.5 is an American television program originally broadcast on the Fox network from March 10, 1995 to May 12, 1995. Ten of its thirteen episodes were aired during its original run. The title of the show refers to the degree of immersion the protagonist experiences in the virtual world.",
+      "content": "tvshow",
+      "year": "1995",
+      "tmdb_id": "1956"
+    }
+  ]
+}

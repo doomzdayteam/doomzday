@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "The Fabulous Dorseys",
+      "link": "https://archive.org/download/TheFabulousDorseys1947DorseyBrosBobEberleNatrip/TheFabulousDorseys1947DorseyBrosBobEberleNatrip.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/yGi0L75IRvtB9KN0uts0EtihFZo.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tqzYOwD5sQm353LeOYSVD4dOfD5.jpg",
+      "summary": "The story of Tommy and Jimmy Dorsey from their boyhood in Pennsylvania through their rise, their breakup, and their personal reunion.",
+      "content": "movie",
+      "tmdb_id": "43465",
+      "year": "1947",
+      "genre": "Music / Romance",
+      "infolabels": {
+        "title": "The Fabulous Dorseys",
+        "plot": "The story of Tommy and Jimmy Dorsey from their boyhood in Pennsylvania through their rise, their breakup, and their personal reunion.",
+        "genre": [
+          "Music",
+          "Romance"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1947-02-26",
+        "year": 1947,
+        "rating": 5.8,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheFabulousDorseys1947DorseyBrosBobEberleNatrip",
+        "archive_url": "https://archive.org/details/TheFabulousDorseys1947DorseyBrosBobEberleNatrip",
+        "archive_title": "The Fabulous Dorseys",
+        "archive_downloads": 50579,
+        "archive_file": {
+          "file": "TheFabulousDorseys1947DorseyBrosBobEberleNatrip.mp4",
+          "url": "https://archive.org/download/TheFabulousDorseys1947DorseyBrosBobEberleNatrip/TheFabulousDorseys1947DorseyBrosBobEberleNatrip.mp4",
+          "length_seconds": 5304,
+          "format": "h.264",
+          "size": 550960400
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/43465-the-fabulous-dorseys",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

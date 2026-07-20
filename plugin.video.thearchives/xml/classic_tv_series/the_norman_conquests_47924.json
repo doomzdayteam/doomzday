@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "S01E01 - Table Manners",
+      "link": "https://archive.org/download/The-Norman-Conquests-1977-Full-Series/The%20Norman%20Conquests%20Trilogy%20NTSC%20DVD%20DD2.0%20x264-RR/The%20Norman%20Conquests%20Living%20Together%20NTSC%20DVD%20DD2.0%20x264-RR.mkv",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/1kBf1A4egJ0neKriJb3fdSoWn82.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiPdmGo3iGeBkLxVPOSplrSi2xy.jpg",
+      "summary": "A dysfunctional family gathering for the weekend reunites three siblings and significant others in a small country cottage with farcical consequences.",
+      "content": "episode",
+      "tvshowtitle": "The Norman Conquests",
+      "season": "1",
+      "episode": "1",
+      "year": "2023",
+      "infolabels": {
+        "title": "Table Manners",
+        "tvshowtitle": "The Norman Conquests",
+        "season": 1,
+        "episode": 1,
+        "plot": "A dysfunctional family gathering for the weekend reunites three siblings and significant others in a small country cottage with farcical consequences.",
+        "aired": "October 5, 1977",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E02 - Living Together",
+      "link": "https://archive.org/download/The-Norman-Conquests-1977-Full-Series/The%20Norman%20Conquests%20Trilogy%20NTSC%20DVD%20DD2.0%20x264-RR/The%20Norman%20Conquests%20Living%20Together%20NTSC%20DVD%20DD2.0%20x264-RR.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/1kBf1A4egJ0neKriJb3fdSoWn82.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiPdmGo3iGeBkLxVPOSplrSi2xy.jpg",
+      "summary": "A dysfunctional family gets together at the house of their cantankerous mother and old resentments, jealousies, and rivalries are reignited.",
+      "content": "episode",
+      "tvshowtitle": "The Norman Conquests",
+      "season": "1",
+      "episode": "2",
+      "year": "2023",
+      "infolabels": {
+        "title": "Living Together",
+        "tvshowtitle": "The Norman Conquests",
+        "season": 1,
+        "episode": 2,
+        "plot": "A dysfunctional family gets together at the house of their cantankerous mother and old resentments, jealousies, and rivalries are reignited.",
+        "aired": "October 12, 1977",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E03 - Round and Round the Garden",
+      "link": "https://archive.org/download/The-Norman-Conquests-1977-Full-Series/The%20Norman%20Conquests%20Trilogy%20NTSC%20DVD%20DD2.0%20x264-RR/The%20Norman%20Conquests%20Round%20and%20Round%20the%20Garden%20NTSC%20DVD%20DD2.0%20x264-RR.mkv",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/1kBf1A4egJ0neKriJb3fdSoWn82.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiPdmGo3iGeBkLxVPOSplrSi2xy.jpg",
+      "summary": "Annie has second thoughts about spending the weekend with brother-in-law Norman as the dysfunctional family tries to come to terms with itself.",
+      "content": "episode",
+      "tvshowtitle": "The Norman Conquests",
+      "season": "1",
+      "episode": "3",
+      "year": "2023",
+      "infolabels": {
+        "title": "Round and Round the Garden",
+        "tvshowtitle": "The Norman Conquests",
+        "season": 1,
+        "episode": 3,
+        "plot": "Annie has second thoughts about spending the weekend with brother-in-law Norman as the dysfunctional family tries to come to terms with itself.",
+        "aired": "October 19, 1977",
+        "mediatype": "episode"
+      }
+    }
+  ]
+}

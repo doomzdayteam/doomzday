@@ -1,0 +1,86 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Cat-Women of the Moon",
+      "link": "https://archive.org/download/CatWomenOfTheMoon/CatWomenOfTheMoon.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jjN6eqMwirmmWmdgXj6uALFuebm.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/dgOEH9LyL9Dw0Ama8N7lPvxLvYh.jpg",
+      "summary": "Astronauts travel to the moon where they discover it is inhabited by attractive young women in black tights.",
+      "content": "movie",
+      "tmdb_id": "43341",
+      "year": "1953",
+      "genre": "Science Fiction",
+      "infolabels": {
+        "title": "Cat-Women of the Moon",
+        "plot": "Astronauts travel to the moon where they discover it is inhabited by attractive young women in black tights.",
+        "genre": [
+          "Science Fiction"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1953-09-03",
+        "year": 1953,
+        "rating": 4.13,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "CatWomenOfTheMoon",
+        "archive_url": "https://archive.org/details/CatWomenOfTheMoon",
+        "archive_title": "Cat Women Of The Moon",
+        "archive_downloads": 23968,
+        "archive_file": {
+          "file": "CatWomenOfTheMoon.mp4",
+          "url": "https://archive.org/download/CatWomenOfTheMoon/CatWomenOfTheMoon.mp4",
+          "length_seconds": 3818,
+          "format": "h.264",
+          "size": 396774265
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/43341-cat-women-of-the-moon",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Chinese Room",
+      "link": "https://archive.org/download/TheChineseRoom/thechineseroom.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/onXlBoa4IB7M5dj0wMUyRfPhBd0.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/srJ1TxjgAkmHzPEShXZ2GR23ZyS.jpg",
+      "summary": "An exploration of the Chinese Room paradox and the death of communication in the Age of Artificial Intelligence.",
+      "content": "movie",
+      "tmdb_id": "1278163",
+      "year": "2024",
+      "genre": "Science Fiction",
+      "infolabels": {
+        "title": "The Chinese Room",
+        "plot": "An exploration of the Chinese Room paradox and the death of communication in the Age of Artificial Intelligence.",
+        "genre": [
+          "Science Fiction"
+        ],
+        "country": [
+          "India"
+        ],
+        "premiered": "2024-04-22",
+        "year": 2024,
+        "rating": 10.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheChineseRoom",
+        "archive_url": "https://archive.org/details/TheChineseRoom",
+        "archive_title": "The Chinese Room",
+        "archive_downloads": 59495,
+        "archive_file": {
+          "file": "thechineseroom.mp4",
+          "url": "https://archive.org/download/TheChineseRoom/thechineseroom.mp4",
+          "length_seconds": 5947,
+          "format": "MPEG4",
+          "size": 1301476384
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/1278163-the-chinese-room",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

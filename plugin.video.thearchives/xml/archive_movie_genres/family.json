@@ -1,0 +1,755 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "After the Wizard",
+      "link": "https://archive.org/download/after-the-wizard-2012-dvdrip/After%20The%20Wizard%202012%20dvdrip.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/nq2O8yrUUeoTfsxh3CTXdw2O9pe.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/nq2O8yrUUeoTfsxh3CTXdw2O9pe.jpg",
+      "summary": "A 12-year-old Kansas orphan turns to the Scarecrow and the Tin Woodman for help during a difficult time. She imagines that things have not gone well in Oz since the Wizard left and that the Scarecrow and the Tin Woodman must travel to Kansas to find Dorothy.",
+      "content": "movie",
+      "tmdb_id": "127239",
+      "year": "2011",
+      "genre": "Family / Fantasy",
+      "infolabels": {
+        "title": "After the Wizard",
+        "plot": "A 12-year-old Kansas orphan turns to the Scarecrow and the Tin Woodman for help during a difficult time. She imagines that things have not gone well in Oz since the Wizard left and that the Scarecrow and the Tin Woodman must travel to Kansas to find Dorothy.",
+        "genre": [
+          "Family",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2011-07-02",
+        "year": 2011,
+        "rating": 4.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "after-the-wizard-2012-dvdrip",
+        "archive_url": "https://archive.org/details/after-the-wizard-2012-dvdrip",
+        "archive_title": "After The Wizard 2012 Dvdrip",
+        "archive_downloads": 150,
+        "archive_file": {
+          "file": "After The Wizard 2012 dvdrip.mp4",
+          "url": "https://archive.org/download/after-the-wizard-2012-dvdrip/After%20The%20Wizard%202012%20dvdrip.mp4",
+          "length_seconds": 4817,
+          "format": "h.264",
+          "size": 483799578
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/127239-after-the-wizard",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Against a Crooked Sky",
+      "link": "https://archive.org/download/AgainstACrookedSky/AgainstACrookedSky_title_2.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/fGejnwQimrmFHsWME56XGXfkNta.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/iSjsatBXQnuebrJNsGpnI3uAMjx.jpg",
+      "summary": "The eldest daughter of a pioneer family is kidnapped by a mysterious Indian tribe and the eldest son pursues. In order to win back his sister's freedom, he must sacrifice his own life by passing the test of \"Crooked Sky\" and shield his sister from an executioner's arrow. Along the way, he recruits a broken down, drunk prospector to help him track down the unknown tribe and rescue his sister",
+      "content": "movie",
+      "tmdb_id": "111637",
+      "year": "1975",
+      "genre": "Western / Family",
+      "infolabels": {
+        "title": "Against a Crooked Sky",
+        "plot": "The eldest daughter of a pioneer family is kidnapped by a mysterious Indian tribe and the eldest son pursues. In order to win back his sister's freedom, he must sacrifice his own life by passing the test of \"Crooked Sky\" and shield his sister from an executioner's arrow. Along the way, he recruits a broken down, drunk prospector to help him track down the unknown tribe and rescue his sister",
+        "genre": [
+          "Western",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1975-12-01",
+        "year": 1975,
+        "rating": 5.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "AgainstACrookedSky",
+        "archive_url": "https://archive.org/details/AgainstACrookedSky",
+        "archive_title": "Against a Crooked Sky (1976)",
+        "archive_downloads": 98761,
+        "archive_file": {
+          "file": "AgainstACrookedSky_title_2.mp4",
+          "url": "https://archive.org/download/AgainstACrookedSky/AgainstACrookedSky_title_2.mp4",
+          "length_seconds": 5307,
+          "format": "h.264",
+          "size": 522868702
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/111637-against-a-crooked-sky",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Alice in Wonderland",
+      "link": "https://archive.org/download/AliceInWonderland1933/Alice%20In%20Wonderland%20-1933-.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/o0kre9wRCZz3jjSjaru7QU0UtFz.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/ocOWbTzHcJVTw9Tz173KPeskDOP.jpg",
+      "summary": "Alice, now 19 years old, returns to the whimsical world she first entered as a child and embarks on a journey to discover her true destiny.",
+      "content": "movie",
+      "tmdb_id": "12155",
+      "year": "2010",
+      "genre": "Family / Fantasy / Adventure",
+      "infolabels": {
+        "title": "Alice in Wonderland",
+        "plot": "Alice, now 19 years old, returns to the whimsical world she first entered as a child and embarks on a journey to discover her true destiny.",
+        "genre": [
+          "Family",
+          "Fantasy",
+          "Adventure"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2010-03-03",
+        "year": 2010,
+        "rating": 6.644,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "AliceInWonderland1933",
+        "archive_url": "https://archive.org/details/AliceInWonderland1933",
+        "archive_title": "Alice In Wonderland 1933",
+        "archive_downloads": 76448,
+        "archive_file": {
+          "file": "Alice In Wonderland -1933-.mp4",
+          "url": "https://archive.org/download/AliceInWonderland1933/Alice%20In%20Wonderland%20-1933-.mp4",
+          "length_seconds": 4543,
+          "format": "MPEG4",
+          "size": 655282227
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/12155-alice-in-wonderland",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Christmas Bunny",
+      "link": "https://archive.org/download/the-christmas-bunny-2011-dvdrip-pg/The%20Christmas%20Bunny%202011%20dvdrip%20%28PG%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/naQJmUIeS6XTfmOUO52JOPhMVeI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/dL0HtRcQ0vtV9ip3dMsG0phwFN7.jpg",
+      "summary": "The story of a lonely foster child who finds a lost, injured rabbit in the woods on Christmas Eve. The rabbit is nursed back to health by The Bunny Lady, who runs a rabbit rescue in an old barn behind her Michigan farmhouse.",
+      "content": "movie",
+      "tmdb_id": "77934",
+      "year": "2010",
+      "genre": "Drama / Family",
+      "infolabels": {
+        "title": "The Christmas Bunny",
+        "plot": "The story of a lonely foster child who finds a lost, injured rabbit in the woods on Christmas Eve. The rabbit is nursed back to health by The Bunny Lady, who runs a rabbit rescue in an old barn behind her Michigan farmhouse.",
+        "genre": [
+          "Drama",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2010-11-30",
+        "year": 2010,
+        "rating": 6.4,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-christmas-bunny-2011-dvdrip-pg",
+        "archive_url": "https://archive.org/details/the-christmas-bunny-2011-dvdrip-pg",
+        "archive_title": "The Christmas Bunny",
+        "archive_downloads": 241,
+        "archive_file": {
+          "file": "The Christmas Bunny 2011 dvdrip (PG).mp4",
+          "url": "https://archive.org/download/the-christmas-bunny-2011-dvdrip-pg/The%20Christmas%20Bunny%202011%20dvdrip%20%28PG%29.mp4",
+          "length_seconds": 5715,
+          "format": "h.264",
+          "size": 568008794
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/77934-the-christmas-bunny",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Christmas Without Snow",
+      "link": "https://archive.org/download/a-christmas-without-snow-1980/A%20Christmas%20Without%20Snow%20%281980%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/bllvtTpyNfuJci2JGCTICnObkwa.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/bllvtTpyNfuJci2JGCTICnObkwa.jpg",
+      "summary": "Leaving her son behind at her parents' home in Omaha, Nebraska, recent divorcée Zoe attempts to start her life anew by moving to San Francisco. Seeking something to fill her lonely hours, she begins singing with a church choir. When new choirmaster Ephraim Adams is hired, Zoe finds his attitudes and ideas difficult to tolerate. Faced with the challenging task of satisfying Adams' unrelenting perfectionism, Zoe is tempted once more to run away from her problems.",
+      "content": "movie",
+      "tmdb_id": "46465",
+      "year": "1980",
+      "genre": "Drama / Romance / Family / TV Movie",
+      "infolabels": {
+        "title": "A Christmas Without Snow",
+        "plot": "Leaving her son behind at her parents' home in Omaha, Nebraska, recent divorcée Zoe attempts to start her life anew by moving to San Francisco. Seeking something to fill her lonely hours, she begins singing with a church choir. When new choirmaster Ephraim Adams is hired, Zoe finds his attitudes and ideas difficult to tolerate. Faced with the challenging task of satisfying Adams' unrelenting perfectionism, Zoe is tempted once more to run away from her problems.",
+        "genre": [
+          "Drama",
+          "Romance",
+          "Family",
+          "TV Movie"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1980-12-09",
+        "year": 1980,
+        "rating": 5.7,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "a-christmas-without-snow-1980",
+        "archive_url": "https://archive.org/details/a-christmas-without-snow-1980",
+        "archive_title": "A Christmas Without Snow (1980)",
+        "archive_downloads": 237,
+        "archive_file": {
+          "file": "A Christmas Without Snow (1980).mp4",
+          "url": "https://archive.org/download/a-christmas-without-snow-1980/A%20Christmas%20Without%20Snow%20%281980%29.mp4",
+          "length_seconds": 5722,
+          "format": "MPEG4",
+          "size": 595793464
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/46465-a-christmas-without-snow",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Finding a Family",
+      "link": "https://archive.org/download/finding-a-family-2011-dvdrip-xvid/Finding%20A%20Family%202011%20DVDRip%20Xvid%20.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/cLLaCqbTqRBdVkTweMzffzxYHvC.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/diSkNDcybiIC7WRgwzoONCw8TV7.jpg",
+      "summary": "Bright Alex grows up in Michigan proud of his mother, Romanian immigrant Ileana, who became a professor, vowing to make her dream come true by graduating from Harvard. But when mother becomes manic-depressive and repeatedly dumps her medication, Alex each time lands in foster care. At age 16, he gets legal emancipation and vows to take charge of their lives himself",
+      "content": "movie",
+      "tmdb_id": "108235",
+      "year": "2011",
+      "genre": "Drama / Family / TV Movie",
+      "infolabels": {
+        "title": "Finding a Family",
+        "plot": "Bright Alex grows up in Michigan proud of his mother, Romanian immigrant Ileana, who became a professor, vowing to make her dream come true by graduating from Harvard. But when mother becomes manic-depressive and repeatedly dumps her medication, Alex each time lands in foster care. At age 16, he gets legal emancipation and vows to take charge of their lives himself",
+        "genre": [
+          "Drama",
+          "Family",
+          "TV Movie"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2011-10-15",
+        "year": 2011,
+        "rating": 6.5,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "finding-a-family-2011-dvdrip-xvid",
+        "archive_url": "https://archive.org/details/finding-a-family-2011-dvdrip-xvid",
+        "archive_title": "Finding A Family",
+        "archive_downloads": 58,
+        "archive_file": {
+          "file": "Finding A Family 2011 DVDRip Xvid .mp4",
+          "url": "https://archive.org/download/finding-a-family-2011-dvdrip-xvid/Finding%20A%20Family%202011%20DVDRip%20Xvid%20.mp4",
+          "length_seconds": 5289,
+          "format": "h.264",
+          "size": 531547414
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/108235-finding-a-family",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Gulliver's Travels",
+      "link": "https://archive.org/download/GulliversTravels1939_201509/GulliversTravels-1939.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6NoEtuTwZ04luk5H2DpT5ivW7Mg.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1EnX8qIJUYv6mG0Asub6Om8158z.jpg",
+      "summary": "Travel writer Lemuel Gulliver takes an assignment in Bermuda, but ends up on the island of Liliput, where he towers over its tiny citizens.",
+      "content": "movie",
+      "tmdb_id": "38745",
+      "year": "2010",
+      "genre": "Family / Comedy / Adventure / Fantasy",
+      "infolabels": {
+        "title": "Gulliver's Travels",
+        "plot": "Travel writer Lemuel Gulliver takes an assignment in Bermuda, but ends up on the island of Liliput, where he towers over its tiny citizens.",
+        "genre": [
+          "Family",
+          "Comedy",
+          "Adventure",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2010-12-23",
+        "year": 2010,
+        "rating": 5.219,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "GulliversTravels1939_201509",
+        "archive_url": "https://archive.org/details/GulliversTravels1939_201509",
+        "archive_title": "Gulliver's Travels 1939",
+        "archive_downloads": 95907,
+        "archive_file": {
+          "file": "GulliversTravels-1939.mp4",
+          "url": "https://archive.org/download/GulliversTravels1939_201509/GulliversTravels-1939.mp4",
+          "length_seconds": 4586,
+          "format": "h.264",
+          "size": 476779476
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/38745-gulliver-s-travels",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Jason and the Argonauts",
+      "link": "https://archive.org/download/jason-and-the-argonauts-1963/Jason%20and%20the%20Argonauts%20%281963%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/xHVxIgqD5CxlOI5GHxvVSt5Zh5Y.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/xdefSJpYARFdW4jPhPsuvUlmt2M.jpg",
+      "summary": "Jason, a fearless sailor and explorer, returns to his home land of Thessaly after a long voyage to claim his rightful throne. He learns, however, that he must first find the magical Golden Fleece. To do so, he must embark on an epic quest fraught with fantastic monsters and terrible perils.",
+      "content": "movie",
+      "tmdb_id": "11533",
+      "year": "1963",
+      "genre": "Adventure / Family / Fantasy",
+      "infolabels": {
+        "title": "Jason and the Argonauts",
+        "plot": "Jason, a fearless sailor and explorer, returns to his home land of Thessaly after a long voyage to claim his rightful throne. He learns, however, that he must first find the magical Golden Fleece. To do so, he must embark on an epic quest fraught with fantastic monsters and terrible perils.",
+        "genre": [
+          "Adventure",
+          "Family",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1963-06-13",
+        "year": 1963,
+        "rating": 7.173,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "jason-and-the-argonauts-1963",
+        "archive_url": "https://archive.org/details/jason-and-the-argonauts-1963",
+        "archive_title": "Jason And The Argonauts (1963)",
+        "archive_downloads": 71050,
+        "archive_file": {
+          "file": "Jason and the Argonauts (1963).mp4",
+          "url": "https://archive.org/download/jason-and-the-argonauts-1963/Jason%20and%20the%20Argonauts%20%281963%29.mp4",
+          "length_seconds": 6234,
+          "format": "h.264",
+          "size": 648388224
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/11533-jason-and-the-argonauts",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Little Princess",
+      "link": "https://archive.org/download/the-little-princess-1939/The%20Little%20Princess%20%281939%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/cnMSURyv7R6gjmUm5SYdTxXLzIO.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/hH4a4d2xzHmEhaWFX9kqTVuAlR7.jpg",
+      "summary": "A little girl goes in search of her father who is reported missing by the military during the Second Boer War.",
+      "content": "movie",
+      "tmdb_id": "26531",
+      "year": "1939",
+      "genre": "Family / Drama / Comedy",
+      "infolabels": {
+        "title": "The Little Princess",
+        "plot": "A little girl goes in search of her father who is reported missing by the military during the Second Boer War.",
+        "genre": [
+          "Family",
+          "Drama",
+          "Comedy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1939-03-17",
+        "year": 1939,
+        "rating": 6.7,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-little-princess-1939",
+        "archive_url": "https://archive.org/details/the-little-princess-1939",
+        "archive_title": "The Little Princess (1939)",
+        "archive_downloads": 484,
+        "archive_file": {
+          "file": "The Little Princess (1939).mp4",
+          "url": "https://archive.org/download/the-little-princess-1939/The%20Little%20Princess%20%281939%29.mp4",
+          "length_seconds": 5583,
+          "format": "MPEG4",
+          "size": 540091694
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/26531-the-little-princess",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Magic Sword",
+      "link": "https://archive.org/download/the.-magic.-sword.-1962/The%20Magic%20Sword%20%281962%29/mp4/The.Magic.Sword.1962.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mVivlmUdyUwqSBnQkSzX3TLduky.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kQt1Rg9v6AYyGROMeuTR9m8E7BW.jpg",
+      "summary": "The son of a sorceress, armed with weapons, armour and six magically summoned knights, goes on a quest to save a princess from a vengeful wizard.",
+      "content": "movie",
+      "tmdb_id": "26643",
+      "year": "1962",
+      "genre": "Adventure / Fantasy / Action / Family",
+      "infolabels": {
+        "title": "The Magic Sword",
+        "plot": "The son of a sorceress, armed with weapons, armour and six magically summoned knights, goes on a quest to save a princess from a vengeful wizard.",
+        "genre": [
+          "Adventure",
+          "Fantasy",
+          "Action",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1962-04-01",
+        "year": 1962,
+        "rating": 4.3,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-magic.-sword.-1962",
+        "archive_url": "https://archive.org/details/the.-magic.-sword.-1962",
+        "archive_title": "The Magic Sword (1962)",
+        "archive_downloads": 875,
+        "archive_file": {
+          "file": "The Magic Sword (1962)/mp4/The.Magic.Sword.1962.ia.mp4",
+          "url": "https://archive.org/download/the.-magic.-sword.-1962/The%20Magic%20Sword%20%281962%29/mp4/The.Magic.Sword.1962.ia.mp4",
+          "length_seconds": 4819,
+          "format": "h.264 IA",
+          "size": 1070236997
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/26643-the-magic-sword",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Million Dollar Kid",
+      "link": "https://archive.org/download/1944EastSideKidsMillionDollarKid1944/%281944%29%20East%20Side%20Kids%20-%20Million%20Dollar%20Kid%20%281944%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/hctfqMQrtWjt5C1tfTwZ4lX3VAI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/sRrgUquHaZAto2ezEpGFT0y24gs.jpg",
+      "summary": "The Hunter family has hit the jackpot--scoring a winning 50 million dollar lottery ticket! But when the ticket is lost on the way to cashing it in, the Hunters face overwhelming obstacles in chasing down the ticket before it is stolen by some unsavory characters in this madcap action comedy.",
+      "content": "movie",
+      "tmdb_id": "160147",
+      "year": "2000",
+      "genre": "Family / Comedy / Adventure",
+      "infolabels": {
+        "title": "The Million Dollar Kid",
+        "plot": "The Hunter family has hit the jackpot--scoring a winning 50 million dollar lottery ticket! But when the ticket is lost on the way to cashing it in, the Hunters face overwhelming obstacles in chasing down the ticket before it is stolen by some unsavory characters in this madcap action comedy.",
+        "genre": [
+          "Family",
+          "Comedy",
+          "Adventure"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2000-01-18",
+        "year": 2000,
+        "rating": 3.4,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "1944EastSideKidsMillionDollarKid1944",
+        "archive_url": "https://archive.org/details/1944EastSideKidsMillionDollarKid1944",
+        "archive_title": "Million Dollar Kid (1944)",
+        "archive_downloads": 639,
+        "archive_file": {
+          "file": "(1944) East Side Kids - Million Dollar Kid (1944).mp4",
+          "url": "https://archive.org/download/1944EastSideKidsMillionDollarKid1944/%281944%29%20East%20Side%20Kids%20-%20Million%20Dollar%20Kid%20%281944%29.mp4",
+          "length_seconds": 3855,
+          "format": "MPEG4",
+          "size": 224535939
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/160147-the-million-dollar-kid",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Patchwork Girl of Oz",
+      "link": "https://archive.org/download/silent-the-patchwork-girl-of-oz/The%20Patchwork%20Girl%20of%20Oz.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ySOqjT7KY2hZfi4MGWBLI9I230B.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/qsWxbAd0b1mt9MqKyEFt7vKgGsB.jpg",
+      "summary": "Ojo and Unc Nunkie are out of food, so they decide to journey to the Emerald City where they will never starve. Along the way, they meet Mewel, a waif and stray (mule) who leads them to Dr. Pipt, who has been stirring the powder of life for nine years. Ojo adds plenty of brains to Margolotte's Patchwork servant before she is brought to life with the powder. When Scraps does come to life, she accidentally knocks the liquid of petrifaction upon Unc Nunkie, Margolotte, and Danx (daughter Jesseva's boyfriend). So all go on separate journeys to find the ingredients to the antidote.",
+      "content": "movie",
+      "tmdb_id": "74827",
+      "year": "1914",
+      "genre": "Adventure / Family / Fantasy / Comedy",
+      "infolabels": {
+        "title": "The Patchwork Girl of Oz",
+        "plot": "Ojo and Unc Nunkie are out of food, so they decide to journey to the Emerald City where they will never starve. Along the way, they meet Mewel, a waif and stray (mule) who leads them to Dr. Pipt, who has been stirring the powder of life for nine years. Ojo adds plenty of brains to Margolotte's Patchwork servant before she is brought to life with the powder. When Scraps does come to life, she accidentally knocks the liquid of petrifaction upon Unc Nunkie, Margolotte, and Danx (daughter Jesseva's boyfriend). So all go on separate journeys to find the ingredients to the antidote.",
+        "genre": [
+          "Adventure",
+          "Family",
+          "Fantasy",
+          "Comedy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1914-09-28",
+        "year": 1914,
+        "rating": 5.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "silent-the-patchwork-girl-of-oz",
+        "archive_url": "https://archive.org/details/silent-the-patchwork-girl-of-oz",
+        "archive_title": "The Patchwork Girl of Oz",
+        "archive_downloads": 627,
+        "archive_file": {
+          "file": "The Patchwork Girl of Oz.mp4",
+          "url": "https://archive.org/download/silent-the-patchwork-girl-of-oz/The%20Patchwork%20Girl%20of%20Oz.mp4",
+          "length_seconds": 3710,
+          "format": "h.264",
+          "size": 324143236
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/74827-the-patchwork-girl-of-oz",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Princess for Christmas",
+      "link": "https://archive.org/download/a.-princess.for.-christmas.-2011.-dvdrip.-xviid/A.Princess.for.Christmas.2011.DVDRIP.XVIID.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qv7fx4gW2bNU3eUiwtaxh829Imq.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/ocyOdgL8pGS5KRpRfS69SsS2GMa.jpg",
+      "summary": "After her sister and brother-in-law's tragic deaths, an American woman who is the guardian for her young niece and nephew is invited to a royal European castle for Christmas by her late brother-in-law's father, the Duke of Castlebury. Feeling out of place as a commoner, she is determined to give her family a merry Christmas and surprises herself when she falls for a handsome prince.",
+      "content": "movie",
+      "tmdb_id": "79113",
+      "year": "2011",
+      "genre": "Comedy / Family / TV Movie / Romance / Drama",
+      "infolabels": {
+        "title": "A Princess for Christmas",
+        "plot": "After her sister and brother-in-law's tragic deaths, an American woman who is the guardian for her young niece and nephew is invited to a royal European castle for Christmas by her late brother-in-law's father, the Duke of Castlebury. Feeling out of place as a commoner, she is determined to give her family a merry Christmas and surprises herself when she falls for a handsome prince.",
+        "genre": [
+          "Comedy",
+          "Family",
+          "TV Movie",
+          "Romance",
+          "Drama"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2011-12-03",
+        "year": 2011,
+        "rating": 7.032,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "a.-princess.for.-christmas.-2011.-dvdrip.-xviid",
+        "archive_url": "https://archive.org/details/a.-princess.for.-christmas.-2011.-dvdrip.-xviid",
+        "archive_title": "A Princess For Christmas",
+        "archive_downloads": 124,
+        "archive_file": {
+          "file": "A.Princess.for.Christmas.2011.DVDRIP.XVIID.mp4",
+          "url": "https://archive.org/download/a.-princess.for.-christmas.-2011.-dvdrip.-xviid/A.Princess.for.Christmas.2011.DVDRIP.XVIID.mp4",
+          "length_seconds": 5282,
+          "format": "h.264",
+          "size": 521979537
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/79113-a-princess-for-christmas",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Raise Your Voice",
+      "link": "https://archive.org/download/raise-your-voice-dvdrip/Raise%20Your%20Voice%20dvdrip.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/3waZREH25DZ8XqZSndCxZ7IiVzR.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/9GiHZHImGkgsBNBQwrlsnqWaoZo.jpg",
+      "summary": "A coming-of-age story centered around a small-town singer brokenhearted by the death of her brother in a car crash, who had secretly submitted her for a summer session at a performing arts academy in Los Angeles. In the academy, she experiences a whole new way of life in the big city, far from the small town lifestyle she's used to.",
+      "content": "movie",
+      "tmdb_id": "14024",
+      "year": "2004",
+      "genre": "Music / Drama / Romance / Family",
+      "infolabels": {
+        "title": "Raise Your Voice",
+        "plot": "A coming-of-age story centered around a small-town singer brokenhearted by the death of her brother in a car crash, who had secretly submitted her for a summer session at a performing arts academy in Los Angeles. In the academy, she experiences a whole new way of life in the big city, far from the small town lifestyle she's used to.",
+        "genre": [
+          "Music",
+          "Drama",
+          "Romance",
+          "Family"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2004-08-10",
+        "year": 2004,
+        "rating": 6.546,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "raise-your-voice-dvdrip",
+        "archive_url": "https://archive.org/details/raise-your-voice-dvdrip",
+        "archive_title": "Raise Your Voice Dvdrip",
+        "archive_downloads": 398,
+        "archive_file": {
+          "file": "Raise Your Voice dvdrip.mp4",
+          "url": "https://archive.org/download/raise-your-voice-dvdrip/Raise%20Your%20Voice%20dvdrip.mp4",
+          "length_seconds": 6404,
+          "format": "h.264",
+          "size": 639018188
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/14024-raise-your-voice",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Seven Alone",
+      "link": "https://archive.org/download/seven-alone-1974/Seven%20Alone%20%281974%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/kPnzfH7CMz5MqPoC1GQgtbcsKsr.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/5AjlZhldPTnvfChM7XznxTwKxQ8.jpg",
+      "summary": "A fictionalized account of the real-life adventure of the Sager family. Travelling with a wagon train from Missouri to Oregon, things are going well for the Sagers, until father Sager dies from blood poisoning following an Indian attack, and mother Sager dies soon afterward from pneumonia. The leaders of the wagon train decide to send the children back, but the oldest, John (who had been described by all the adults as lazy and worthless), decides to lead his siblings through the wilderness to complete the journey their parents started.",
+      "content": "movie",
+      "tmdb_id": "53931",
+      "year": "1974",
+      "genre": "Drama / Family / Adventure / Western",
+      "infolabels": {
+        "title": "Seven Alone",
+        "plot": "A fictionalized account of the real-life adventure of the Sager family. Travelling with a wagon train from Missouri to Oregon, things are going well for the Sagers, until father Sager dies from blood poisoning following an Indian attack, and mother Sager dies soon afterward from pneumonia. The leaders of the wagon train decide to send the children back, but the oldest, John (who had been described by all the adults as lazy and worthless), decides to lead his siblings through the wilderness to complete the journey their parents started.",
+        "genre": [
+          "Drama",
+          "Family",
+          "Adventure",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1974-12-20",
+        "year": 1974,
+        "rating": 6.154,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "seven-alone-1974",
+        "archive_url": "https://archive.org/details/seven-alone-1974",
+        "archive_title": "Seven Alone (1974)",
+        "archive_downloads": 298,
+        "archive_file": {
+          "file": "Seven Alone (1974).mp4",
+          "url": "https://archive.org/download/seven-alone-1974/Seven%20Alone%20%281974%29.mp4",
+          "length_seconds": 5741,
+          "format": "MPEG4",
+          "size": 596659294
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/53931-seven-alone",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Tom Sawyer",
+      "link": "https://archive.org/download/tom-sawyer-1973_202511/Tom%20Sawyer%20%281973%29/Tom%20Sawyer%281973%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/In4e2cLbkemK8t2bBfisgT0iqU.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/nvrnKTnMchR2aBDfygWhbMgMXSO.jpg",
+      "summary": "Tom Sawyer and his pal Huckleberry Finn have great adventures on the Mississippi River, pretending to be pirates, attending their own funeral, and witnessing a murder.",
+      "content": "movie",
+      "tmdb_id": "42473",
+      "year": "1973",
+      "genre": "Family / Music / Adventure",
+      "infolabels": {
+        "title": "Tom Sawyer",
+        "plot": "Tom Sawyer and his pal Huckleberry Finn have great adventures on the Mississippi River, pretending to be pirates, attending their own funeral, and witnessing a murder.",
+        "genre": [
+          "Family",
+          "Music",
+          "Adventure"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1973-03-15",
+        "year": 1973,
+        "rating": 6.4,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "tom-sawyer-1973_202511",
+        "archive_url": "https://archive.org/details/tom-sawyer-1973_202511",
+        "archive_title": "Tom Sawyer (1973)",
+        "archive_downloads": 1266,
+        "archive_file": {
+          "file": "Tom Sawyer (1973)/Tom Sawyer(1973).ia.mp4",
+          "url": "https://archive.org/download/tom-sawyer-1973_202511/Tom%20Sawyer%20%281973%29/Tom%20Sawyer%281973%29.ia.mp4",
+          "length_seconds": 5912,
+          "format": "h.264 IA",
+          "size": 735230508
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42473-tom-sawyer",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Family"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Worst Witch",
+      "link": "https://archive.org/download/the-worst-witch-1986_202304/The%20Worst%20Witch%20%281986%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ph6U11FTmfxFlkl32riyAyytqgZ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/aaPPyLUQC1KkYjEPLqc8jBImZY5.jpg",
+      "summary": "Mildred is one of the young girls at a prestigious witch academy. She can't seem to do anything right and is picked on by classmates and teachers. The headmistress of the school, Miss Cackle, has an evil twin sister who plans to destroy the school. Can Mildred foil the plan before the Grand Wizard comes to the Academy for a Halloween celebration you'll never forget?!!",
+      "content": "movie",
+      "tmdb_id": "24054",
+      "year": "1986",
+      "genre": "TV Movie / Family / Comedy / Fantasy / Music",
+      "infolabels": {
+        "title": "The Worst Witch",
+        "plot": "Mildred is one of the young girls at a prestigious witch academy. She can't seem to do anything right and is picked on by classmates and teachers. The headmistress of the school, Miss Cackle, has an evil twin sister who plans to destroy the school. Can Mildred foil the plan before the Grand Wizard comes to the Academy for a Halloween celebration you'll never forget?!!",
+        "genre": [
+          "TV Movie",
+          "Family",
+          "Comedy",
+          "Fantasy",
+          "Music"
+        ],
+        "country": [
+          "United Kingdom",
+          "United States"
+        ],
+        "premiered": "1986-10-22",
+        "year": 1986,
+        "rating": 6.111,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-worst-witch-1986_202304",
+        "archive_url": "https://archive.org/details/the-worst-witch-1986_202304",
+        "archive_title": "The Worst Witch (1986)",
+        "archive_downloads": 19303,
+        "archive_file": {
+          "file": "The Worst Witch (1986).ia.mp4",
+          "url": "https://archive.org/download/the-worst-witch-1986_202304/The%20Worst%20Witch%20%281986%29.ia.mp4",
+          "length_seconds": 4178,
+          "format": "h.264 IA",
+          "size": 428858868
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/24054-the-worst-witch",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

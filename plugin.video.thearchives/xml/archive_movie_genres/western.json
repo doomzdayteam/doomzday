@@ -1,0 +1,1033 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Apache Blood",
+      "link": "https://archive.org/download/ApacheBlood/Apache_Blood.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/AaKgwkMQsi2f4U1xFEJgpgXth6R.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/vqYXjOHa9dFNdxWtVkSZOi9Y6sA.jpg",
+      "summary": "After a massacre of an Indian village by the U.S army, a survivor, Yellow shirt (Ray Danton) goes after them for revenge. His journey becomes a deadly adventure. His life will be threatened by the hostility of the desert, snakes, hallucinations and of course his encounter with his enemies…",
+      "content": "movie",
+      "tmdb_id": "22365",
+      "year": "1975",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Apache Blood",
+        "plot": "After a massacre of an Indian village by the U.S army, a survivor, Yellow shirt (Ray Danton) goes after them for revenge. His journey becomes a deadly adventure. His life will be threatened by the hostility of the desert, snakes, hallucinations and of course his encounter with his enemies…",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1975-01-06",
+        "year": 1975,
+        "rating": 3.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "ApacheBlood",
+        "archive_url": "https://archive.org/details/ApacheBlood",
+        "archive_title": "Apache Blood",
+        "archive_downloads": 30294,
+        "archive_file": {
+          "file": "Apache_Blood.mp4",
+          "url": "https://archive.org/download/ApacheBlood/Apache_Blood.mp4",
+          "length_seconds": 5351,
+          "format": "h.264",
+          "size": 555226751
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/22365-apache-blood",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Big Trail",
+      "link": "https://archive.org/download/the-big-trail_1930/the-big-trail_1930.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mmKlxMlpvTRwJWs0x2nAhdhWOIv.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/ea9rdcxr7NZwI5MVCoF3x3VzWHq.jpg",
+      "summary": "Young scout Breck Coleman leads a wagon train along the dangerous trail to Oregon as he tries to get the affection of the beautiful pioneer Ruth Cameron and plans his revenge on the harsh scoundrels who murdered a friend of his in the past.",
+      "content": "movie",
+      "tmdb_id": "42640",
+      "year": "1930",
+      "genre": "Drama / Western",
+      "infolabels": {
+        "title": "The Big Trail",
+        "plot": "Young scout Breck Coleman leads a wagon train along the dangerous trail to Oregon as he tries to get the affection of the beautiful pioneer Ruth Cameron and plans his revenge on the harsh scoundrels who murdered a friend of his in the past.",
+        "genre": [
+          "Drama",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1930-11-01",
+        "year": 1930,
+        "rating": 6.723,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-big-trail_1930",
+        "archive_url": "https://archive.org/details/the-big-trail_1930",
+        "archive_title": "The Big Trail",
+        "archive_downloads": 2320,
+        "archive_file": {
+          "file": "the-big-trail_1930.ia.mp4",
+          "url": "https://archive.org/download/the-big-trail_1930/the-big-trail_1930.ia.mp4",
+          "length_seconds": 7004,
+          "format": "h.264 IA",
+          "size": 680915700
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42640-the-big-trail",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Bold Caballero",
+      "link": "https://archive.org/download/TheBoldCaballero/bold_caballero.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gHiY7rVGoKpf3eN0XVQ3zGIrPGD.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/8g3YuPyW8kbrrNerR0MbEgjCIhs.jpg",
+      "summary": "The Commandant is making life rough for the colonials in Spanish California. While trying to help, Zorro is charged with the murder of the new Governor, but in the end he triumphs over the evil Commandant.",
+      "content": "movie",
+      "tmdb_id": "215486",
+      "year": "1936",
+      "genre": "Action / Adventure / Comedy / Romance / Western",
+      "infolabels": {
+        "title": "The Bold Caballero",
+        "plot": "The Commandant is making life rough for the colonials in Spanish California. While trying to help, Zorro is charged with the murder of the new Governor, but in the end he triumphs over the evil Commandant.",
+        "genre": [
+          "Action",
+          "Adventure",
+          "Comedy",
+          "Romance",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1936-12-01",
+        "year": 1936,
+        "rating": 6.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheBoldCaballero",
+        "archive_url": "https://archive.org/details/TheBoldCaballero",
+        "archive_title": "The Bold Caballero",
+        "archive_downloads": 14702,
+        "archive_file": {
+          "file": "bold_caballero.mp4",
+          "url": "https://archive.org/download/TheBoldCaballero/bold_caballero.mp4",
+          "length_seconds": 4112,
+          "format": "h.264",
+          "size": 428095416
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/215486-the-bold-caballero",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Bullet for the General",
+      "link": "https://archive.org/download/ABulletForTheGeneral/%5Bwww.VDyoutube.com%5D-A%20Bullet%20For%20The%20General.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mKJtHftfsLwz8y8XMb8gPdxoBKJ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/lbgRSXK74GxA4ahyzXaMrNcD9et.jpg",
+      "summary": "El Chuncho's bandits rob arms from a train, intending to sell the weapons to Elias' revolutionaries. They are helped by one of the passengers, Bill Tate, and allow him to join them, unware of his true intentions.",
+      "content": "movie",
+      "tmdb_id": "37316",
+      "year": "1967",
+      "genre": "Western",
+      "infolabels": {
+        "title": "A Bullet for the General",
+        "plot": "El Chuncho's bandits rob arms from a train, intending to sell the weapons to Elias' revolutionaries. They are helped by one of the passengers, Bill Tate, and allow him to join them, unware of his true intentions.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "Italy"
+        ],
+        "premiered": "1967-01-13",
+        "year": 1967,
+        "rating": 6.634,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "ABulletForTheGeneral",
+        "archive_url": "https://archive.org/details/ABulletForTheGeneral",
+        "archive_title": "A Bullet for the General",
+        "archive_downloads": 5085,
+        "archive_file": {
+          "file": "[www.VDyoutube.com]-A Bullet For The General.mp4",
+          "url": "https://archive.org/download/ABulletForTheGeneral/%5Bwww.VDyoutube.com%5D-A%20Bullet%20For%20The%20General.mp4",
+          "length_seconds": 7068,
+          "format": "MPEG4",
+          "size": 1062103287
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/37316-quien-sabe",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Chato's Land",
+      "link": "https://archive.org/download/chatos-land-1972_202510/Chatos%20Land%20-%201972/Chatos%20Land%20-%201972.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/hkPgmx39U5rWjyFMcYa3btZnh76.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/g4DXLFNFOkJSHbmu2sbKgCoZSBi.jpg",
+      "summary": "In 1870s New Mexico, a half-breed kills a bigoted sheriff in self-defense but the posse that eventually hunts him finds itself in dangerous territory.",
+      "content": "movie",
+      "tmdb_id": "26119",
+      "year": "1972",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Chato's Land",
+        "plot": "In 1870s New Mexico, a half-breed kills a bigoted sheriff in self-defense but the posse that eventually hunts him finds itself in dangerous territory.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1972-05-25",
+        "year": 1972,
+        "rating": 6.524,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "chatos-land-1972_202510",
+        "archive_url": "https://archive.org/details/chatos-land-1972_202510",
+        "archive_title": "Chato's Land (1972)",
+        "archive_downloads": 1995,
+        "archive_file": {
+          "file": "Chatos Land - 1972/Chatos Land - 1972.ia.mp4",
+          "url": "https://archive.org/download/chatos-land-1972_202510/Chatos%20Land%20-%201972/Chatos%20Land%20-%201972.ia.mp4",
+          "length_seconds": 5996,
+          "format": "h.264 IA",
+          "size": 842141010
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/26119-chato-s-land",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Drums in the Deep South",
+      "link": "https://archive.org/download/DrumsInTheDeepSouth/Drums_in_the_Deep_South.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/5bTVhe2XopRyzpaVoOwNdG8Kd8j.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/u8l1kH6AyrDdg81C2ZJTVipIVBQ.jpg",
+      "summary": "Two old friends find themselves on opposite sides during the Civil War in a desperate battle atop an impregnable mountain.",
+      "content": "movie",
+      "tmdb_id": "110851",
+      "year": "1951",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Drums in the Deep South",
+        "plot": "Two old friends find themselves on opposite sides during the Civil War in a desperate battle atop an impregnable mountain.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1951-09-01",
+        "year": 1951,
+        "rating": 5.333,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "DrumsInTheDeepSouth",
+        "archive_url": "https://archive.org/details/DrumsInTheDeepSouth",
+        "archive_title": "Drums In The Deep South",
+        "archive_downloads": 24391,
+        "archive_file": {
+          "file": "Drums_in_the_Deep_South.mp4",
+          "url": "https://archive.org/download/DrumsInTheDeepSouth/Drums_in_the_Deep_South.mp4",
+          "length_seconds": 5168,
+          "format": "h.264",
+          "size": 537220669
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/110851-drums-in-the-deep-south",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Joshua",
+      "link": "https://archive.org/download/ClaCinOnl_Joshua/Joshua.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/c6461HtKSlZWrVqDubGZUL56Iue.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/eC7XNLwBbS02DfqzSjjlGs7TwTC.jpg",
+      "summary": "A black soldier returns from fighting for the Union in the Civil War only to find out that his mother has been murdered by a gang of white thugs. He becomes a bounty hunter, determined to track down and kill the men who killed his mother.",
+      "content": "movie",
+      "tmdb_id": "79688",
+      "year": "1976",
+      "genre": "Drama / Thriller / Western",
+      "infolabels": {
+        "title": "Joshua",
+        "plot": "A black soldier returns from fighting for the Union in the Civil War only to find out that his mother has been murdered by a gang of white thugs. He becomes a bounty hunter, determined to track down and kill the men who killed his mother.",
+        "genre": [
+          "Drama",
+          "Thriller",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1976-12-01",
+        "year": 1976,
+        "rating": 4.6,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "ClaCinOnl_Joshua",
+        "archive_url": "https://archive.org/details/ClaCinOnl_Joshua",
+        "archive_title": "Joshua",
+        "archive_downloads": 152816,
+        "archive_file": {
+          "file": "Joshua.mp4",
+          "url": "https://archive.org/download/ClaCinOnl_Joshua/Joshua.mp4",
+          "length_seconds": 4957,
+          "format": "h.264",
+          "size": 514358942
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/79688-joshua",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Little Big Man",
+      "link": "https://archive.org/download/little-big-man-1970_202511/Little%20Big%20Man%20%281970%29/Little%20Big%20Man%20-%201970.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/pLvUVqadEI9cPrRlTru6ee71EWU.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/uuich47VwLn44B0gHmhgLt6hTcM.jpg",
+      "summary": "Jack Crabb, looking back from extreme old age, tells of his life being raised by Indians and fighting with General Custer.",
+      "content": "movie",
+      "tmdb_id": "11040",
+      "year": "1970",
+      "genre": "Western / Comedy / Adventure / Drama",
+      "infolabels": {
+        "title": "Little Big Man",
+        "plot": "Jack Crabb, looking back from extreme old age, tells of his life being raised by Indians and fighting with General Custer.",
+        "genre": [
+          "Western",
+          "Comedy",
+          "Adventure",
+          "Drama"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1970-12-23",
+        "year": 1970,
+        "rating": 7.444,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "little-big-man-1970_202511",
+        "archive_url": "https://archive.org/details/little-big-man-1970_202511",
+        "archive_title": "Little Big Man (1970)",
+        "archive_downloads": 4273,
+        "archive_file": {
+          "file": "Little Big Man (1970)/Little Big Man - 1970.mp4",
+          "url": "https://archive.org/download/little-big-man-1970_202511/Little%20Big%20Man%20%281970%29/Little%20Big%20Man%20-%201970.mp4",
+          "length_seconds": 8362,
+          "format": "MPEG4",
+          "size": 1219749635
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/11040-little-big-man",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Man Called Horse",
+      "link": "https://archive.org/download/a-man-called-horse-1970/A%20Man%20Called%20Horse%20%281970%29/A%20Man%20Called%20Horse%20-%201970.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gvo0LMk5EWwsypsXl2i25D83ztm.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/nea3UGrcrMZ6t7jrynpbDkWdIC1.jpg",
+      "summary": "In 1825, English peer Lord John Morgan is cast adrift in the American West. Captured by Sioux Indians, Morgan is at first targeted for quick extinction, but the tribesmen sense that he is worthy of survival. He eventually passes the many necessary tests that will permit him to become a member of the tribe.",
+      "content": "movie",
+      "tmdb_id": "14676",
+      "year": "1970",
+      "genre": "Western / Drama",
+      "infolabels": {
+        "title": "A Man Called Horse",
+        "plot": "In 1825, English peer Lord John Morgan is cast adrift in the American West. Captured by Sioux Indians, Morgan is at first targeted for quick extinction, but the tribesmen sense that he is worthy of survival. He eventually passes the many necessary tests that will permit him to become a member of the tribe.",
+        "genre": [
+          "Western",
+          "Drama"
+        ],
+        "country": [
+          "Mexico",
+          "United States"
+        ],
+        "premiered": "1970-05-01",
+        "year": 1970,
+        "rating": 6.441,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "a-man-called-horse-1970",
+        "archive_url": "https://archive.org/details/a-man-called-horse-1970",
+        "archive_title": "A Man Called Horse (1970)",
+        "archive_downloads": 1854,
+        "archive_file": {
+          "file": "A Man Called Horse (1970)/A Man Called Horse - 1970.mp4",
+          "url": "https://archive.org/download/a-man-called-horse-1970/A%20Man%20Called%20Horse%20%281970%29/A%20Man%20Called%20Horse%20-%201970.mp4",
+          "length_seconds": 6917,
+          "format": "MPEG4",
+          "size": 1111534854
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/14676-a-man-called-horse",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mercenary",
+      "link": "https://archive.org/download/the.-mercenary.-1968/The%20Mercenary%20%281968%29/mp4/The.Mercenary.1968.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gIRRNEpkZg41syNBw0phpQfXa3C.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/d9UmrrINacgZtMRQBazAxN6eX4h.jpg",
+      "summary": "While a Mexican revolutionary lies low as a U.S. rodeo clown, the cynical Polish mercenary who tutored the idealistic peasant tells how he and a dedicated female radical fought for the soul of the guerrilla general Paco, as Mexicans threw off repressive government and all-powerful landowners in the 1910s. Tracked by the vengeful Curly, Paco liberates villages, but is tempted by social banditry's treasures, which Kowalski revels in.",
+      "content": "movie",
+      "tmdb_id": "48169",
+      "year": "1968",
+      "genre": "Western / Comedy / Drama",
+      "infolabels": {
+        "title": "The Mercenary",
+        "plot": "While a Mexican revolutionary lies low as a U.S. rodeo clown, the cynical Polish mercenary who tutored the idealistic peasant tells how he and a dedicated female radical fought for the soul of the guerrilla general Paco, as Mexicans threw off repressive government and all-powerful landowners in the 1910s. Tracked by the vengeful Curly, Paco liberates villages, but is tempted by social banditry's treasures, which Kowalski revels in.",
+        "genre": [
+          "Western",
+          "Comedy",
+          "Drama"
+        ],
+        "country": [
+          "Italy"
+        ],
+        "premiered": "1968-12-20",
+        "year": 1968,
+        "rating": 6.859,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-mercenary.-1968",
+        "archive_url": "https://archive.org/details/the.-mercenary.-1968",
+        "archive_title": "The Mercenary (1968)",
+        "archive_downloads": 1941,
+        "archive_file": {
+          "file": "The Mercenary (1968)/mp4/The.Mercenary.1968.mp4",
+          "url": "https://archive.org/download/the.-mercenary.-1968/The%20Mercenary%20%281968%29/mp4/The.Mercenary.1968.mp4",
+          "length_seconds": 6367,
+          "format": "MPEG4",
+          "size": 1789243008
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/48169-il-mercenario",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Phantom Empire",
+      "link": "https://archive.org/download/The_Phantom_Empire_1935/The_Phantom_Empire_1935.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qSngO3JT8ICqvOvgBg4zXbucDF.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/2rSw3rO4sznNmSxvtbvpvexXGot.jpg",
+      "summary": "When the ancient continent of Mu sank beneath the ocean, some of its inhabitant survived in caverns beneath the sea. Cowboy singer Gene Autry stumbles upon the civilization, now buried beneath his own Radio Ranch. The Muranians have developed technology and weaponry such as television and ray guns. Their rich supply of radium draws unscrupulous speculators from the surface. The peaceful civilization of the Muranians is corrupted by the greed from above, and it becomes Autry's task to prevent all-out war, ideally without disrupting his regular radio show.",
+      "content": "movie",
+      "tmdb_id": "184892",
+      "year": "1935",
+      "genre": "Action / Music / Science Fiction / Western",
+      "infolabels": {
+        "title": "The Phantom Empire",
+        "plot": "When the ancient continent of Mu sank beneath the ocean, some of its inhabitant survived in caverns beneath the sea. Cowboy singer Gene Autry stumbles upon the civilization, now buried beneath his own Radio Ranch. The Muranians have developed technology and weaponry such as television and ray guns. Their rich supply of radium draws unscrupulous speculators from the surface. The peaceful civilization of the Muranians is corrupted by the greed from above, and it becomes Autry's task to prevent all-out war, ideally without disrupting his regular radio show.",
+        "genre": [
+          "Action",
+          "Music",
+          "Science Fiction",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1935-02-22",
+        "year": 1935,
+        "rating": 5.792,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "The_Phantom_Empire_1935",
+        "archive_url": "https://archive.org/details/The_Phantom_Empire_1935",
+        "archive_title": "The Phantom Empire",
+        "archive_downloads": 26549,
+        "archive_file": {
+          "file": "The_Phantom_Empire_1935.mp4",
+          "url": "https://archive.org/download/The_Phantom_Empire_1935/The_Phantom_Empire_1935.mp4",
+          "length_seconds": 4145,
+          "format": "h.264",
+          "size": 408510534
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/184892-the-phantom-empire",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Professionals",
+      "link": "https://archive.org/download/the.-professionals.-1966/The%20Professionals%20%281966%29/mp4/The.Professionals.1966.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/sH4Clw7QrtH23xl9o4sOpHNkRIz.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/jJKjniDrS1FaWiSgOBxjjTe6ME.jpg",
+      "summary": "An arrogant Texas millionaire hires four adventurers to rescue his kidnapped wife from a notorious Mexican bandit.",
+      "content": "movie",
+      "tmdb_id": "22383",
+      "year": "1966",
+      "genre": "Western / Adventure / Action",
+      "infolabels": {
+        "title": "The Professionals",
+        "plot": "An arrogant Texas millionaire hires four adventurers to rescue his kidnapped wife from a notorious Mexican bandit.",
+        "genre": [
+          "Western",
+          "Adventure",
+          "Action"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1966-11-01",
+        "year": 1966,
+        "rating": 7.094,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the.-professionals.-1966",
+        "archive_url": "https://archive.org/details/the.-professionals.-1966",
+        "archive_title": "The Professionals (1966)",
+        "archive_downloads": 1928,
+        "archive_file": {
+          "file": "The Professionals (1966)/mp4/The.Professionals.1966.mp4",
+          "url": "https://archive.org/download/the.-professionals.-1966/The%20Professionals%20%281966%29/mp4/The.Professionals.1966.mp4",
+          "length_seconds": 7049,
+          "format": "MPEG4",
+          "size": 1903717774
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/22383-the-professionals",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Radio Ranch",
+      "link": "https://archive.org/download/RadioRanch_201609/Radio%20Ranch.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/yQUo7F7ugW6vjLSNBUdzOoYHcZJ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/z5SXyHEwxlgthoHAuWb1ldKL5gu.jpg",
+      "summary": "Re-edited feature version of serial The Phantom Empire (1935). Singer Gene Autry discovers a race of advanced humans living beneath the earth.",
+      "content": "movie",
+      "tmdb_id": "113738",
+      "year": "1940",
+      "genre": "Action / Adventure / Science Fiction / Western",
+      "infolabels": {
+        "title": "Radio Ranch",
+        "plot": "Re-edited feature version of serial The Phantom Empire (1935). Singer Gene Autry discovers a race of advanced humans living beneath the earth.",
+        "genre": [
+          "Action",
+          "Adventure",
+          "Science Fiction",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1940-05-02",
+        "year": 1940,
+        "rating": 5.571,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "RadioRanch_201609",
+        "archive_url": "https://archive.org/details/RadioRanch_201609",
+        "archive_title": "Radio Ranch",
+        "archive_downloads": 21279,
+        "archive_file": {
+          "file": "Radio Ranch.mp4",
+          "url": "https://archive.org/download/RadioRanch_201609/Radio%20Ranch.mp4",
+          "length_seconds": 4172,
+          "format": "h.264",
+          "size": 434347069
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/113738-radio-ranch",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Ride Lonesome",
+      "link": "https://archive.org/download/ride-lonesome-1959/Ride%20Lonesome%20%281959%29/Ride%20Lonesome%20-%201959.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4fQW6hAFW0YrQXrDUaMweNI1SgQ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/5UiC1NvHMH4YVCc88hSwrfZRSSl.jpg",
+      "summary": "On the way to pick up the bounty on a wanted murderer, a bounty hunter stops at a staging post where he is forced to continue his journey with two outlaws who want the murderer for their own reasons and a recently-widowed woman, with the murderer's brother and his men in hot pursuit.",
+      "content": "movie",
+      "tmdb_id": "27644",
+      "year": "1959",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Ride Lonesome",
+        "plot": "On the way to pick up the bounty on a wanted murderer, a bounty hunter stops at a staging post where he is forced to continue his journey with two outlaws who want the murderer for their own reasons and a recently-widowed woman, with the murderer's brother and his men in hot pursuit.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1959-02-01",
+        "year": 1959,
+        "rating": 6.704,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "ride-lonesome-1959",
+        "archive_url": "https://archive.org/details/ride-lonesome-1959",
+        "archive_title": "Ride Lonesome (1959)",
+        "archive_downloads": 1295,
+        "archive_file": {
+          "file": "Ride Lonesome (1959)/Ride Lonesome - 1959.mp4",
+          "url": "https://archive.org/download/ride-lonesome-1959/Ride%20Lonesome%20%281959%29/Ride%20Lonesome%20-%201959.mp4",
+          "length_seconds": 4359,
+          "format": "MPEG4",
+          "size": 628453174
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/27644-ride-lonesome",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Romance of the Redwoods",
+      "link": "https://archive.org/download/RomanceOfTheRedwoods/Romance%20of%20The%20Redwoods.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/zVVlbHMn8tSEk7gMiL6Gdhv0kTF.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/qqarTIw7BHJRnbxHKNYubQ58DiG.jpg",
+      "summary": "A young girl travels west to live with her uncle during the California Gold Rush only to find that he has been killed by Indians and his identity assumed by an outlaw.",
+      "content": "movie",
+      "tmdb_id": "174708",
+      "year": "1917",
+      "genre": "Drama / Romance / Western",
+      "infolabels": {
+        "title": "A Romance of the Redwoods",
+        "plot": "A young girl travels west to live with her uncle during the California Gold Rush only to find that he has been killed by Indians and his identity assumed by an outlaw.",
+        "genre": [
+          "Drama",
+          "Romance",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1917-05-14",
+        "year": 1917,
+        "rating": 6.4,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "RomanceOfTheRedwoods",
+        "archive_url": "https://archive.org/details/RomanceOfTheRedwoods",
+        "archive_title": "Romance Of The Redwoods",
+        "archive_downloads": 27794,
+        "archive_file": {
+          "file": "Romance of The Redwoods.mp4",
+          "url": "https://archive.org/download/RomanceOfTheRedwoods/Romance%20of%20The%20Redwoods.mp4",
+          "length_seconds": 5469,
+          "format": "h.264",
+          "size": 484703761
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/174708-a-romance-of-the-redwoods",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Run, Man, Run",
+      "link": "https://archive.org/download/run.man.run.1968/Corri%20Uomo%20Corri/mp4/run.man.run.1968.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/5j8FLFM3n6SVSQvqPoEmZcyk2l2.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/2qMoL9p8NG1nrfBMnuXOVoVlFoM.jpg",
+      "summary": "The legendary Tomas Milian stars as Cuchillo, a knife-throwing thief on the run from murderous bandits, sadistic American agents, his hot-blooded fiancée and a sheriff turned bounty hunter, all of whom are gunning for a hidden fortune in gold that could finance the Mexican Revolution.",
+      "content": "movie",
+      "tmdb_id": "18928",
+      "year": "1968",
+      "genre": "Western / Comedy / Adventure",
+      "infolabels": {
+        "title": "Run, Man, Run",
+        "plot": "The legendary Tomas Milian stars as Cuchillo, a knife-throwing thief on the run from murderous bandits, sadistic American agents, his hot-blooded fiancée and a sheriff turned bounty hunter, all of whom are gunning for a hidden fortune in gold that could finance the Mexican Revolution.",
+        "genre": [
+          "Western",
+          "Comedy",
+          "Adventure"
+        ],
+        "country": [
+          "Italy"
+        ],
+        "premiered": "1968-08-29",
+        "year": 1968,
+        "rating": 6.5,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "run.man.run.1968",
+        "archive_url": "https://archive.org/details/run.man.run.1968",
+        "archive_title": "Run, Man, Run (1968)",
+        "archive_downloads": 2420,
+        "archive_file": {
+          "file": "Corri Uomo Corri/mp4/run.man.run.1968.mp4",
+          "url": "https://archive.org/download/run.man.run.1968/Corri%20Uomo%20Corri/mp4/run.man.run.1968.mp4",
+          "length_seconds": 6945,
+          "format": "MPEG4",
+          "size": 405040458
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/18928-corri-uomo-corri",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Squaw Man",
+      "link": "https://archive.org/download/SquawMan/Squaw%20Man.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jmXvHG9Was7g7GqW09WHHSymZq7.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/sJ3dXBmgFlZqL1WFXY4uIGRm2yp.jpg",
+      "summary": "Framed for embezzlement, an English nobleman flees to America, eventually finding romance in Wyoming with a young Native-American. This is the 1918 remake of the 1913 original, the first feature length Hollywood film. It is considered to be a lost film with only one reel still extant.",
+      "content": "movie",
+      "tmdb_id": "115076",
+      "year": "1918",
+      "genre": "Western",
+      "infolabels": {
+        "title": "The Squaw Man",
+        "plot": "Framed for embezzlement, an English nobleman flees to America, eventually finding romance in Wyoming with a young Native-American. This is the 1918 remake of the 1913 original, the first feature length Hollywood film. It is considered to be a lost film with only one reel still extant.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1918-12-15",
+        "year": 1918,
+        "rating": 5.8,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "SquawMan",
+        "archive_url": "https://archive.org/details/SquawMan",
+        "archive_title": "The Squaw Man",
+        "archive_downloads": 22472,
+        "archive_file": {
+          "file": "Squaw Man.mp4",
+          "url": "https://archive.org/download/SquawMan/Squaw%20Man.mp4",
+          "length_seconds": 4358,
+          "format": "h.264",
+          "size": 386716345
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/115076-the-squaw-man",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Ulzana's Raid",
+      "link": "https://archive.org/download/ulzanas-raid-1972_20251016/Ulzanas%20Raid%20%281972%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mftnQcqDDFEIOLc8M4rA626MaEC.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/j2NA18Cy6AKwSWEwXJaAaqZ2H0.jpg",
+      "summary": "After fierce war chief Ulzana and a small war party jump the reservation bent on murder and terror, an inexperienced young lieutenant is assigned to track him down.",
+      "content": "movie",
+      "tmdb_id": "42491",
+      "year": "1972",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Ulzana's Raid",
+        "plot": "After fierce war chief Ulzana and a small war party jump the reservation bent on murder and terror, an inexperienced young lieutenant is assigned to track him down.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1972-10-27",
+        "year": 1972,
+        "rating": 6.875,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "ulzanas-raid-1972_20251016",
+        "archive_url": "https://archive.org/details/ulzanas-raid-1972_20251016",
+        "archive_title": "Ulzanas Raid (1972)",
+        "archive_downloads": 1397,
+        "archive_file": {
+          "file": "Ulzanas Raid (1972).mp4",
+          "url": "https://archive.org/download/ulzanas-raid-1972_20251016/Ulzanas%20Raid%20%281972%29.mp4",
+          "length_seconds": 6190,
+          "format": "MPEG4",
+          "size": 1845536947
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42491-ulzana-s-raid",
+        "tmdb_match_score": 0.931,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Violent Men",
+      "link": "https://archive.org/download/the-violent-men-1955/The%20Violent%20Men%20%281955%29/The%20Violent%20Men%20%281955%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/v56QMbVu29FCPffQGkkw31Gxuzj.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tENEaWhdCM9Vw5FZILt7pD3LshU.jpg",
+      "summary": "A former Union Army officer plans to sell out to Anchor Ranch and move east with his fiancée, but the low price offered by Anchor's crippled owner and the outfit's bullying tactics make him reconsider. When one of his hands is murdered he decides to stay and fight, utilizing his war experience. Not all is well at Anchor with the owner's wife carrying on with his brother who also has a Mexican woman in town.",
+      "content": "movie",
+      "tmdb_id": "60643",
+      "year": "1955",
+      "genre": "Western",
+      "infolabels": {
+        "title": "The Violent Men",
+        "plot": "A former Union Army officer plans to sell out to Anchor Ranch and move east with his fiancée, but the low price offered by Anchor's crippled owner and the outfit's bullying tactics make him reconsider. When one of his hands is murdered he decides to stay and fight, utilizing his war experience. Not all is well at Anchor with the owner's wife carrying on with his brother who also has a Mexican woman in town.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1955-01-26",
+        "year": 1955,
+        "rating": 6.5,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-violent-men-1955",
+        "archive_url": "https://archive.org/details/the-violent-men-1955",
+        "archive_title": "The Violent Men (1955)",
+        "archive_downloads": 1491,
+        "archive_file": {
+          "file": "The Violent Men (1955)/The Violent Men (1955).mp4",
+          "url": "https://archive.org/download/the-violent-men-1955/The%20Violent%20Men%20%281955%29/The%20Violent%20Men%20%281955%29.mp4",
+          "length_seconds": 5744,
+          "format": "MPEG4",
+          "size": 872338698
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/60643-the-violent-men",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Virginian",
+      "link": "https://archive.org/download/the-virginian_1929/the-virginian_1929.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6RX4GfCawXHtd0WMrHz5nSzXv7i.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/mAWBGuUmp0rohnMi2hVYXQ4o57E.jpg",
+      "summary": "A good-natured cowboy who is romancing the new schoolmarm has a crisis of conscience when he discovers his best friend is engaged in cattle rustling.",
+      "content": "movie",
+      "tmdb_id": "42616",
+      "year": "1929",
+      "genre": "Western",
+      "infolabels": {
+        "title": "The Virginian",
+        "plot": "A good-natured cowboy who is romancing the new schoolmarm has a crisis of conscience when he discovers his best friend is engaged in cattle rustling.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1929-11-09",
+        "year": 1929,
+        "rating": 5.75,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-virginian_1929",
+        "archive_url": "https://archive.org/details/the-virginian_1929",
+        "archive_title": "The Virginian",
+        "archive_downloads": 3970,
+        "archive_file": {
+          "file": "the-virginian_1929.ia.mp4",
+          "url": "https://archive.org/download/the-virginian_1929/the-virginian_1929.ia.mp4",
+          "length_seconds": 5468,
+          "format": "h.264 IA",
+          "size": 3338766568
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42616-the-virginian",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Wild Gals of the Naked West",
+      "link": "https://archive.org/download/WildGalsOfTheNakedWest/Wild%20Gals%20of%20the%20Naked%20West.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/oQbTEKAq7YHSTFaGGCWGmkYRgCR.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/abRspLcDYn4Oosc9c1voTFH1D1w.jpg",
+      "summary": "An old geezer recalls some of the antics of the citizens of his Western town, more wild and woolly than Tombstone or Dodge City. In this town, they shoot like Stormtroopers, the women seek new meat, and practical jokers abound.",
+      "content": "movie",
+      "tmdb_id": "5646",
+      "year": "1962",
+      "genre": "Comedy / Western",
+      "infolabels": {
+        "title": "Wild Gals of the Naked West",
+        "plot": "An old geezer recalls some of the antics of the citizens of his Western town, more wild and woolly than Tombstone or Dodge City. In this town, they shoot like Stormtroopers, the women seek new meat, and practical jokers abound.",
+        "genre": [
+          "Comedy",
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1962-05-09",
+        "year": 1962,
+        "rating": 3.561,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "WildGalsOfTheNakedWest",
+        "archive_url": "https://archive.org/details/WildGalsOfTheNakedWest",
+        "archive_title": "Wild Gals Of The Naked West",
+        "archive_downloads": 173451,
+        "archive_file": {
+          "file": "Wild Gals of the Naked West.mp4",
+          "url": "https://archive.org/download/WildGalsOfTheNakedWest/Wild%20Gals%20of%20the%20Naked%20West.mp4",
+          "length_seconds": 3664,
+          "format": "h.264",
+          "size": 380332769
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/5646-wild-gals-of-the-naked-west",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Winchester '73",
+      "link": "https://archive.org/download/winchester-73-1950/Winchester%20%2773%20%281950%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/rqRgjWqSmK9oI6duvigPmn49aVG.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/f9dWvVRwJEcsK7PxCONRAl1DcZe.jpg",
+      "summary": "Lin McAdam rides into town on the trail of Dutch Henry Brown, only to find himself in a shooting competition against him. McAdam wins the prize, a one-in-a-thousand Winchester rifle, but Dutch steals it and leaves town. McAdam follows, intent on settling his old quarrel, while the rifle keeps changing hands and touching a number of lives.",
+      "content": "movie",
+      "tmdb_id": "14551",
+      "year": "1950",
+      "genre": "Western",
+      "infolabels": {
+        "title": "Winchester '73",
+        "plot": "Lin McAdam rides into town on the trail of Dutch Henry Brown, only to find himself in a shooting competition against him. McAdam wins the prize, a one-in-a-thousand Winchester rifle, but Dutch steals it and leaves town. McAdam follows, intent on settling his old quarrel, while the rifle keeps changing hands and touching a number of lives.",
+        "genre": [
+          "Western"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1950-07-06",
+        "year": 1950,
+        "rating": 7.306,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "winchester-73-1950",
+        "archive_url": "https://archive.org/details/winchester-73-1950",
+        "archive_title": "Winchester '73 (1950)",
+        "archive_downloads": 30994,
+        "archive_file": {
+          "file": "Winchester '73 (1950).mp4",
+          "url": "https://archive.org/download/winchester-73-1950/Winchester%20%2773%20%281950%29.mp4",
+          "length_seconds": 5543,
+          "format": "h.264",
+          "size": 575210822
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/14551-winchester-73",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Wind",
+      "link": "https://archive.org/download/the-wind_1928/the-wind_1928.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/11ySoycM3ARm66RLiYE9yRcrg5b.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/mieB1ghpEBgTdGiYvewlLPN24jZ.jpg",
+      "summary": "When Letty Mason relocates to West Texas, she finds herself unsettled by the ever-present wind and sand. Arriving at her new home at the ranch of her cousin, Beverly, she receives a surprisingly cold welcome from his wife, Cora. Soon tensions in the family and unwanted attention from a trio of suitors leave Letty increasingly disturbed.",
+      "content": "movie",
+      "tmdb_id": "31416",
+      "year": "1928",
+      "genre": "Drama / Western / Romance / Thriller",
+      "infolabels": {
+        "title": "The Wind",
+        "plot": "When Letty Mason relocates to West Texas, she finds herself unsettled by the ever-present wind and sand. Arriving at her new home at the ranch of her cousin, Beverly, she receives a surprisingly cold welcome from his wife, Cora. Soon tensions in the family and unwanted attention from a trio of suitors leave Letty increasingly disturbed.",
+        "genre": [
+          "Drama",
+          "Western",
+          "Romance",
+          "Thriller"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1928-09-15",
+        "year": 1928,
+        "rating": 7.341,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-wind_1928",
+        "archive_url": "https://archive.org/details/the-wind_1928",
+        "archive_title": "The Wind",
+        "archive_downloads": 5464,
+        "archive_file": {
+          "file": "the-wind_1928.ia.mp4",
+          "url": "https://archive.org/download/the-wind_1928/the-wind_1928.ia.mp4",
+          "length_seconds": 4503,
+          "format": "h.264 IA",
+          "size": 2274508666
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/31416-the-wind",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "Western"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Yellowneck",
+      "link": "https://archive.org/download/Yellowneck1955cosmo/Yellowneck1955cosmo.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jt5EY6No30CSGo0AHapsJF818wc.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/dSOW97flPOjeOaCOsaMbmL0Kkuw.jpg",
+      "summary": "A disgraced Confederate Colonel who has deserted his command flees to the Everglades where he encounters a disparate group of four other Southern deserters. Together they struggle to find their way out of the swamp and resolve their own personal demons under the eyes of hostile Seminoles as they battle to survive the elements and each other.",
+      "content": "movie",
+      "tmdb_id": "209790",
+      "year": "1955",
+      "genre": "Drama / Western / War",
+      "infolabels": {
+        "title": "Yellowneck",
+        "plot": "A disgraced Confederate Colonel who has deserted his command flees to the Everglades where he encounters a disparate group of four other Southern deserters. Together they struggle to find their way out of the swamp and resolve their own personal demons under the eyes of hostile Seminoles as they battle to survive the elements and each other.",
+        "genre": [
+          "Drama",
+          "Western",
+          "War"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1955-05-22",
+        "year": 1955,
+        "rating": 4.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Yellowneck1955cosmo",
+        "archive_url": "https://archive.org/details/Yellowneck1955cosmo",
+        "archive_title": "Yellowneck",
+        "archive_downloads": 105859,
+        "archive_file": {
+          "file": "Yellowneck1955cosmo.mp4",
+          "url": "https://archive.org/download/Yellowneck1955cosmo/Yellowneck1955cosmo.mp4",
+          "length_seconds": 4995,
+          "format": "h.264",
+          "size": 519563139
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/209790-yellowneck",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

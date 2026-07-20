@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Cyrano de Bergerac",
+      "link": "https://archive.org/download/Cyrano_DeBergerac/Cyrano_De_Bergerac.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/zAxknylhkoOSZzwH8n9PDrN4QTu.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/zAxknylhkoOSZzwH8n9PDrN4QTu.jpg",
+      "summary": "In love with Roxane, who is herself in love with the youngest son of Gascony, Christian de Neuvilette, Cyrano dictates his words of love to the young man. But the Count de Guiche, an unhappy rival, takes revenge by sending Christian and Cyrano to the siege of Arras.",
+      "content": "movie",
+      "tmdb_id": "79314",
+      "year": "1960",
+      "genre": "Romance / TV Movie",
+      "infolabels": {
+        "title": "Cyrano de Bergerac",
+        "plot": "In love with Roxane, who is herself in love with the youngest son of Gascony, Christian de Neuvilette, Cyrano dictates his words of love to the young man. But the Count de Guiche, an unhappy rival, takes revenge by sending Christian and Cyrano to the siege of Arras.",
+        "genre": [
+          "Romance",
+          "TV Movie"
+        ],
+        "country": [
+          "France"
+        ],
+        "premiered": "1960-12-25",
+        "year": 1960,
+        "rating": 8.625,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Cyrano_DeBergerac",
+        "archive_url": "https://archive.org/details/Cyrano_DeBergerac",
+        "archive_title": "Cyrano De Bergerac",
+        "archive_downloads": 490210,
+        "archive_file": {
+          "file": "Cyrano_De_Bergerac.mp4",
+          "url": "https://archive.org/download/Cyrano_DeBergerac/Cyrano_De_Bergerac.mp4",
+          "length_seconds": 6773,
+          "format": "h.264",
+          "size": 703840279
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/79314-cyrano-de-bergerac",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

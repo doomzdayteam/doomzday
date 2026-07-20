@@ -1,0 +1,172 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "The Mummy's Ghost",
+      "link": "https://archive.org/download/the-mummys-ghost/The%20Mummy%27s%20Ghost.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/eRNWTjYXkUQvqopfgz8DvHolxWA.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/4I9kfIAHK64pii1T4kBQz3n2ijJ.jpg",
+      "summary": "An Egyptian high priest travels to America to reclaim the bodies of ancient Egyptian princess Ananka and her living guardian mummy Kharis. Learning that Ananka's spirit has been reincarnated into another body, he kidnaps a young woman of Egyptian descent with a mysterious resemblance to the princess. However, the high priest's greedy desires cause him to lose control of the mummy...",
+      "content": "movie",
+      "tmdb_id": "29243",
+      "year": "1944",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Ghost",
+        "plot": "An Egyptian high priest travels to America to reclaim the bodies of ancient Egyptian princess Ananka and her living guardian mummy Kharis. Learning that Ananka's spirit has been reincarnated into another body, he kidnaps a young woman of Egyptian descent with a mysterious resemblance to the princess. However, the high priest's greedy desires cause him to lose control of the mummy...",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1944-06-30",
+        "year": 1944,
+        "rating": 5.6,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-ghost",
+        "archive_url": "https://archive.org/details/the-mummys-ghost",
+        "archive_title": "The Mummy's Ghost (1944)",
+        "archive_downloads": 16205,
+        "archive_file": {
+          "file": "The Mummy's Ghost.mp4",
+          "url": "https://archive.org/download/the-mummys-ghost/The%20Mummy%27s%20Ghost.mp4",
+          "length_seconds": 3625,
+          "format": "h.264",
+          "size": 346949771
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/29243-the-mummy-s-ghost",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mummy's Hand",
+      "link": "https://archive.org/download/the-mummys-hand/The%20Mummy%27s%20Hand.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/jSSdvLkGXy4oICnSo5Cnz12B6Ae.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/epPy2TZgvU2LJWnOp45ePsHVM9g.jpg",
+      "summary": "A couple of young, out-of-work archaeologists in Egypt discover evidence of the burial place of the ancient Egyptian princess Ananka. After receiving funding from an eccentric magician and his beautiful daughter, they set out into the desert only to be terrorized by a sinister high priest and the living mummy Kharis who are the guardians of Ananka’s tomb.",
+      "content": "movie",
+      "tmdb_id": "31498",
+      "year": "1940",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Hand",
+        "plot": "A couple of young, out-of-work archaeologists in Egypt discover evidence of the burial place of the ancient Egyptian princess Ananka. After receiving funding from an eccentric magician and his beautiful daughter, they set out into the desert only to be terrorized by a sinister high priest and the living mummy Kharis who are the guardians of Ananka’s tomb.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1940-09-20",
+        "year": 1940,
+        "rating": 5.7,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-hand",
+        "archive_url": "https://archive.org/details/the-mummys-hand",
+        "archive_title": "The Mummy's Hand (1940)",
+        "archive_downloads": 18514,
+        "archive_file": {
+          "file": "The Mummy's Hand.mp4",
+          "url": "https://archive.org/download/the-mummys-hand/The%20Mummy%27s%20Hand.mp4",
+          "length_seconds": 4008,
+          "format": "h.264",
+          "size": 383208087
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/31498-the-mummy-s-hand",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Mummy's Tomb",
+      "link": "https://archive.org/download/the-mummys-tomb-1942_202105/The%20Mummy%27s%20Tomb%20%281942%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wuaqpLGb5PHpUGUCmQwyS5EVLdw.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/vGdrgwFPcdAqLxOPy4NQobQ6EnS.jpg",
+      "summary": "A high priest of Karnak travels to America with the living mummy Kharis (Lon Chaney Jr.) to kill all those who had desecrated the tomb of the Egyptian princess Ananka thirty years earlier.",
+      "content": "movie",
+      "tmdb_id": "29239",
+      "year": "1942",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "The Mummy's Tomb",
+        "plot": "A high priest of Karnak travels to America with the living mummy Kharis (Lon Chaney Jr.) to kill all those who had desecrated the tomb of the Egyptian princess Ananka thirty years earlier.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1942-10-23",
+        "year": 1942,
+        "rating": 5.536,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-mummys-tomb-1942_202105",
+        "archive_url": "https://archive.org/details/the-mummys-tomb-1942_202105",
+        "archive_title": "The Mummy's Tomb ( 1942)",
+        "archive_downloads": 19835,
+        "archive_file": {
+          "file": "The Mummy's Tomb (1942).mp4",
+          "url": "https://archive.org/download/the-mummys-tomb-1942_202105/The%20Mummy%27s%20Tomb%20%281942%29.mp4",
+          "length_seconds": 3634,
+          "format": "h.264",
+          "size": 347551451
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/29239-the-mummy-s-tomb",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Werewolf of London",
+      "link": "https://archive.org/download/werewolf-of-london/Werewolf%20of%20London.m4v",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/78kD3Fpvgd8qubKMbhS5dKofjR8.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/mE2TnC4VC5Ilv7dHsZkVfGQy9CA.jpg",
+      "summary": "A strange animal attack turns a botanist into a bloodthirsty monster.",
+      "content": "movie",
+      "tmdb_id": "27970",
+      "year": "1935",
+      "genre": "Horror / Fantasy",
+      "infolabels": {
+        "title": "Werewolf of London",
+        "plot": "A strange animal attack turns a botanist into a bloodthirsty monster.",
+        "genre": [
+          "Horror",
+          "Fantasy"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1935-05-13",
+        "year": 1935,
+        "rating": 6.1,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "werewolf-of-london",
+        "archive_url": "https://archive.org/details/werewolf-of-london",
+        "archive_title": "Werewolf of London - 1935",
+        "archive_downloads": 17598,
+        "archive_file": {
+          "file": "Werewolf of London.m4v",
+          "url": "https://archive.org/download/werewolf-of-london/Werewolf%20of%20London.m4v",
+          "length_seconds": 4500,
+          "format": "MPEG4",
+          "size": 5731943417
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/27970-werewolf-of-london",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

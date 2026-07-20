@@ -5,14 +5,14 @@
       "title": "[COLOR orange]Pluto TV VOD[/COLOR]",
       "link": "file://vod_pluto.json",
       "thumbnail": "resources/media/pluto_tv.png",
-      "summary": "Search and browse Pluto TV on-demand movies, shows, and VOD categories."
+      "summary": "Geo restricted. Search and browse Pluto TV on-demand movies, shows, and VOD categories."
     },
 	{
       "type": "dir",
       "title": "[COLOR orange]Xumo Play VOD[/COLOR]",
       "link": "file://vod_xumo.json",
       "thumbnail": "resources/media/xumo.png",
-      "summary": "Search and browse Xumo Play on-demand movies, shows, and categories."
+      "summary": "Geo restricted. US Only. Search and browse Xumo Play on-demand movies, shows, and categories."
     },
 	{
       "type": "dir",
@@ -67,8 +67,22 @@
       "type": "dir",
       "title": "Dailymotion",
       "link": "https://www.dailymotion.com/",
-      "thumbnail": "resources/media/movies.png",
+      "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse Dailymotion videos, popular uploads, recent uploads, and categories."
+    },
+	    {
+      "type": "dir",
+      "title": "Archives TV Shows",
+      "link": "file://classic_tv_complete_english_series_by_genre.json",
+      "thumbnail": "resources/media/vod.png",
+      "summary": "Browse complete English classic TV series by genre."
+    },
+    {
+      "type": "dir",
+      "title": "Archives Movies",
+      "link": "file://archive_movies_by_genre.json",
+      "thumbnail": "resources/media/vod.png",
+      "summary": "Browse full-length English movies by genre."
     }
   ]
 }

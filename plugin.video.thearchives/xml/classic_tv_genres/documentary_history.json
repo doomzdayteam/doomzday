@@ -1,0 +1,125 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "An Age of Kings",
+      "link": "file://classic_tv_series/age_of_kings_18260.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wktuD6RcbSJmAWpeT01szcRfYVV.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/71JTJfHMBov7Uoc38lV2bCKSwJe.jpg",
+      "summary": "15 episodes. A linking together of Shakespeare's history plays — Richard II, 1 Henry IV, 2 Henry IV, Henry V, 1 Henry VI, 2 Henry VI, 3 Henry VI, and Richard III — chronicling the rise and fall of monarchs over the 86 years between Richard II and Richard III.",
+      "content": "tvshow",
+      "year": "1960",
+      "tmdb_id": "18260"
+    },
+    {
+      "type": "dir",
+      "title": "The Civil War",
+      "link": "file://classic_tv_series/civil_war_9693.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qs6J3T0mfAlmoOOUt0B2d4zd6je.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/lOtqhEeng0lBjsYU2AJ1t6GssV3.jpg",
+      "summary": "9 episodes. A documentary on the American Civil War narrated by Ken Burns, covering the secession of the Confederacy to the assassination of Abraham Lincoln.",
+      "content": "tvshow",
+      "year": "1990",
+      "tmdb_id": "9693"
+    },
+    {
+      "type": "dir",
+      "title": "Cosmos: A Personal Voyage",
+      "link": "file://classic_tv_series/cosmos_personal_voyage_1430.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/nOGArjE0WMkzY2GW1taJm8l9gxD.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/hjJ5XDKP7XY2ADUuMdHM5NsC32s.jpg",
+      "summary": "13 episodes. Carl Sagan covers a wide range of scientific subjects, including the origin of life and a perspective of our place in the universe.",
+      "content": "tvshow",
+      "year": "1980",
+      "tmdb_id": "1430"
+    },
+    {
+      "type": "dir",
+      "title": "Garrison's Gorillas",
+      "link": "file://classic_tv_series/garrison_s_gorillas_1276.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4nwV06zjw9ZiKtYBUUTOKwtP6kg.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1K7RGPTw4yUw1skLW0ljRZfZF1M.jpg",
+      "summary": "26 episodes. Garrison's Gorillas is an ABC TV series broadcast from 1967 to 1968; a total of 26 hour-long episodes were produced. It was inspired by the 1967 film The Dirty Dozen, which featured a similar scenario of training Allied prisoners for World War II military missions.\n\nGarrison's Gorillas was canceled at the close of its first season and replaced by The Mod Squad in 1968. It managed to gather a cult following in China in the 1980s.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "1276"
+    },
+    {
+      "type": "dir",
+      "title": "Maid Marian and Her Merry Men",
+      "link": "file://classic_tv_series/maid_marian_and_her_merry_men_805.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ksgPQxZrALAe9JP68ps0EruNnKP.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/oxnbGXeFPEYeJeddDmk2Ebvdo2q.jpg",
+      "summary": "25 episodes. Maid Marian and her Merry Men is a British children's sitcom created and written by Tony Robinson and directed by David Bell. It began in 1989 on BBC One and ran for four series, with the last episode shown in 1994. The show was a partially musical comic retelling of the legend of Robin Hood, placing Maid Marian in the role of leader of the Merry Men, and reducing Robin to an incompetent ex-tailor.\n\nThe programme was much appreciated by children and adults alike, and has been likened to Blackadder, not only for its historical setting and the presence of Tony Robinson, but also for its comic style. It is more surreal than Blackadder, however, and drops even more anachronisms. Many of the show's cast such as Howard Lew Lewis, Forbes Collins, Ramsay Gilderdale and Patsy Byrne had previously appeared in various episodes of Blackadder alongside Robinson. Like many British children's programmes, there is a lot of social commentary sneakily inserted, as well as witty asides about the Royal family, buses running on time, etc. Many of the plots spoofed or referenced film and television shows including other incarnations of Robin Hood in those mediums.",
+      "content": "tvshow",
+      "year": "1989",
+      "tmdb_id": "805"
+    },
+    {
+      "type": "dir",
+      "title": "Michael Palin: Around the World in 80 Days",
+      "link": "file://classic_tv_series/michael_palin_around_world_in_80_days_852.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4gwmUJhmRTUkpGT6y1KtlZIxZV9.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/fDMHb4Mrd63pYBXyInKfbaGZTyT.jpg",
+      "summary": "7 episodes. Michael Palin attempts to copy the exploits of fictional character Phileas Fogg, by trying to travel around the world (without flying) in 80 days.",
+      "content": "tvshow",
+      "year": "1989",
+      "tmdb_id": "852"
+    },
+    {
+      "type": "dir",
+      "title": "Ripping Yarns",
+      "link": "file://classic_tv_series/ripping_yarns_854.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/urCGtnlAdFDTw44TJ8bx7rVlGwl.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/3bOFQM8WOOuAp1hxKPRrUJCtTP4.jpg",
+      "summary": "9 episodes. A British television comedy series, written by Michael Palin and Terry Jones of Monty Python fame. Following an initial pilot episode in January 1976, it ran for two subsequent series of five and three episodes in October 1977 and October 1979 respectively. Each episode had a different setting and characters, looking at a different aspect of British culture and parodying pre-World War II literature aimed at schoolboys.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "854"
+    },
+    {
+      "type": "dir",
+      "title": "Shadow Raiders",
+      "link": "file://classic_tv_series/shadow_raiders_464.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/zQXauw9aUl9h4mYQp3i1sLcQpHK.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/zQXauw9aUl9h4mYQp3i1sLcQpHK.jpg",
+      "summary": "26 episodes. Despite the history of their warring past, the four planets of Ice, Rock, Fire, and Bone must set aside their differences and feuds to work together and form an alliance: their only hope of defeating a common enemy. The powerful Beast Planet, whose only purpose is the total destruction and annihilation of other worlds, has now entered their universe from the darkest reaches of space.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "464"
+    },
+    {
+      "type": "dir",
+      "title": "Timeslip",
+      "link": "file://classic_tv_series/timeslip_10803.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/rl4qdU43TYPYWAzuEjJ1ruoKYRl.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/eRzcNGvBPofZXESBzHa6X0w6taP.jpg",
+      "summary": "26 episodes. Simon Randall and Liz Skinner discover the existence of a strange anomaly, known as the “Time Barrier”, that enables them to travel in time to different historical periods in alternate pasts and futures.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "10803"
+    },
+    {
+      "type": "dir",
+      "title": "Voyagers!",
+      "link": "file://classic_tv_series/voyagers_5391.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qPhJpkri0ROaNrKjMi3UgL7mdBn.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/te5zhQ26Eu5OmvQtkOOnX0L62St.jpg",
+      "summary": "20 episodes. A member of a league of time travelers and a boy travel through time repairing errors in world history.",
+      "content": "tvshow",
+      "year": "1982",
+      "tmdb_id": "5391"
+    },
+    {
+      "type": "dir",
+      "title": "The World at War",
+      "link": "file://classic_tv_series/world_at_war_751.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/bWdwEYQQEsz9HuXy5m95z95BYQM.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/wJ1ppVIjxTBx2O6DHRBswH1Go6B.jpg",
+      "summary": "26 episodes. A documentary series that gives a historical account of the events of World War II, from its roots in the 1920s to the aftermath and the lives it profoundly influenced.",
+      "content": "tvshow",
+      "year": "1973",
+      "tmdb_id": "751"
+    }
+  ]
+}

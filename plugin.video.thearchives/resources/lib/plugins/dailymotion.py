@@ -1,4 +1,4 @@
-"""Dailymotion VOD provider for The Archives."""
+"""Dailymotion provider for The Archives."""
 
 import gzip
 import json
@@ -34,7 +34,7 @@ PLAYBACK_USER_AGENT = (
 
 FIELDS = (
     "id,title,description,thumbnail_240_url,thumbnail_360_url,"
-    "thumbnail_720_url,duration,created_time,owner.screenname,url,channel"
+    "thumbnail_720_url,duration,created_time,owner.screenname,url,channel,mode"
 )
 LIMIT = 40
 CATEGORIES = (
@@ -46,6 +46,13 @@ CATEGORIES = (
     ("News", "news"),
     ("Sports", "sport"),
     ("Tech", "tech"),
+)
+LIVE_CATEGORIES = (
+    ("Sports", "sport"),
+    ("News", "news"),
+    ("Music", "music"),
+    ("Gaming", "videogames"),
+    ("Webcam", "webcam"),
 )
 
 
@@ -298,7 +305,9 @@ def _rows_from_videos(data: Dict) -> List[Dict[str, str]]:
         seen.add(video_id)
         duration = _duration_text(video.get("duration"))
         owner = _clean_text(video.get("owner.screenname"))
-        display = f"[COLOR red]>[/COLOR] {title}"
+        is_live = str(video.get("mode") or "").lower() == "live"
+        title_prefix = "[COLOR lime][LIVE][/COLOR] " if is_live else ""
+        display = f"[COLOR red]>[/COLOR] {title_prefix}{title}"
         details = []
         if duration:
             details.append(duration)
@@ -408,6 +417,9 @@ class Dailymotion(Plugin):
             return json.dumps({"kind": "root"})
 
         kind = route[0]
+        if kind == "live_root":
+            return json.dumps({"kind": "live_root"})
+
         if kind == "search":
             if len(route) == 1:
                 query = self.from_keyboard()
@@ -427,6 +439,46 @@ class Dailymotion(Plugin):
                     "search": query,
                 }),
                 "next": _route_url("search", query, str(page + 1)),
+            })
+
+        if kind == "live":
+            page = _page_number(route, 1)
+            return json.dumps({
+                "kind": "videos",
+                "title": "Live Now",
+                "page": page,
+                "data": self._api_get("/videos", {
+                    "fields": FIELDS,
+                    "limit": str(LIMIT),
+                    "page": str(page),
+                    "live_onair": "true",
+                    "mode": "live",
+                    "sort": "live-audience",
+                }),
+                "next": _route_url("live", str(page + 1)),
+            })
+
+
+        if kind == "live_categories":
+            return json.dumps({"kind": "live_categories"})
+
+        if kind == "live_channel" and len(route) > 1:
+            channel = route[1]
+            page = _page_number(route, 2)
+            return json.dumps({
+                "kind": "videos",
+                "title": f"Live {channel}",
+                "page": page,
+                "data": self._api_get("/videos", {
+                    "fields": FIELDS,
+                    "limit": str(LIMIT),
+                    "page": str(page),
+                    "channel": channel,
+                    "live_onair": "true",
+                    "mode": "live",
+                    "sort": "live-audience",
+                }),
+                "next": _route_url("live_channel", channel, str(page + 1)),
             })
 
         if kind == "popular":
@@ -485,6 +537,8 @@ class Dailymotion(Plugin):
         kind = data.get("kind")
         if kind == "root":
             return self._root_menu()
+        if kind == "live_root":
+            return self._live_menu()
         if kind == "message":
             return [{
                 "type": "item",
@@ -492,6 +546,8 @@ class Dailymotion(Plugin):
                 "link": "",
                 "is_playable": "false",
             }]
+        if kind == "live_categories":
+            return self._live_category_menu()
         if kind == "redirect":
             return [{
                 "type": "dir",
@@ -626,6 +682,24 @@ class Dailymotion(Plugin):
             return keyboard.getText()
         return None
 
+    def _live_menu(self) -> List[Dict[str, str]]:
+        return [
+            {
+                "type": "dir",
+                "title": "[COLOR lime]Live Now[/COLOR]",
+                "link": _route_url("live", "1"),
+                "thumbnail": "resources/media/live_tv.png",
+                "summary": "Browse live Dailymotion streams that are on air now.",
+            },
+            {
+                "type": "dir",
+                "title": "Live Categories",
+                "link": _route_url("live_categories"),
+                "thumbnail": "resources/media/live_tv.png",
+                "summary": "Browse Dailymotion live streams by category.",
+            },
+        ]
+
     def _root_menu(self) -> List[Dict[str, str]]:
         rows = [
             {
@@ -634,6 +708,21 @@ class Dailymotion(Plugin):
                 "link": _route_url("search"),
                 "thumbnail": "resources/media/movies.png",
                 "summary": "Search Dailymotion videos.",
+            },
+            {
+                "type": "dir",
+                "title": "[COLOR lime]Live Now[/COLOR]",
+                "link": _route_url("live", "1"),
+                "thumbnail": "resources/media/movies.png",
+                "summary": "Browse live Dailymotion streams that are on air now.",
+            },
+
+            {
+                "type": "dir",
+                "title": "Live Categories",
+                "link": _route_url("live_categories"),
+                "thumbnail": "resources/media/movies.png",
+                "summary": "Browse Dailymotion live streams by category.",
             },
             {
                 "type": "dir",
@@ -657,5 +746,17 @@ class Dailymotion(Plugin):
                 "link": _route_url("channel", channel, "1"),
                 "thumbnail": "resources/media/movies.png",
                 "summary": f"Browse Dailymotion {title}.",
+            })
+        return rows
+
+    def _live_category_menu(self) -> List[Dict[str, str]]:
+        rows = []
+        for title, channel in LIVE_CATEGORIES:
+            rows.append({
+                "type": "dir",
+                "title": title,
+                "link": _route_url("live_channel", channel, "1"),
+                "thumbnail": "resources/media/movies.png",
+                "summary": f"Browse live Dailymotion {title} streams.",
             })
         return rows

@@ -1,0 +1,125 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "Bowler",
+      "link": "file://classic_tv_series/bowler_33871.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/xyHSUpBKEsrpZsCovnihXzYWiXu.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/xyHSUpBKEsrpZsCovnihXzYWiXu.jpg",
+      "summary": "13 episodes. Released from prison after serving a prison sentence, Stanley Bowler sets about trying to 'better' himself. The basic premise of the series revolves around Bowler's attempts to develop a more cultured personality, as he tries to understand the fine arts, and to move into higher social circles.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "33871"
+    },
+    {
+      "type": "dir",
+      "title": "Capital City",
+      "link": "file://classic_tv_series/capital_city_11080.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/pPdDIV3KtoVAGghh2UxIWFp04no.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/4j6z60VXkwLwTGFw9Y6Bi4qNS8S.jpg",
+      "summary": "23 episodes. Capital City is a British television drama programme produced by Euston Films for ITV, broadcast from 26 September 1989 to 20 December 1990 over two series, totalling 23 episodes.\n\nCreated by Andrew Maclear, the plot focuses on the lives of London investment bankers living and working on the corporate trading floor of international bank Shane-Longman.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "11080"
+    },
+    {
+      "type": "dir",
+      "title": "Doctor in the House",
+      "link": "file://classic_tv_series/doctor_in_house_34320.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/hidrnYNDzfqdhw6e0qdVBd5vVmU.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/hidrnYNDzfqdhw6e0qdVBd5vVmU.jpg",
+      "summary": "26 episodes. The misadventures of a group of medical students.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "34320"
+    },
+    {
+      "type": "dir",
+      "title": "Hot Springs Hotel",
+      "link": "file://classic_tv_series/hot_springs_hotel_24149.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/trGVRdW6VG5roT4WnOPEKucaESF.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/trGVRdW6VG5roT4WnOPEKucaESF.jpg",
+      "summary": "15 episodes. Brother and Sister, Randy and Kat, own the Hot Springs Hotel and along with Kat's Friend Lacey get into all kinds of shenanigans with their staff and customers.",
+      "content": "tvshow",
+      "year": "1997",
+      "tmdb_id": "24149"
+    },
+    {
+      "type": "dir",
+      "title": "Hotel",
+      "link": "file://classic_tv_series/hotel_3437.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/bYOQJm7O7cEPvkcMp3VI6TSP6Eg.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/h8A6J31szyLPWU2HXS2wZkp8aQa.jpg",
+      "summary": "115 episodes. Hotel is an American prime time drama series which aired on ABC from September 21, 1983 to May 5, 1988 in the timeslot following Dynasty.\n\nBased on Arthur Hailey's 1965 novel of the same name, the series was produced by Aaron Spelling and set in the elegant and fictitious St. Gregory Hotel in San Francisco. Establishing shots of the hotel were filmed in front of The Fairmont San Francisco atop the Nob Hill neighborhood. Episodes followed the activities of passing guests, as well as the personal and professional lives of the hotel staff.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "3437"
+    },
+    {
+      "type": "dir",
+      "title": "Lord Tramp",
+      "link": "file://classic_tv_series/lord_tramp_30011.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/vwur2WXd2ZUQfK1maCNhxUOJNuR.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/vwur2WXd2ZUQfK1maCNhxUOJNuR.jpg",
+      "summary": "6 episodes.",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "30011"
+    },
+    {
+      "type": "dir",
+      "title": "Lucas Tanner",
+      "link": "file://classic_tv_series/lucas_tanner_13049.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ifbdm2EoqSEQxi5LXGV6dDA53fL.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/b13AYZvbA5TzxpcZJPCA4J0BNyP.jpg",
+      "summary": "22 episodes. Lucas Tanner, a former baseball player and sportswriter, becomes an English teacher at a suburban high school. His unconventional teaching methods often put him at odds with the other faculty.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "13049"
+    },
+    {
+      "type": "dir",
+      "title": "The Omega Factor",
+      "link": "file://classic_tv_series/omega_factor_1853.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/xUkrcPLntkf5uAP7XUvewNEeEkM.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/mqLfGg6kDNoBPEVlivVKMCh65Oq.jpg",
+      "summary": "10 episodes. The Omega Factor is a British television series produced by BBC Scotland in 1979. It was created by Jack Gerson and produced by George Gallaccio, and transmitted in ten weekly episodes between 13 June and 15 August.",
+      "content": "tvshow",
+      "year": "1979",
+      "tmdb_id": "1853"
+    },
+    {
+      "type": "dir",
+      "title": "The Organization",
+      "link": "file://classic_tv_series/organization_132526.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/y8LJUyjvKqJKOeuNxVCtrC7ngl7.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/d8xh5BGm8YNgxHSK32ZBYhWHeYE.jpg",
+      "summary": "7 episodes. The Greatrick Organization is a faceless, multi-million-pound concern dedicated to making more millions. In its headquarters are an assortment of middle and junior executives. Their lives may look cozy enough, but appearances are deceptive. All they have to do is carry on being loyal corporate slaves until they're 60, but there are a hundred different ways to put a foot wrong...",
+      "content": "tvshow",
+      "year": "2022",
+      "tmdb_id": "132526"
+    },
+    {
+      "type": "dir",
+      "title": "Pride and Prejudice",
+      "link": "file://classic_tv_series/pride_and_prejudice_1457.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/7od3Mob2qu5lL1l5RsdV6xuEquw.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/6d1yCaiI7AexmtGX2vORqEbZ0oV.jpg",
+      "summary": "6 episodes. Set in England in the early 19th century, Pride and Prejudice tells the story of Mr and Mrs Bennet's five unmarried daughters after the rich and eligible Mr Bingley and his status-conscious friend, Mr Darcy, have moved into their neighbourhood. While Bingley takes an immediate liking to the eldest Bennet daughter, Jane, Darcy has difficulty adapting to local society and repeatedly clashes with the second-eldest Bennet daughter, Elizabeth.",
+      "content": "tvshow",
+      "year": "1995",
+      "tmdb_id": "1457"
+    },
+    {
+      "type": "dir",
+      "title": "Roots: The Complete Miniseries",
+      "link": "file://classic_tv_series/roots_complete_miniseries_319571.json",
+      "thumbnail": "https://archive.org/services/img/roots-1977-complete-original",
+      "fanart": "https://archive.org/services/img/roots-1977-complete-original",
+      "summary": "1 episodes.",
+      "content": "tvshow",
+      "year": "1977",
+      "tmdb_id": "319571"
+    }
+  ]
+}

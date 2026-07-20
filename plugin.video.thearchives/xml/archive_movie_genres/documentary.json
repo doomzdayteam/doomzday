@@ -1,0 +1,210 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Big Cats",
+      "link": "https://archive.org/download/TheBigCatH.264ForVideoPodcasting/The%20Big%20Cat-H.264%20for%20Video%20Podcasting.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qRUJl8OkbFxafUAyHBCUIva8QiM.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/pIQs691brcUNetFM9SayEMSW4hV.jpg",
+      "summary": "Documentary series uncovering the secret lives of big cats, using the latest technology and scientific research to bring these animal superstars out of the shadows.",
+      "content": "movie",
+      "tmdb_id": "585855",
+      "year": "2019",
+      "genre": "Documentary",
+      "infolabels": {
+        "title": "Big Cats",
+        "plot": "Documentary series uncovering the secret lives of big cats, using the latest technology and scientific research to bring these animal superstars out of the shadows.",
+        "genre": [
+          "Documentary"
+        ],
+        "country": [
+          "France",
+          "United Kingdom"
+        ],
+        "premiered": "2019-03-02",
+        "year": 2019,
+        "rating": 8.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheBigCatH.264ForVideoPodcasting",
+        "archive_url": "https://archive.org/details/TheBigCatH.264ForVideoPodcasting",
+        "archive_title": "The Big Cat",
+        "archive_downloads": 13870,
+        "archive_file": {
+          "file": "The Big Cat-H.264 for Video Podcasting.mp4",
+          "url": "https://archive.org/download/TheBigCatH.264ForVideoPodcasting/The%20Big%20Cat-H.264%20for%20Video%20Podcasting.mp4",
+          "length_seconds": 4646,
+          "format": "h.264",
+          "size": 483976863
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/585855-felins",
+        "tmdb_match_score": 0.903
+      }
+    },
+    {
+      "type": "item",
+      "title": "F for Fake",
+      "link": "https://archive.org/download/f-for-fake/F%20for%20Fake.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/fVeIDxS73CrosoeVOaefQuCUGZg.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kwwuAQpPvewf4voKVMN98KcXEPM.jpg",
+      "summary": "Documents the lives of infamous fakers Elmyr de Hory and Clifford Irving. De Hory, who later committed suicide to avoid more prison time, made his name by selling forged works of art by painters like Picasso and Matisse. Irving was infamous for writing a fake autobiography of Howard Hughes. Welles moves between documentary and fiction as he examines the fundamental elements of fraud and the people who commit fraud at the expense of others.",
+      "content": "movie",
+      "tmdb_id": "43003",
+      "year": "1973",
+      "genre": "Documentary",
+      "infolabels": {
+        "title": "F for Fake",
+        "plot": "Documents the lives of infamous fakers Elmyr de Hory and Clifford Irving. De Hory, who later committed suicide to avoid more prison time, made his name by selling forged works of art by painters like Picasso and Matisse. Irving was infamous for writing a fake autobiography of Howard Hughes. Welles moves between documentary and fiction as he examines the fundamental elements of fraud and the people who commit fraud at the expense of others.",
+        "genre": [
+          "Documentary"
+        ],
+        "country": [
+          "France"
+        ],
+        "premiered": "1973-09-01",
+        "year": 1973,
+        "rating": 7.405,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "f-for-fake",
+        "archive_url": "https://archive.org/details/f-for-fake",
+        "archive_title": "F For Fake",
+        "archive_downloads": 15781,
+        "archive_file": {
+          "file": "F for Fake.mp4",
+          "url": "https://archive.org/download/f-for-fake/F%20for%20Fake.mp4",
+          "length_seconds": 5318,
+          "format": "h.264",
+          "size": 518951237
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/43003-verites-et-mensonges",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Grey Gardens",
+      "link": "https://archive.org/download/grey-gardens-1975_202110/Grey%20Gardens%20%281975%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qFPj6Eh3ijA4ISRujHu4GKKeAWT.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/8gMOMHSkSTJ5NbHvHYK6amERLNM.jpg",
+      "summary": "Edie Bouvier Beale and her mother, Edith, two aging, eccentric relatives of Jackie Kennedy Onassis, are the sole inhabitants of a Long Island estate. The women reveal themselves to be misfits with outsized, engaging personalities. Much of the conversation is centered on their pasts, as mother and daughter now rarely leave home.",
+      "content": "movie",
+      "tmdb_id": "17346",
+      "year": "1976",
+      "genre": "Documentary",
+      "infolabels": {
+        "title": "Grey Gardens",
+        "plot": "Edie Bouvier Beale and her mother, Edith, two aging, eccentric relatives of Jackie Kennedy Onassis, are the sole inhabitants of a Long Island estate. The women reveal themselves to be misfits with outsized, engaging personalities. Much of the conversation is centered on their pasts, as mother and daughter now rarely leave home.",
+        "genre": [
+          "Documentary"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1976-02-19",
+        "year": 1976,
+        "rating": 7.33,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "grey-gardens-1975_202110",
+        "archive_url": "https://archive.org/details/grey-gardens-1975_202110",
+        "archive_title": "Grey Gardens (1975)",
+        "archive_downloads": 15376,
+        "archive_file": {
+          "file": "Grey Gardens (1975).mp4",
+          "url": "https://archive.org/download/grey-gardens-1975_202110/Grey%20Gardens%20%281975%29.mp4",
+          "length_seconds": 5723,
+          "format": "MPEG4",
+          "size": 1651611786
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/17346-grey-gardens",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Teaserama",
+      "link": "https://archive.org/download/Teaserama/Teaserama.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/zRyEb8m8LYkTaUEW7FsQLHqT7l2.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/7HFUVVioMZk8SfdUQgvJCn3UuSB.jpg",
+      "summary": "A collection of numerous burlesque acts from the 1950s, including strippers, and cult character Betty Page introducing the acts.",
+      "content": "movie",
+      "tmdb_id": "70233",
+      "year": "1955",
+      "genre": "Documentary",
+      "infolabels": {
+        "title": "Teaserama",
+        "plot": "A collection of numerous burlesque acts from the 1950s, including strippers, and cult character Betty Page introducing the acts.",
+        "genre": [
+          "Documentary"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1955-09-16",
+        "year": 1955,
+        "rating": 5.3,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Teaserama",
+        "archive_url": "https://archive.org/details/Teaserama",
+        "archive_title": "Teaserama",
+        "archive_downloads": 445686,
+        "archive_file": {
+          "file": "Teaserama.mp4",
+          "url": "https://archive.org/download/Teaserama/Teaserama.mp4",
+          "length_seconds": 4018,
+          "format": "MPEG4",
+          "size": 707409403
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/70233-teaserama",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Yes Men Fix the World",
+      "link": "https://archive.org/download/The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid/The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid-VODO.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6eVleb6nkqjxUfLPRS5GwSKlA9J.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/6eVleb6nkqjxUfLPRS5GwSKlA9J.jpg",
+      "summary": "THE YES MEN FIX THE WORLD is a screwball true story about two gonzo political activists who, posing as top executives of giant corporations, lie their way into big business conferences and pull off the world's most outrageous pranks.",
+      "content": "movie",
+      "tmdb_id": "18489",
+      "year": "2009",
+      "genre": "Documentary",
+      "infolabels": {
+        "title": "The Yes Men Fix the World",
+        "plot": "THE YES MEN FIX THE WORLD is a screwball true story about two gonzo political activists who, posing as top executives of giant corporations, lie their way into big business conferences and pull off the world's most outrageous pranks.",
+        "genre": [
+          "Documentary"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2009-01-18",
+        "year": 2009,
+        "rating": 7.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid",
+        "archive_url": "https://archive.org/details/The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid",
+        "archive_title": "The Yes Men Fix The World P2P Edition",
+        "archive_downloads": 35861,
+        "archive_file": {
+          "file": "The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid-VODO.mp4",
+          "url": "https://archive.org/download/The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid/The.Yes.Men.Fix.The.World.P2P.Edition.2010.Xvid-VODO.mp4",
+          "length_seconds": 5739,
+          "format": "h.264",
+          "size": 599594995
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/18489-the-yes-men-fix-the-world",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

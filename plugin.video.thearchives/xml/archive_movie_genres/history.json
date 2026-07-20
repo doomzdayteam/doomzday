@@ -1,0 +1,959 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "The Bridge on the River Kwai",
+      "link": "https://archive.org/download/the-bridge-on-the-river-kwai-1957_202511/The%20Bridge%20on%20the%20River%20Kwai%20%281957%29/The%20Bridge%20on%20the%20River%20Kwai%20-%201957.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/7paXMt2e3Tr5dLmEZOGgFEn2Vo7.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/dRHfCeAoJ6SsMffQ6lavNU9E55z.jpg",
+      "summary": "The classic story of English POWs in Burma forced to build a bridge to aid the war effort of their Japanese captors. British and American intelligence officers conspire to blow up the structure, but Col. Nicholson, the commander who supervised the bridge's construction, has acquired a sense of pride in his creation and tries to foil their plans.",
+      "content": "movie",
+      "tmdb_id": "826",
+      "year": "1957",
+      "genre": "Drama / History / War",
+      "infolabels": {
+        "title": "The Bridge on the River Kwai",
+        "plot": "The classic story of English POWs in Burma forced to build a bridge to aid the war effort of their Japanese captors. British and American intelligence officers conspire to blow up the structure, but Col. Nicholson, the commander who supervised the bridge's construction, has acquired a sense of pride in his creation and tries to foil their plans.",
+        "genre": [
+          "Drama",
+          "History",
+          "War"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1957-10-11",
+        "year": 1957,
+        "rating": 7.824,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-bridge-on-the-river-kwai-1957_202511",
+        "archive_url": "https://archive.org/details/the-bridge-on-the-river-kwai-1957_202511",
+        "archive_title": "The Bridge on the River Kwai (1957)",
+        "archive_downloads": 6716,
+        "archive_file": {
+          "file": "The Bridge on the River Kwai (1957)/The Bridge on the River Kwai - 1957.mp4",
+          "url": "https://archive.org/download/the-bridge-on-the-river-kwai-1957_202511/The%20Bridge%20on%20the%20River%20Kwai%20%281957%29/The%20Bridge%20on%20the%20River%20Kwai%20-%201957.mp4",
+          "length_seconds": 9688,
+          "format": "MPEG4",
+          "size": 1045334516
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/826-the-bridge-on-the-river-kwai",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "War"
+      }
+    },
+    {
+      "type": "item",
+      "title": "A Bridge Too Far",
+      "link": "https://archive.org/download/a-bridge-too-far-1977/A%20Bridge%20Too%20Far%20%281977%29/mp4/A%20Bridge%20Too%20Far%20%20%281977%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/lszOk3Xmh7qpLaM9J4K9E6ADLk1.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1oRug23GWxgyQmqQGbX7ke974lp.jpg",
+      "summary": "The story of Operation Market Garden—a failed attempt by the allies in the latter stages of WWII to end the war quickly by securing three bridges in Holland allowing access over the Rhine into Germany. A combination of poor allied intelligence and the presence of two crack German panzer divisions meant that the final part of this operation (the bridge in Arnhem over the Rhine) was doomed to failure.",
+      "content": "movie",
+      "tmdb_id": "5902",
+      "year": "1977",
+      "genre": "Drama / History / War",
+      "infolabels": {
+        "title": "A Bridge Too Far",
+        "plot": "The story of Operation Market Garden—a failed attempt by the allies in the latter stages of WWII to end the war quickly by securing three bridges in Holland allowing access over the Rhine into Germany. A combination of poor allied intelligence and the presence of two crack German panzer divisions meant that the final part of this operation (the bridge in Arnhem over the Rhine) was doomed to failure.",
+        "genre": [
+          "Drama",
+          "History",
+          "War"
+        ],
+        "country": [
+          "United Kingdom",
+          "United States"
+        ],
+        "premiered": "1977-06-15",
+        "year": 1977,
+        "rating": 7.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "a-bridge-too-far-1977",
+        "archive_url": "https://archive.org/details/a-bridge-too-far-1977",
+        "archive_title": "A Bridge Too Far (1977)",
+        "archive_downloads": 3989,
+        "archive_file": {
+          "file": "A Bridge Too Far (1977)/mp4/A Bridge Too Far  (1977).ia.mp4",
+          "url": "https://archive.org/download/a-bridge-too-far-1977/A%20Bridge%20Too%20Far%20%281977%29/mp4/A%20Bridge%20Too%20Far%20%20%281977%29.ia.mp4",
+          "length_seconds": 10550,
+          "format": "h.264 IA",
+          "size": 1302587569
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/5902-a-bridge-too-far",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "War"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Cleopatra",
+      "link": "https://archive.org/download/cleopatra-1963_202511/Cleopatra%20%281963%29/Cleopatra%20-%201963.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/bj7rUGUewofA9cpHt1h36gvDFfy.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/q7fBDmVcU0MWkc8sWt9IKj6YbVd.jpg",
+      "summary": "Determined to hold on to the throne, Cleopatra seduces the Roman emperor Julius Caesar. When Caesar is murdered, she redirects her attentions to his general, Marc Antony, who vows to take power—but Caesar’s successor has other plans.",
+      "content": "movie",
+      "tmdb_id": "8095",
+      "year": "1963",
+      "genre": "Drama / History / Romance",
+      "infolabels": {
+        "title": "Cleopatra",
+        "plot": "Determined to hold on to the throne, Cleopatra seduces the Roman emperor Julius Caesar. When Caesar is murdered, she redirects her attentions to his general, Marc Antony, who vows to take power—but Caesar’s successor has other plans.",
+        "genre": [
+          "Drama",
+          "History",
+          "Romance"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1963-06-12",
+        "year": 1963,
+        "rating": 7.046,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "cleopatra-1963_202511",
+        "archive_url": "https://archive.org/details/cleopatra-1963_202511",
+        "archive_title": "Cleopatra (1963)",
+        "archive_downloads": 25582,
+        "archive_file": {
+          "file": "Cleopatra (1963)/Cleopatra - 1963.mp4",
+          "url": "https://archive.org/download/cleopatra-1963_202511/Cleopatra%20%281963%29/Cleopatra%20-%201963.mp4",
+          "length_seconds": 15068,
+          "format": "MPEG4",
+          "size": 2420656232
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/8095-cleopatra",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Constantine and the Cross",
+      "link": "https://archive.org/download/PublicDomainJadranPicturesandJoniaPicturesConstantineandtheCross1962/Constantine_and_the_Cross.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/m1KG0Z2O1cgwW9ZccF1OtFJ1jXV.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tuHo4yAJDjF8TQL2TZWK9WcqDOA.jpg",
+      "summary": "Constantine is fighting against Barbarians with his father when he is called to Rome. In his way to Rome, he falls in an ambush planned by Maxence, who wants to become emperor.",
+      "content": "movie",
+      "tmdb_id": "101853",
+      "year": "1961",
+      "genre": "Adventure / Drama / History",
+      "infolabels": {
+        "title": "Constantine and the Cross",
+        "plot": "Constantine is fighting against Barbarians with his father when he is called to Rome. In his way to Rome, he falls in an ambush planned by Maxence, who wants to become emperor.",
+        "genre": [
+          "Adventure",
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "Italy"
+        ],
+        "premiered": "1961-02-02",
+        "year": 1961,
+        "rating": 5.25,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "PublicDomainJadranPicturesandJoniaPicturesConstantineandtheCross1962",
+        "archive_url": "https://archive.org/details/PublicDomainJadranPicturesandJoniaPicturesConstantineandtheCross1962",
+        "archive_title": "Constantine and the Cross (1962)",
+        "archive_downloads": 63308,
+        "archive_file": {
+          "file": "Constantine_and_the_Cross.mp4",
+          "url": "https://archive.org/download/PublicDomainJadranPicturesandJoniaPicturesConstantineandtheCross1962/Constantine_and_the_Cross.mp4",
+          "length_seconds": 7160,
+          "format": "h.264",
+          "size": 747173389
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/101853-costantino-il-grande",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Cross of Iron",
+      "link": "https://archive.org/download/cross.-of.-iron.-1977/Cross%20of%20Iron%20%281977%29/Cross.Of.Iron.1977.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/fR6pqh5aFn0fawsn7sR2zC15swx.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/AbDjKsjpk8jHgaFTcmR1Ch0iDY7.jpg",
+      "summary": "It is 1943, and the German army—ravaged and demoralised—is hastily retreating from the Russian front. In the midst of the madness, conflict brews between the aristocratic yet ultimately pusillanimous Captain Stransky and the courageous Corporal Steiner. Stransky is the only man who believes that the Third Reich is still vastly superior to the Russian army. However, within his pompous persona lies a quivering coward who longs for the Iron Cross so that he can return to Berlin a hero. Steiner, on the other hand is cynical, defiantly non-conformist and more concerned with the safety of his own men rather than the horde of military decorations offered to him by his superiors.",
+      "content": "movie",
+      "tmdb_id": "10839",
+      "year": "1977",
+      "genre": "Drama / Action / History / War",
+      "infolabels": {
+        "title": "Cross of Iron",
+        "plot": "It is 1943, and the German army—ravaged and demoralised—is hastily retreating from the Russian front. In the midst of the madness, conflict brews between the aristocratic yet ultimately pusillanimous Captain Stransky and the courageous Corporal Steiner. Stransky is the only man who believes that the Third Reich is still vastly superior to the Russian army. However, within his pompous persona lies a quivering coward who longs for the Iron Cross so that he can return to Berlin a hero. Steiner, on the other hand is cynical, defiantly non-conformist and more concerned with the safety of his own men rather than the horde of military decorations offered to him by his superiors.",
+        "genre": [
+          "Drama",
+          "Action",
+          "History",
+          "War"
+        ],
+        "country": [
+          "Germany",
+          "United Kingdom"
+        ],
+        "premiered": "1977-01-28",
+        "year": 1977,
+        "rating": 7.13,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "cross.-of.-iron.-1977",
+        "archive_url": "https://archive.org/details/cross.-of.-iron.-1977",
+        "archive_title": "Cross of Iron (1977)",
+        "archive_downloads": 3755,
+        "archive_file": {
+          "file": "Cross of Iron (1977)/Cross.Of.Iron.1977.ia.mp4",
+          "url": "https://archive.org/download/cross.-of.-iron.-1977/Cross%20of%20Iron%20%281977%29/Cross.Of.Iron.1977.ia.mp4",
+          "length_seconds": 7941,
+          "format": "h.264 IA",
+          "size": 1221184216
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/10839-cross-of-iron",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "War"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Cruel Sea",
+      "link": "https://archive.org/download/the-cruel-sea-1953/The%20Cruel%20Sea%20%281953%29.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/kmMGoeLx7rntdbqKZFp6bmT8ZCW.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kG93zIRD0nnD4MPmNfGRIf8AFxQ.jpg",
+      "summary": "At the start of World War II, Cmdr. Ericson is assigned to convoy escort HMS Compass Rose with inexperienced officers and men just out of training. The winter seas make life miserable enough, but the men must also harden themselves to rescuing survivors of U-Boat attacks, while seldom able to strike back. Traumatic events afloat and ashore create a warm bond between the skipper and his first officer.",
+      "content": "movie",
+      "tmdb_id": "16914",
+      "year": "1953",
+      "genre": "Drama / History / War",
+      "infolabels": {
+        "title": "The Cruel Sea",
+        "plot": "At the start of World War II, Cmdr. Ericson is assigned to convoy escort HMS Compass Rose with inexperienced officers and men just out of training. The winter seas make life miserable enough, but the men must also harden themselves to rescuing survivors of U-Boat attacks, while seldom able to strike back. Traumatic events afloat and ashore create a warm bond between the skipper and his first officer.",
+        "genre": [
+          "Drama",
+          "History",
+          "War"
+        ],
+        "country": [
+          "United States",
+          "United Kingdom"
+        ],
+        "premiered": "1953-02-24",
+        "year": 1953,
+        "rating": 6.939,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-cruel-sea-1953",
+        "archive_url": "https://archive.org/details/the-cruel-sea-1953",
+        "archive_title": "The Cruel Sea (1953)",
+        "archive_downloads": 35205,
+        "archive_file": {
+          "file": "The Cruel Sea (1953).mp4",
+          "url": "https://archive.org/download/the-cruel-sea-1953/The%20Cruel%20Sea%20%281953%29.mp4",
+          "length_seconds": 7583,
+          "format": "h.264",
+          "size": 787278569
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/16914-the-cruel-sea",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Devil Is a Woman",
+      "link": "https://archive.org/download/the-devil-is-a-woman/The%20Devil%20is%20a%20Woman.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/cc5HUdBbnMSST78sfujsOU4T0Vk.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1nwI1v3cWMpqkzJLCJrdjveyPU2.jpg",
+      "summary": "In the carnival in Spain in the beginning of the Twentieth Century, the exiled republican Antonio Galvan comes from Paris masquerade to enjoy the party and visit his friend Capt. Don Pasqual 'Pasqualito' Costelar. However, he flirts with the mysterious Concha Perez and they schedule to meet each other later. When Antonio meets Pasqualito, his old friend discloses his frustrated relationship with the promiscuous Concha and her greedy mother and how his life was ruined by his obsession for the beautiful demimondaine. Pasqualito makes Antonio promise that he would not see Concha. However, when Antonio meets Concha, she seduces him and the long friendship between Antonio and Pasqualito is disrupted",
+      "content": "movie",
+      "tmdb_id": "42943",
+      "year": "1935",
+      "genre": "Comedy / Drama / Romance / History",
+      "infolabels": {
+        "title": "The Devil Is a Woman",
+        "plot": "In the carnival in Spain in the beginning of the Twentieth Century, the exiled republican Antonio Galvan comes from Paris masquerade to enjoy the party and visit his friend Capt. Don Pasqual 'Pasqualito' Costelar. However, he flirts with the mysterious Concha Perez and they schedule to meet each other later. When Antonio meets Pasqualito, his old friend discloses his frustrated relationship with the promiscuous Concha and her greedy mother and how his life was ruined by his obsession for the beautiful demimondaine. Pasqualito makes Antonio promise that he would not see Concha. However, when Antonio meets Concha, she seduces him and the long friendship between Antonio and Pasqualito is disrupted",
+        "genre": [
+          "Comedy",
+          "Drama",
+          "Romance",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1935-05-03",
+        "year": 1935,
+        "rating": 6.3,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-devil-is-a-woman",
+        "archive_url": "https://archive.org/details/the-devil-is-a-woman",
+        "archive_title": "The Devil is a Woman",
+        "archive_downloads": 20028,
+        "archive_file": {
+          "file": "The Devil is a Woman.mp4",
+          "url": "https://archive.org/download/the-devil-is-a-woman/The%20Devil%20is%20a%20Woman.mp4",
+          "length_seconds": 4791,
+          "format": "h.264",
+          "size": 461362199
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/42943-the-devil-is-a-woman",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Forbidden Love: The Unashamed Stories of Lesbian Lives",
+      "link": "https://archive.org/download/forbidden-love-the-unashamed-stories-of-lesbian-lives-1992/Forbidden%20Love%20The%20Unashamed%20Stories%20of%20Lesbian%20Lives%20%281992%29.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/aoTA6sJT3NwOmaZVfMB8PKeeQiK.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/iYpmUeeMa2YADFHo4w3dBbA0gxn.jpg",
+      "summary": "Ten women in Canada talk about being lesbian in the 1940s, 1950s, and 1960s: discovering the pulp fiction of the day about women in love, their own first affairs, the pain of breaking up, frequenting gay bars, facing police raids, men's responses, and the etiquette of butch and femme roles. Interspersed among the interviews and archival footage are four dramatized chapters from a pulp novel, \"Forbidden Love\".",
+      "content": "movie",
+      "tmdb_id": "194926",
+      "year": "1992",
+      "genre": "Documentary / History",
+      "infolabels": {
+        "title": "Forbidden Love: The Unashamed Stories of Lesbian Lives",
+        "plot": "Ten women in Canada talk about being lesbian in the 1940s, 1950s, and 1960s: discovering the pulp fiction of the day about women in love, their own first affairs, the pain of breaking up, frequenting gay bars, facing police raids, men's responses, and the etiquette of butch and femme roles. Interspersed among the interviews and archival footage are four dramatized chapters from a pulp novel, \"Forbidden Love\".",
+        "genre": [
+          "Documentary",
+          "History"
+        ],
+        "country": [
+          "Canada"
+        ],
+        "premiered": "1992-09-17",
+        "year": 1992,
+        "rating": 6.75,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "forbidden-love-the-unashamed-stories-of-lesbian-lives-1992",
+        "archive_url": "https://archive.org/details/forbidden-love-the-unashamed-stories-of-lesbian-lives-1992",
+        "archive_title": "Forbidden Love: The Unashamed Stories Of Lesbian Lives (1992)",
+        "archive_downloads": 30665,
+        "archive_file": {
+          "file": "Forbidden Love The Unashamed Stories of Lesbian Lives (1992).ia.mp4",
+          "url": "https://archive.org/download/forbidden-love-the-unashamed-stories-of-lesbian-lives-1992/Forbidden%20Love%20The%20Unashamed%20Stories%20of%20Lesbian%20Lives%20%281992%29.ia.mp4",
+          "length_seconds": 5087,
+          "format": "h.264 IA",
+          "size": 3278166186
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/194926-forbidden-love-the-unashamed-stories-of-lesbian-lives",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The King of Kings",
+      "link": "https://archive.org/download/the-king-of-kings_1927/the-king-of-kings_1927.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/qJThyOfQVeEctEVVtK3LTDVL5S6.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/i2ObdxtwzwgbTxa0SIC7vbGtaem.jpg",
+      "summary": "The King of Kings is the Greatest Story Ever Told as only Cecil B. DeMille could tell it. In 1927, working with one of the biggest budgets in Hollywood history, DeMille spun the life and Passion of Christ into a silent-era blockbuster. Featuring text drawn directly from the Bible, a cast of thousands, and the great showman’s singular cinematic bag of tricks, The King of Kings is at once spectacular and deeply reverent—part Gospel, part Technicolor epic.",
+      "content": "movie",
+      "tmdb_id": "49633",
+      "year": "1927",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "The King of Kings",
+        "plot": "The King of Kings is the Greatest Story Ever Told as only Cecil B. DeMille could tell it. In 1927, working with one of the biggest budgets in Hollywood history, DeMille spun the life and Passion of Christ into a silent-era blockbuster. Featuring text drawn directly from the Bible, a cast of thousands, and the great showman’s singular cinematic bag of tricks, The King of Kings is at once spectacular and deeply reverent—part Gospel, part Technicolor epic.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1927-04-19",
+        "year": 1927,
+        "rating": 6.364,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-king-of-kings_1927",
+        "archive_url": "https://archive.org/details/the-king-of-kings_1927",
+        "archive_title": "The King of Kings",
+        "archive_downloads": 9080,
+        "archive_file": {
+          "file": "the-king-of-kings_1927.ia.mp4",
+          "url": "https://archive.org/download/the-king-of-kings_1927/the-king-of-kings_1927.ia.mp4",
+          "length_seconds": 9456,
+          "format": "h.264 IA",
+          "size": 11307115086
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/49633-the-king-of-kings",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "History"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Martin Luther",
+      "link": "https://archive.org/download/Www.VDyoutube.comMartinLuther1953Full1080pHD/%5Bwww.VDyoutube.com%5D-Martin%20Luther%20%281953%29%20Full%201080p%20HD.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/aUl70aJUSGLHNblrHQG2AbJpWH2.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/6Hrhm4xdjXRkIZtX9Jz0ZbUHBcH.jpg",
+      "summary": "A biopic of Martin Luther, covering his life between 1505 and 1530, and the birth of the Protestant Reformation movement.",
+      "content": "movie",
+      "tmdb_id": "89154",
+      "year": "1953",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "Martin Luther",
+        "plot": "A biopic of Martin Luther, covering his life between 1505 and 1530, and the birth of the Protestant Reformation movement.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1953-05-08",
+        "year": 1953,
+        "rating": 7.321,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Www.VDyoutube.comMartinLuther1953Full1080pHD",
+        "archive_url": "https://archive.org/details/Www.VDyoutube.comMartinLuther1953Full1080pHD",
+        "archive_title": "Martin Luther (1953)",
+        "archive_downloads": 22371,
+        "archive_file": {
+          "file": "[www.VDyoutube.com]-Martin Luther (1953) Full 1080p HD.mp4",
+          "url": "https://archive.org/download/Www.VDyoutube.comMartinLuther1953Full1080pHD/%5Bwww.VDyoutube.com%5D-Martin%20Luther%20%281953%29%20Full%201080p%20HD.mp4",
+          "length_seconds": 6382,
+          "format": "MPEG4",
+          "size": 813361369
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/89154-martin-luther",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Martyrs of the Alamo",
+      "link": "https://archive.org/download/TheMartyrsoftheAlamo/TheMartyrsoftheAlamo/TheMartyrsoftheAlamo.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/vdIzRIByluBrg06dLGSWsxkGQ42.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1snzJoazZtXKQoafQuDpPP6p4tZ.jpg",
+      "summary": "The story of the defense of the mission-turned-fortress by 185 Texans against an overwhelming Mexican army in 1836.",
+      "content": "movie",
+      "tmdb_id": "91474",
+      "year": "1915",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "Martyrs of the Alamo",
+        "plot": "The story of the defense of the mission-turned-fortress by 185 Texans against an overwhelming Mexican army in 1836.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1915-11-20",
+        "year": 1915,
+        "rating": 5.2,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheMartyrsoftheAlamo",
+        "archive_url": "https://archive.org/details/TheMartyrsoftheAlamo",
+        "archive_title": "The Martyrs of the Alamo",
+        "archive_downloads": 60817,
+        "archive_file": {
+          "file": "TheMartyrsoftheAlamo/TheMartyrsoftheAlamo.mp4",
+          "url": "https://archive.org/download/TheMartyrsoftheAlamo/TheMartyrsoftheAlamo/TheMartyrsoftheAlamo.mp4",
+          "length_seconds": 4314,
+          "format": "h.264",
+          "size": 448503582
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/91474-martyrs-of-the-alamo",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Miracle Worker",
+      "link": "https://archive.org/download/the-miracle-worker-1962/The.Miracle.Worker.1962.1080p.BluRay.x264-%5BYTS.AG%5D.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/3dI6UVM5W1sz3MU9gNK5nVDcAyQ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/5bvQEihHBKJ0Rs1J46HcG0wASDr.jpg",
+      "summary": "The true story of the frightening, lonely world of silence and darkness of 7-year-old Helen Keller who, since infancy, has never seen the sky, heard her mother's voice or expressed her innermost feelings. Then Annie Sullivan, a 20-year-old teacher from Boston, arrives. Having just recently regained her own sight, the no-nonsense Annie reaches out to Helen through the power of touch, the only tool they have in common, and leads her bold pupil on a miraculous journey from fear and isolation to happiness and light.",
+      "content": "movie",
+      "tmdb_id": "1162",
+      "year": "1962",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "The Miracle Worker",
+        "plot": "The true story of the frightening, lonely world of silence and darkness of 7-year-old Helen Keller who, since infancy, has never seen the sky, heard her mother's voice or expressed her innermost feelings. Then Annie Sullivan, a 20-year-old teacher from Boston, arrives. Having just recently regained her own sight, the no-nonsense Annie reaches out to Helen through the power of touch, the only tool they have in common, and leads her bold pupil on a miraculous journey from fear and isolation to happiness and light.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1962-05-23",
+        "year": 1962,
+        "rating": 7.893,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-miracle-worker-1962",
+        "archive_url": "https://archive.org/details/the-miracle-worker-1962",
+        "archive_title": "The Miracle Worker (1962)",
+        "archive_downloads": 51538,
+        "archive_file": {
+          "file": "The.Miracle.Worker.1962.1080p.BluRay.x264-[YTS.AG].mp4",
+          "url": "https://archive.org/download/the-miracle-worker-1962/The.Miracle.Worker.1962.1080p.BluRay.x264-%5BYTS.AG%5D.mp4",
+          "length_seconds": 6399,
+          "format": "MPEG4",
+          "size": 1716463611
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/1162-the-miracle-worker",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Native Land",
+      "link": "https://archive.org/download/native-land/Native%20Land.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/8BoBKWSxZmTjFiE16ITjjzoSNac.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/nrkA7iHczxkVg1OfgQP9FEpW6XX.jpg",
+      "summary": "By the start of World War II, Paul Robeson had given up his lucrative mainstream work to participate in more socially progressive film and stage productions. Robeson committed his support to Paul Strand and Leo Hurwitz’s political semidocumentary Native Land. With Robeson’s narration and songs, this beautifully shot and edited film exposes violations of Americans’ civil liberties and is a call to action for exploited workers around the country. Scarcely shown since its debut, Native Land represents Robeson’s shift from narrative cinema to the leftist documentaries that would define the final chapter of his controversial film career.",
+      "content": "movie",
+      "tmdb_id": "44787",
+      "year": "1942",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "Native Land",
+        "plot": "By the start of World War II, Paul Robeson had given up his lucrative mainstream work to participate in more socially progressive film and stage productions. Robeson committed his support to Paul Strand and Leo Hurwitz’s political semidocumentary Native Land. With Robeson’s narration and songs, this beautifully shot and edited film exposes violations of Americans’ civil liberties and is a call to action for exploited workers around the country. Scarcely shown since its debut, Native Land represents Robeson’s shift from narrative cinema to the leftist documentaries that would define the final chapter of his controversial film career.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1942-05-11",
+        "year": 1942,
+        "rating": 6.286,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "native-land",
+        "archive_url": "https://archive.org/details/native-land",
+        "archive_title": "Native Land",
+        "archive_downloads": 5332,
+        "archive_file": {
+          "file": "Native Land.mp4",
+          "url": "https://archive.org/download/native-land/Native%20Land.mp4",
+          "length_seconds": 5310,
+          "format": "h.264",
+          "size": 511069854
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/44787-native-land",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "History"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Operation Amsterdam",
+      "link": "https://archive.org/download/operation-amsterdam/Operation%20Amsterdam.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/6Bd4LTkKvkL8A2nkk5CE08RofSE.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/fryGisQqxPKlnXjRHrnoa3Upkrz.jpg",
+      "summary": "When Germany invades Holland in 1940, a British intelligence officer and two Dutch diamond merchants go to Amsterdam to persuade the Dutch diamond merchants to evacuate their diamond supplies to England.",
+      "content": "movie",
+      "tmdb_id": "46039",
+      "year": "1959",
+      "genre": "Drama / History / War",
+      "infolabels": {
+        "title": "Operation Amsterdam",
+        "plot": "When Germany invades Holland in 1940, a British intelligence officer and two Dutch diamond merchants go to Amsterdam to persuade the Dutch diamond merchants to evacuate their diamond supplies to England.",
+        "genre": [
+          "Drama",
+          "History",
+          "War"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1959-01-12",
+        "year": 1959,
+        "rating": 6.063,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "operation-amsterdam",
+        "archive_url": "https://archive.org/details/operation-amsterdam",
+        "archive_title": "Operation Amsterdam",
+        "archive_downloads": 3457,
+        "archive_file": {
+          "file": "Operation Amsterdam.mp4",
+          "url": "https://archive.org/download/operation-amsterdam/Operation%20Amsterdam.mp4",
+          "length_seconds": 6042,
+          "format": "h.264",
+          "size": 584625612
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/46039-operation-amsterdam",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "History"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Rembrandt",
+      "link": "https://archive.org/download/Rembrandt/Rembrandt.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/mGoJsDTITN1WBCEUzbSQEEUIGzj.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/f87Lsbz3TWb1YaJaYSYU2uUqFHc.jpg",
+      "summary": "A character study depicting the life of Rembrandt Van Rijn at the height of his fame in the mid 1600s. Beginning with the death of his wife, Rembrandt's work takes a dark turn, which offends many of his patrons.",
+      "content": "movie",
+      "tmdb_id": "50031",
+      "year": "1936",
+      "genre": "Drama / History",
+      "infolabels": {
+        "title": "Rembrandt",
+        "plot": "A character study depicting the life of Rembrandt Van Rijn at the height of his fame in the mid 1600s. Beginning with the death of his wife, Rembrandt's work takes a dark turn, which offends many of his patrons.",
+        "genre": [
+          "Drama",
+          "History"
+        ],
+        "country": [
+          "United Kingdom",
+          "United States"
+        ],
+        "premiered": "1936-11-06",
+        "year": 1936,
+        "rating": 6.803,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Rembrandt",
+        "archive_url": "https://archive.org/details/Rembrandt",
+        "archive_title": "Rembrandt",
+        "archive_downloads": 82502,
+        "archive_file": {
+          "file": "Rembrandt.mp4",
+          "url": "https://archive.org/download/Rembrandt/Rembrandt.mp4",
+          "length_seconds": 5043,
+          "format": "MPEG4",
+          "size": 1345311624
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/50031-rembrandt",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Scarlet and the Black",
+      "link": "https://archive.org/download/the-scarlet-and-the-black-1983/The%20Scarlet%20And%20The%20Black%20%281983%29/The%20Scarlet%20And%20The%20Black%20-%201983.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/f6nTRZC0RbdrUhauvhFjWlcbiTM.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/6TAW5ryXFzScw1Ed59uaY1Wivoe.jpg",
+      "summary": "Fr. Hugh O'Flaherty is a Vatican official in 1943-45 who has been hiding downed pilots, escaped prisoners of war, and Italian resistance families. His activities become so large that the Nazis decide to assassinate him the next time he leaves the Vatican.",
+      "content": "movie",
+      "tmdb_id": "44691",
+      "year": "1983",
+      "genre": "Drama / History / TV Movie / War",
+      "infolabels": {
+        "title": "The Scarlet and the Black",
+        "plot": "Fr. Hugh O'Flaherty is a Vatican official in 1943-45 who has been hiding downed pilots, escaped prisoners of war, and Italian resistance families. His activities become so large that the Nazis decide to assassinate him the next time he leaves the Vatican.",
+        "genre": [
+          "Drama",
+          "History",
+          "TV Movie",
+          "War"
+        ],
+        "country": [
+          "United States",
+          "United Kingdom"
+        ],
+        "premiered": "1983-02-02",
+        "year": 1983,
+        "rating": 7.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-scarlet-and-the-black-1983",
+        "archive_url": "https://archive.org/details/the-scarlet-and-the-black-1983",
+        "archive_title": "The Scarlet and the Black (1983)",
+        "archive_downloads": 3327,
+        "archive_file": {
+          "file": "The Scarlet And The Black (1983)/The Scarlet And The Black - 1983.mp4",
+          "url": "https://archive.org/download/the-scarlet-and-the-black-1983/The%20Scarlet%20And%20The%20Black%20%281983%29/The%20Scarlet%20And%20The%20Black%20-%201983.mp4",
+          "length_seconds": 8612,
+          "format": "MPEG4",
+          "size": 1382002369
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/44691-the-scarlet-and-the-black",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "War"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The Scarlet Empress",
+      "link": "https://archive.org/download/the-scarlet-empress/The%20Scarlet%20Empress.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/lCoyv38br7T4hFPJF0OnfAGuzbp.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/v1lSv9nNeuAC1rmc5pEdR8keUOJ.jpg",
+      "summary": "During the 18th century, German noblewoman Sophia Frederica, who would later become Catherine the Great, travels to Moscow to marry the dimwitted Grand Duke Peter, the heir to the Russian throne. Their arranged marriage proves to be loveless, and Catherine takes many lovers, including the handsome Count Alexei, and bears a son. When the unstable Peter eventually ascends to the throne, Catherine plots to oust him from power.",
+      "content": "movie",
+      "tmdb_id": "31527",
+      "year": "1934",
+      "genre": "Drama / History / Romance",
+      "infolabels": {
+        "title": "The Scarlet Empress",
+        "plot": "During the 18th century, German noblewoman Sophia Frederica, who would later become Catherine the Great, travels to Moscow to marry the dimwitted Grand Duke Peter, the heir to the Russian throne. Their arranged marriage proves to be loveless, and Catherine takes many lovers, including the handsome Count Alexei, and bears a son. When the unstable Peter eventually ascends to the throne, Catherine plots to oust him from power.",
+        "genre": [
+          "Drama",
+          "History",
+          "Romance"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1934-05-09",
+        "year": 1934,
+        "rating": 6.9,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "the-scarlet-empress",
+        "archive_url": "https://archive.org/details/the-scarlet-empress",
+        "archive_title": "The Scarlet Empress",
+        "archive_downloads": 7907,
+        "archive_file": {
+          "file": "The Scarlet Empress.mp4",
+          "url": "https://archive.org/download/the-scarlet-empress/The%20Scarlet%20Empress.mp4",
+          "length_seconds": 6301,
+          "format": "h.264",
+          "size": 604781913
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/31527-the-scarlet-empress",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "History"
+      }
+    },
+    {
+      "type": "item",
+      "title": "Waltzes from Vienna",
+      "link": "https://archive.org/download/Waltzes_from_Vienna/Waltzes_from_Vienna.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/34AL66MN44fJKiFjaHNPdqftqsY.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/9nB3Z5jq5R11j8MiKFELQAP7qMC.jpg",
+      "summary": "In Vienna, aspiring composer Johann Strauss Jr. clashes with his domineering father, who wants him to abandon music for a steady job in a bakery. Torn between his love for the baker’s daughter, Resi, and the encouragement of a wealthy countess, Strauss finds inspiration that leads to the creation of \"The Blue Danube.\"",
+      "content": "movie",
+      "tmdb_id": "52907",
+      "year": "1934",
+      "genre": "History / Romance / Music",
+      "infolabels": {
+        "title": "Waltzes from Vienna",
+        "plot": "In Vienna, aspiring composer Johann Strauss Jr. clashes with his domineering father, who wants him to abandon music for a steady job in a bakery. Torn between his love for the baker’s daughter, Resi, and the encouragement of a wealthy countess, Strauss finds inspiration that leads to the creation of \"The Blue Danube.\"",
+        "genre": [
+          "History",
+          "Romance",
+          "Music"
+        ],
+        "country": [
+          "United States",
+          "United Kingdom"
+        ],
+        "premiered": "1934-03-15",
+        "year": 1934,
+        "rating": 5.44,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "Waltzes_from_Vienna",
+        "archive_url": "https://archive.org/details/Waltzes_from_Vienna",
+        "archive_title": "Waltzes from Vienna",
+        "archive_downloads": 94581,
+        "archive_file": {
+          "file": "Waltzes_from_Vienna.mp4",
+          "url": "https://archive.org/download/Waltzes_from_Vienna/Waltzes_from_Vienna.mp4",
+          "length_seconds": 4605,
+          "format": "MPEG4",
+          "size": 745537809
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/52907-waltzes-from-vienna",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "When a Man Loves",
+      "link": "https://archive.org/download/when-a-man-loves_1927/when-a-man-loves_1927.ia.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/gfoofwOhl3j9HKiShfmJqhp314F.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/di0vgNh68Q4KqRrqdyXxM3LgUAb.jpg",
+      "summary": "A nobleman studying for the priesthood abandons his vocation in 18th Century France when he falls in love with a beautiful, but reluctant, courtesan.",
+      "content": "movie",
+      "tmdb_id": "122331",
+      "year": "1927",
+      "genre": "History / Romance",
+      "infolabels": {
+        "title": "When a Man Loves",
+        "plot": "A nobleman studying for the priesthood abandons his vocation in 18th Century France when he falls in love with a beautiful, but reluctant, courtesan.",
+        "genre": [
+          "History",
+          "Romance"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "1927-08-21",
+        "year": 1927,
+        "rating": 6.0,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "when-a-man-loves_1927",
+        "archive_url": "https://archive.org/details/when-a-man-loves_1927",
+        "archive_title": "When a Man Loves",
+        "archive_downloads": 3549,
+        "archive_file": {
+          "file": "when-a-man-loves_1927.ia.mp4",
+          "url": "https://archive.org/download/when-a-man-loves_1927/when-a-man-loves_1927.ia.mp4",
+          "length_seconds": 6746,
+          "format": "h.264 IA",
+          "size": 2921861889
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/122331-when-a-man-loves",
+        "tmdb_match_score": 1.0,
+        "targeted_genre_query": "History"
+      }
+    },
+    {
+      "type": "item",
+      "title": "The White Warrior",
+      "link": "https://archive.org/download/TheWhiteWarrior1961/TheWhiteWarrior1961.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/bFN4xwm03U4DCSdvOKdXDKGcubQ.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/cIXHzwterpkazJaSnCEVb3rGPxT.jpg",
+      "summary": "The story of Hadji Murad, a 19th-century Chechen chieftain who led his warriors in a fight against the invading forces of the Russian Czar.",
+      "content": "movie",
+      "tmdb_id": "271572",
+      "year": "1959",
+      "genre": "Action / Adventure / History",
+      "infolabels": {
+        "title": "The White Warrior",
+        "plot": "The story of Hadji Murad, a 19th-century Chechen chieftain who led his warriors in a fight against the invading forces of the Russian Czar.",
+        "genre": [
+          "Action",
+          "Adventure",
+          "History"
+        ],
+        "country": [
+          "Italy"
+        ],
+        "premiered": "1959-06-21",
+        "year": 1959,
+        "rating": 5.273,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "TheWhiteWarrior1961",
+        "archive_url": "https://archive.org/details/TheWhiteWarrior1961",
+        "archive_title": "The White Warrior",
+        "archive_downloads": 128539,
+        "archive_file": {
+          "file": "TheWhiteWarrior1961.mp4",
+          "url": "https://archive.org/download/TheWhiteWarrior1961/TheWhiteWarrior1961.mp4",
+          "length_seconds": 5124,
+          "format": "MPEG4",
+          "size": 1248422040
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/271572-agi-murad-il-diavolo-bianco",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Witchfinder General",
+      "link": "https://archive.org/download/witchfinder-general/Witchfinder%20General.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/5QuF8YbNtOpLbcTlEFSAokUv5sp.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/kuAcehliObELss7aKKKHyHOpUDH.jpg",
+      "summary": "England, 1645. The cruel civil war between Royalists and Parliamentarians that is ravaging the country causes an era of chaos and legal arbitrariness that allows unscrupulous men to profit by exploiting the absurd superstitions of the peasants; like Matthew Hopkins, a monster disguised as a man who wanders from town to town offering his services as a witch hunter.",
+      "content": "movie",
+      "tmdb_id": "31965",
+      "year": "1968",
+      "genre": "Drama / History / Horror",
+      "infolabels": {
+        "title": "Witchfinder General",
+        "plot": "England, 1645. The cruel civil war between Royalists and Parliamentarians that is ravaging the country causes an era of chaos and legal arbitrariness that allows unscrupulous men to profit by exploiting the absurd superstitions of the peasants; like Matthew Hopkins, a monster disguised as a man who wanders from town to town offering his services as a witch hunter.",
+        "genre": [
+          "Drama",
+          "History",
+          "Horror"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "premiered": "1968-05-17",
+        "year": 1968,
+        "rating": 6.5,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "witchfinder-general",
+        "archive_url": "https://archive.org/details/witchfinder-general",
+        "archive_title": "Witchfinder General",
+        "archive_downloads": 12134,
+        "archive_file": {
+          "file": "Witchfinder General.mp4",
+          "url": "https://archive.org/download/witchfinder-general/Witchfinder%20General.mp4",
+          "length_seconds": 5209,
+          "format": "h.264",
+          "size": 501332526
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/31965-witchfinder-general",
+        "tmdb_match_score": 1.0
+      }
+    },
+    {
+      "type": "item",
+      "title": "Zeitgeist: The Movie",
+      "link": "https://archive.org/download/zeitgeist_movie/Zeitgeist.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4eJQJ3tvnNO7CdxXT5awnd9ovGX.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/4CLZ8P4kZNBLR06n1NdxxWKnFRp.jpg",
+      "summary": "A documentary examining possible historical and modern conspiracies surrounding Christianity, the 9/11 terrorist attacks, and the Federal Reserve bank.",
+      "content": "movie",
+      "tmdb_id": "13016",
+      "year": "2007",
+      "genre": "Documentary / History",
+      "infolabels": {
+        "title": "Zeitgeist: The Movie",
+        "plot": "A documentary examining possible historical and modern conspiracies surrounding Christianity, the 9/11 terrorist attacks, and the Federal Reserve bank.",
+        "genre": [
+          "Documentary",
+          "History"
+        ],
+        "country": [
+          "United States"
+        ],
+        "premiered": "2007-06-01",
+        "year": 2007,
+        "rating": 6.967,
+        "mediatype": "movie"
+      },
+      "source": {
+        "archive_identifier": "zeitgeist_movie",
+        "archive_url": "https://archive.org/details/zeitgeist_movie",
+        "archive_title": "Zeitgeist - The Movie",
+        "archive_downloads": 264339,
+        "archive_file": {
+          "file": "Zeitgeist.mp4",
+          "url": "https://archive.org/download/zeitgeist_movie/Zeitgeist.mp4",
+          "length_seconds": 6983,
+          "format": "h.264",
+          "size": 717889617
+        },
+        "tmdb_url": "https://www.themoviedb.org/movie/13016-zeitgeist-the-movie",
+        "tmdb_match_score": 1.0
+      }
+    }
+  ]
+}

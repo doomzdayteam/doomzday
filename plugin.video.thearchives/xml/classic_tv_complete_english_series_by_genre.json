@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Comedy[/COLOR]",
+      "link": "file://classic_tv_genres/comedy.json",
+      "thumbnail": "https://archive.org/services/img/alcock-and-gander-1972",
+      "fanart": "https://archive.org/services/img/alcock-and-gander-1972",
+      "summary": "57 complete series, 3182 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Crime & Mystery[/COLOR]",
+      "link": "file://classic_tv_genres/crime_mystery.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/4Dno08EMEqEOV2BxLp3oBKjp1fp.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/80MO31EkV2TZecRiVlBht1Qp9Sm.jpg",
+      "summary": "36 complete series, 1098 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Science Fiction & Fantasy[/COLOR]",
+      "link": "file://classic_tv_genres/science_fiction_fantasy.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/f2XO7aIODBdtwPhmq4c2NXtdRmh.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/6ymPPGkwYzATBZ6pXvSo8YlPbj8.jpg",
+      "summary": "36 complete series, 705 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Action & Adventure[/COLOR]",
+      "link": "file://classic_tv_genres/action_adventure.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/fKhnOrEo8eKiRlHGMbhS9XnmYIc.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/77Kg5AW0Y0rLhYU0rW5sJKaAo1Q.jpg",
+      "summary": "7 complete series, 261 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Drama[/COLOR]",
+      "link": "file://classic_tv_genres/drama.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/xyHSUpBKEsrpZsCovnihXzYWiXu.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/xyHSUpBKEsrpZsCovnihXzYWiXu.jpg",
+      "summary": "11 complete series, 244 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Animation & Family[/COLOR]",
+      "link": "file://classic_tv_genres/animation_family.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/h9Kqsng08I3CtA5m2GVq52NVUIL.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/z9ipjaUaoRWMl6vvQnLhpuFfkBu.jpg",
+      "summary": "15 complete series, 1116 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Documentary & History[/COLOR]",
+      "link": "file://classic_tv_genres/documentary_history.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/wktuD6RcbSJmAWpeT01szcRfYVV.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/71JTJfHMBov7Uoc38lV2bCKSwJe.jpg",
+      "summary": "11 complete series, 202 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]War & Military[/COLOR]",
+      "link": "file://classic_tv_genres/war_military.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/ckBaARJvVS4iKVMwImMJEG2yhFC.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/ckBaARJvVS4iKVMwImMJEG2yhFC.jpg",
+      "summary": "14 complete series, 284 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Horror & Supernatural[/COLOR]",
+      "link": "file://classic_tv_genres/horror_supernatural.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/AjrIdCt0E3yyAmsts0OgQTxGbbe.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(blur)/AjrIdCt0E3yyAmsts0OgQTxGbbe.jpg",
+      "summary": "3 complete series, 62 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Western[/COLOR]",
+      "link": "file://classic_tv_genres/western.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/cvivxPeLnXUGiZtgeHdLVA6xGmb.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/wz9b19dihwqkOpaQjofmYeqXTCU.jpg",
+      "summary": "2 complete series, 76 episodes."
+    },
+    {
+      "type": "dir",
+      "title": "[COLOR cyan]Music & Variety[/COLOR]",
+      "link": "file://classic_tv_genres/music_variety.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/5tIrG3Cs83BcYqnGu6ptlRDxGBI.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/uGbqhDPESGJuLCeMCEJBzM2cFZM.jpg",
+      "summary": "5 complete series, 98 episodes."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "S01E01 - Episode 1",
+      "link": "https://archive.org/download/roots-1977-complete-original/Roots%20%281977%29%201080p%20H.264%20EP%201%20%28moviesbyrizzo%20upload%29.mkv",
+      "thumbnail": "https://archive.org/services/img/roots-1977-complete-original",
+      "fanart": "https://archive.org/services/img/roots-1977-complete-original",
+      "summary": "We don't have an overview translated in English. Help us expand our database by adding one.",
+      "content": "episode",
+      "tvshowtitle": "Roots: The Complete Miniseries",
+      "season": "1",
+      "episode": "1",
+      "year": "1977",
+      "infolabels": {
+        "title": "Episode 1",
+        "tvshowtitle": "Roots: The Complete Miniseries",
+        "season": 1,
+        "episode": 1,
+        "plot": "We don't have an overview translated in English. Help us expand our database by adding one.",
+        "aired": "January 23, 1977",
+        "mediatype": "episode"
+      }
+    }
+  ]
+}

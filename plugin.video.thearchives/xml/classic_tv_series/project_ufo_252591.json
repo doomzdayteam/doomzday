@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "S01E01 - Episode 1",
+      "link": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/p1mJ9tpD5U0UW5OrsXXYFLVtG75.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1kDcpOzVcyqqP0UXj0kX8WIOIY7.jpg",
+      "summary": "Polgar invites Sokolik to speak on his show, where he reveals a mysterious photo of an unidentified submerged object he believes to be extraterrestrial.",
+      "content": "episode",
+      "tvshowtitle": "Project UFO",
+      "season": "1",
+      "episode": "1",
+      "year": "2025",
+      "infolabels": {
+        "title": "Episode 1",
+        "tvshowtitle": "Project UFO",
+        "season": 1,
+        "episode": 1,
+        "plot": "Polgar invites Sokolik to speak on his show, where he reveals a mysterious photo of an unidentified submerged object he believes to be extraterrestrial.",
+        "aired": "April 16, 2025",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E02 - Episode 2",
+      "link": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/q5WIxoJQbySTl3Jc7O1uRFbt4D9.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1kDcpOzVcyqqP0UXj0kX8WIOIY7.jpg",
+      "summary": "Julia struggles with Sara's sleepwalking terrors, and Polgar meets with Josef — a small-town farmer who claims he's seen foreign entities near his home.",
+      "content": "episode",
+      "tvshowtitle": "Project UFO",
+      "season": "1",
+      "episode": "2",
+      "year": "2025",
+      "infolabels": {
+        "title": "Episode 2",
+        "tvshowtitle": "Project UFO",
+        "season": 1,
+        "episode": 2,
+        "plot": "Julia struggles with Sara's sleepwalking terrors, and Polgar meets with Josef — a small-town farmer who claims he's seen foreign entities near his home.",
+        "aired": "April 16, 2025",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E03 - Episode 3",
+      "link": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E03%20-%20The%20Fremont%20Incident.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/oscUVliCjdOIn8O5lnYqgS6svaw.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1kDcpOzVcyqqP0UXj0kX8WIOIY7.jpg",
+      "summary": "Wera travels to Truskasy to scoop the breaking story from under Polgar's nose with Sokolik's help. Julia and Polgar uncover a shocking new eyewitness.",
+      "content": "episode",
+      "tvshowtitle": "Project UFO",
+      "season": "1",
+      "episode": "3",
+      "year": "2025",
+      "infolabels": {
+        "title": "Episode 3",
+        "tvshowtitle": "Project UFO",
+        "season": 1,
+        "episode": 3,
+        "plot": "Wera travels to Truskasy to scoop the breaking story from under Polgar's nose with Sokolik's help. Julia and Polgar uncover a shocking new eyewitness.",
+        "aired": "April 16, 2025",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E04 - Episode 4",
+      "link": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E04%20-%20The%20Howard%20Crossing%20Incident.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/ccOU4fI3UhZW271wXAKJ7EC8vO6.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/1kDcpOzVcyqqP0UXj0kX8WIOIY7.jpg",
+      "summary": "The state holds a conference to unveil Polgar's findings, but when Julia and Sara visit the lake, a hidden truth about Antek's disappearance resurfaces.",
+      "content": "episode",
+      "tvshowtitle": "Project UFO",
+      "season": "1",
+      "episode": "4",
+      "year": "2025",
+      "infolabels": {
+        "title": "Episode 4",
+        "tvshowtitle": "Project UFO",
+        "season": 1,
+        "episode": 4,
+        "plot": "The state holds a conference to unveil Polgar's findings, but when Julia and Sara visit the lake, a hidden truth about Antek's disappearance resurfaces.",
+        "aired": "April 16, 2025",
+        "mediatype": "episode"
+      }
+    }
+  ]
+}

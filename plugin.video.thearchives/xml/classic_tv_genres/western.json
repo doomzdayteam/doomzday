@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "Alias Smith and Jones",
+      "link": "file://classic_tv_series/alias_smith_and_jones_3275.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/cvivxPeLnXUGiZtgeHdLVA6xGmb.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/wz9b19dihwqkOpaQjofmYeqXTCU.jpg",
+      "summary": "50 episodes. Alias Smith and Jones is an American Western series that originally aired on ABC from 1971 to 1973. It stars Pete Duel as Hannibal Heyes and Ben Murphy as Jedediah \"Kid\" Curry, a pair of cousin outlaws trying to reform. The governor offers them a conditional amnesty, as he wants to keep the pact under wraps for political reasons. The condition is that they will still be wanted— until the governor can claim they have reformed and warrant clemency.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "3275"
+    },
+    {
+      "type": "dir",
+      "title": "The Loner",
+      "link": "file://classic_tv_series/loner_11773.json",
+      "thumbnail": "https://media.themoviedb.org/t/p/w500/eJ03auED4J0BT1pty6ph3qBoitb.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/m4immT7sKUO37vV3uaJE0wHf7Eq.jpg",
+      "summary": "26 episodes. The Loner is an American western series that ran for less than one season on CBS from 1965 to 1966, under the alternate sponsorship of Philip Morris and Procter & Gamble.",
+      "content": "tvshow",
+      "year": "2023",
+      "tmdb_id": "11773"
+    }
+  ]
+}

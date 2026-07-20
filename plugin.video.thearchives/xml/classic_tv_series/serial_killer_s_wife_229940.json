@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "S01E01 - Chapter 1",
+      "link": "https://archive.org/download/KillersWife/KillersWife.avi",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/rpL6lJNmoCz6gjvZ8o3FEqlNXM6.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiS3cczASkISmvEryRK0DyWy3b9.jpg",
+      "summary": "Beth's party for her husband Tom is interrupted when the police arrest him for the murder of his ex-colleague. Beth secures Tom's release with an alibi but, just as the couple reconciles, she finds unsettling proof of her husband's double life.",
+      "content": "episode",
+      "tvshowtitle": "The Serial Killer's Wife",
+      "season": "1",
+      "episode": "1",
+      "year": "2023",
+      "infolabels": {
+        "title": "Chapter 1",
+        "tvshowtitle": "The Serial Killer's Wife",
+        "season": 1,
+        "episode": 1,
+        "plot": "Beth's party for her husband Tom is interrupted when the police arrest him for the murder of his ex-colleague. Beth secures Tom's release with an alibi but, just as the couple reconciles, she finds unsettling proof of her husband's double life.",
+        "aired": "December 15, 2023",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E02 - Chapter 2",
+      "link": "https://archive.org/download/KillersWife/KillersWife.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/7C7yB9pp4qEZxDudczgUd4W80f.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiS3cczASkISmvEryRK0DyWy3b9.jpg",
+      "summary": "Beth seeks proof of Tom's infidelity from his friend Adam, while police connect him to another murder. Tom admits to his affairs but denies killing Katy. Beth connects Katy to a local drug dealer, leading to a tragic confrontation with the police.",
+      "content": "episode",
+      "tvshowtitle": "The Serial Killer's Wife",
+      "season": "1",
+      "episode": "2",
+      "year": "2023",
+      "infolabels": {
+        "title": "Chapter 2",
+        "tvshowtitle": "The Serial Killer's Wife",
+        "season": 1,
+        "episode": 2,
+        "plot": "Beth seeks proof of Tom's infidelity from his friend Adam, while police connect him to another murder. Tom admits to his affairs but denies killing Katy. Beth connects Katy to a local drug dealer, leading to a tragic confrontation with the police.",
+        "aired": "December 15, 2023",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E03 - Chapter 3",
+      "link": "https://archive.org/download/KillersWife/KillersWife.ogv",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/oa2g8DTbeEakv6zy6WeBzkDCUKB.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiS3cczASkISmvEryRK0DyWy3b9.jpg",
+      "summary": "During a school event, the Fairchild's past scandalous sex life becomes public, while DI Edgeworth goes rogue to gather evidence against Tom. Beth makes a shocking discovery and plans her escape.",
+      "content": "episode",
+      "tvshowtitle": "The Serial Killer's Wife",
+      "season": "1",
+      "episode": "3",
+      "year": "2023",
+      "infolabels": {
+        "title": "Chapter 3",
+        "tvshowtitle": "The Serial Killer's Wife",
+        "season": 1,
+        "episode": 3,
+        "plot": "During a school event, the Fairchild's past scandalous sex life becomes public, while DI Edgeworth goes rogue to gather evidence against Tom. Beth makes a shocking discovery and plans her escape.",
+        "aired": "December 15, 2023",
+        "mediatype": "episode"
+      }
+    },
+    {
+      "type": "item",
+      "title": "S01E04 - Chapter 4",
+      "link": "https://archive.org/download/KillersWife/KillersWife_512kb.mp4",
+      "thumbnail": "https://media.themoviedb.org/t/p/w227_and_h127_face/n5ipEYMyAUZsXIF0HTPduTxJDuc.jpg",
+      "fanart": "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/tiS3cczASkISmvEryRK0DyWy3b9.jpg",
+      "summary": "A year later, Beth marries Adam amidst police presence and high tension. A secret encounter with Tom prompts Beth to discover the truth behind the murders and take drastic measures in order to protect her family.",
+      "content": "episode",
+      "tvshowtitle": "The Serial Killer's Wife",
+      "season": "1",
+      "episode": "4",
+      "year": "2023",
+      "infolabels": {
+        "title": "Chapter 4",
+        "tvshowtitle": "The Serial Killer's Wife",
+        "season": 1,
+        "episode": 4,
+        "plot": "A year later, Beth marries Adam amidst police presence and high tension. A secret encounter with Tom prompts Beth to discover the truth behind the murders and take drastic measures in order to protect her family.",
+        "aired": "December 15, 2023",
+        "mediatype": "episode"
+      }
+    }
+  ]
+}
