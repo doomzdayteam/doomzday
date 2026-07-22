@@ -113,6 +113,14 @@
     <setting id="punchplay.scope" type="text" label="Scope" visible="false" default="profile:read playback:read playback:write events:read" />
     <setting id="punchplay.backend_url" type="text" label="Backend URL" visible="false" default="https://punchplay.tv" />
   </category>
+  <category label="Simkl">
+    <setting id="simkl.authorize" type="action" label="[COLOR lawngreen]Authorize Simkl Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/authorize)" />
+    <setting id="simkl.test" type="action" label="[COLOR deepskyblue]Test Simkl Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/test)" />
+    <setting id="simkl.clear" type="action" label="[COLOR red]Revoke Simkl Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/clear)" />
+    <setting id="simkl.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="simkl.user_code" type="text" label="Last User Code" visible="false" default="" />
+    <setting id="simkl.backend_url" type="text" label="Backend URL" visible="false" default="https://api.simkl.com" />
+  </category>
   <category label="Sources Accounts">
     <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
     <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />

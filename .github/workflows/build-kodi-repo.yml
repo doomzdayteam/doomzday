@@ -6,7 +6,7 @@ on:
       repo_version:
         description: "repository.doomzday version to build"
         required: true
-        default: "1.1.9"
+        default: "1.2.2"
         type: string
 
 permissions:

@@ -59,6 +59,12 @@ def get_punchplay_api_client_id():
 def get_punchplay_api_client_secret():
     return get_dev_api_value("PUNCHPLAY_CLIENT_SECRET")
 
+def get_simkl_api_client_id():
+    return get_dev_api_value("SIMKL_CLIENT_ID")
+
+def get_simkl_api_client_secret():
+    return get_dev_api_value("SIMKL_CLIENT_SECRET")
+
 def get_real_debrid_client_id():
     return get_dev_api_value("REAL_DEBRID_CLIENT_ID")
 
