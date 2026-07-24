@@ -1,10 +1,207 @@
-﻿{
-    "items":  [
-                  {
-                      "type":  "dir",
-                      "title":  "My TMDb Lists",
-                      "link":  "tmdb/account/lists",
-                      "summary":  "Lists you have created on TMDb"
-                  }
-              ]
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "TMDb Profile",
+      "link": "tmdb/account/profile",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "TMDb account details"
+    },
+    {
+      "type": "dir",
+      "title": "My TMDb Lists",
+      "link": "tmdb/account/lists",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Lists you have created on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Favorite Movies",
+      "link": "tmdb/account/favorites/movie",
+      "thumbnail": "resources/media/favorites.png",
+      "summary": "Movies you have marked as favorites on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Favorite TV Shows",
+      "link": "tmdb/account/favorites/tv",
+      "thumbnail": "resources/media/favorites.png",
+      "summary": "TV shows you have marked as favorites on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Movie Watchlist",
+      "link": "tmdb/account/watchlist/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies in your TMDb watchlist"
+    },
+    {
+      "type": "dir",
+      "title": "TV Watchlist",
+      "link": "tmdb/account/watchlist/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows in your TMDb watchlist"
+    },
+    {
+      "type": "dir",
+      "title": "Rated Movies",
+      "link": "tmdb/account/ratings/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies you have rated on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Rated TV Shows",
+      "link": "tmdb/account/ratings/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows you have rated on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Rated TV Episodes",
+      "link": "tmdb/account/ratings/episodes",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV episodes you have rated on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Search TMDb Movies",
+      "link": "tmdb/search/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search TMDb movies"
+    },
+    {
+      "type": "dir",
+      "title": "Search TMDb TV Shows",
+      "link": "tmdb/search/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Search TMDb TV shows"
+    },
+    {
+      "type": "dir",
+      "title": "Recent Movie Searches",
+      "link": "tmdb/recent_searches/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Recent TMDb movie searches"
+    },
+    {
+      "type": "dir",
+      "title": "Recent TV Searches",
+      "link": "tmdb/recent_searches/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Recent TMDb TV searches"
+    },
+    {
+      "type": "dir",
+      "title": "Movie Genres",
+      "link": "tmdb/genres/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Browse TMDb movie genres"
+    },
+    {
+      "type": "dir",
+      "title": "TV Genres",
+      "link": "tmdb/genres/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Browse TMDb TV genres"
+    },
+    {
+      "type": "dir",
+      "title": "Trending Movies Today",
+      "link": "tmdb/trending/movie/day",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "TMDb trending movies today"
+    },
+    {
+      "type": "dir",
+      "title": "Trending Movies This Week",
+      "link": "tmdb/trending/movie/week",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "TMDb trending movies this week"
+    },
+    {
+      "type": "dir",
+      "title": "Trending TV Today",
+      "link": "tmdb/trending/tv/day",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TMDb trending TV today"
+    },
+    {
+      "type": "dir",
+      "title": "Trending TV This Week",
+      "link": "tmdb/trending/tv/week",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TMDb trending TV this week"
+    },
+    {
+      "type": "dir",
+      "title": "Popular Movies",
+      "link": "tmdb/movie/popular",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Popular movies on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Top Rated Movies",
+      "link": "tmdb/movie/top_rated",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Top rated movies on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Now Playing Movies",
+      "link": "tmdb/movie/now_playing",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies now playing from TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Upcoming Movies",
+      "link": "tmdb/movie/upcoming",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Upcoming movies from TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Popular TV Shows",
+      "link": "tmdb/tv/popular",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Popular TV shows on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Top Rated TV Shows",
+      "link": "tmdb/tv/top_rated",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Top rated TV shows on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "TV Airing Today",
+      "link": "tmdb/tv/airing_today",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows airing today from TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "TV On The Air",
+      "link": "tmdb/tv/on_the_air",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows currently on the air from TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Discover Movies",
+      "link": "tmdb/discover/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Discover movies on TMDb"
+    },
+    {
+      "type": "dir",
+      "title": "Discover TV Shows",
+      "link": "tmdb/discover/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Discover TV shows on TMDb"
+    }
+  ]
 }

@@ -37,6 +37,13 @@
     },
 	{
       "type": "dir",
+      "title": "Internet Archive",
+      "link": "https://archive.org",
+      "thumbnail": "resources/media/internet_archive.png",
+      "summary": "Search and browse audio & video from the Internet Archive. Links will slow load"
+    },
+	{
+      "type": "dir",
       "title": "FootReplays",
       "link": "https://www.footreplays.com/",
       "thumbnail": "resources/media/vod.png",
@@ -70,7 +77,21 @@
       "thumbnail": "resources/media/vod.png",
       "summary": "Search and browse Dailymotion videos, popular uploads, recent uploads, and categories."
     },
-	    {
+	{
+      "type": "dir",
+      "title": "YouTube Search",
+      "link": "https://www.youtube.com/",
+      "thumbnail": "resources/media/youtube_search.png",
+      "summary": "Search and watch YouTube videos. Links will slow load"
+    },
+	{
+      "type": "dir",
+      "title": "Reddit Videos",
+      "link": "https://www.reddit.com",
+	  "thumbnail": "resources/media/reddit.png",
+      "summary": "Search Reddit for native videos and live streams"
+    },
+	{
       "type": "dir",
       "title": "Archives TV Shows",
       "link": "file://classic_tv_complete_english_series_by_genre.json",

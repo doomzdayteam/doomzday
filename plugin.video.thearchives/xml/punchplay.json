@@ -1,0 +1,95 @@
+{
+  "items": [
+    {
+      "title": "PunchPlay Profile",
+      "type": "dir",
+      "link": "punchplay/user/profile",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Authenticated PunchPlay identity and granted scopes"
+    },
+    {
+      "title": "My Public Profile",
+      "type": "dir",
+      "link": "punchplay/public/self",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Public PunchPlay profile, watch stats, and recent public history"
+    },
+    {
+      "title": "Lookup Public Profile",
+      "type": "dir",
+      "link": "punchplay/public/search",
+      "thumbnail": "resources/media/search.png",
+      "summary": "Look up any public PunchPlay username"
+    },
+    {
+      "title": "Now Playing",
+      "type": "dir",
+      "link": "punchplay/playback/now-playing",
+      "thumbnail": "resources/media/progress.png",
+      "summary": "Current active PunchPlay playback item"
+    },
+    {
+      "title": "In Progress",
+      "type": "dir",
+      "link": "punchplay/playback/in-progress",
+      "thumbnail": "resources/media/progress.png",
+      "summary": "Active or resumable PunchPlay playback items"
+    },
+    {
+      "title": "Continue Watching Shows",
+      "type": "dir",
+      "link": "punchplay/continue-watching",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "PunchPlay continue-watching show progress"
+    },
+    {
+      "title": "Watch History",
+      "type": "dir",
+      "link": "punchplay/history",
+      "thumbnail": "resources/media/progress.png",
+      "summary": "Cursor or offset paged PunchPlay watch history"
+    },
+    {
+      "title": "Ratings",
+      "type": "dir",
+      "link": "punchplay/ratings",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Titles rated in PunchPlay"
+    },
+    {
+      "title": "Favourites",
+      "type": "dir",
+      "link": "punchplay/favourites",
+      "thumbnail": "resources/media/favorites.png",
+      "summary": "Titles favourited in PunchPlay"
+    },
+    {
+      "title": "Watch Status",
+      "type": "dir",
+      "link": "punchplay/watch-status",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Planning and show statuses from PunchPlay"
+    },
+    {
+      "title": "My PunchPlay Lists",
+      "type": "dir",
+      "link": "punchplay/lists",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "PunchPlay list summaries"
+    },
+    {
+      "title": "Collection",
+      "type": "dir",
+      "link": "punchplay/collection",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Titles in your PunchPlay collection"
+    },
+    {
+      "title": "Community Stats",
+      "type": "dir",
+      "link": "punchplay/community-stats",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Authenticated PunchPlay community stats where available"
+    }
+  ]
+}

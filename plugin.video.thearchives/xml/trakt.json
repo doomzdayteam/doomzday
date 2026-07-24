@@ -1,64 +1,235 @@
-﻿{
-    "items":  [
-                  {
-                      "title":  "Personal Movies Collection",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/collection/movies",
-                      "summary":  "Movies you have collected through Trakt"
-                  },
-                  {
-                      "title":  "Personal TV Shows Collection",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/collection/shows",
-                      "summary":  "TV Shows you have collected through Trakt"
-                  },
-                  {
-                      "title":  "My Trakt Lists",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/lists",
-                      "summary":  "Lists you have created on Trakt"
-                  },
-                  {
-                      "title":  "Liked Trakt Lists",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/liked_lists",
-                      "summary":  "Trakt lists you have liked"
-                  },
-                  {
-                      "title":  "Search Trakt Lists",
-                      "type":  "dir",
-                      "link":  "trakt/lists/search",
-                      "summary":  "Search public Trakt lists"
-                  },
-                  {
-                      "title":  "Personal Movie Recommendations",
-                      "type":  "dir",
-                      "link":  "trakt/recommendations/movies",
-                      "summary":  "Trakt Recommended Movies"
-                  },
-                  {
-                      "title":  "Personal Show Recommendations",
-                      "type":  "dir",
-                      "link":  "trakt/recommendations/shows",
-                      "summary":  "Trakt Recommended TV Shows"
-                  },
-                  {
-                      "title":  "[B][COLOR gold]Personal Watched Movies[/COLOR][/B]",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/watched/movies",
-                      "summary":  "Your Watch History for Movies - Warning Long Load Time"
-                  },
-                  {
-                      "title":  "[B][COLOR gold]Personal Watched Shows[/COLOR][/B]",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/watched/shows",
-                      "summary":  "Your Watch History for TV Shows - Warning Long Load Time"
-                  },
-                  {
-                      "title":  "[B][COLOR gold]Personal Watchlist[/COLOR][/B]",
-                      "type":  "dir",
-                      "link":  "trakt/user/self/watchlist",
-                      "summary":  "Watchlists you have created on Trakt. Will not work if you have not created any"
-                  }
-              ]
+{
+  "items": [
+    {
+      "title": "Trakt Profile",
+      "type": "dir",
+      "link": "trakt/user/self/profile",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Trakt account profile and settings"
+    },
+    {
+      "title": "Trakt Stats",
+      "type": "dir",
+      "link": "trakt/user/self/stats",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Trakt account stats"
+    },
+    {
+      "title": "Personal Movies Collection",
+      "type": "dir",
+      "link": "trakt/user/self/collection/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies you have collected through Trakt"
+    },
+    {
+      "title": "Personal TV Shows Collection",
+      "type": "dir",
+      "link": "trakt/user/self/collection/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV Shows you have collected through Trakt"
+    },
+    {
+      "title": "My Trakt Lists",
+      "type": "dir",
+      "link": "trakt/user/self/lists",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Lists you have created on Trakt"
+    },
+    {
+      "title": "Liked Trakt Lists",
+      "type": "dir",
+      "link": "trakt/user/self/liked_lists",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Trakt lists you have liked"
+    },
+    {
+      "title": "Search Trakt Lists",
+      "type": "dir",
+      "link": "trakt/lists/search",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Search public Trakt lists"
+    },
+    {
+      "title": "Personal Movie Recommendations",
+      "type": "dir",
+      "link": "trakt/recommendations/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Trakt recommended movies"
+    },
+    {
+      "title": "Personal Show Recommendations",
+      "type": "dir",
+      "link": "trakt/recommendations/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Trakt recommended TV shows"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watched Movies[/COLOR][/B]",
+      "type": "dir",
+      "link": "trakt/user/self/watched/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Your watched movies - Warning Long Load Time"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watched Shows[/COLOR][/B]",
+      "type": "dir",
+      "link": "trakt/user/self/watched/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Your watched TV shows - Warning Long Load Time"
+    },
+    {
+      "title": "[B][COLOR gold]Recent Movie History[/COLOR][/B]",
+      "type": "dir",
+      "link": "trakt/user/self/history/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Recent Trakt movie history"
+    },
+    {
+      "title": "[B][COLOR gold]Recent Episode History[/COLOR][/B]",
+      "type": "dir",
+      "link": "trakt/user/self/history/episodes",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Recent Trakt episode history"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watchlist[/COLOR][/B]",
+      "type": "dir",
+      "link": "trakt/user/self/watchlist",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Everything in your Trakt watchlist"
+    },
+    {
+      "title": "Movie Watchlist",
+      "type": "dir",
+      "link": "trakt/user/self/watchlist/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies in your Trakt watchlist"
+    },
+    {
+      "title": "TV Watchlist",
+      "type": "dir",
+      "link": "trakt/user/self/watchlist/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows in your Trakt watchlist"
+    },
+    {
+      "title": "Favorite Movies",
+      "type": "dir",
+      "link": "trakt/user/self/favorites/movies",
+      "thumbnail": "resources/media/favorites.png",
+      "summary": "Movies you have favorited on Trakt"
+    },
+    {
+      "title": "Favorite Shows",
+      "type": "dir",
+      "link": "trakt/user/self/favorites/shows",
+      "thumbnail": "resources/media/favorites.png",
+      "summary": "Shows you have favorited on Trakt"
+    },
+    {
+      "title": "Rated Movies",
+      "type": "dir",
+      "link": "trakt/user/self/ratings/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies you have rated on Trakt"
+    },
+    {
+      "title": "Rated Shows",
+      "type": "dir",
+      "link": "trakt/user/self/ratings/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Shows you have rated on Trakt"
+    },
+    {
+      "title": "Rated Episodes",
+      "type": "dir",
+      "link": "trakt/user/self/ratings/episodes",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Episodes you have rated on Trakt"
+    },
+    {
+      "title": "Trending Movies",
+      "type": "dir",
+      "link": "trakt/movies/trending",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Trending movies on Trakt"
+    },
+    {
+      "title": "Popular Movies",
+      "type": "dir",
+      "link": "trakt/movies/popular",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Popular movies on Trakt"
+    },
+    {
+      "title": "Anticipated Movies",
+      "type": "dir",
+      "link": "trakt/movies/anticipated",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Most anticipated movies on Trakt"
+    },
+    {
+      "title": "Most Watched Movies This Week",
+      "type": "dir",
+      "link": "trakt/movies/watched",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Most watched movies this week on Trakt"
+    },
+    {
+      "title": "Most Played Movies This Week",
+      "type": "dir",
+      "link": "trakt/movies/played",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Most played movies this week on Trakt"
+    },
+    {
+      "title": "Most Favorited Movies This Week",
+      "type": "dir",
+      "link": "trakt/movies/favorited",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Most favorited movies this week on Trakt"
+    },
+    {
+      "title": "Trending Shows",
+      "type": "dir",
+      "link": "trakt/shows/trending",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Trending shows on Trakt"
+    },
+    {
+      "title": "Popular Shows",
+      "type": "dir",
+      "link": "trakt/shows/popular",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Popular shows on Trakt"
+    },
+    {
+      "title": "Anticipated Shows",
+      "type": "dir",
+      "link": "trakt/shows/anticipated",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most anticipated shows on Trakt"
+    },
+    {
+      "title": "Most Watched Shows This Week",
+      "type": "dir",
+      "link": "trakt/shows/watched",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most watched shows this week on Trakt"
+    },
+    {
+      "title": "Most Played Shows This Week",
+      "type": "dir",
+      "link": "trakt/shows/played",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most played shows this week on Trakt"
+    },
+    {
+      "title": "Most Favorited Shows This Week",
+      "type": "dir",
+      "link": "trakt/shows/favorited",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most favorited shows this week on Trakt"
+    }
+  ]
 }

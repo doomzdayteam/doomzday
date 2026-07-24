@@ -1,0 +1,179 @@
+{
+  "items": [
+    {
+      "title": "Simkl Profile",
+      "type": "dir",
+      "link": "simkl/user/profile",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "Simkl account and sync activity information"
+    },
+    {
+      "title": "Plan to Watch Movies",
+      "type": "dir",
+      "link": "simkl/library/movies/plantowatch",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies in your Simkl Plan to Watch list"
+    },
+    {
+      "title": "Completed Movies",
+      "type": "dir",
+      "link": "simkl/library/movies/completed",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies completed in Simkl"
+    },
+    {
+      "title": "Dropped Movies",
+      "type": "dir",
+      "link": "simkl/library/movies/dropped",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies dropped in Simkl"
+    },
+    {
+      "title": "Watching TV Shows",
+      "type": "dir",
+      "link": "simkl/library/shows/watching",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows you are watching in Simkl"
+    },
+    {
+      "title": "Plan to Watch TV Shows",
+      "type": "dir",
+      "link": "simkl/library/shows/plantowatch",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows in your Simkl Plan to Watch list"
+    },
+    {
+      "title": "Completed TV Shows",
+      "type": "dir",
+      "link": "simkl/library/shows/completed",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows completed in Simkl"
+    },
+    {
+      "title": "On Hold TV Shows",
+      "type": "dir",
+      "link": "simkl/library/shows/hold",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows on hold in Simkl"
+    },
+    {
+      "title": "Dropped TV Shows",
+      "type": "dir",
+      "link": "simkl/library/shows/dropped",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows dropped in Simkl"
+    },
+    {
+      "title": "Watching Anime",
+      "type": "dir",
+      "link": "simkl/library/anime/watching",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Anime you are watching in Simkl"
+    },
+    {
+      "title": "Plan to Watch Anime",
+      "type": "dir",
+      "link": "simkl/library/anime/plantowatch",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Anime in your Simkl Plan to Watch list"
+    },
+    {
+      "title": "Completed Anime",
+      "type": "dir",
+      "link": "simkl/library/anime/completed",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Anime completed in Simkl"
+    },
+    {
+      "title": "Rated Movies",
+      "type": "dir",
+      "link": "simkl/ratings/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies you rated in Simkl"
+    },
+    {
+      "title": "Rated TV Shows",
+      "type": "dir",
+      "link": "simkl/ratings/shows",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows you rated in Simkl"
+    },
+    {
+      "title": "Rated Anime",
+      "type": "dir",
+      "link": "simkl/ratings/anime",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Anime you rated in Simkl"
+    },
+    {
+      "title": "Search Simkl Movies",
+      "type": "dir",
+      "link": "simkl/search/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Search Simkl movies"
+    },
+    {
+      "title": "Search Simkl TV Shows",
+      "type": "dir",
+      "link": "simkl/search/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Search Simkl TV shows"
+    },
+    {
+      "title": "Search Simkl Anime",
+      "type": "dir",
+      "link": "simkl/search/anime",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Search Simkl anime"
+    },
+    {
+      "title": "Trending Movies",
+      "type": "dir",
+      "link": "simkl/trending/movies",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Trending Simkl movies"
+    },
+    {
+      "title": "Trending TV Shows",
+      "type": "dir",
+      "link": "simkl/trending/tv",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Trending Simkl TV shows"
+    },
+    {
+      "title": "Trending Anime",
+      "type": "dir",
+      "link": "simkl/trending/anime",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Trending Simkl anime"
+    },
+    {
+      "title": "Popular Movies This Month",
+      "type": "dir",
+      "link": "simkl/genres/movies/popular-this-month",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Popular movies from Simkl discovery"
+    },
+    {
+      "title": "Most Watched TV Shows",
+      "type": "dir",
+      "link": "simkl/best/tv/watched",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most watched TV shows on Simkl"
+    },
+    {
+      "title": "Most Watched Anime",
+      "type": "dir",
+      "link": "simkl/best/anime/watched",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Most watched anime on Simkl"
+    },
+    {
+      "title": "Recently Changed Catalog",
+      "type": "dir",
+      "link": "simkl/changes/all",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Recently updated Simkl catalog IDs"
+    }
+  ]
+}

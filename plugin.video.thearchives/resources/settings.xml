@@ -65,6 +65,7 @@
     <setting id="custom.personal.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
   </category>
   <category label="TMDB">
+    <setting id="lsep.tmdb.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
     <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />
     <setting id="tmdb.revoke" type="action" label="[COLOR red]Revoke TMDb Account Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_revoke)" />
     <setting id="tmdb.token" type="text" label="TMDb Token" visible="false" default="" />
@@ -81,6 +82,7 @@
     <setting id="tmdbsort.favorites" type="enum" label="[B][COLOR white]Favorites Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
   </category>
   <category label="Trakt">
+    <setting id="lsep.trakt.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
     <setting id="trakt.authorize" type="action" label="[COLOR lawngreen]Authorize Trakt Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)" />
     <setting id="trakt.clear" type="action" label="[COLOR red]Revoke Trakt Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/clear)" />
     <setting id="trakt.access_token" type="text" label="Access Token" visible="false" default="" />
@@ -100,6 +102,7 @@
     <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
   </category>
   <category label="PunchPlay">
+    <setting id="lsep.punchplay.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
     <setting id="punchplay.authorize" type="action" label="[COLOR lawngreen]Authorize PunchPlay Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/authorize)" />
     <setting id="punchplay.test" type="action" label="[COLOR deepskyblue]Test PunchPlay Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/test)" />
     <setting id="punchplay.clear" type="action" label="[COLOR red]Revoke PunchPlay Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/clear)" />
@@ -114,12 +117,24 @@
     <setting id="punchplay.backend_url" type="text" label="Backend URL" visible="false" default="https://punchplay.tv" />
   </category>
   <category label="Simkl">
+    <setting id="lsep.simkl.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
     <setting id="simkl.authorize" type="action" label="[COLOR lawngreen]Authorize Simkl Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/authorize)" />
     <setting id="simkl.test" type="action" label="[COLOR deepskyblue]Test Simkl Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/test)" />
     <setting id="simkl.clear" type="action" label="[COLOR red]Revoke Simkl Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/clear)" />
     <setting id="simkl.access_token" type="text" label="Access Token" visible="false" default="" />
     <setting id="simkl.user_code" type="text" label="Last User Code" visible="false" default="" />
     <setting id="simkl.backend_url" type="text" label="Backend URL" visible="false" default="https://api.simkl.com" />
+  </category>
+  <category label="MDBList">
+    <setting id="lsep.mdblist.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="mdblist.authorize" type="action" label="[COLOR lawngreen]Authorize MDBList API Key[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/authorize)" />
+    <setting id="mdblist.test" type="action" label="[COLOR deepskyblue]Test MDBList Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/test)" />
+    <setting id="mdblist.clear" type="action" label="[COLOR red]Revoke MDBList Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/clear)" />
+    <setting id="mdblist.api_key" type="text" label="API Key" visible="false" option="hidden" default="" />
+    <setting id="mdblist.user_id" type="text" label="User ID" visible="false" default="" />
+    <setting id="mdblist.username" type="text" label="Username" visible="false" default="" />
+    <setting id="mdblist.plan" type="text" label="Plan" visible="false" default="" />
+    <setting id="mdblist.backend_url" type="text" label="Backend URL" visible="false" default="https://api.mdblist.com" />
   </category>
   <category label="Sources Accounts">
     <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
@@ -172,11 +187,20 @@
     <setting id="folders.tv_folder" type="folder" label="[COLOR khaki]    TV Show Folder[/COLOR]" subsetting="true" visible="eq(-2,true)" default="" />
     <setting id="folders.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="6" />
   </category>
-  <category label="Home Page">
+  <category label="Main Menu">
     <setting id="root_xml" type="text" label="Root XML Location" default="file://main.json" visible="true" />
     <setting id="message_xml_url" type="text" label="News File Location" default="file://news.xml" visible="true" />
+    <setting id="lsep.main.menu.cache.note" type="lsep" label="[COLOR khaki]Clear The Archives cache after changing main menu visibility options.[/COLOR]" />
+    <setting id="menu.show.trakt" type="bool" label="Show Trakt on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.mdblist" type="bool" label="Show MDBList on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.simkl" type="bool" label="Show Simkl on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.punchplay" type="bool" label="Show PunchPlay on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.tmdb" type="bool" label="Show TMDb on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.custom_debrid_lists" type="bool" label="Show Custom Debrid Lists on Main Menu" default="false" visible="true" />
+    <setting id="menu.show.personal_lists" type="bool" label="Show Personal Lists on Main Menu" default="false" visible="true" />
   </category>
   <category label="Dev Mode">
     <setting id="debug" type="bool" label="Enable Debugging Mode" default="false" visible="true" />
   </category>
 </settings>
+

@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "title": "MDBList Profile / API Limits",
+      "type": "dir",
+      "link": "mdblist/user/profile",
+      "thumbnail": "resources/media/settings.png",
+      "summary": "MDBList account, plan, and API request limit information"
+    },
+    {
+      "title": "Personal Movies Collection",
+      "type": "dir",
+      "link": "mdblist/collection/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies collected in MDBList"
+    },
+    {
+      "title": "Personal TV Shows Collection",
+      "type": "dir",
+      "link": "mdblist/collection/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows collected in MDBList"
+    },
+    {
+      "title": "My MDBList Lists",
+      "type": "dir",
+      "link": "mdblist/user/lists",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Lists you have created on MDBList"
+    },
+    {
+      "title": "Liked MDBList Lists",
+      "type": "dir",
+      "link": "mdblist/lists/liked",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "MDBList lists you have liked"
+    },
+    {
+      "title": "Search MDBList Lists",
+      "type": "dir",
+      "link": "mdblist/lists/search",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Search public MDBList lists"
+    },
+    {
+      "title": "Personal Movie Recommendations",
+      "type": "dir",
+      "link": "mdblist/recommendations/recommended/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "MDBList recommended movies where available for your account"
+    },
+    {
+      "title": "Personal Show Recommendations",
+      "type": "dir",
+      "link": "mdblist/recommendations/recommended/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "MDBList recommended TV shows where available for your account"
+    },
+    {
+      "title": "Global Rising Movies",
+      "type": "dir",
+      "link": "mdblist/recommendations/rising/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Global rising MDBList movie recommendations"
+    },
+    {
+      "title": "Global Rising Shows",
+      "type": "dir",
+      "link": "mdblist/recommendations/rising/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Global rising MDBList show recommendations"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watched Movies[/COLOR][/B]",
+      "type": "dir",
+      "link": "mdblist/watched/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Your MDBList watched movie history - Warning Long Load Time"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watched Shows[/COLOR][/B]",
+      "type": "dir",
+      "link": "mdblist/watched/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Your MDBList watched TV show history - Warning Long Load Time"
+    },
+    {
+      "title": "[B][COLOR gold]Personal Watchlist[/COLOR][/B]",
+      "type": "dir",
+      "link": "mdblist/watchlist/all",
+      "thumbnail": "resources/media/playlists.png",
+      "summary": "Your MDBList watchlist"
+    },
+    {
+      "title": "Personal Movie Ratings",
+      "type": "dir",
+      "link": "mdblist/ratings/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Movies you have rated in MDBList"
+    },
+    {
+      "title": "Personal Show Ratings",
+      "type": "dir",
+      "link": "mdblist/ratings/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "TV shows you have rated in MDBList"
+    },
+    {
+      "title": "MDBList Popular Movies",
+      "type": "dir",
+      "link": "mdblist/catalog/movie/tmdbpopular",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Popular movies from the MDBList catalog"
+    },
+    {
+      "title": "MDBList Popular Shows",
+      "type": "dir",
+      "link": "mdblist/catalog/show/tmdbpopular",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Popular shows from the MDBList catalog"
+    },
+    {
+      "title": "Recently Updated Movies",
+      "type": "dir",
+      "link": "mdblist/updates/movie",
+      "thumbnail": "resources/media/movies.png",
+      "summary": "Recently updated MDBList movies"
+    },
+    {
+      "title": "Recently Updated Shows",
+      "type": "dir",
+      "link": "mdblist/updates/show",
+      "thumbnail": "resources/media/tvshows.png",
+      "summary": "Recently updated MDBList shows"
+    }
+  ]
+}

@@ -25,6 +25,7 @@ ROUTE_MODULES = {
     "trakt/": ["trakt", "tmdb_plugin"],
     "punchplay/": ["punchplay"],
     "simkl/": ["simkl"],
+    "mdblist/": ["mdblist"],
     "ytdlp/": ["youtube"],
 }
 
@@ -34,6 +35,9 @@ URL_MODULE_RULES = [
     ("custom_debrid_lists:", ["custom_debrid_lists"]),
     ("custom_personal_lists:", ["custom_personal_lists"]),
     ("history/", ["history"]),
+    ("mdblist", ["mdblist", "tmdb_plugin", "get_meta"]),
+    ("punchplay", ["punchplay", "tmdb_plugin", "get_meta"]),
+    ("simkl", ["simkl", "tmdb_plugin", "get_meta"]),
     ("tmdb", ["tmdb_plugin", "get_meta"]),
     ("trakt", ["trakt", "tmdb_plugin", "get_meta"]),
     ("youtube-live://", ["youtube_live"]),
@@ -42,6 +46,7 @@ URL_MODULE_RULES = [
     ("youtu.be", ["youtube"]),
     ("freelistenonline.com", ["flo"]),
     ("worldradiomap.com", ["worldradiomap"]),
+    ("radio-browser.info", ["radio_browser"]),
     ("audiophile.fm", ["audiophilefm"]),
     ("archive.org", ["archive_org"]),
     ("reddit.com", ["reddit"]),
@@ -96,6 +101,7 @@ PLAYBACK_MODULES = [
     "public_iptv",
     "rakuten_tv",
     "reddit",
+    "radio_browser",
     "roku_channel",
     "samsung_tv_plus",
     "supercartoons",

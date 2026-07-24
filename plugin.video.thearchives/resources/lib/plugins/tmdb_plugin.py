@@ -19,6 +19,7 @@ except ImportError:
 
 ITEMS_PER_PAGE = [20, 40, 60, 80, 100]
 PAGES = int(ITEMS_PER_PAGE[int(ownAddon.getSetting("items_per_page"))]/20)
+API_TIMEOUT = 12
 
 
 def _is_future_date(value, today=None):
@@ -83,6 +84,23 @@ def _message_item(title, summary):
         "title": title,
         "summary": summary,
     }
+
+
+def _popup_message_item(title, summary):
+    return {
+        "type": "item",
+        "title": title,
+        "link": f"message/{quote(str(summary or ''), safe='')}",
+        "thumbnail": "resources/media/settings.png",
+        "summary": summary,
+    }
+
+
+def _account_sort(setting_id):
+    value = ownAddon.getSetting(setting_id)
+    if value == "3":
+        return "created_at.asc"
+    return "created_at.desc"
 
 
 def _recent_search_items(media_type):
@@ -177,6 +195,43 @@ def _cast_member_items(cast, image_url):
     return items
 
 
+def _account_episode_item(item, image_url):
+    if not isinstance(item, dict):
+        return None
+    show = item.get("show") if isinstance(item.get("show"), dict) else {}
+    show_id = item.get("show_id") or item.get("tv_id") or show.get("id") or ""
+    still = f"{image_url}{item.get('still_path')}" if item.get("still_path") else ""
+    title = item.get("name") or item.get("episode_title") or "TMDb Episode"
+    season = item.get("season_number") or item.get("season") or 0
+    episode = item.get("episode_number") or item.get("episode") or 0
+    try:
+        label = "S%02dE%02d - %s" % (int(season), int(episode), title)
+    except (TypeError, ValueError):
+        label = title
+    rating = item.get("rating")
+    summary = item.get("overview") or ""
+    if rating not in (None, ""):
+        summary = "[B]Your Rating:[/B] %s[CR][CR]%s" % (rating, summary)
+    return {
+        "content": "episode",
+        "type": "item",
+        "title": _color_future_title(label, item.get("air_date")),
+        "link": "search",
+        "thumbnail": still,
+        "fanart": still,
+        "summary": summary,
+        "tmdb_id": item.get("id", ""),
+        "tv_show_tmdb_id": show_id,
+        "season": season,
+        "episode": episode,
+        "premiered": item.get("air_date", ""),
+    }
+
+
+def _account_episode_items(items, image_url):
+    return {"items": [converted for converted in (_account_episode_item(item, image_url) for item in items or []) if converted]}
+
+
 class objectview(object):
     def __init__(self, d):
         self.__dict__ = d
@@ -212,6 +267,88 @@ class TMDB_API:
     base_url = "https://api.themoviedb.org"
     image_url = "https://image.tmdb.org/t/p/w500"
     session = DI.session
+
+    def _get_json(self, url, headers):
+        return self.session.get(url, headers=headers, timeout=API_TIMEOUT).json()
+
+    def _account_session_id(self):
+        return ownAddon.getSetting("tmdb.account_session_id") or ownAddon.getSetting("tmdb.session_id")
+
+    def _account_url(self, path, params=None):
+        account_id = ownAddon.getSetting("tmdb.account_id")
+        session_id = self._account_session_id()
+        merged = {"api_key": self.api_key, "language": "en-US"}
+        if session_id:
+            merged["session_id"] = session_id
+        if params:
+            merged.update(params)
+        req = requests.PreparedRequest()
+        req.prepare_url(f"{self.base_url}/3/account/{account_id}/{path}", merged)
+        return req.url
+
+    def get_account_details(self):
+        account_id = ownAddon.getSetting("tmdb.account_id")
+        session_id = self._account_session_id()
+        params = {"api_key": self.api_key}
+        if session_id:
+            params["session_id"] = session_id
+        req = requests.PreparedRequest()
+        req.prepare_url(f"{self.base_url}/3/account/{account_id}", params)
+        return self.session.get(req.url, headers=self.account_headers, timeout=API_TIMEOUT).json()
+
+    def get_account_items(self, section, media_type, page=1):
+        endpoint_map = {
+            ("favorites", "movie"): ("favorite/movies", _account_sort("tmdbsort.favorites")),
+            ("favorites", "tv"): ("favorite/tv", _account_sort("tmdbsort.favorites")),
+            ("watchlist", "movie"): ("watchlist/movies", _account_sort("tmdbsort.watchlist")),
+            ("watchlist", "tv"): ("watchlist/tv", _account_sort("tmdbsort.watchlist")),
+            ("ratings", "movie"): ("rated/movies", "created_at.desc"),
+            ("ratings", "tv"): ("rated/tv", "created_at.desc"),
+            ("ratings", "episodes"): ("rated/tv/episodes", "created_at.desc"),
+        }
+        endpoint, sort_by = endpoint_map.get((section, media_type), ("", "created_at.desc"))
+        if not endpoint:
+            return [], False
+        response = self.session.get(
+            self._account_url(endpoint, {"page": page, "sort_by": sort_by}),
+            headers=self.account_headers,
+            timeout=API_TIMEOUT,
+        ).json()
+        results = response.get("results", response if isinstance(response, list) else [])
+        return results, response.get("total_pages", 1) > page
+
+    def handle_account_items(self, section, media_type, page=1):
+        items, has_next = self.get_account_items(section, media_type, page=page)
+        if section == "ratings" and media_type == "episodes":
+            payload = _account_episode_items(items, self.image_url)
+            jen_items = payload.get("items", [])
+        else:
+            jen_items = self.handle_items(items).get("items", [])
+        if has_next:
+            jen_items.append({
+                "type": "dir",
+                "title": "Next Page",
+                "link": f"tmdb/account/{section}/{media_type}/{page + 1}",
+            })
+        return {"items": jen_items}
+
+    def profile_items(self):
+        profile = self.get_account_details()
+        username = profile.get("username") or ownAddon.getSetting("tmdb.username") or "TMDb"
+        details = [
+            f"[B]Username:[/B] {username}",
+            f"[B]Account ID:[/B] {profile.get('id') or ownAddon.getSetting('tmdb.account_id')}",
+        ]
+        name = profile.get("name")
+        if name:
+            details.insert(1, f"[B]Name:[/B] {name}")
+        country = profile.get("iso_3166_1")
+        if country:
+            details.append(f"[B]Country:[/B] {country}")
+        language = profile.get("iso_639_1")
+        if language:
+            details.append(f"[B]Language:[/B] {language}")
+        return [_popup_message_item(f"TMDb Account: {username}", "[CR]".join(details))]
 
     def get(self, path: str, paginated: bool = True, full_meta: bool = False, page_count: int = 1):
         page = 1
@@ -257,10 +394,11 @@ class TMDB_API:
             req.prepare_url(
             f"{self.base_url}/{version}/{path}", {"api_key": self.api_key, "language": "en-US", "page": page}
         )
-        response = self.session.get(
-            req.url,
-            headers=request_headers,
-        ).json()
+        try:
+            response = self._get_json(req.url, request_headers)
+        except Exception as error:
+            do_log(f"TMDb request failed for {path}: {error}")
+            return [] if paginated else {}
         if  path.startswith("person/"):
             if "cast" in response or "crew" in response:
                 results = response.get("cast", [])
@@ -288,7 +426,7 @@ class TMDB_API:
             f"{self.base_url}/4/account/{account_id}/lists",
             {"page": page}
         )
-        response = self.session.get(req.url, headers=self.account_headers).json()
+        response = self.session.get(req.url, headers=self.account_headers, timeout=API_TIMEOUT).json()
         results = response.get("results", response if isinstance(response, list) else [])
         if response.get("total_pages", 1) > page:
             results.append({"type": "dir", "title": "Next Page", "link": f"tmdb/account/lists/{page + 1}"})
@@ -652,6 +790,15 @@ class TMDB(Plugin):
                 account_id = ownAddon.getSetting("tmdb.account_id")
                 lists = api.get_account_lists(account_id, page=page)
                 return json.dumps({"items": api.handle_lists_xml(lists)})
+            if kind == "account" and len(splitted) > 2 and splitted[2] == "profile":
+                if not self.__check_auth():
+                    return json.dumps({"items": []})
+                return json.dumps({"items": api.profile_items()})
+            if kind == "account" and len(splitted) > 3 and splitted[2] in ("favorites", "watchlist", "ratings"):
+                if not self.__check_auth():
+                    return json.dumps({"items": []})
+                page = int(splitted[4]) if len(splitted) > 4 and str.isdigit(splitted[4]) else 1
+                return json.dumps(api.handle_account_items(splitted[2], splitted[3], page=page))
             if kind == "recent_searches" and len(splitted) > 2:
                 return json.dumps({"items": _recent_search_items(splitted[2])})
             if kind == "clear_recent_searches" and len(splitted) > 2:

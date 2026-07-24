@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "type": "dir",
+      "title": "Archives Music",
+      "link": "https://freelistenonline.com/",
+      "thumbnail": "resources/media/archives_music.png",
+      "summary": "Search and listen to music"
+    },
+    {
+      "type": "dir",
+      "title": "World Radio Map",
+      "link": "https://worldradiomap.com/",
+      "thumbnail": "resources/media/world_radio_map.png",
+      "summary": "Listen live to FM and AM radio stations from major cities"
+    },
+    {
+      "type": "dir",
+      "title": "Radio Browser",
+      "link": "https://www.radio-browser.info/thearchives",
+      "thumbnail": "resources/media/archives_music.png",
+      "summary": "Search and browse the Radio Browser community station directory"
+    },
+    {
+      "type": "dir",
+      "title": "Flac Off",
+      "link": "https://audiophile.fm/",
+      "thumbnail": "resources/media/flac_off.png",
+      "summary": "Hi-Res and CD Quality lossless FLAC internet radio stations"
+    }
+  ]
+}

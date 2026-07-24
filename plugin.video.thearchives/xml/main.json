@@ -23,6 +23,27 @@
     },
     {
       "type": "dir",
+      "title": "MDBList",
+      "link": "file://mdblist.json",
+      "thumbnail": "resources/media/mdblist.png",
+      "summary": "Personal MDBList lists, watchlist, watched history, ratings, recommendations, and catalog views"
+    },
+    {
+      "type": "dir",
+      "title": "Simkl",
+      "link": "file://simkl.json",
+      "thumbnail": "resources/media/simkl.png",
+      "summary": "Personal Simkl watchlist statuses, ratings, search, and discovery views"
+    },
+    {
+      "type": "dir",
+      "title": "PunchPlay",
+      "link": "file://punchplay.json",
+      "thumbnail": "resources/media/punchplay.png",
+      "summary": "PunchPlay profile, history, ratings, lists, collection, and playback activity"
+    },
+    {
+      "type": "dir",
       "title": "TMDb",
       "link": "file://tmdb.json",
 	  "thumbnail": "resources/media/tmdb.png",
@@ -42,40 +63,12 @@
 	  "thumbnail": "resources/media/progress.png",
       "summary": "Items with private resume progress"
     },
-    {
+   {
       "type": "dir",
-      "title": "Archives Music",
-      "link": "https://freelistenonline.com/",
+      "title": "Music",
+      "link": "file://music.json",
       "thumbnail": "resources/media/archives_music.png",
-      "summary": "Search and listen to music"
-    },
-    {
-      "type": "dir",
-      "title": "World Radio Map",
-      "link": "https://worldradiomap.com/",
-      "thumbnail": "resources/media/world_radio_map.png",
-      "summary": "Listen live to FM and AM radio stations from major cities"
-    },
-    {
-      "type": "dir",
-      "title": "Flac Off",
-      "link": "https://audiophile.fm/",
-      "thumbnail": "resources/media/flac_off.png",
-      "summary": "Hi-Res and CD Quality lossless FLAC internet radio stations"
-    },
-    {
-      "type": "dir",
-      "title": "Internet Archive",
-      "link": "https://archive.org",
-      "thumbnail": "resources/media/internet_archive.png",
-      "summary": "Search and browse audio & video from the Internet Archive. Links will slow load"
-    },
-    {
-      "type": "dir",
-      "title": "Reddit Videos",
-      "link": "https://www.reddit.com",
-	  "thumbnail": "resources/media/reddit.png",
-      "summary": "Search Reddit for native videos and live streams"
+      "summary": "Music search and internet radio"
     },
     {
       "type": "dir",
@@ -83,13 +76,6 @@
       "link": "file://playlists.json",
       "thumbnail": "resources/media/playlists.png",
       "summary": "Custom playlists"
-    },
-    {
-      "type": "dir",
-      "title": "YouTube Search",
-      "link": "https://www.youtube.com/",
-      "thumbnail": "resources/media/youtube_search.png",
-      "summary": "Search and watch YouTube videos. Links will slow load"
     },
 	 {
       "type": "dir",

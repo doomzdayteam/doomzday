@@ -1,12 +1,39 @@
-﻿from resources.lib.plugins.tmdb_plugin import TMDB_API
+from resources.lib.plugins.tmdb_plugin import TMDB_API
 from ..DI import DI
 from ..plugin import Plugin
 from resources.lib.plugins.tmdb_plugin import _color_future_title
 import json, time, requests
+from urllib.parse import quote
 try:
     from resources.lib.util.common import *
 except ImportError:
     from .resources.lib.util.common import *
+
+API_TIMEOUT = 12
+PAGE_LIMIT = 25
+
+
+def _popup_item(title, summary, thumbnail="resources/media/settings.png"):
+    return {
+        "type": "item",
+        "title": title,
+        "link": "message/%s" % quote(str(summary or ""), safe=""),
+        "thumbnail": thumbnail,
+        "summary": summary,
+    }
+
+
+def _context_summary(prefix_parts, base_summary):
+    parts = [part for part in prefix_parts if part]
+    if base_summary:
+        parts.append(base_summary)
+    return "[CR][CR]".join(parts) if parts else base_summary
+
+
+class TraktAPIError(Exception):
+    def __init__(self, message, status_code=None):
+        super(TraktAPIError, self).__init__(message)
+        self.status_code = status_code
 
 def build_trakt_qr_image_url(device_code, size=800):
     try:
@@ -110,6 +137,10 @@ class Trakt(Plugin):
                     user_id = ownAddon.getSetting("trakt.user_id")
                 else:
                     user_id = split[2]
+                if split[3] == "profile":
+                    return json.dumps({"items": api.profile_items(user_id)})
+                if split[3] == "stats":
+                    return json.dumps({"items": api.stats_items(user_id)})
                 if split[3] == "collection":
                     collection, has_next = api.get_collection(user_id, split[4], page=page)
                     return api.handle_list(collection, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
@@ -125,16 +156,29 @@ class Trakt(Plugin):
                 elif split[3] == "watched":
                     watched, has_next = api.get_watched(user_id, split[4], page=page)
                     return api.handle_list(watched, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
+                elif split[3] == "history":
+                    history, has_next = api.get_history(user_id, split[4] if len(split) > 4 else "", page=page)
+                    return api.handle_list(history, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "watchlist":
                     watched, has_next = api.get_watchlist(user_id, split[4] if len(split) > 4 else "", page=page)
                     return api.handle_list(watched, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
+                elif split[3] == "favorites":
+                    favorites, has_next = api.get_favorites(user_id, split[4] if len(split) > 4 else "", page=page)
+                    return api.handle_list(favorites, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
+                elif split[3] == "ratings":
+                    ratings, has_next = api.get_ratings(user_id, split[4] if len(split) > 4 else "", page=page)
+                    return api.handle_list(ratings, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
             elif split[1] == "recommendations":
                 if self.__check_auth():
                     recommendations = api.get_recommendations(split[2], 25)
                     return api.handle_list(recommendations, page_link=page_split[0] + "|" + str(page + 1))
     
     def __check_auth(self):
-        if ownAddon.getSetting("trakt.user_id") == "":
+        user_id = ownAddon.getSetting("trakt.user_id")
+        access_token = ownAddon.getSetting("trakt.access_token")
+        if user_id == "" or access_token == "":
+            if user_id != "" or access_token != "":
+                self._clear_auth_settings()
             if xbmcgui.Dialog().yesno("Trakt Authorization", "This action requires a Trakt account.\n\nWould you like to authorize a Trakt account?"):
                 return self.__auth()
         else:
@@ -232,20 +276,83 @@ class Trakt_API:
         self.client_id = get_trakt_api_client_id()
         self.client_secret = get_trakt_api_client_secret()
 
+    def _get(self, url, **kwargs):
+        kwargs.setdefault("timeout", API_TIMEOUT)
+        return self.session.get(url, **kwargs)
+
+    def _post(self, url, **kwargs):
+        kwargs.setdefault("timeout", API_TIMEOUT)
+        return self.session.post(url, **kwargs)
+
     def _json_or_error(self, response, action):
+        status_code = getattr(response, "status_code", None)
+        body = (getattr(response, "text", "") or "").strip()
+        if len(body) > 200:
+            body = body[:200] + "..."
+        payload = None
+        parsed_json = False
         try:
-            return response.json()
+            payload = response.json()
+            parsed_json = True
         except Exception:
-            body = (getattr(response, "text", "") or "").strip()
-            if len(body) > 200:
-                body = body[:200] + "..."
-            raise Exception(
-                "Trakt returned a non-JSON response while %s. HTTP %s. %s" %
-                (action, getattr(response, "status_code", "unknown"), body)
-            )
+            pass
+        if status_code and status_code >= 400:
+            detail = ""
+            if isinstance(payload, dict):
+                detail = payload.get("error") or payload.get("message") or payload.get("description") or ""
+            if not detail:
+                detail = body
+            if status_code == 401:
+                message = "Trakt authorization failed while %s. Re-authorize Trakt in addon settings." % action
+            elif status_code == 429:
+                message = "Trakt rate limited the addon while %s. Try again in a little bit." % action
+            else:
+                message = "Trakt returned HTTP %s while %s." % (status_code, action)
+            if detail:
+                message += "\n\n%s" % detail
+            raise TraktAPIError(message, status_code)
+        if parsed_json:
+            return payload
+        raise TraktAPIError(
+            "Trakt returned a non-JSON response while %s. HTTP %s. %s" %
+            (action, status_code or "unknown", body)
+        )
+
+    def _json_or_empty(self, response, action):
+        try:
+            return self._json_or_error(response, action)
+        except TraktAPIError as e:
+            self._clear_auth_if_unauthorized(e)
+            xbmc.log(str(e), xbmc.LOGERROR)
+            try:
+                xbmcgui.Dialog().ok("Trakt Error", str(e))
+            except Exception:
+                pass
+            return []
+
+    def _json_or_dict(self, response, action):
+        try:
+            return self._json_or_error(response, action)
+        except TraktAPIError as e:
+            self._clear_auth_if_unauthorized(e)
+            xbmc.log(str(e), xbmc.LOGERROR)
+            try:
+                xbmcgui.Dialog().ok("Trakt Error", str(e))
+            except Exception:
+                pass
+            return {}
 
     def _paged_json(self, response, action, page, limit):
-        items = self._json_or_error(response, action)
+        try:
+            items = self._json_or_error(response, action)
+        except TraktAPIError as e:
+            self._clear_auth_if_unauthorized(e)
+            xbmc.log(str(e), xbmc.LOGERROR)
+            try:
+                xbmcgui.Dialog().ok("Trakt Error", str(e))
+            except Exception:
+                pass
+            return [], False
         try:
             page_count = int(response.headers.get("X-Pagination-Page-Count", ""))
             has_next = page < page_count
@@ -253,91 +360,133 @@ class Trakt_API:
             has_next = isinstance(items, list) and len(items) >= limit
         return items, has_next
 
+    def _clear_auth_if_unauthorized(self, error):
+        if getattr(error, "status_code", None) != 401:
+            return
+        xbmcaddon.Addon().setSetting("trakt.access_token", "")
+        xbmcaddon.Addon().setSetting("trakt.refresh_token", "")
+        xbmcaddon.Addon().setSetting("trakt.user_id", "")
+        xbmcaddon.Addon().setSetting("trakt.expires", "0")
+
     def device_code(self):
-        response = self.session.post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.app_headers)
+        response = self._post(f"{self.base_url}/oauth/device/code", data=json.dumps({"client_id": self.client_id}), headers=self.app_headers)
         code = self._json_or_error(response, "starting device authorization")
         return code
     
     def device_token(self, code) -> requests.Response:
-        response = self.session.post(f"{self.base_url}/oauth/device/token", data=json.dumps({"code": code, "client_id": self.client_id, "client_secret": self.client_secret}), headers=self.app_headers)
+        response = self._post(f"{self.base_url}/oauth/device/token", data=json.dumps({"code": code, "client_id": self.client_id, "client_secret": self.client_secret}), headers=self.app_headers)
         return response
     
     def get_user_settings(self, access_token=None):
         headers = self.headers.copy()
         if access_token:
             headers["Authorization"] = "Bearer " + access_token
-        response = self.session.get(f"{self.base_url}/users/settings", headers=headers)
+        response = self._get(f"{self.base_url}/users/settings", headers=headers)
         settings = self._json_or_error(response, "loading Trakt user settings")
         return settings
     
     def get_movies_chart(self, chart: str, period: str = "weekly", page: int = 1):
-        response = self.session.get(f"{self.base_url}/movies/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        chart_list = response.json()
+        response = self._get(f"{self.base_url}/movies/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        chart_list = self._json_or_empty(response, "loading Trakt movies chart")
         return chart_list
     
     def get_shows_chart(self, chart: str, period: str = "weekly", page: int = 1):
-        response = self.session.get(f"{self.base_url}/shows/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        chart_list = response.json()
+        response = self._get(f"{self.base_url}/shows/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        chart_list = self._json_or_empty(response, "loading Trakt shows chart")
         return chart_list
     
     def get_collection(self, user_id: str, type: str, page: int = 1):
         limit = 25
-        response = self.session.get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
+        response = self._get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
         return self._paged_json(response, "loading Trakt collection", page, limit)
     
     def get_likes(self, user_id: str, type: str, page: int = 1):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        collection = response.json()
+        response = self._get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        collection = self._json_or_empty(response, "loading Trakt likes")
         return collection
     
     def get_watched(self, user_id: str, type: str, page: int = 1):
         limit = 25
-        response = self.session.get(f"{self.base_url}/users/{user_id}/watched/{type}", headers=self.headers, params={"page": page, "limit": limit})
+        response = self._get(f"{self.base_url}/users/{user_id}/watched/{type}", headers=self.headers, params={"page": page, "limit": limit})
         return self._paged_json(response, "loading Trakt watched history", page, limit)
+
+    def get_history(self, user_id: str, type: str = "", page: int = 1):
+        limit = PAGE_LIMIT
+        path = f"{self.base_url}/users/{user_id}/history"
+        if type:
+            path += "/" + type
+        response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
+        return self._paged_json(response, "loading Trakt history", page, limit)
     
     def get_watchlist(self, user_id: str, type: str = "", page: int = 1):
         limit = 25
-        response = self.session.get(f"{self.base_url}/users/{user_id}/watchlist{'/' + type if type != '' else ''}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
+        response = self._get(f"{self.base_url}/users/{user_id}/watchlist{'/' + type if type != '' else ''}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
         return self._paged_json(response, "loading Trakt watchlist", page, limit)
 
+    def get_favorites(self, user_id: str, type: str = "", page: int = 1):
+        limit = PAGE_LIMIT
+        media_type = type if type in ("movies", "shows") else ""
+        path = f"{self.base_url}/users/{user_id}/favorites"
+        if media_type:
+            path += f"/{media_type}/rank/asc"
+        response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
+        return self._paged_json(response, "loading Trakt favorites", page, limit)
+
+    def get_ratings(self, user_id: str, type: str = "", page: int = 1):
+        limit = PAGE_LIMIT
+        media_type = type if type in ("movies", "shows", "episodes") else ""
+        path = f"{self.base_url}/users/{user_id}/ratings"
+        if media_type:
+            path += "/" + media_type
+        response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
+        return self._paged_json(response, "loading Trakt ratings", page, limit)
+
     def get_recommendations(self, type: str, limit: int = 10):
-        response = self.session.get(f"{self.base_url}/recommendations/{type}?extended=full&limit={limit}", headers=self.headers)
-        recommendations = response.json()
+        response = self._get(f"{self.base_url}/recommendations/{type}?extended=full&limit={limit}", headers=self.headers)
+        recommendations = self._json_or_empty(response, "loading Trakt recommendations")
         return recommendations
 
     def get_lists(self, user_id: str):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/lists?extended=full", headers=self.headers)
-        trakt_lists = response.json()
+        response = self._get(f"{self.base_url}/users/{user_id}/lists?extended=full", headers=self.headers)
+        trakt_lists = self._json_or_empty(response, "loading Trakt lists")
         return trakt_lists
+
+    def get_user_profile(self, user_id: str):
+        response = self._get(f"{self.base_url}/users/{user_id}", headers=self.headers, params={"extended": "full"})
+        return self._json_or_dict(response, "loading Trakt user profile")
+
+    def get_user_stats(self, user_id: str):
+        response = self._get(f"{self.base_url}/users/{user_id}/stats", headers=self.headers)
+        return self._json_or_dict(response, "loading Trakt user stats")
 
 
     def get_liked_lists(self, page: int = 1):
-        response = self.session.get(f"{self.base_url}/users/likes/lists", headers=self.headers, params={"page": page, "limit": 25})
-        trakt_lists = response.json()
+        response = self._get(f"{self.base_url}/users/likes/lists", headers=self.headers, params={"page": page, "limit": 25})
+        trakt_lists = self._json_or_empty(response, "loading liked Trakt lists")
         return trakt_lists
 
     def search_lists(self, query: str, page: int = 1):
-        response = self.session.get(f"{self.base_url}/search/list", headers=self.headers, params={"query": query, "page": page, "limit": 25})
-        trakt_lists = response.json()
+        response = self._get(f"{self.base_url}/search/list", headers=self.headers, params={"query": query, "page": page, "limit": 25})
+        trakt_lists = self._json_or_empty(response, "searching Trakt lists")
         return trakt_lists
     def get_list(self, list_id, page: int = 1):
-        response = self.session.get(f"{self.base_url}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        trakt_list = response.json()
+        response = self._get(f"{self.base_url}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        trakt_list = self._json_or_empty(response, "loading Trakt list items")
         return trakt_list
     
     def get_user_list(self, user_id, list_id, page: int = 1):
-        response = self.session.get(f"{self.base_url}/users/{user_id}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        trakt_list = response.json()
+        response = self._get(f"{self.base_url}/users/{user_id}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        trakt_list = self._json_or_empty(response, "loading Trakt user list items")
         return trakt_list
 
     def get_show(self, show_id: int):
-        response = self.session.get(f"{self.base_url}/shows/{show_id}/seasons?extended=full", headers=self.headers)    
-        trakt_show = response.json()     
+        response = self._get(f"{self.base_url}/shows/{show_id}/seasons?extended=full", headers=self.headers)    
+        trakt_show = self._json_or_empty(response, "loading Trakt show seasons")     
         return trakt_show
 
     def get_season(self, show_id: int, season: int):
-        response = self.session.get(f"{self.base_url}/shows/{show_id}/seasons/{season}?extended=full", headers=self.headers)
-        trakt_season = response.json()        
+        response = self._get(f"{self.base_url}/shows/{show_id}/seasons/{season}?extended=full", headers=self.headers)
+        trakt_season = self._json_or_empty(response, "loading Trakt season episodes")        
         return trakt_season
 
     def process_items(self, items):
@@ -345,10 +494,29 @@ class Trakt_API:
         return items
 
     def handle_item(self, item):
+        context = []
+        if isinstance(item, dict):
+            if item.get("rating") not in (None, ""):
+                context.append("[B]Your Rating:[/B] %s" % item.get("rating"))
+            if item.get("rated_at"):
+                context.append("[B]Rated:[/B] %s" % item.get("rated_at"))
+            if item.get("watched_at"):
+                context.append("[B]Watched:[/B] %s" % item.get("watched_at"))
         if "movie" in item:
-            return self.handle_movie_xml(item["movie"])
+            result = self.handle_movie_xml(item["movie"])
+            result["summary"] = _context_summary(context, result.get("summary"))
+            return result
         elif "show" in item:
-            return self.handle_show_xml(item["show"])
+            if "episode" in item:
+                result = self.handle_episode_xml(item.get("show") or {}, item.get("episode") or {})
+            else:
+                result = self.handle_show_xml(item["show"])
+            result["summary"] = _context_summary(context, result.get("summary"))
+            return result
+        elif "episode" in item:
+            result = self.handle_episode_xml({}, item.get("episode") or {})
+            result["summary"] = _context_summary(context, result.get("summary"))
+            return result
         elif "airs" in item or "first_aired" in item:
             return self.handle_show_xml(item)
         else:
@@ -397,6 +565,53 @@ class Trakt_API:
             "cast": cast,
             "type": "dir"
         }
+
+    def handle_episode_xml(self, show, episode):
+        tmdb = TMDB_API()
+        show_ids = show.get("ids", {}) if isinstance(show, dict) else {}
+        episode_ids = episode.get("ids", {}) if isinstance(episode, dict) else {}
+        show_tmdb = show_ids.get("tmdb") or ""
+        show_title = show.get("title") or ""
+        show_year = show.get("year") or ""
+        show_imdb = show_ids.get("imdb") or ""
+        season = episode.get("season") or episode.get("season_number") or 0
+        number = episode.get("number") or episode.get("episode") or episode.get("episode_number") or 0
+        episode_title = episode.get("title") or "Episode"
+        premiered = (episode.get("first_aired") or "").split("T")[0] or ""
+        r = {}
+        if show_tmdb and season and number:
+            try:
+                r = tmdb.get(f"tv/{show_tmdb}/season/{season}/episode/{number}", full_meta=ownAddon.getSettingBool("full_meta"))
+            except Exception:
+                r = {}
+        still_path = tmdb.image_url + r["still_path"] if r.get("still_path") else ""
+        label = episode_title
+        if show_title and season and number:
+            try:
+                label = "%s S%02dE%02d - %s" % (show_title, int(season), int(number), episode_title)
+            except (TypeError, ValueError):
+                label = "%s S%sE%s - %s" % (show_title, season, number, episode_title)
+        jen_item = {
+            "title": _color_future_title(label, r.get("air_date") or premiered),
+            "summary": episode.get("overview") or r.get("overview") or "N/A",
+            "content": "episode",
+            "tmdb_id": episode_ids.get("tmdb") or r.get("id") or "",
+            "tv_show_tmdb_id": show_tmdb,
+            "imdb_id": show_imdb,
+            "episode_imdb_id": episode_ids.get("imdb") or "",
+            "season": season,
+            "episode": number,
+            "premiered": premiered,
+            "year": int(show_year) if str(show_year).isdigit() else 0,
+            "tv_show_title": show_title,
+            "thumbnail": still_path,
+            "type": "item",
+            "link": "search",
+        }
+        if ownAddon.getSettingBool("full_meta") and isinstance(r, dict) and r:
+            jen_item["infolabels"] = tmdb.get_infolabels(r, media_type="episode")
+            jen_item["cast"] = tmdb.get_cast(r, media_type="episode")
+        return jen_item
 
     def handle_season_xml(self, show, show_id):
         jen_list = []
@@ -500,3 +715,34 @@ class Trakt_API:
         if pagination:
             items.insert(0, {"type": "dir", "title": "Next Page", "link": page_link})
         return json.dumps({"items": items})
+
+    def profile_items(self, user_id):
+        profile = self.get_user_profile(user_id)
+        username = profile.get("username") or profile.get("name") or user_id
+        ids = profile.get("ids", {}) if isinstance(profile.get("ids"), dict) else {}
+        details = [
+            "[B]Username:[/B] %s" % username,
+            "[B]User ID:[/B] %s" % (ids.get("slug") or user_id),
+        ]
+        if profile.get("name"):
+            details.append("[B]Name:[/B] %s" % profile.get("name"))
+        if profile.get("joined_at"):
+            details.append("[B]Joined:[/B] %s" % profile.get("joined_at"))
+        if profile.get("vip"):
+            details.append("[B]VIP:[/B] Yes")
+        return [_popup_item("Trakt Account: %s" % username, "[CR]".join(details))]
+
+    def stats_items(self, user_id):
+        stats = self.get_user_stats(user_id)
+        lines = []
+        for section in ("movies", "shows", "episodes", "network", "ratings"):
+            data = stats.get(section)
+            if not isinstance(data, dict):
+                continue
+            values = []
+            for key in ("watched", "collected", "ratings", "comments", "plays", "minutes"):
+                if data.get(key) not in (None, ""):
+                    values.append("%s: %s" % (key, data.get(key)))
+            if values:
+                lines.append("[B]%s:[/B] %s" % (section.title(), ", ".join(values)))
+        return [_popup_item("Trakt Stats", "[CR]".join(lines) if lines else json.dumps(stats, sort_keys=True)[:1500])]
