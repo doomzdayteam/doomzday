@@ -9,9 +9,9 @@
     <setting id="debrid.autoplay.episodes" type="bool" label="Autoplay Debrid TV Episodes" visible="true" default="false" />
     <setting id="debrid.autoplay.next_episode" type="bool" label="Autoplay Next Debrid Episode" visible="true" default="false" />
     <setting id="scraper.module" type="text" label="Selected Scraper Module" visible="false" default="" />
-    <setting id="scraper.name" type="text" label="Selected Scraper Name" visible="false" default="" />
+    <setting id="scraper.name" type="text" label="[COLOR khaki]Current External Scraper[/COLOR]" visible="true" default="" />
     <setting id="choose.scraper" subsetting="false" type="action" label="[COLOR lawngreen]Choose Scraper Module[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
-    <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open Scraper Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
+    <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open Selected Scraper Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
     <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
     <setting id="lsep.custom.debrid.header" type="lsep" label="" />
     <setting id="custom.debrid.1.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 1[/COLOR][/B]" default="false" />
@@ -139,6 +139,9 @@
   <category label="Sources Accounts">
     <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
     <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />
+    <setting id="choose.scraper.source" subsetting="true" type="action" label="[COLOR lawngreen]    Choose Scraper Module[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
+    <setting id="scraper.name.source" subsetting="true" type="text" label="[COLOR khaki]    Current External Scraper[/COLOR]" visible="eq(-3,true)" default="" />
+    <setting id="open.selected.scraper.settings" subsetting="true" type="action" label="[COLOR deepskyblue]    Open Selected Scraper Settings[/COLOR]" visible="eq(-4,true)" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
     <setting id="lsep.1" type="lsep" label="" />
     <setting id="rd.enabled" type="bool" label="[B][COLOR white]REAL-DEBRID[/COLOR][/B]" default="false" />
     <setting id="rd.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/rd)" />

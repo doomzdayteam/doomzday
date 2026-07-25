@@ -131,27 +131,29 @@ class Trakt(Plugin):
                 return json.dumps({"items": api.handle_episodes_xml(split[2], season)})
             
             elif split[1] == "user":
+                use_auth = False
                 if split[2] == "self":
                     if not self.__check_auth():
                         return
                     user_id = ownAddon.getSetting("trakt.user_id")
+                    use_auth = True
                 else:
                     user_id = split[2]
                 if split[3] == "profile":
-                    return json.dumps({"items": api.profile_items(user_id)})
+                    return json.dumps({"items": api.profile_items(user_id, use_auth=use_auth)})
                 if split[3] == "stats":
-                    return json.dumps({"items": api.stats_items(user_id)})
+                    return json.dumps({"items": api.stats_items(user_id, use_auth=use_auth)})
                 if split[3] == "collection":
                     collection, has_next = api.get_collection(user_id, split[4], page=page)
                     return api.handle_list(collection, pagination=has_next, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "lists":
-                    lists = api.get_lists(user_id)
+                    lists = api.get_lists(user_id, use_auth=use_auth)
                     return json.dumps({"items": api.handle_lists_xml(lists, list_type="my_lists")})
                 elif split[3] == "liked_lists":
                     lists = api.get_liked_lists(page=page)
                     return json.dumps({"items": api.handle_lists_xml(lists, list_type="liked_lists")})
                 elif split[3] == "list":
-                    list = api.get_user_list(user_id, split[4], page=page)
+                    list = api.get_user_list(user_id, split[4], page=page, use_auth=split[2] == "self")
                     return api.handle_list(list, page_link=page_split[0] + "|" + str(page + 1))
                 elif split[3] == "watched":
                     watched, has_next = api.get_watched(user_id, split[4], page=page)
@@ -318,11 +320,12 @@ class Trakt_API:
             (action, status_code or "unknown", body)
         )
 
-    def _json_or_empty(self, response, action):
+    def _json_or_empty(self, response, action, clear_auth=False):
         try:
             return self._json_or_error(response, action)
         except TraktAPIError as e:
-            self._clear_auth_if_unauthorized(e)
+            if clear_auth:
+                self._clear_auth_if_unauthorized(e)
             xbmc.log(str(e), xbmc.LOGERROR)
             try:
                 xbmcgui.Dialog().ok("Trakt Error", str(e))
@@ -330,11 +333,12 @@ class Trakt_API:
                 pass
             return []
 
-    def _json_or_dict(self, response, action):
+    def _json_or_dict(self, response, action, clear_auth=False):
         try:
             return self._json_or_error(response, action)
         except TraktAPIError as e:
-            self._clear_auth_if_unauthorized(e)
+            if clear_auth:
+                self._clear_auth_if_unauthorized(e)
             xbmc.log(str(e), xbmc.LOGERROR)
             try:
                 xbmcgui.Dialog().ok("Trakt Error", str(e))
@@ -342,11 +346,12 @@ class Trakt_API:
                 pass
             return {}
 
-    def _paged_json(self, response, action, page, limit):
+    def _paged_json(self, response, action, page, limit, clear_auth=False):
         try:
             items = self._json_or_error(response, action)
         except TraktAPIError as e:
-            self._clear_auth_if_unauthorized(e)
+            if clear_auth:
+                self._clear_auth_if_unauthorized(e)
             xbmc.log(str(e), xbmc.LOGERROR)
             try:
                 xbmcgui.Dialog().ok("Trakt Error", str(e))
@@ -386,29 +391,29 @@ class Trakt_API:
         return settings
     
     def get_movies_chart(self, chart: str, period: str = "weekly", page: int = 1):
-        response = self._get(f"{self.base_url}/movies/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        response = self._get(f"{self.base_url}/movies/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.app_headers, params={"page": page, "limit": 25})
         chart_list = self._json_or_empty(response, "loading Trakt movies chart")
         return chart_list
     
     def get_shows_chart(self, chart: str, period: str = "weekly", page: int = 1):
-        response = self._get(f"{self.base_url}/shows/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        response = self._get(f"{self.base_url}/shows/{chart}{'/' + period if chart in ['recommended', 'played', 'watched', 'collected', 'favorited'] else ''}?extended=full", headers=self.app_headers, params={"page": page, "limit": 25})
         chart_list = self._json_or_empty(response, "loading Trakt shows chart")
         return chart_list
     
     def get_collection(self, user_id: str, type: str, page: int = 1):
         limit = 25
         response = self._get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
-        return self._paged_json(response, "loading Trakt collection", page, limit)
+        return self._paged_json(response, "loading Trakt collection", page, limit, clear_auth=True)
     
     def get_likes(self, user_id: str, type: str, page: int = 1):
         response = self._get(f"{self.base_url}/users/{user_id}/collection/{type}?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        collection = self._json_or_empty(response, "loading Trakt likes")
+        collection = self._json_or_empty(response, "loading Trakt likes", clear_auth=True)
         return collection
     
     def get_watched(self, user_id: str, type: str, page: int = 1):
         limit = 25
         response = self._get(f"{self.base_url}/users/{user_id}/watched/{type}", headers=self.headers, params={"page": page, "limit": limit})
-        return self._paged_json(response, "loading Trakt watched history", page, limit)
+        return self._paged_json(response, "loading Trakt watched history", page, limit, clear_auth=True)
 
     def get_history(self, user_id: str, type: str = "", page: int = 1):
         limit = PAGE_LIMIT
@@ -416,12 +421,12 @@ class Trakt_API:
         if type:
             path += "/" + type
         response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
-        return self._paged_json(response, "loading Trakt history", page, limit)
+        return self._paged_json(response, "loading Trakt history", page, limit, clear_auth=True)
     
     def get_watchlist(self, user_id: str, type: str = "", page: int = 1):
         limit = 25
         response = self._get(f"{self.base_url}/users/{user_id}/watchlist{'/' + type if type != '' else ''}?extended=full", headers=self.headers, params={"page": page, "limit": limit})
-        return self._paged_json(response, "loading Trakt watchlist", page, limit)
+        return self._paged_json(response, "loading Trakt watchlist", page, limit, clear_auth=True)
 
     def get_favorites(self, user_id: str, type: str = "", page: int = 1):
         limit = PAGE_LIMIT
@@ -430,7 +435,7 @@ class Trakt_API:
         if media_type:
             path += f"/{media_type}/rank/asc"
         response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
-        return self._paged_json(response, "loading Trakt favorites", page, limit)
+        return self._paged_json(response, "loading Trakt favorites", page, limit, clear_auth=True)
 
     def get_ratings(self, user_id: str, type: str = "", page: int = 1):
         limit = PAGE_LIMIT
@@ -439,53 +444,57 @@ class Trakt_API:
         if media_type:
             path += "/" + media_type
         response = self._get(path, headers=self.headers, params={"page": page, "limit": limit, "extended": "full"})
-        return self._paged_json(response, "loading Trakt ratings", page, limit)
+        return self._paged_json(response, "loading Trakt ratings", page, limit, clear_auth=True)
 
     def get_recommendations(self, type: str, limit: int = 10):
         response = self._get(f"{self.base_url}/recommendations/{type}?extended=full&limit={limit}", headers=self.headers)
-        recommendations = self._json_or_empty(response, "loading Trakt recommendations")
+        recommendations = self._json_or_empty(response, "loading Trakt recommendations", clear_auth=True)
         return recommendations
 
-    def get_lists(self, user_id: str):
-        response = self._get(f"{self.base_url}/users/{user_id}/lists?extended=full", headers=self.headers)
-        trakt_lists = self._json_or_empty(response, "loading Trakt lists")
+    def get_lists(self, user_id: str, use_auth: bool = False):
+        headers = self.headers if use_auth else self.app_headers
+        response = self._get(f"{self.base_url}/users/{user_id}/lists?extended=full", headers=headers)
+        trakt_lists = self._json_or_empty(response, "loading Trakt lists", clear_auth=use_auth)
         return trakt_lists
 
-    def get_user_profile(self, user_id: str):
-        response = self._get(f"{self.base_url}/users/{user_id}", headers=self.headers, params={"extended": "full"})
-        return self._json_or_dict(response, "loading Trakt user profile")
+    def get_user_profile(self, user_id: str, use_auth: bool = False):
+        headers = self.headers if use_auth else self.app_headers
+        response = self._get(f"{self.base_url}/users/{user_id}", headers=headers, params={"extended": "full"})
+        return self._json_or_dict(response, "loading Trakt user profile", clear_auth=use_auth)
 
-    def get_user_stats(self, user_id: str):
-        response = self._get(f"{self.base_url}/users/{user_id}/stats", headers=self.headers)
-        return self._json_or_dict(response, "loading Trakt user stats")
+    def get_user_stats(self, user_id: str, use_auth: bool = False):
+        headers = self.headers if use_auth else self.app_headers
+        response = self._get(f"{self.base_url}/users/{user_id}/stats", headers=headers)
+        return self._json_or_dict(response, "loading Trakt user stats", clear_auth=use_auth)
 
 
     def get_liked_lists(self, page: int = 1):
         response = self._get(f"{self.base_url}/users/likes/lists", headers=self.headers, params={"page": page, "limit": 25})
-        trakt_lists = self._json_or_empty(response, "loading liked Trakt lists")
+        trakt_lists = self._json_or_empty(response, "loading liked Trakt lists", clear_auth=True)
         return trakt_lists
 
     def search_lists(self, query: str, page: int = 1):
-        response = self._get(f"{self.base_url}/search/list", headers=self.headers, params={"query": query, "page": page, "limit": 25})
+        response = self._get(f"{self.base_url}/search/list", headers=self.app_headers, params={"query": query, "page": page, "limit": 25})
         trakt_lists = self._json_or_empty(response, "searching Trakt lists")
         return trakt_lists
     def get_list(self, list_id, page: int = 1):
-        response = self._get(f"{self.base_url}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
+        response = self._get(f"{self.base_url}/lists/{list_id}/items?extended=full", headers=self.app_headers, params={"page": page, "limit": 25})
         trakt_list = self._json_or_empty(response, "loading Trakt list items")
         return trakt_list
     
-    def get_user_list(self, user_id, list_id, page: int = 1):
-        response = self._get(f"{self.base_url}/users/{user_id}/lists/{list_id}/items?extended=full", headers=self.headers, params={"page": page, "limit": 25})
-        trakt_list = self._json_or_empty(response, "loading Trakt user list items")
+    def get_user_list(self, user_id, list_id, page: int = 1, use_auth: bool = False):
+        headers = self.headers if use_auth else self.app_headers
+        response = self._get(f"{self.base_url}/users/{user_id}/lists/{list_id}/items?extended=full", headers=headers, params={"page": page, "limit": 25})
+        trakt_list = self._json_or_empty(response, "loading Trakt user list items", clear_auth=use_auth)
         return trakt_list
 
     def get_show(self, show_id: int):
-        response = self._get(f"{self.base_url}/shows/{show_id}/seasons?extended=full", headers=self.headers)    
+        response = self._get(f"{self.base_url}/shows/{show_id}/seasons?extended=full", headers=self.app_headers)    
         trakt_show = self._json_or_empty(response, "loading Trakt show seasons")     
         return trakt_show
 
     def get_season(self, show_id: int, season: int):
-        response = self._get(f"{self.base_url}/shows/{show_id}/seasons/{season}?extended=full", headers=self.headers)
+        response = self._get(f"{self.base_url}/shows/{show_id}/seasons/{season}?extended=full", headers=self.app_headers)
         trakt_season = self._json_or_empty(response, "loading Trakt season episodes")        
         return trakt_season
 
@@ -716,8 +725,8 @@ class Trakt_API:
             items.insert(0, {"type": "dir", "title": "Next Page", "link": page_link})
         return json.dumps({"items": items})
 
-    def profile_items(self, user_id):
-        profile = self.get_user_profile(user_id)
+    def profile_items(self, user_id, use_auth: bool = False):
+        profile = self.get_user_profile(user_id, use_auth=use_auth)
         username = profile.get("username") or profile.get("name") or user_id
         ids = profile.get("ids", {}) if isinstance(profile.get("ids"), dict) else {}
         details = [
@@ -732,8 +741,8 @@ class Trakt_API:
             details.append("[B]VIP:[/B] Yes")
         return [_popup_item("Trakt Account: %s" % username, "[CR]".join(details))]
 
-    def stats_items(self, user_id):
-        stats = self.get_user_stats(user_id)
+    def stats_items(self, user_id, use_auth: bool = False):
+        stats = self.get_user_stats(user_id, use_auth=use_auth)
         lines = []
         for section in ("movies", "shows", "episodes", "network", "ratings"):
             data = stats.get(section)

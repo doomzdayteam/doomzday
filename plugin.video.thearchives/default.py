@@ -267,6 +267,7 @@ def choose_scraper():
     if success:
         addon.setSetting('scraper.module', module_id)
         addon.setSetting('scraper.name', module_name)
+        addon.setSetting('scraper.name.source', module_name)
         xbmcgui.Dialog().ok(addon_name, f'Success!\n[B]{module_name}[/B] set as Scraper Module.')
     else:
         xbmcgui.Dialog().ok(addon_name, f'[B]{module_name}[/B] is not a compatible scraper module.\nPlease choose a different one.')
@@ -305,9 +306,20 @@ def open_scraper_settings():
     addon = xbmcaddon.Addon()
     module_id = addon.getSetting('scraper.module') or ''
     if not module_id:
-        xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected yet.\nPlease choose one first via Settings > Choose Scraper Module.')
+        xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected yet.\nPlease choose one first via Settings > Sources Accounts.')
         return
     xbmc.executebuiltin(f'Addon.OpenSettings({module_id})')
+
+@plugin.route("/show_selected_scraper")
+def show_selected_scraper():
+    import xbmcgui
+    addon = xbmcaddon.Addon()
+    module_id = addon.getSetting('scraper.module') or ''
+    module_name = addon.getSetting('scraper.name') or ''
+    if not module_id:
+        xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected yet.\nPlease choose one first via Settings > Sources Accounts.')
+        return
+    xbmcgui.Dialog().ok(addon.getAddonInfo('name'), f'Current external scraper:\n[B]{module_name or module_id}[/B]\n\nAddon ID:\n{module_id}')
 
 @plugin.route("/auth_service/<service>")
 def auth_service(service):
