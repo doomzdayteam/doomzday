@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.doomzdaysimple" name="Doomzday Simple Wizard" version="3.0.8c" provider-name="DD Team">
+<addon id="plugin.program.doomzdaysimple" name="Doomzday Simple Wizard" version="3.0.8d" provider-name="DD Team">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
 	</requires>

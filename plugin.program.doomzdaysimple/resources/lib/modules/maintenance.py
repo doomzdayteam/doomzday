@@ -179,7 +179,7 @@ def clear_packages_startup():
     if not os.path.exists(packages):
         return
 
-    if len(os.listdir(packages)) >= 10:
+    if os.listdir(packages):
         clear_packages()
         
 def clear_packages():
