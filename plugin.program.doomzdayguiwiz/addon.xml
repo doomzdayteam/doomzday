@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.doomzdayguiwiz" name="[B][COLOR=white]Doomzday Gui Wizard[/COLOR][/B]" version="2.1.1" provider-name="DD Team">
+<addon id="plugin.program.doomzdayguiwiz" name="[B][COLOR=white]Doomzday Gui Wizard[/COLOR][/B]" version="2.1.2" provider-name="DD Team">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
 		<import addon="script.module.certifi" version="2023.5.7"/>

@@ -21,9 +21,6 @@
             {
                 "name": "Authorize FEN Real Debrid",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.authenticate)"
-            },{
-                "name": "Authorize FEN Light Real Debrid",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=real_debrid.authenticate)"
             },
 			{
                 "name": "Authorize EZRA Real Debrid",
@@ -40,10 +37,6 @@
             {
                 "name": "Revoke FEN Real-Debrid",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.revoke_authentication)"
-            },
-			{
-                "name": "Revoke FEN Light Real-Debrid",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=real_debrid.revoke_authentication)"
             },
 			{
                 "name": "Revoke EZRA Real-Debrid",
@@ -77,10 +70,6 @@
             {
                 "name": "Authorize FEN Trakt",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_authenticate)"
-            },
-			{
-                "name": "Authorize FEN Light Trakt",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_authenticate)"
             },
 			{
                 "name": "Authorize EZRA Trakt",
@@ -169,10 +158,6 @@
             {
                 "name": "Revoke FEN Trakt",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_revoke_authentication)"
-            },
-			{
-                "name": "Revoke FEN Light Trakt",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_revoke_authentication)"
             }
         ]
     },
@@ -200,10 +185,6 @@
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.authenticate)"
             },
 			{
-                "name": "Authorize FEN Light Premiumize",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=premiumize.authenticate)"
-            },
-			{
                 "name": "Authorize EZRA Premiumize",
                 "url": "RunScript(script.module.myaccounts, action=premiumizeAuth)"
             },
@@ -222,10 +203,6 @@
             {
                 "name": "Revoke FEN Premiumize.me",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.revoke_authentication)"
-            },
-			{
-                "name": "Revoke FEN Light Premiumize.me",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=premiumize.revoke_authentication)"
             }
         ]
     },
@@ -249,10 +226,6 @@
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.authenticate)"
             },
 			{
-                "name": "Authorize FEN Light Alldebrid",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=alldebrid.authenticate)"
-            },
-			{
                 "name": "Authorize EZRA Alldebrid",
                 "url": "RunScript(script.module.myaccounts, action=alldebridAuth)"
             },
@@ -265,16 +238,117 @@
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.revoke_authentication)"
             },
 			{
-                "name": "Revoke FEN Light AllDebrid",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=alldebrid.revoke_authentication)"
-            },
-			{
                 "name": "Revoke EZRA AllDebrid",
                 "url": "RunScript(script.module.myaccounts, action=alldebridRevoke)"
             },
             {
                 "name": "Revoke Umbrella AllDebrid",
                 "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Revoke)"
+            }
+        ]
+    },
+    "Authorize The Archives": {
+        "icon": "https://i.imgur.com/caclfEQ.jpeg",
+        "items": [
+            {
+                "name": "Authorize The Archives TMDb",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/tmdb_auth)"
+            },
+            {
+                "name": "Revoke The Archives TMDb",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/tmdb_revoke)"
+            },
+            {
+                "name": "Authorize The Archives Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/trakt/authorize)"
+            },
+            {
+                "name": "Revoke The Archives Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/trakt/clear)"
+            },
+            {
+                "name": "Authorize The Archives WeTrakr",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/wetrakr/authorize)"
+            },
+            {
+                "name": "Test The Archives WeTrakr",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/wetrakr/test)"
+            },
+            {
+                "name": "Revoke The Archives WeTrakr",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/wetrakr/clear)"
+            },
+            {
+                "name": "Authorize The Archives PunchPlay",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/punchplay/authorize)"
+            },
+            {
+                "name": "Test The Archives PunchPlay",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/punchplay/test)"
+            },
+            {
+                "name": "Revoke The Archives PunchPlay",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/punchplay/clear)"
+            },
+            {
+                "name": "Authorize The Archives Simkl",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/simkl/authorize)"
+            },
+            {
+                "name": "Test The Archives Simkl",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/simkl/test)"
+            },
+            {
+                "name": "Revoke The Archives Simkl",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/simkl/clear)"
+            },
+            {
+                "name": "Authorize The Archives MDBList",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/mdblist/authorize)"
+            },
+            {
+                "name": "Test The Archives MDBList",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/mdblist/test)"
+            },
+            {
+                "name": "Revoke The Archives MDBList",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/mdblist/clear)"
+            },
+            {
+                "name": "Authorize The Archives Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/auth_service/rd)"
+            },
+            {
+                "name": "Revoke The Archives Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/revoke_service/rd)"
+            },
+            {
+                "name": "Authorize The Archives Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/auth_service/pm)"
+            },
+            {
+                "name": "Revoke The Archives Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/revoke_service/pm)"
+            },
+            {
+                "name": "Authorize The Archives AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/auth_service/ad)"
+            },
+            {
+                "name": "Revoke The Archives AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/revoke_service/ad)"
+            },
+            {
+                "name": "Authorize The Archives TorBox",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/auth_service/tb)"
+            },
+            {
+                "name": "Revoke The Archives TorBox",
+                "url": "RunPlugin(plugin://plugin.video.thearchives/revoke_service/tb)"
+            },
+            {
+                "name": "Open The Archives Easynews Settings",
+                "url": "Addon.OpenSettings(plugin.video.thearchives)"
             }
         ]
     },

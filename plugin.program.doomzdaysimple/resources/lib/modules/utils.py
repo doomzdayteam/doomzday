@@ -1,13 +1,13 @@
-import xbmc
-import xbmcgui
-import xbmcplugin
 import sys
 from inspect import getframeinfo, stack
 from urllib.parse import quote_plus, unquote_plus
+import xbmc
+import xbmcgui
+import xbmcplugin
 from .addonvar import addon_name, addon_version
 
-def add_dir(name,url,mode,icon,fanart,description, name2='', version='', addcontext=False,isFolder=True):
-    u=sys.argv[0]+"?url="+quote_plus(url)+"&mode="+str(mode)+"&name="+quote_plus(name)+"&icon="+quote_plus(icon) +"&fanart="+quote_plus(fanart)+"&description="+quote_plus(description)+"&name2="+quote_plus(name2)+"&version="+quote_plus(version)
+def add_dir(name,url,mode,icon,fanart,description, name2='', version='', kodi='', addcontext=False,isFolder=True):
+    u=sys.argv[0]+"?url="+quote_plus(url)+"&mode="+str(mode)+"&name="+quote_plus(name)+"&icon="+quote_plus(icon) +"&fanart="+quote_plus(fanart)+"&description="+quote_plus(description)+"&name2="+quote_plus(name2)+"&version="+quote_plus(version)+"&kodi="+quote_plus(kodi)
     liz=xbmcgui.ListItem(name)
     liz.setArt({'fanart':fanart,'icon':icon,'thumb':icon})
     liz.setInfo(type="Video", infoLabels={ "Title": name, "Plot": description, "plotoutline": description})

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.doomzdaysimple" name="[B][COLOR=red]Doomzday Simple Wizard[/COLOR][/B]" version="3.0.6" provider-name="DD Team">
+<addon id="plugin.program.doomzdaysimple" name="Doomzday Simple Wizard" version="3.0.8c" provider-name="DD Team">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
-		<import addon="script.module.requests"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>executable</provides>
@@ -10,7 +9,7 @@
 	<extension point="xbmc.service" library="service.py" />
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en_GB">Doomzday Simple Wizard</summary>
-		<description lang="en_GB">[COLOR=red]Doomzday Community Builds[/COLOR]</description>
+		<description lang="en_GB">Doomzday Community Builds</description>
 		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
 		<language>en</language>
 		<platform>all</platform>
@@ -19,9 +18,10 @@
 		<website></website> 
 		<email></email>
 		<source></source>
+		<news></news>
 		<assets>
-				<icon>icon.png</icon>
-				<fanart>fanart.jpg</fanart>
+				<icon>resources/icon.png</icon>
+				<fanart>resources/fanart.jpg</fanart>
 				<banner></banner>
 				<clearlogo></clearlogo>
 				<screenshot></screenshot>

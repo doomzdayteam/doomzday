@@ -101,6 +101,15 @@
     <setting id="lsep.trakt.5" type="lsep" label="" />
     <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
   </category>
+  <category label="WeTrakr">
+    <setting id="wetrakr.authorize" type="action" label="[COLOR lawngreen]Authorize WeTrakr Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/authorize)" />
+    <setting id="wetrakr.test" type="action" label="[COLOR deepskyblue]Test WeTrakr Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/test)" />
+    <setting id="wetrakr.clear" type="action" label="[COLOR red]Revoke WeTrakr Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/clear)" />
+    <setting id="wetrakr.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="wetrakr.username" type="text" label="Username" visible="false" default="" />
+    <setting id="wetrakr.auth_invalid" type="bool" label="Auth Invalid" visible="false" default="false" />
+    <setting id="wetrakr.backend_url" type="text" label="Backend URL" visible="false" default="https://api.wetrakr.com" />
+  </category>
   <category label="PunchPlay">
     <setting id="lsep.punchplay.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
     <setting id="punchplay.authorize" type="action" label="[COLOR lawngreen]Authorize PunchPlay Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/authorize)" />

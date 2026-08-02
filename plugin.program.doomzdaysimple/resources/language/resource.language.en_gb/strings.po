@@ -24,7 +24,7 @@ msgid "Wizard Menu"
 msgstr ""
 
 msgctxt "#30001"
-msgid "Install a build."
+msgid "Install a Build"
 msgstr ""
 
 msgctxt "#30002"
@@ -76,7 +76,7 @@ msgid "Notification"
 msgstr ""
 
 msgctxt "#30014"
-msgid "Open the notification dialog."
+msgid "Open the Notification Dialog"
 msgstr ""
 
 msgctxt "#30015"
@@ -84,7 +84,7 @@ msgid "Settings"
 msgstr ""
 
 msgctxt "#30016"
-msgid "Open the Settings Menu."
+msgid "Open the Settings Menu"
 msgstr ""
 
 msgctxt "#30017"
@@ -132,7 +132,7 @@ msgid "Authorize Services"
 msgstr ""
 
 msgctxt "#30028"
-msgid "The wizard is ready to install your build."
+msgid "The wizard is ready to install your build.\nYour current setup will be erased!\nWould you like to proceed?"
 msgstr ""
 
 msgctxt "#30029"
@@ -228,7 +228,7 @@ msgid "Would you like to install it now?"
 msgstr ""
 
 msgctxt "#30052"
-msgid "Select items to keep during a build install."
+msgid "Select items to keep during a build install"
 msgstr ""
 
 msgctxt "#30053"
@@ -252,7 +252,7 @@ msgid "Clear Packages on Startup:"
 msgstr ""
 
 msgctxt "#30058"
-msgid "Select items to keep during a build install/fresh start:"
+msgid "Select items to keep during Build Installs/Updates:"
 msgstr ""
 
 msgctxt "#30059"
@@ -407,4 +407,24 @@ msgstr ""
 
 msgctxt "#30107"
 msgid "Advanced Settings have been deleted. Kodi will now close to apply the settings."
+msgstr ""
+
+msgctxt "#30108"
+msgid "Build Changelog"
+msgstr ""
+
+msgctxt "#30109"
+msgid "Open the Changelog Dialog"
+msgstr ""
+
+msgctxt "#30110"
+msgid "You have an update Available! Click here or open the build menu to install your update."
+msgstr ""
+
+msgctxt "#30111"
+msgid "Your currently installed build"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Advanced Settings K22"
 msgstr ""

@@ -12,6 +12,8 @@ class Colors:
         self.colors = COLORS
         self.color1 = self.get_color('color1')
         self.color2 = self.get_color('color2')
+        self.color3 = self.get_color('color3')
+        self.color4 = self.get_color('color4')
     
     def get_color(self, color: str) -> str:
         color_index = int(self.setting(color))
@@ -28,5 +30,17 @@ class Colors:
             return f'[COLOR {self.color2}]{string}[/COLOR]'
         else:
             return f'[B][COLOR {self.color2}]{string}[/COLOR][/B]'
+
+    def color_text3(self, string: str) -> str:
+        if '[B]' in string or '[/B]' in string:
+            return f'[COLOR {self.color3}]{string}[/COLOR]'
+        else:
+            return f'[B][COLOR {self.color3}]{string}[/COLOR][/B]'
+
+    def color_text4(self, string: str) -> str:
+        if '[B]' in string or '[/B]' in string:
+            return f'[COLOR {self.color4}]{string}[/COLOR]'
+        else:
+            return f'[B][COLOR {self.color4}]{string}[/COLOR][/B]'
         
 colors = Colors()

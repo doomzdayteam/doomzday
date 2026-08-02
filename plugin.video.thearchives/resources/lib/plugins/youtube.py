@@ -2,13 +2,23 @@ import json
 import os
 import re
 import sys
-from urllib.parse import urlencode
+from urllib.parse import parse_qs, urlencode, urlparse
+from urllib.request import Request, urlopen
 import xbmc
 import xbmcgui
 import xbmcvfs
 from xbmcaddon import Addon
 from ..plugin import Plugin, run_hook
 from ..DI import DI
+
+
+INVIDIOUS_INSTANCES = [
+    "https://inv.nadeko.net",
+    "https://vid.puffyan.us",
+    "https://invidious.fdn.fr",
+    "https://inv.tux.pizza",
+    "https://invidious.nerdvpn.de",
+]
 
 
 def load_ytdlp():
@@ -117,6 +127,122 @@ def select_playable_format(info):
     raise ValueError("yt-dlp did not return a playable audio/video stream URL")
 
 
+def extract_video_id(video_info):
+    values = [
+        video_info.get("id"),
+        video_info.get("url"),
+        video_info.get("webpage_url"),
+        video_info.get("original_url"),
+    ]
+    for value in values:
+        if not value:
+            continue
+        value = str(value)
+        if re.fullmatch(r"[^\"&?/\s]{11}", value):
+            return value
+        match = re.search(r"(?:youtube\.com/(?:watch\?v=|embed/|live/)|youtu\.be/)([^\"&?/\s]{11})", value)
+        if match:
+            return match.group(1)
+        parsed = urlparse(value)
+        query_id = parse_qs(parsed.query).get("v", [""])[0]
+        if re.fullmatch(r"[^\"&?/\s]{11}", query_id):
+            return query_id
+    return None
+
+
+def best_thumbnail(video_info, video_id):
+    thumbnail = video_info.get("thumbnail")
+    if thumbnail:
+        return thumbnail
+    thumbnails = video_info.get("thumbnails") or []
+    if isinstance(thumbnails, list):
+        for entry in reversed(thumbnails):
+            if isinstance(entry, dict) and entry.get("url"):
+                return entry["url"]
+    if video_id:
+        return f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+    return ""
+
+
+def best_invidious_thumbnail(video):
+    thumbnails = video.get("videoThumbnails") or []
+    if isinstance(thumbnails, list):
+        preferred = ("maxres", "maxresdefault", "high", "medium", "default")
+        for quality in preferred:
+            for thumbnail in thumbnails:
+                if (
+                    isinstance(thumbnail, dict)
+                    and thumbnail.get("quality") == quality
+                    and thumbnail.get("url")
+                ):
+                    return thumbnail["url"]
+        for thumbnail in reversed(thumbnails):
+            if isinstance(thumbnail, dict) and thumbnail.get("url"):
+                return thumbnail["url"]
+    video_id = video.get("videoId") or video.get("id")
+    if video_id:
+        return f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+    return ""
+
+
+def iter_playlist_entries(entries):
+    for video_info in entries or []:
+        if not isinstance(video_info, dict):
+            continue
+        nested = video_info.get("entries")
+        if nested:
+            for entry in iter_playlist_entries(nested):
+                yield entry
+        else:
+            yield video_info
+
+
+def extract_playlist_id(url):
+    url = swap_link(str(url or ""))
+    parsed = urlparse(url)
+    playlist_id = parse_qs(parsed.query).get("list", [""])[0]
+    if playlist_id:
+        return playlist_id
+    if "plugin.video.youtube/playlist" in url:
+        return url.rstrip("/").split("/")[-1]
+    return ""
+
+
+def invidious_playlist_items(playlist_id):
+    if not playlist_id:
+        return []
+    for instance in INVIDIOUS_INSTANCES:
+        try:
+            request = Request(
+                f"{instance}/api/v1/playlists/{playlist_id}",
+                headers={"User-Agent": "Mozilla/5.0"},
+            )
+            with urlopen(request, timeout=12) as response:
+                data = json.loads(response.read().decode("utf-8", "replace"))
+        except Exception:
+            continue
+
+        author = data.get("author") or ""
+        items = []
+        for video in data.get("videos") or []:
+            video_id = video.get("videoId") or video.get("id")
+            if not video_id:
+                continue
+            title = video.get("title") or "YouTube Video"
+            display_title = f"{author} - {title}" if author else title
+            items.append({
+                "type": "item",
+                "title": display_title,
+                "link": f"https://www.youtube.com/watch?v={video_id}",
+                "thumbnail": best_invidious_thumbnail(video),
+                "summary": display_title,
+            })
+        if items:
+            xbmc.log(f"[TheArchives] Loaded YouTube playlist {playlist_id} via {instance}", getattr(xbmc, "LOGINFO", 1))
+            return items
+    return []
+
+
 def configure_youtube_list_item(list_item, stream_info, headers=None):
     if is_hls_format(stream_info):
         list_item.setProperty("inputstream", "inputstream.ffmpegdirect")
@@ -174,38 +300,41 @@ class youtube(Plugin):
             yt_dlp = load_ytdlp()
             url = swap_link(url)
             params = ytdlp_params({
-                'noplaylist': False
+                "noplaylist": False,
+                "extract_flat": "in_playlist",
+                "ignoreerrors": True,
             })
             
-            ydl = yt_dlp.YoutubeDL(params)
-            playlist_info = ydl.extract_info(url, download=False, process=False)
+            with yt_dlp.YoutubeDL(params) as ydl:
+                playlist_info = ydl.extract_info(url, download=False)
             
             items = []
             
-            for video_info in playlist_info['entries']:
+            playlist_entries = list(iter_playlist_entries(playlist_info.get("entries")))
+            if not playlist_entries:
+                fallback_items = invidious_playlist_items(extract_playlist_id(url))
+                if fallback_items:
+                    return json.dumps({"items": fallback_items})
+
+            for video_info in playlist_entries:
                 try:
-                    if 'entries' in video_info:
-                        for entry in video_info['entries']:
-                            try:
-                                item = self.create_item(entry)
-                                items.append(item)
-                            except:
-                                continue
-                    else:
-                        item = self.create_item(video_info)
-                        if item:
-                            items.append(item)
-                except:
+                    item = self.create_item(video_info)
+                    if item:
+                        items.append(item)
+                except Exception as exc:
+                    xbmc.log(f"[TheArchives] Skipping YouTube playlist entry: {exc}", getattr(xbmc, "LOGWARNING", 2))
                     continue
             return json.dumps({'items': items})
     
     def create_item(self, video_info: dict):
-        title = video_info['title']
+        title = video_info.get("title") or video_info.get("fulltitle") or "YouTube Video"
         if '[Private video]' in title or '[Deleted video]' in title:
             return None
-        video_id = video_info['id']
+        video_id = extract_video_id(video_info)
+        if not video_id:
+            return None
         link = f'https://www.youtube.com/watch?v={video_id}'
-        thumbnail = video_info['thumbnails'][-1]['url']
+        thumbnail = best_thumbnail(video_info, video_id)
         item = {
             'type': 'item',
             'title': title,

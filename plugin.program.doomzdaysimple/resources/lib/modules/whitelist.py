@@ -1,7 +1,7 @@
+import json
 import xbmc
 import xbmcaddon
 import xbmcvfs
-import json
 import xbmcgui
 from uservar import excludes
 from .addonvar import addon_id

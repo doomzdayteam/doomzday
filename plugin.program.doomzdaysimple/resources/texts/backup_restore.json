@@ -14,13 +14,13 @@
         "setting": "savesources",
         "path": "user_path"
     },
+    "guisettings.xml": {
+        "name": "Gui Settings",
+        "setting": "savegui",
+        "path": "user_path"
+    },
     "plugin.video.seren": {
         "name": "Seren",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.ezra": {
-        "name": "Ezra",
         "setting": "savedata",
         "path": "data_path"
     },
@@ -29,8 +29,28 @@
         "setting": "savedata",
         "path": "data_path"
     },
-	"plugin.video.fenlight": {
+    "plugin.video.fenlight": {
         "name": "Fen Light",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.redlight": {
+        "name": "Red Light",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.thechains": {
+        "name": "The Chains",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.gears": {
+        "name": "The Gears",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.pov": {
+        "name": "POV",
         "setting": "savedata",
         "path": "data_path"
     },
@@ -49,46 +69,6 @@
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.Genocide": {
-        "name": "Genocide",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.thechains": {
-        "name": "Chains",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.base19": {
-        "name": "Base 19",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.twisted": {
-        "name": "Twisted",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.magicdragon": {
-        "name": "Magic Dragon",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.asgard": {
-        "name": "Asgard",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.metv19": {
-        "name": "M.E.T.V",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.KodiVerse": {
-        "name": "Kodiverse",
-        "setting": "savedata",
-        "path": "data_path"
-    },
     "plugin.video.premiumizerx": {
         "name": "PremiumizerX",
         "setting": "savedata",
@@ -99,18 +79,16 @@
         "setting": "savedata",
         "path": "data_path"
     },
-    "script.module.myaccounts": {
-        "name": "My Accounts",
-        "setting": "savedata",
-        "path": "data_path"
-    },
     "script.module.resolveurl": {
         "name": "ResolveURL",
         "setting": "savedata",
         "path": "data_path"
     },
-
-
+    "plugin.video.thearchives": {
+        "name": "The Archives",
+        "setting": "savedata",
+        "path": "data_path"
+    },
 
 
     "script.trakt": {
@@ -123,42 +101,6 @@
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.scrubsv2": {
-        "name": "Scrubs V2",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.thecrew": {
-        "name": "The Crew",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.homelander": {
-        "name": "Homelander",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.nightwing": {
-        "name": "Nightwing",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.moria": {
-        "name": "Moria",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.thepromise": {
-        "name": "The Promise",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.aliunde19": {
-        "name": "Aliunde",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-
 
 
     "plugin.video.imdb.trailers": {

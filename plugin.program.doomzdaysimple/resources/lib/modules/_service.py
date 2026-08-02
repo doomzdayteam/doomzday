@@ -1,101 +1,150 @@
-import xbmc
-import xbmcgui
-import xbmcaddon
 import json
 import base64
-import xml.etree.ElementTree as ET
+import xbmc
+import xbmcgui
+from uservar import notify_url, changelog_dir
 from .maintenance import clear_packages_startup
-from uservar import buildfile, notify_url
-from .addonvar import setting, setting_set, addon_name, isBase64, headers, dialog, local_string, addon_id, gui_save_default
-from .build_install import restore_binary, binaries_path
-
-current_build = setting('buildname')
-try:
-    current_version = float(setting('buildversion')) 
-except:
-    current_version = 0.0
+from .addonvar import (setting, setting_set, addon_name, addon_icon, isBase64, headers,
+                       dialog, local_string, addon_id, gui_save_default, UPDATE_VERSION,
+                       CURRENT_BUILD, CURRENT_VERSION, BUILD_URL)
+from .build_install import build_install
+from .addons_enable import enable_addons
+from .save_data import backup_gui_skin
+from . import  notify
 
 class Startup:
-    
     def check_updates(self):
-           if current_build == 'No Build Installed':
-               nobuild = dialog.yesnocustom(addon_name, 'There is currently no build installed.\nWould you like to install one now?', 'Remind Later')
+           if CURRENT_BUILD == 'No Build Installed':
+               nobuild = dialog.yesnocustom(
+                   addon_name,
+                   'There is currently no build installed.\nWould you like to install one now?',
+                   'Remind Later'
+               )
                if nobuild == 1:
-                   xbmc.executebuiltin(f'ActivateWindow(10001, "plugin://{addon_id}/?mode=1",return)')
+                   xbmc.executebuiltin(
+                       f'ActivateWindow(10001, "plugin://{addon_id}/?mode=1",return)'
+                   )
                elif nobuild == 0:
                    setting_set('buildname', 'No Build')
-               else:
-                   return
-           try:
-               response = self.get_page(buildfile)
-           except:
                return
-           version = 0.0
-           try:
-               builds = json.loads(response)['builds']
-               for build in builds:
-                       if build.get('name') == current_build:
-                           version = float(build.get('version'))
-                           break
-           except:
-               builds = ET.fromstring(response)
-               for tag in builds.findall('build'):
-                       if tag.find('name').text == current_build:
-                           version = float(tag.find('version').text)
-                           break
-           if version > current_version and setting('update_passed') != 'true':
-               update_available = xbmcgui.Dialog().yesnocustom(addon_name, local_string(30047) + ' ' + current_build +' ' + local_string(30048) + '\n' + local_string(30049) + ' ' + str(current_version) + '\n' + local_string(30050) + ' ' + str(version) + '\n' + local_string(30051), 'Remind Later')
-               if update_available == 1:
-                   xbmc.executebuiltin(f'ActivateWindow(10001, "plugin://{addon_id}/?mode=1",return)')
-               elif update_available == 0:
-                   setting_set('update_passed', 'true')
-               else:
-                   return
+           if UPDATE_VERSION is None:
+               pass
            else:
-               return
-
-    def file_check(self, bfile):
-        if isBase64(bfile):
-            return base64.b64decode(bfile).decode('utf8')
-        else:
-            return bfile
-            
-    def get_page(self, url):
-           from urllib.request import Request,urlopen
-           req = Request(self.file_check(url), headers = headers)
-           return urlopen(req).read()
-        
+               if UPDATE_VERSION > CURRENT_VERSION and setting('update_passed') != 'true':
+                   update_available = xbmcgui.Dialog().yesnocustom(
+                       addon_name,
+                       f'{local_string(30047)} {CURRENT_BUILD} {local_string(30048)}\n{local_string(30049)} {CURRENT_VERSION}\n{local_string(30050)} {UPDATE_VERSION}\n{local_string(30051)}',
+                       yeslabel='Update Now', nolabel='Not Now', customlabel='View Changelog', defaultbutton=xbmcgui.DLG_YESNO_CUSTOM_BTN
+                   )
+                   
+                   if update_available == 1:
+                       name = CURRENT_BUILD
+                       name2 = name
+                       if BUILD_URL.startswith('https://www.dropbox.com'):
+                           url = BUILD_URL.replace('dl=0', 'dl=1')
+                       else:
+                           url = BUILD_URL
+                       build_install(name, name2, UPDATE_VERSION, url) 
+                       
+                   elif update_available == 0:
+                       remind_later = xbmcgui.Dialog().yesno(addon_name, 'Would you like to be reminded later?', yeslabel='Remind Later', nolabel='Ignore', defaultbutton=xbmcgui.DLG_YESNO_YES_BTN)
+                       if remind_later:
+                           setting_set('update_passed', 'false')
+                       else:
+                           setting_set('update_passed', 'true')
+                       
+                   elif update_available == 2:
+                       if changelog_dir in ('', 'http://', 'http://CHANGEME/'):
+                           xbmcgui.Dialog().notification(addon_name, 'No Changelog to Display!!', addon_icon, 3000)
+                           Startup().check_updates()
+                       else:
+                           message = notify.get_changelog()
+                           notify.notification_clog(message)
+                       
+               elif UPDATE_VERSION == CURRENT_VERSION and setting('update_passed') == 'true':
+                   setting_set('update_passed', 'false')
+                   
     def save_menu(self):
-        save_items = []
-        choices = ["Trakt & Debrid Data", "YouTube API Keys", "Favourites", "Advanced Settings", "Sources"]
-        save_select = dialog.multiselect(addon_name + ' - ' + local_string(30052),choices, preselect=[])  # Select Save Items
-        if save_select == None:
-            return
+        choices = []
+        preselect = []
+        if setting('savedata') == 'true':
+            choices.append('[I]Trakt & Debrid Data[/I][TABS]5[/TABS][Preselected]')
+            preselect.append(0)
         else:
-            for index in save_select:
-                save_items.append(choices[index])
+            choices.append('Trakt & Debrid Data')
+        if setting('saveyoutube') == 'true':
+            choices.append('[I]YouTube API Keys[/I][TABS]5[/TABS][Preselected]')
+            preselect.append(1)
+        else:
+            choices.append('YouTube API Keys')
+        if setting('saveadvanced') == 'true':
+            choices.append('[I]Advanced Settings[/I][TABS]5[/TABS][Preselected]')
+            preselect.append(2)
+        else:
+            choices.append('Advanced Settings')
+        if setting('savegui') == 'true':
+            choices.append('[I]GUI Settings[/I][TABS]6[/TABS][Preselected]')
+            preselect.append(3)
+        else:
+            choices.append('GUI Settings')
+        if setting('savefavs') == 'true':
+            choices.append('[I]Favourites[/I][TABS]7[/TABS][Preselected]')
+            preselect.append(4)
+        else:
+            choices.append('Favourites')
+        if setting('savesources') == 'true':
+            choices.append('[I]Sources[/I][TABS]7[/TABS][Preselected]')
+            preselect.append(5)
+        else:
+            choices.append('Sources')
+        save_select = dialog.multiselect(
+            f'{addon_name} - {local_string(30052)}',
+            choices,
+            preselect=preselect
+        )
+        # Select Save Items
+        if save_select is None:
+            return
+        save_items = [choices[index] for index in save_select]
                 
         if 'Trakt & Debrid Data' in save_items:
-            setting_set('savedata','true')
+            setting_set('savedata', 'true')
+        elif '[I]Trakt & Debrid Data[/I][TABS]5[/TABS][Preselected]' in save_items:
+            setting_set('savedata', 'true')
         else:
-            setting_set('savedata','false')
+            setting_set('savedata', 'false')
             
         if 'YouTube API Keys' in save_items:
-            setting_set('saveyoutube','true')
+            setting_set('saveyoutube', 'true')
+        elif '[I]YouTube API Keys[/I][TABS]5[/TABS][Preselected]' in save_items:
+            setting_set('saveyoutube', 'true')
         else:
-            setting_set('saveyoutube','false')
+            setting_set('saveyoutube', 'false')
+
+        if 'Advanced Settings' in save_items:
+            setting_set('saveadvanced', 'true')
+        elif '[I]Advanced Settings[/I][TABS]5[/TABS][Preselected]' in save_items:
+            setting_set('saveadvanced', 'true')
+        else:
+            setting_set('saveadvanced', 'false')
+
+        if 'GUI Settings' in save_items:
+            setting_set('savegui', 'true')
+        elif '[I]GUI Settings[/I][TABS]6[/TABS][Preselected]' in save_items:
+            setting_set('savegui', 'true')
+        else:
+            setting_set('savegui', 'false')
             
         if 'Favourites' in save_items:
-            setting_set('savefavs','true')
+            setting_set('savefavs', 'true')
+        elif '[I]Favourites[/I][TABS]7[/TABS][Preselected]' in save_items:
+            setting_set('savefavs', 'true')
         else:
-            setting_set('savefavs','false')
+            setting_set('savefavs', 'false')
             
-        if 'Advanced Settings' in save_items:
-            setting_set('saveadvanced','true')
-        else:
-            setting_set('saveadvanced','false')
-        
         if 'Sources' in save_items:
+            setting_set('savesources', 'true')
+        elif '[I]Sources[/I][TABS]7[/TABS][Preselected]' in save_items:
             setting_set('savesources', 'true')
         else:
             setting_set('savesources', 'false')
@@ -103,34 +152,30 @@ class Startup:
         setting_set('firstrunSave', 'true')
 
     def notify_check(self):
-        if notify_url in ('http://CHANGEME', 'http://slamiousproject.com/wzrd/notify19.txt', ''):
+        if notify_url in ('http://CHANGEME', 'http://slamiousproject.com/wzrd/notify19.txt', '', 'http://'):
             return
-        from ..GUIcontrol import notify
+        
         info = notify.get_notify()
         current_notify = int(setting('notifyversion'))
         notify_version = info[0]
         message = info[1]
-        if not setting('firstrunNotify')=='true' or notify_version > current_notify:
+        if setting('firstrunNotify') != 'true' or notify_version > current_notify:
             notify.notification(message)
             setting_set('firstrunNotify', 'true')
-            setting_set('notifyversion', str(notify_version))  
+            setting_set('notifyversion', str(notify_version))
     
     def run_startup(self):
-        if not setting('firstrunSave')=='true':
+        if setting('firstrunSave') != 'true':
             self.save_menu()
             xbmc.sleep(2000)
         if setting('firstrun') == 'true':
-            from resources.lib.modules.addons_enable import enable_addons
-            from .save_data import backup_gui_skin
             enable_addons()
             backup_gui_skin(gui_save_default)
             setting_set('firstrun', 'false')
         else:
-            if setting('autoclearpackages')=='true':
+            if setting('autoclearpackages') == 'true':
                 clear_packages_startup()
             xbmc.sleep(1000)
             self.notify_check()
-            xbmc.sleep(3000)      #Delay Build Update Notification
+            xbmc.sleep(3000)  # Delay Build Update Notification
             self.check_updates()
-        if binaries_path.exists():
-            restore_binary()

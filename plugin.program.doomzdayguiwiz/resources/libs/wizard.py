@@ -1285,6 +1285,32 @@ def defaultSkin():
 		os.remove(tempgui)
 	log("[Default Skin Check] End", xbmc.LOGINFO)
 
+def ensureSkinshortcutsPlaceholder(skinid=None):
+	# script.skinshortcuts only writes script-skinshortcuts-includes.xml after it runs once.
+	# On a freshly extracted skin that file doesn't exist yet, so Home.xml's includes fail to
+	# load and Kodi loops on "Unloaded skin" for 15-30s on first boot (looks like a freeze).
+	# Seeding an empty placeholder here lets the skin load immediately; skinshortcuts then
+	# regenerates the real file on its own first run, same as it would on a second boot anyway.
+	try:
+		if not skinid:
+			skinid = getS('defaultskin')
+		if not skinid:
+			return
+		skinfolder = os.path.join(ADDONS, skinid)
+		if not os.path.exists(skinfolder):
+			return
+		for root, dirs, files in os.walk(skinfolder):
+			if any(f.lower() == 'home.xml' for f in files):
+				target = os.path.join(root, 'script-skinshortcuts-includes.xml')
+				if not os.path.exists(target):
+					f = open(target, 'w', encoding='utf-8')
+					f.write('<includes>\n</includes>')
+					f.close()
+					log("[Skinshortcuts Placeholder] Wrote placeholder for %s at %s" % (skinid, target), xbmc.LOGINFO)
+				break
+	except Exception as e:
+		log("[Skinshortcuts Placeholder] Error: %s" % str(e), xbmc.LOGWARNING)
+
 def lookandFeelData(do='save'):
 	scan = ['lookandfeel.enablerssfeeds', 'lookandfeel.font', 'lookandfeel.rssedit', 'lookandfeel.skincolors', 'lookandfeel.skintheme', 'lookandfeel.skinzoom', 'lookandfeel.soundskin', 'lookandfeel.startupwindow', 'lookandfeel.stereostrength']
 	if do == 'save':
@@ -1866,6 +1892,18 @@ def restoreLocal(type):
 	clearS('build')
 	DP.close()
 	defaultSkin()
+	_skin_id = getS('defaultskin')
+	if _skin_id:
+		_skin_base = os.path.join(ADDONS, _skin_id)
+		for _res in ['16x9', '1080i', '720p', '480i']:
+			_res_dir = os.path.join(_skin_base, _res)
+			if os.path.exists(_res_dir):
+				_placeholder = os.path.join(_res_dir, 'script-skinshortcuts-includes.xml')
+				if not os.path.exists(_placeholder):
+					try:
+						with open(_placeholder, 'w', encoding='utf-8') as _f:
+							_f.write('<includes>\n</includes>')
+					except: pass
 	lookandFeelData('save')
 	if not file.find('packages') == -1:
 		try: os.remove(file)
@@ -1917,6 +1955,18 @@ def restoreExternal(type):
 	clearS('build')
 	DP.close()
 	defaultSkin()
+	_skin_id = getS('defaultskin')
+	if _skin_id:
+		_skin_base = os.path.join(ADDONS, _skin_id)
+		for _res in ['16x9', '1080i', '720p', '480i']:
+			_res_dir = os.path.join(_skin_base, _res)
+			if os.path.exists(_res_dir):
+				_placeholder = os.path.join(_res_dir, 'script-skinshortcuts-includes.xml')
+				if not os.path.exists(_placeholder):
+					try:
+						with open(_placeholder, 'w', encoding='utf-8') as _f:
+							_f.write('<includes>\n</includes>')
+					except: pass
 	lookandFeelData('save')
 	if int(errors) >= 1:
 		yes=DIALOG.yesno(ADDONTITLE, '[COLOR %s][COLOR %s]%s[/COLOR]' % (COLOR2, COLOR1, zname) + '\nCompleted: [COLOR %s]%s%s[/COLOR] [Errors:[COLOR %s]%s[/COLOR]]' % (COLOR1, percent, '%', COLOR1, errors) + '\nWould you like to view the errors?[/COLOR]', nolabel='[B][COLOR FFFF0000]No Thanks[/COLOR][/B]',yeslabel='[B][COLOR FF00FF00]View Errors[/COLOR][/B]')
