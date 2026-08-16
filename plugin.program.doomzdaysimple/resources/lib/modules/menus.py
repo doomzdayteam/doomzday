@@ -23,15 +23,16 @@ def main_menu():
 
     add_dir(COLOR1(f'<><> [B]Welcome to {addon_name}[/B] <><>'), '', '', addon_icon, addon_fanart, COLOR1(f'Welcome to {addon_name}'), isFolder=False)
 
-    if UPDATE_VERSION > BUILD_VERSION:
-        add_dir(COLOR3(f'[B]Update Available!!![/B]   [{CURRENT_BUILD} v{UPDATE_VERSION}]'), '', 32, addon_icon, addon_fanart, COLOR2(local_string(30110)), isFolder=False)  # Build Update Available
-        
-    elif CURRENT_BUILD not in ['No Build Installed', 'No Build']:
-        add_dir(COLOR4(f'Installed Build: {CURRENT_BUILD} v{BUILD_VERSION}'), '', '', addon_icon, addon_fanart, COLOR2(local_string(30111)), isFolder=False)  # Installed Build
+    if setting('showinstalledbuild') == 'true':
+        if UPDATE_VERSION > BUILD_VERSION:
+            add_dir(COLOR3(f'[B]Update Available!!![/B]   [{CURRENT_BUILD} v{UPDATE_VERSION}]'), '', 32, addon_icon, addon_fanart, COLOR2(local_string(30110)), isFolder=False)  # Build Update Available
+            
+        elif CURRENT_BUILD not in ['No Build Installed', 'No Build']:
+            add_dir(COLOR4(f'Installed Build: {CURRENT_BUILD} v{BUILD_VERSION}'), '', '', addon_icon, addon_fanart, COLOR2(local_string(30111)), isFolder=False)  # Installed Build
 
-    add_dir(COLOR4(f'Kodi {code_name} v{kodi_ver}'), '', '', addon_icon, addon_fanart, COLOR2(f'Release Date: {build_date}\n\nFull Version:\n{build_ver}'), isFolder=False) # Kodi Version
-
-    add_dir(COLOR4(f'{os_name} OS {sys_arch}'), '', '', addon_icon, addon_fanart, COLOR2(f'Current Operating System'), isFolder=False) # Operating System
+    if setting('showkodistats') == 'true':
+        add_dir(COLOR4(f'Kodi {code_name} v{kodi_ver}'), '', '', addon_icon, addon_fanart, COLOR2(f'Release Date: {build_date}\n\nFull Version:\n{build_ver}'), isFolder=False) # Kodi Version
+        add_dir(COLOR4(f'{os_name} OS {sys_arch}'), '', '', addon_icon, addon_fanart, COLOR2(f'Current Operating System'), isFolder=False) # Operating System
 
     build_menu_label = 'Build Menu' if NUM_BUILDS == 0 or buildfile in ('', 'http://CHANGEME') else f'Build Menu ({NUM_BUILDS} Builds)'
     add_dir(COLOR2(build_menu_label), '', 1, addon_icon, addon_fanart, COLOR2(local_string(30001)), isFolder=True)  # Build Menu

@@ -173,8 +173,7 @@ class Startup:
             backup_gui_skin(gui_save_default)
             setting_set('firstrun', 'false')
         else:
-            if setting('autoclearpackages') == 'true':
-                clear_packages_startup()
+            clear_packages_startup()
             xbmc.sleep(1000)
             self.notify_check()
             xbmc.sleep(3000)  # Delay Build Update Notification

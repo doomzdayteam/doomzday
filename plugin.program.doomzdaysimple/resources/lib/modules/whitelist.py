@@ -1,3 +1,4 @@
+import re
 import json
 import xbmc
 import xbmcaddon
@@ -34,8 +35,9 @@ def get_whitelist():
     xbmc.log('dirs = ' + str(dirs), xbmc.LOGINFO)
     names = []
     for foldername in dirs:
-        try :
-            name = xbmcaddon.Addon(foldername).getAddonInfo('name')
+        try:
+            addon_nm = xbmcaddon.Addon(foldername).getAddonInfo('name')
+            name = re.sub(r'\[[^\]]+\]', '', addon_nm).strip()
         except:
             name = foldername
         names.append(name)

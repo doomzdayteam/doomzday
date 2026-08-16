@@ -67,6 +67,8 @@ def router(paramstring):
     
     elif mode == 9:
         addon.openSettings()
+        xbmc.sleep(100)
+        xbmc.executebuiltin('Container.Refresh')
     
     elif mode == 10:
         authorize_menu()

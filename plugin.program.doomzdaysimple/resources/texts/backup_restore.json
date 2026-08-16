@@ -19,68 +19,103 @@
         "setting": "savegui",
         "path": "user_path"
     },
-    "plugin.video.seren": {
-        "name": "Seren",
+    "plugin.video.9movies": {
+        "name": "9Movies",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.fen": {
-        "name": "Fen",
+    "plugin.video.Magellan_Matrix": {
+        "name": "[COLOR lime]Magellan[/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.fenlight": {
-        "name": "Fen Light",
+    "plugin.video.Rising.Tides": {
+        "name": "[COLOR red][B]R[/B][/COLOR][COLOR white][B]ising[/B][/COLOR] [COLOR pink][B]T[/B][/COLOR][COLOR white][B]ides[/B][/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.redlight": {
-        "name": "Red Light",
+    "plugin.video.aliundek19": {
+        "name": "[COLOR aqua]Aliunde K19[/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.thechains": {
-        "name": "The Chains",
+    "plugin.video.au.freeview": {
+        "name": "IPTV AU",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.gears": {
-        "name": "The Gears",
+    "plugin.video.cosmos": {
+        "name": "C.O.S.M.O.S",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.pov": {
-        "name": "POV",
+    "plugin.video.dailymotion_com": {
+        "name": "DailyMotion.com",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.umbrella": {
-        "name": "Umbrella",
+    "plugin.video.gratisred": {
+        "name": "[COLOR red]Gratis Red[/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.shadow": {
-        "name": "Shadow",
+    "plugin.video.hublive": {
+        "name": "HubLive",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.ghost": {
-        "name": "Ghost",
+    "plugin.video.jetproxy": {
+        "name": "JetProxy",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.premiumizerx": {
-        "name": "PremiumizerX",
+    "plugin.video.lookmovietomb": {
+        "name": "LookMovie",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.realizerx": {
-        "name": "RealizerX",
+    "plugin.video.looptv": {
+        "name": "Loop TV",
         "setting": "savedata",
         "path": "data_path"
     },
-    "script.module.resolveurl": {
-        "name": "ResolveURL",
+    "plugin.video.madtitansports": {
+        "name": "Mad Titan [COLORyellow]Sports[/COLOR] V2.0",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.ontv": {
+        "name": "OnTV",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.playlistbrowser": {
+        "name": "Diggz TV Guide Lite",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.replayme": {
+        "name": "[COLOR red]R[/COLOR][COLOR white]eplay[/COLOR] [COLOR pink]M[/COLOR][COLOR white]e[/COLOR]",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.smr_link_tester": {
+        "name": "SMR Link Tester",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.sporthdme": {
+        "name": "SportHD",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.tatv2": {
+        "name": "Toonami Aftermath TV",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.the-loop": {
+        "name": "The Loop",
         "setting": "savedata",
         "path": "data_path"
     },
@@ -89,28 +124,69 @@
         "setting": "savedata",
         "path": "data_path"
     },
-
-
-    "script.trakt": {
-        "name": "Trakt",
+    "plugin.video.thechains": {
+        "name": "The Chains",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.themoviedb.helper": {
-        "name": "TMDB Helper",
+    "plugin.video.thecrew": {
+        "name": "[COLOR orchid]THE CREW[/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
-
-
-    "plugin.video.imdb.trailers": {
-        "name": "IMDb Trailers",
+    "plugin.video.torquelite": {
+        "name": "[COLORlime]Torque Lite[/COLOR]",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.torquelive": {
+        "name": "Torque Live",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.tubed": {
+        "name": "Tubed -> SlyGuy Trailers",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.tvfree": {
+        "name": "TV Free",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.vidscr": {
+        "name": "Vidscr",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.watchnixtoons2": {
+        "name": "WatchNixtoons2",
         "setting": "savedata",
         "path": "data_path"
     },
     "plugin.video.youtube": {
-        "name": "YouTube",
+        "name": "YouTube -> SlyGuy Trailers",
         "setting": "saveyoutube",
+        "path": "data_path"
+    },
+    "plugin.video.zrtester": {
+        "name": "ZR Tester",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.resolveurl": {
+        "name": "ResolveURL",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.acctmgr": {
+        "name": "[COLOR FF32D3FE][B]Account Manager[/B][/COLOR] [COLOR gold][B]Lite[/B][/COLOR]",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.reauthorize": {
+        "name": "ReAuthorize",
+        "setting": "savedata",
         "path": "data_path"
     }
 }
