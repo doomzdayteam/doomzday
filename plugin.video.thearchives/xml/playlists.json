@@ -44,17 +44,17 @@
         },
 		{ 
             "type": "plugin", 
-            "title": "Music - Atmospheric", 
-            "link": "plugin.video.youtube/playlist/PLmOhnL3l1Byh2FCaDlW7CWiHr4AxGOg4j/", 
-            "thumbnail": "https://i.imgur.com/6fVcUXj.jpg",
-			"summary": "Custom Music Playlist"
+            "title": "Documentaries - The Hermit", 
+            "link": "plugin.video.youtube/playlist/PLmOhnL3l1ByhV-JbiC3oVEwT9BgZ6lCIo/", 
+            "thumbnail": "https://i.imgur.com/KqCJQfV.jpeg",
+			"summary": "Documentary Playlist"
         },
 		{ 
             "type": "plugin", 
-            "title": "Music - The Hermit", 
-            "link": "plugin.video.youtube/playlist/PLmOhnL3l1ByhbkLxnW_s8MpeywztJ4qTN/", 
-            "thumbnail": "https://i.imgur.com/6fVcUXj.jpg",
-			"summary": "Custom Music Playlist"
+            "title": "Full albums and concerts - The Hermit", 
+            "link": "plugin.video.youtube/playlist/PLmOhnL3l1ByiAl-Mc6kg_LE4CVSn5-pXE/", 
+            "thumbnail": "https://i.imgur.com/KqCJQfV.jpeg",
+			"summary": "Full albums and concerts Playlist"
         }
     ]
 }
