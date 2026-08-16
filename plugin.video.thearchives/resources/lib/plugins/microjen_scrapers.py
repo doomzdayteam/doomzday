@@ -1,7 +1,7 @@
 ﻿
 from ..plugin import Plugin
 from resources.lib.infotagger.helpers import set_video_info
-import base64, html, json, re, sys, os, xbmc
+import base64, html, importlib, json, re, sys, os, xbmc
 import xbmcaddon
 import xbmcgui
 from threading import Semaphore
@@ -44,6 +44,10 @@ def get_scraper_module_id():
     return ownAddon.getSetting('scraper.module') or ''
 
 
+def get_scraper_import_name():
+    return ownAddon.getSetting('scraper.import') or ''
+
+
 def get_scrapers_addon():
     
     module_id = get_scraper_module_id()
@@ -55,26 +59,53 @@ def get_scrapers_addon():
         return None
 
 
+def _scraper_import_candidates(module_id, scraper_addon):
+    candidates = [module_id.rsplit('.', 1)[-1]]
+    try:
+        scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
+        stored_name = get_scraper_import_name()
+        if stored_name and os.path.isfile(os.path.join(scraper_path, stored_name, '__init__.py')):
+            candidates.insert(0, stored_name)
+        for entry in os.listdir(scraper_path):
+            init_file = os.path.join(scraper_path, entry, '__init__.py')
+            if not entry.isidentifier() or not os.path.isfile(init_file):
+                continue
+            try:
+                with open(init_file, 'r', encoding='utf-8', errors='ignore') as handle:
+                    if 'def sources(' in handle.read():
+                        candidates.append(entry)
+            except OSError:
+                continue
+    except Exception:
+        pass
+    return [candidate for candidate in dict.fromkeys(candidates) if candidate]
+
+
 def import_scraper_sources():
     
     module_id = get_scraper_module_id()
     if not module_id:
         xbmcgui.Dialog().ok(addon_name, 'No scraper module selected.\nPlease choose one in Settings > Choose Scraper Module.')
         return None
-    module_name = module_id.split('.')[-1]
     try:
         scraper_addon = xbmcaddon.Addon(module_id)
         scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
         if scraper_path not in sys.path:
             sys.path.insert(0, scraper_path)
-    except Exception:
-        pass
-    try:
-        mod = __import__(module_name)
-        try:
-            return mod.sources(specified_folders=['torrents'])
-        except TypeError:
-            return mod.sources()
+        failures = []
+        for module_name in _scraper_import_candidates(module_id, scraper_addon):
+            try:
+                mod = importlib.import_module(module_name)
+                source_factory = getattr(mod, 'sources', None)
+                if not callable(source_factory):
+                    raise AttributeError('missing sources(...) factory')
+                try:
+                    return source_factory(specified_folders=['torrents'])
+                except TypeError:
+                    return source_factory()
+            except Exception as exc:
+                failures.append(f'{module_name}: {exc}')
+        raise ImportError('; '.join(failures) or 'no compatible scraper package found')
     except Exception as e:
         do_log(f'TheArchivesScrapers - Failed to import scraper module {module_id}: {e}')
         xbmcgui.Dialog().ok(addon_name, f'Failed to load scraper module:\n[B]{module_id}[/B]\n\nPlease check it is installed and enabled.')

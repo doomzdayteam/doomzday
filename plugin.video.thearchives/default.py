@@ -224,25 +224,133 @@ def clear_cache():
     import xbmc
     xbmc.executebuiltin("Container.Refresh")
 
+
+# These are optional, user-installed scraper add-ons.  They are deliberately
+# not dependencies of The Archives: the picker only exposes installed add-ons
+# that provide the common ``sources(...)`` scraper interface.
+KNOWN_EXTERNAL_SCRAPER_IDS = {
+    'script.module.absolutionscrapers',
+    'script.module.chainscrapers',
+    'script.module.classyscrapers',
+    'script.module.cocoscrapers',
+    'script.module.diamondscrapers',
+    'script.module.gearsscrapers',
+    'script.module.magneto',
+    'script.module.taz19scrapers',
+    'script.module.viperscrapers',
+    'plugin.program.taz19scrapers',
+}
+
+
+def _scraper_import_candidates(module_id, scraper_addon=None):
+    """Return possible package names for an external scraper add-on."""
+    import os
+
+    candidates = [module_id.rsplit('.', 1)[-1]]
+    try:
+        scraper_addon = scraper_addon or xbmcaddon.Addon(module_id)
+        lib_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
+        for entry in os.listdir(lib_path):
+            init_file = os.path.join(lib_path, entry, '__init__.py')
+            if not entry.isidentifier() or not os.path.isfile(init_file):
+                continue
+            try:
+                with open(init_file, 'r', encoding='utf-8', errors='ignore') as handle:
+                    if 'def sources(' in handle.read():
+                        candidates.append(entry)
+            except OSError:
+                continue
+    except Exception:
+        pass
+    return list(dict.fromkeys(candidates))
+
+
+def _load_scraper_module(module_id):
+    """Load an installed scraper package and validate its public factory."""
+    import importlib
+    import os
+    import sys
+
+    scraper_addon = xbmcaddon.Addon(module_id)
+    scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
+    if scraper_path not in sys.path:
+        sys.path.insert(0, scraper_path)
+
+    failures = []
+    for import_name in _scraper_import_candidates(module_id, scraper_addon):
+        try:
+            module = importlib.import_module(import_name)
+            source_factory = getattr(module, 'sources', None)
+            if not callable(source_factory):
+                raise AttributeError('missing sources(...) factory')
+            try:
+                source_factory(specified_folders=['torrents'])
+            except TypeError:
+                source_factory()
+            return import_name
+        except Exception as exc:
+            failures.append(f'{import_name}: {exc}')
+    raise ImportError('; '.join(failures) or 'no compatible scraper package found')
+
+
+def _is_external_scraper_addon(addon_info):
+    import os
+
+    module_id = addon_info.get('addonid', '')
+    if module_id in KNOWN_EXTERNAL_SCRAPER_IDS:
+        return True
+    try:
+        scraper_addon = xbmcaddon.Addon(module_id)
+        scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
+        for import_name in _scraper_import_candidates(module_id, scraper_addon):
+            init_file = os.path.join(scraper_path, import_name, '__init__.py')
+            if not os.path.isfile(init_file):
+                continue
+            with open(init_file, 'r', encoding='utf-8', errors='ignore') as handle:
+                if 'def sources(' in handle.read():
+                    return True
+        return False
+    except Exception:
+        return False
+
+
+def _installed_external_scraper_addons():
+    import json
+    import xbmc
+
+    found = {}
+    for addon_type in ('xbmc.python.module', 'xbmc.python.pluginsource'):
+        jsonrpc_request = json.dumps({
+            'jsonrpc': '2.0',
+            'method': 'Addons.GetAddons',
+            'params': {
+                'type': addon_type,
+                'properties': ['name', 'thumbnail', 'enabled']
+            },
+            'id': 1
+        })
+        try:
+            response = json.loads(xbmc.executeJSONRPC(jsonrpc_request))
+        except Exception:
+            continue
+        for addon_info in response.get('result', {}).get('addons', []):
+            if addon_info.get('enabled', True) and _is_external_scraper_addon(addon_info):
+                found[addon_info['addonid']] = addon_info
+    return sorted(found.values(), key=lambda addon_info: addon_info['name'].casefold())
+
+
 @plugin.route("/choose_scraper")
 def choose_scraper():
-    import xbmc, xbmcgui, json
+    import xbmcgui
     addon = xbmcaddon.Addon()
     addon_name = addon.getAddonInfo('name')
-    jsonrpc_request = json.dumps({
-        'jsonrpc': '2.0',
-        'method': 'Addons.GetAddons',
-        'params': {
-            'type': 'xbmc.python.module',
-            'properties': ['name', 'thumbnail', 'enabled']
-        },
-        'id': 1
-    })
-    response = json.loads(xbmc.executeJSONRPC(jsonrpc_request))
-    addons = response.get('result', {}).get('addons', [])
-    addons = [a for a in addons if a.get('enabled', True)]
+    addons = _installed_external_scraper_addons()
     if not addons:
-        xbmcgui.Dialog().ok(addon_name, 'No script modules found.')
+        xbmcgui.Dialog().ok(
+            addon_name,
+            'No compatible external scraper add-ons are installed and enabled.\n\n'
+            'Install a supported scraper add-on first, then return here to choose it.'
+        )
         return
     names = [a['name'] for a in addons]
     choice = xbmcgui.Dialog().select('Choose Scraper Module', names)
@@ -251,21 +359,15 @@ def choose_scraper():
     selected = addons[choice]
     module_id = selected['addonid']
     module_name = selected['name']
-    import sys, os
-    scraper_module_name = module_id.split('.')[-1]
     try:
-        scraper_addon = xbmcaddon.Addon(module_id)
-        scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
-        if scraper_path not in sys.path:
-            sys.path.insert(0, scraper_path)
-        mod = __import__(scraper_module_name)
-        test_sources = mod.sources()
+        scraper_module_name = _load_scraper_module(module_id)
         success = True
     except Exception as e:
         success = False
         do_log(f'choose_scraper - Failed to import {module_id}: {e}')
     if success:
         addon.setSetting('scraper.module', module_id)
+        addon.setSetting('scraper.import', scraper_module_name)
         addon.setSetting('scraper.name', module_name)
         addon.setSetting('scraper.name.source', module_name)
         xbmcgui.Dialog().ok(addon_name, f'Success!\n[B]{module_name}[/B] set as Scraper Module.')
