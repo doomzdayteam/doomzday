@@ -17,8 +17,10 @@ except ImportError:
 
 try:
     from resources.lib.plugins import alldebrid_client
+    from resources.lib.plugins import torbox_client
 except ImportError:
     from . import alldebrid_client
+    from . import torbox_client
 
 debrid_only = ownAddon.getSetting('debrid.only') or 'false'
 addon_name = xbmcaddon.Addon().getAddonInfo('name')
@@ -1267,25 +1269,31 @@ class TheArchivesScrapers(Plugin):
         return results
 
     def _torbox_cached(self, token, source_hash):
-        if not source_hash:
-            return False
-        import requests
-        headers = {"Authorization": f"Bearer {token}"}
-        response = requests.get(
-            "https://api.torbox.app/v1/api/torrents/checkcached",
-            params={"hash": source_hash, "format": "list"},
-            headers=headers,
-            timeout=15,
-        ).json()
-        data = response.get("data", response)
-        return bool(data)
+        results = self._torbox_cached_batch(token, [(source_hash, "", source_hash)])
+        return bool(results.get(source_hash))
 
     def _torbox_cached_batch(self, token, entries):
-        return {
-            cache_key: self._torbox_cached(token, source_hash)
-            for cache_key, _source_url, source_hash in entries
-            if source_hash
-        }
+        import requests
+
+        results = {cache_key: False for cache_key, _source_url, _source_hash in entries}
+        hashes_to_keys = {}
+        for cache_key, _source_url, source_hash in entries:
+            if not source_hash:
+                continue
+            hashes_to_keys.setdefault(str(source_hash).lower(), []).append(cache_key)
+
+        hashes = list(hashes_to_keys)
+        for start in range(0, len(hashes), 100):
+            cached_entries = torbox_client.cached_torrents(requests, token, hashes[start:start + 100])
+            if isinstance(cached_entries, dict):
+                cached_entries = list(cached_entries.values())
+            for cached_entry in cached_entries or []:
+                if not isinstance(cached_entry, dict):
+                    continue
+                source_hash = str(cached_entry.get("hash") or "").lower()
+                for cache_key in hashes_to_keys.get(source_hash, []):
+                    results[cache_key] = True
+        return results
 
     def _service_from_name(self, name):
         name = str(name or "").lower()
@@ -1622,28 +1630,47 @@ class TheArchivesScrapers(Plugin):
     def _resolve_torbox_magnet(self, source_item, media_item, token):
         import requests
 
-        headers = {"Authorization": f"Bearer {token}"}
-        base_url = "https://api.torbox.app/v1/api/"
         torrent_id = None
         try:
-            added = requests.post(base_url + "torrents/createtorrent", data={"magnet": source_item.get("url", ""), "seed": 3, "allow_zip": False}, headers=headers, timeout=30).json()
-            if not added.get("success"):
+            added = torbox_client.api_post(
+                requests,
+                "torrents/createtorrent",
+                token,
+                data={"magnet": source_item.get("url", ""), "seed": 3, "allow_zip": False},
+                timeout=30,
+            )
+            torrent_id = added.get("torrent_id") if isinstance(added, dict) else None
+            if not torrent_id:
                 return None
-            torrent_id = added.get("data", {}).get("torrent_id")
-            info = requests.get(base_url + f"torrents/mylist?id={torrent_id}", headers=headers, timeout=30).json()
+            # TorBox can serve a cached mylist response just after creation. Force
+            # a fresh item read so the completed torrent's file list is present.
+            info = torbox_client.api_get(
+                requests,
+                "torrents/mylist",
+                token,
+                params={"id": torrent_id, "bypass_cache": "true"},
+                timeout=30,
+            )
             files = []
-            for item in info.get("data", {}).get("files", []):
+            file_list = info.get("files", []) if isinstance(info, dict) else []
+            for item in file_list:
                 files.append({"path": item.get("short_name", ""), "size": item.get("size", 0), "file_id": item.get("id")})
             file_item = self._pick_debrid_file(files, media_item, "path", "size")
             if not file_item:
                 return None
             params = {"token": token, "torrent_id": torrent_id, "file_id": file_item.get("file_id")}
-            link = requests.get(base_url + "torrents/requestdl", params=params, headers=headers, timeout=30).json()
-            return link.get("data")
+            link = torbox_client.api_get(requests, "torrents/requestdl", token, params=params, timeout=30)
+            return link if isinstance(link, str) else None
         finally:
             if torrent_id:
                 try:
-                    requests.post(base_url + "torrents/controltorrent", json={"torrent_id": torrent_id, "operation": "delete"}, headers=headers, timeout=15)
+                    torbox_client.api_post(
+                        requests,
+                        "torrents/controltorrent",
+                        token,
+                        json={"torrent_id": torrent_id, "operation": "delete"},
+                        timeout=15,
+                    )
                 except Exception:
                     pass
 
