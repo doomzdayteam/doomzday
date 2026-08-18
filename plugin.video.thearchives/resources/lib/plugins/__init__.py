@@ -27,7 +27,7 @@ ROUTE_MODULES = {
     "punchplay/": ["punchplay"],
     "simkl/": ["simkl"],
     "mdblist/": ["mdblist"],
-    "ytdlp/": ["youtube"],
+    "youtube/": ["youtube"],
 }
 
 URL_MODULE_RULES = [
@@ -51,7 +51,6 @@ URL_MODULE_RULES = [
     ("radio-browser.info", ["radio_browser"]),
     ("audiophile.fm", ["audiophilefm"]),
     ("archive.org", ["archive_org"]),
-    ("reddit.com", ["reddit"]),
     ("documentaryarea.com", ["documentary_area"]),
     ("filmon.com", ["filmon"]),
     ("supercartoons.net", ["supercartoons"]),
@@ -102,7 +101,6 @@ PLAYBACK_MODULES = [
     "pluto_tv",
     "public_iptv",
     "rakuten_tv",
-    "reddit",
     "radio_browser",
     "roku_channel",
     "samsung_tv_plus",

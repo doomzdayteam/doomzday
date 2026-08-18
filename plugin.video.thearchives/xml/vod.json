@@ -86,13 +86,6 @@
     },
 	{
       "type": "dir",
-      "title": "Reddit Videos",
-      "link": "https://www.reddit.com",
-	  "thumbnail": "resources/media/reddit.png",
-      "summary": "Search Reddit for native videos and live streams"
-    },
-	{
-      "type": "dir",
       "title": "Archives TV Shows",
       "link": "file://classic_tv_complete_english_series_by_genre.json",
       "thumbnail": "resources/media/vod.png",

@@ -727,12 +727,12 @@ class TMDB_API:
             for video in videos:
                 if video['type'] == 'Trailer':
                     video_id = video['key']
-                    trailer = f'plugin://plugin.video.thearchives/ytdlp/play/{video_id}'
+                    trailer = f'plugin://plugin.video.thearchives/youtube/play/{video_id}'
             if trailer == '':
                 for video in videos:
                     if video['type'] == 'Teaser':
                         video_id = video['key']
-                        trailer = f'plugin://plugin.video.thearchives/ytdlp/play/{video_id}'
+                        trailer = f'plugin://plugin.video.thearchives/youtube/play/{video_id}'
         except KeyError:
             trailer = ''
         

@@ -547,7 +547,7 @@ class Rugby24(Plugin):
         if not playback:
             return {}
         try:
-            from resources.lib.external.yt_dlp.aes import aes_gcm_decrypt_and_verify_bytes
+            from .rugby24_crypto import aes_gcm_decrypt_and_verify_bytes
 
             key_parts = playback.get("key_parts") if isinstance(playback.get("key_parts"), list) else []
             selected = self._byse_key_parts(str(playback.get("version") or ""), key_parts)
