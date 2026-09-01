@@ -70,7 +70,7 @@ def _is_interactive_search_url(url):
 
 def _can_cache_list(url):
     url_lower = str(url or "").lower()
-    if url_lower.startswith(("custom_debrid_lists:", "custom_personal_lists:")):
+    if url_lower.startswith(("custom_debrid_lists:", "custom_personal_lists:", "history/")):
         return False
     return ownAddon.getSettingBool("use_cache") and not _is_interactive_search_url(url)
 
