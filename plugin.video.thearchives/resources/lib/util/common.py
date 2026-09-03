@@ -71,6 +71,9 @@ def get_real_debrid_client_id():
 def get_premiumize_client_id():
     return get_dev_api_value("PREMIUMIZE_CLIENT_ID")
 
+def get_offcloud_api_key():
+    return get_dev_api_value("OFFCLOUD_API_KEY")
+
 class message(Plugin):
     name = "pop up message box"
     priority = 0    

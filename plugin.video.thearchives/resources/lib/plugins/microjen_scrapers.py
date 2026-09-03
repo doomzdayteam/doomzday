@@ -18,9 +18,11 @@ except ImportError:
 try:
     from resources.lib.plugins import alldebrid_client
     from resources.lib.plugins import torbox_client
+    from resources.lib.plugins import offcloud_client
 except ImportError:
     from . import alldebrid_client
     from . import torbox_client
+    from . import offcloud_client
 
 debrid_only = ownAddon.getSetting('debrid.only') or 'false'
 addon_name = xbmcaddon.Addon().getAddonInfo('name')
@@ -361,6 +363,10 @@ class TheArchivesScrapers(Plugin):
             if rd_cloud_sources:
                 all_sources.extend(rd_cloud_sources)
 
+            oc_cloud_sources = self._get_offcloud_cloud_sources(item)
+            if oc_cloud_sources:
+                all_sources.extend(oc_cloud_sources)
+
             if not all_sources:
                 xbmcgui.Dialog().notification(addon_name, 'No scraper sources found', xbmcaddon.Addon().getAddonInfo('icon'), 3000, sound=False)
                 return True
@@ -692,6 +698,52 @@ class TheArchivesScrapers(Plugin):
             xbmc.log(f'TheArchivesScrapers - Real-Debrid cloud returned {len(results)} playable sources', getattr(xbmc, 'LOGINFO', 1))
         return results
 
+    def _get_offcloud_cloud_sources(self, item):
+        import requests
+
+        if str(ownAddon.getSetting("provider.oc_cloud") or "").lower() != "true":
+            return []
+        if str(ownAddon.getSetting("oc.enabled") or "").lower() != "true":
+            return []
+        token = ownAddon.getSetting("oc.token") or ""
+        if not token:
+            do_log(f'{self.name} - Offcloud cloud scraping enabled but user authorization is missing')
+            return []
+        try:
+            history = offcloud_client.cloud_history(requests, token, timeout=20)
+        except Exception as exc:
+            do_log(f'{self.name} - Offcloud cloud history failed: {exc}')
+            return []
+        results = []
+        for transfer in history:
+            if not isinstance(transfer, dict) or str(transfer.get("status") or "").lower() != "downloaded":
+                continue
+            request_id = transfer.get("requestId")
+            links = [transfer.get("url")] if transfer.get("url") else []
+            if not links and request_id:
+                try:
+                    links = offcloud_client.explore_cloud(requests, token, request_id, timeout=20)
+                except Exception as exc:
+                    do_log(f'{self.name} - Offcloud cloud explore {request_id} failed: {exc}')
+                    continue
+            for link in links:
+                if not isinstance(link, str):
+                    continue
+                filename = transfer.get("fileName") or link.split("?", 1)[0].rsplit("/", 1)[-1]
+                if not self._is_video_file(filename):
+                    continue
+                match_name = "%s %s" % (transfer.get("fileName") or "", filename)
+                if not self._real_debrid_cloud_file_matches(item, match_name):
+                    continue
+                results.append({
+                    "provider": "Offcloud Cloud", "origin": "Offcloud Cloud", "source": "cloud",
+                    "quality": self._quality_from_name(match_name), "info": "Offcloud Cloud",
+                    "name": filename or transfer.get("fileName") or "Offcloud Cloud", "url": link,
+                    "direct": True, "debrid_cached": True, "debrid_service": "Offcloud",
+                    "cached_service_id": "oc",
+                })
+        return results
+
     def _real_debrid_cloud_sources_from_torrent(self, media_item, torrent, info):
         if not isinstance(info, dict):
             return []
@@ -1003,6 +1055,8 @@ class TheArchivesScrapers(Plugin):
                 return self._all_debrid_cached_batch(service["token"], entries)
             if service["id"] == "tb":
                 return self._torbox_cached_batch(service["token"], entries)
+            if service["id"] == "oc":
+                return self._offcloud_cached_batch(service["token"], entries)
         except RealDebridApiError as e:
             if service["id"] == "rd" and e.cache_endpoint_disabled:
                 self._mark_debrid_cache_check_unavailable(service["id"])
@@ -1128,7 +1182,7 @@ class TheArchivesScrapers(Plugin):
         service = item.get("debrid_service") or item.get("cache_provider") or item.get("debrid")
         if cached_value or service:
             return self._service_from_name(service) or {"id": "", "name": str(service or "Debrid")}
-        for key, service_id in (("rd", "rd"), ("real_debrid", "rd"), ("pm", "pm"), ("premiumize", "pm"), ("ad", "ad"), ("alldebrid", "ad"), ("tb", "tb"), ("torbox", "tb")):
+        for key, service_id in (("rd", "rd"), ("real_debrid", "rd"), ("pm", "pm"), ("premiumize", "pm"), ("ad", "ad"), ("alldebrid", "ad"), ("oc", "oc"), ("offcloud", "oc"), ("tb", "tb"), ("torbox", "tb")):
             if str(item.get(key, "")).lower() in ("true", "1", "yes", "cached"):
                 return self._service_from_id(service_id)
         return None
@@ -1169,6 +1223,8 @@ class TheArchivesScrapers(Plugin):
                 return self._all_debrid_cached(service["token"], source_url, source_hash)
             if service["id"] == "tb":
                 return self._torbox_cached(service["token"], source_hash)
+            if service["id"] == "oc":
+                return self._offcloud_cached(service["token"], source_hash)
         except RealDebridApiError as e:
             if service["id"] == "rd" and e.cache_endpoint_disabled:
                 self._mark_debrid_cache_check_unavailable(service["id"])
@@ -1295,17 +1351,37 @@ class TheArchivesScrapers(Plugin):
                     results[cache_key] = True
         return results
 
+    def _offcloud_cached(self, token, source_hash):
+        results = self._offcloud_cached_batch(token, [(source_hash, "", source_hash)])
+        return bool(results.get(source_hash))
+
+    def _offcloud_cached_batch(self, token, entries):
+        import requests
+
+        results = {cache_key: False for cache_key, _source_url, _source_hash in entries}
+        hashes_to_keys = {}
+        for cache_key, _source_url, source_hash in entries:
+            if source_hash:
+                hashes_to_keys.setdefault(str(source_hash).lower(), []).append(cache_key)
+        hashes = list(hashes_to_keys)
+        for start in range(0, len(hashes), 100):
+            cached = offcloud_client.cached_hashes(requests, token, hashes[start:start + 100], timeout=20)
+            for source_hash in cached:
+                for cache_key in hashes_to_keys.get(source_hash, []):
+                    results[cache_key] = True
+        return results
+
     def _service_from_name(self, name):
         name = str(name or "").lower()
         if not name:
             return None
-        for service_id, service_name in (("rd", "Real-Debrid"), ("pm", "Premiumize"), ("ad", "AllDebrid"), ("tb", "TorBox")):
+        for service_id, service_name in (("rd", "Real-Debrid"), ("pm", "Premiumize"), ("ad", "AllDebrid"), ("oc", "Offcloud"), ("tb", "TorBox")):
             if service_id == name or service_name.lower() in name or name in service_name.lower():
                 return {"id": service_id, "name": service_name}
         return None
 
     def _service_from_id(self, service_id):
-        names = {"rd": "Real-Debrid", "pm": "Premiumize", "ad": "AllDebrid", "tb": "TorBox"}
+        names = {"rd": "Real-Debrid", "pm": "Premiumize", "ad": "AllDebrid", "oc": "Offcloud", "tb": "TorBox"}
         return {"id": service_id, "name": names.get(service_id, service_id)}
 
     def _resolve_magnet_source(self, source_item, media_item):
@@ -1313,6 +1389,7 @@ class TheArchivesScrapers(Plugin):
             "pm": self._resolve_premiumize_magnet,
             "rd": self._resolve_real_debrid_magnet,
             "ad": self._resolve_all_debrid_magnet,
+            "oc": self._resolve_offcloud_magnet,
             "tb": self._resolve_torbox_magnet,
         }
         services = self._enabled_debrid_services()
@@ -1337,7 +1414,7 @@ class TheArchivesScrapers(Plugin):
 
     def _enabled_debrid_services(self):
         services = []
-        for service_id, name in (("rd", "Real-Debrid"), ("pm", "Premiumize"), ("ad", "AllDebrid"), ("tb", "TorBox")):
+        for service_id, name in (("rd", "Real-Debrid"), ("pm", "Premiumize"), ("ad", "AllDebrid"), ("oc", "Offcloud"), ("tb", "TorBox")):
             enabled = str(ownAddon.getSetting(f"{service_id}.enabled") or "").lower() == "true"
             token = ownAddon.getSetting(f"{service_id}.token") or ""
             if not enabled or not token:
@@ -1673,6 +1750,93 @@ class TheArchivesScrapers(Plugin):
                     )
                 except Exception:
                     pass
+
+    def _resolve_offcloud_magnet(self, source_item, media_item, token):
+        import requests
+
+        magnet_url = source_item.get("url", "")
+        # Match Red Light's fast path: a cached magnet yields individual,
+        # playable file links from cache/download without creating a cloud job.
+        try:
+            cached_files = offcloud_client.cache_download(requests, token, magnet_url, timeout=30)
+        except Exception as exc:
+            do_log(f'{self.name} - Offcloud cache download failed: {exc}')
+            xbmc.log(f'TheArchivesScrapers - Offcloud cache download failed: {exc}', getattr(xbmc, 'LOGERROR', 4))
+            cached_files = []
+        file_item = self._pick_offcloud_file(cached_files, media_item)
+        if file_item:
+            return file_item.get("link")
+
+        try:
+            transfer = offcloud_client.add_cloud(requests, token, magnet_url, timeout=30)
+        except Exception as exc:
+            do_log(f'{self.name} - Offcloud cloud request failed: {exc}')
+            xbmc.log(f'TheArchivesScrapers - Offcloud cloud request failed: {exc}', getattr(xbmc, 'LOGERROR', 4))
+            return None
+        if not isinstance(transfer, dict):
+            return None
+        request_id = transfer.get("requestId")
+        status = str(transfer.get("status") or "").lower()
+        # Cached transfers normally arrive as downloaded. For an explicitly
+        # uncached-enabled account, wait briefly but leave the user's cloud job
+        # intact if Offcloud needs longer than this resolver window.
+        for _ in range(6):
+            if status == "downloaded":
+                break
+            if status in ("error", "failed") or not request_id:
+                return None
+            xbmc.sleep(5000)
+            try:
+                transfer = offcloud_client.cloud_status(requests, token, request_id, timeout=20)
+            except Exception as exc:
+                do_log(f'{self.name} - Offcloud cloud status failed: {exc}')
+                xbmc.log(f'TheArchivesScrapers - Offcloud cloud status failed: {exc}', getattr(xbmc, 'LOGERROR', 4))
+                return None
+            status = str(transfer.get("status") or "").lower() if isinstance(transfer, dict) else ""
+        if status != "downloaded":
+            return None
+        try:
+            links = offcloud_client.explore_cloud(requests, token, request_id, timeout=20)
+        except Exception as exc:
+            do_log(f'{self.name} - Offcloud cloud explore failed: {exc}')
+            xbmc.log(f'TheArchivesScrapers - Offcloud cloud explore failed: {exc}', getattr(xbmc, 'LOGERROR', 4))
+            return None
+        # Offcloud may not return a list for a single-file transfer. Red Light
+        # falls back to the cloud URL plus file name in that case.
+        if not links and isinstance(transfer, dict):
+            base_url = str(transfer.get("url") or "").rstrip("/")
+            file_name = str(transfer.get("fileName") or "").lstrip("/")
+            if base_url and self._is_video_file(base_url):
+                # A one-file response sometimes supplies the complete file URL.
+                links = [base_url]
+            elif base_url and file_name:
+                links = ["%s/%s" % (base_url, file_name)]
+        file_item = self._pick_offcloud_file(links, media_item)
+        return file_item.get("link") if file_item else None
+
+    def _pick_offcloud_file(self, files, media_item):
+        if isinstance(files, dict):
+            for key in ("files", "items", "links", "results", "downloads"):
+                if isinstance(files.get(key), list):
+                    files = files[key]
+                    break
+            else:
+                files = [files]
+        normalized = []
+        for item in files or []:
+            if isinstance(item, str):
+                link = item
+                name = item.split("?", 1)[0].rsplit("/", 1)[-1]
+                size = 0
+            elif isinstance(item, dict):
+                link = item.get("url") or item.get("link") or ""
+                name = item.get("filename") or item.get("fileName") or link.split("?", 1)[0].rsplit("/", 1)[-1]
+                size = item.get("size") or item.get("bytes") or 0
+            else:
+                continue
+            if link and name:
+                normalized.append({"path": name, "link": link, "size": size})
+        return self._pick_debrid_file(normalized, media_item, "path", "size")
 
     def _flatten_all_debrid_files(self, files_list):
         results = []

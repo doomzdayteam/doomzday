@@ -182,6 +182,16 @@
     <setting id="ad.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-5,true)" default="false" />
     <setting id="ad.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-6,true)" option="int" default="10" />
     <setting id="lsep.4" type="lsep" label="" />
+    <setting id="oc.enabled" type="bool" label="[B][COLOR white]OFFCLOUD[/COLOR][/B]" default="false" />
+    <setting id="oc.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/oc)" />
+    <setting id="oc.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/oc)" />
+    <setting id="oc.username" type="text" label="[COLOR khaki]    Offcloud Email (QR fallback)[/COLOR]" subsetting="true" visible="eq(-3,true)" default="" />
+    <setting id="oc.password" type="text" label="[COLOR khaki]    Offcloud Password (QR fallback)[/COLOR]" subsetting="true" visible="eq(-4,true)" option="hidden" default="" />
+    <setting id="oc.token" type="text" label="Token" visible="false" option="hidden" default="" />
+    <setting id="provider.oc_cloud" type="bool" label="[COLOR khaki]    Enable Cloud Scraping[/COLOR]" subsetting="true" visible="eq(-6,true)" default="false" />
+    <setting id="oc.cached_only" type="bool" label="[COLOR khaki]    Cached Torrents Only[/COLOR]" subsetting="true" visible="eq(-7,true)" default="true" />
+    <setting id="oc.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-8,true)" option="int" default="10" />
+    <setting id="lsep.4a" type="lsep" label="" />
     <setting id="tb.enabled" type="bool" label="[B][COLOR white]TORBOX[/COLOR][/B]" default="false" />
     <setting id="tb.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/tb)" />
     <setting id="tb.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/tb)" />
@@ -216,4 +226,3 @@
     <setting id="debug" type="bool" label="Enable Debugging Mode" default="false" visible="true" />
   </category>
 </settings>
-

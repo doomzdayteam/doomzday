@@ -432,6 +432,7 @@ def auth_service(service):
         'rd': 'Real-Debrid',
         'pm': 'Premiumize',
         'ad': 'AllDebrid',
+        'oc': 'Offcloud',
         'tb': 'TorBox'
     }
     name = service_names.get(service, service)
@@ -442,6 +443,8 @@ def auth_service(service):
             _auth_premiumize(addon, addon_name)
         elif service == 'ad':
             _auth_alldebrid(addon, addon_name)
+        elif service == 'oc':
+            _auth_offcloud(addon, addon_name)
         elif service == 'tb':
             _auth_torbox(addon, addon_name)
         else:
@@ -800,6 +803,103 @@ def _auth_torbox(addon, addon_name):
     addon.setSetting('tb.enabled', 'true')
     xbmcgui.Dialog().ok(addon_name, '[B]TorBox[/B] authorized successfully!')
 
+def _auth_offcloud(addon, addon_name):
+    import xbmc, xbmcgui, requests, time
+    try:
+        from resources.lib.plugins import offcloud_client
+    except ImportError:
+        from .resources.lib.plugins import offcloud_client
+
+    def complete(token):
+        token = (token or '').strip()
+        if not token:
+            return False
+        try:
+            offcloud_client.verify_api_key(requests, token)
+        except Exception as e:
+            xbmcgui.Dialog().ok(addon_name, f'Offcloud authorization verification failed.\n{str(e)}')
+            return False
+        addon.setSetting('oc.token', token)
+        addon.setSetting('oc.enabled', 'true')
+        xbmcgui.Dialog().ok(addon_name, '[B]Offcloud[/B] authorized successfully!')
+        return True
+
+    def login_fallback():
+        username = (addon.getSetting('oc.username') or '').strip()
+        password = addon.getSetting('oc.password') or ''
+        if not username or not password:
+            xbmcgui.Dialog().ok(addon_name, 'Offcloud QR authorization is unavailable.\nEnter your Offcloud email and password in Sources Accounts, then choose Authorize again.')
+            return
+        try:
+            session = requests.Session()
+            login = session.post('https://offcloud.com/api/login', data={'username': username, 'password': password}, timeout=20).json()
+            if isinstance(login, dict) and login.get('error'):
+                raise RuntimeError(login.get('error'))
+            key_data = session.post('https://offcloud.com/api/key', timeout=20).json()
+            token = key_data.get('apiKey') if isinstance(key_data, dict) else ''
+        except Exception as e:
+            xbmcgui.Dialog().ok(addon_name, f'Offcloud login failed.\n{str(e)}')
+            return
+        complete(token)
+
+    try:
+        device = requests.post('https://offcloud.com/oauth/device/code', json={}, timeout=20).json()
+    except Exception:
+        login_fallback()
+        return
+    device_code = device.get('device_code') if isinstance(device, dict) else ''
+    user_code = device.get('user_code') if isinstance(device, dict) else ''
+    verification_url = device.get('verification_uri_complete') or device.get('verification_uri') if isinstance(device, dict) else ''
+    if not device_code or not user_code:
+        login_fallback()
+        return
+    interval = max(1, int(device.get('interval') or 5))
+    expires_in = max(1, int(device.get('expires_in') or 600))
+
+    def poll_token(dialog):
+        start = time.time()
+        poll_interval = interval
+        while not dialog.cancelled and (time.time() - start) < expires_in:
+            xbmc.sleep(poll_interval * 1000)
+            try:
+                poll = requests.post('https://offcloud.com/oauth/token', json={
+                    'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
+                    'device_code': device_code,
+                }, timeout=20).json()
+            except Exception:
+                continue
+            error = str(poll.get('error') or '').lower() if isinstance(poll, dict) else ''
+            if error == 'authorization_pending':
+                continue
+            if error == 'slow_down':
+                poll_interval += 5
+                continue
+            if error in ('expired_token', 'access_denied'):
+                dialog.response = poll
+                dialog.close()
+                return
+            token = poll.get('access_token') if isinstance(poll, dict) else ''
+            if token:
+                dialog.response = poll
+                dialog.close()
+                return
+        dialog.cancelled = True
+        try:
+            dialog.close()
+        except Exception:
+            pass
+
+    response = _show_debrid_qr_auth_window(
+        addon_name, 'Offcloud', verification_url or 'https://offcloud.com/activate', user_code, poll_token
+    )
+    token = response.get('access_token') if isinstance(response, dict) else ''
+    if token:
+        complete(token)
+    elif response and response.get('error') in ('expired_token', 'access_denied'):
+        xbmcgui.Dialog().ok(addon_name, 'Offcloud authorization was denied or expired.')
+    else:
+        xbmcgui.Dialog().ok(addon_name, 'Offcloud authorization timed out or was cancelled.')
+
 @plugin.route("/revoke_service/<service>")
 def revoke_service(service):
     import xbmcgui
@@ -809,6 +909,7 @@ def revoke_service(service):
         'rd': 'Real-Debrid',
         'pm': 'Premiumize',
         'ad': 'AllDebrid',
+        'oc': 'Offcloud',
         'tb': 'TorBox'
     }
     name = service_names.get(service, service)
@@ -824,6 +925,9 @@ def revoke_service(service):
         addon.setSetting('pm.token', '')
     elif service == 'ad':
         addon.setSetting('ad.token', '')
+    elif service == 'oc':
+        addon.setSetting('oc.token', '')
+        addon.setSetting('oc.enabled', 'false')
     elif service == 'tb':
         addon.setSetting('tb.token', '')
         addon.setSetting('tb.enabled', 'false')

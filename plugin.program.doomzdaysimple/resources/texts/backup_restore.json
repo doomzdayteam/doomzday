@@ -120,7 +120,7 @@
         "path": "data_path"
     },
     "plugin.video.thearchives": {
-        "name": "The Archives",
+        "name": "The Archives (Offcloud and debrid settings)",
         "setting": "savedata",
         "path": "data_path"
     },
@@ -171,11 +171,6 @@
     },
     "plugin.video.zrtester": {
         "name": "ZR Tester",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.redlight": {
-        "name": "[COLOR red]Red Light[/COLOR]",
         "setting": "savedata",
         "path": "data_path"
     },
