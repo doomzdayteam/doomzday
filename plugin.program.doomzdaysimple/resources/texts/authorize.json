@@ -374,6 +374,51 @@
             }
         ]
     },
+    "Authorize Red Light": {
+        "icon": "special://home/addons/plugin.video.redlight/icon.png",
+        "items": [
+            {
+                "name": "Authorize Red Light Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=real_debrid.authenticate)"
+            },
+            {
+                "name": "Revoke Red Light Real-Debrid",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=real_debrid.revoke_authentication)"
+            },
+            {
+                "name": "Authorize Red Light Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=premiumize.authenticate)"
+            },
+            {
+                "name": "Revoke Red Light Premiumize",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=premiumize.revoke_authentication)"
+            },
+            {
+                "name": "Authorize Red Light AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=alldebrid.authenticate)"
+            },
+            {
+                "name": "Revoke Red Light AllDebrid",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=alldebrid.revoke_authentication)"
+            },
+            {
+                "name": "Authorize Red Light Offcloud",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=offcloud.authenticate)"
+            },
+            {
+                "name": "Revoke Red Light Offcloud",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=offcloud.revoke_authentication)"
+            },
+            {
+                "name": "Authorize Red Light TorBox",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=torbox.authenticate)"
+            },
+            {
+                "name": "Revoke Red Light TorBox",
+                "url": "RunPlugin(plugin://plugin.video.redlight/?mode=torbox.revoke_authentication)"
+            }
+        ]
+    },
     "The Loop": {
         "icon": "special://home/addons/plugin.video.the-loop/icon.png",
         "items": [
