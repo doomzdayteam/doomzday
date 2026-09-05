@@ -225,9 +225,7 @@ def clear_cache():
     xbmc.executebuiltin("Container.Refresh")
 
 
-# These are optional, user-installed scraper add-ons.  They are deliberately
-# not dependencies of The Archives: the picker only exposes installed add-ons
-# that provide the common ``sources(...)`` scraper interface.
+
 KNOWN_EXTERNAL_SCRAPER_IDS = {
     'script.module.absolutionscrapers',
     'script.module.chainscrapers',
@@ -240,6 +238,49 @@ KNOWN_EXTERNAL_SCRAPER_IDS = {
     'script.module.viperscrapers',
     'plugin.program.taz19scrapers',
 }
+EXTERNAL_SCRAPER_SLOT_COUNT = 3
+
+
+def _scraper_slot_setting(slot, field):
+    return 'scraper.slot.%d.%s' % (slot, field)
+
+
+def _valid_scraper_slot(slot):
+    try:
+        return 1 <= int(slot) <= EXTERNAL_SCRAPER_SLOT_COUNT
+    except (TypeError, ValueError):
+        return False
+
+
+def _migrate_legacy_scraper_slot(addon):
+    """Retain an existing single-pack choice as enabled slot 1."""
+    if any(addon.getSetting(_scraper_slot_setting(slot, 'module')) for slot in range(1, EXTERNAL_SCRAPER_SLOT_COUNT + 1)):
+        return
+    module_id = addon.getSetting('scraper.module') or ''
+    if not module_id:
+        return
+    addon.setSetting(_scraper_slot_setting(1, 'module'), module_id)
+    addon.setSetting(_scraper_slot_setting(1, 'import'), addon.getSetting('scraper.import') or '')
+    addon.setSetting(_scraper_slot_setting(1, 'name'), addon.getSetting('scraper.name') or module_id)
+    addon.setSetting(_scraper_slot_setting(1, 'enabled'), 'true')
+
+
+def _configured_scraper_slots(addon, migrate_legacy=True):
+    if migrate_legacy:
+        _migrate_legacy_scraper_slot(addon)
+    slots = []
+    for slot in range(1, EXTERNAL_SCRAPER_SLOT_COUNT + 1):
+        module_id = addon.getSetting(_scraper_slot_setting(slot, 'module')) or ''
+        if not module_id:
+            continue
+        slots.append({
+            'slot': slot,
+            'module': module_id,
+            'import': addon.getSetting(_scraper_slot_setting(slot, 'import')) or '',
+            'name': addon.getSetting(_scraper_slot_setting(slot, 'name')) or module_id,
+            'enabled': (addon.getSetting(_scraper_slot_setting(slot, 'enabled')) or '').lower() == 'true',
+        })
+    return slots
 
 
 def _scraper_import_candidates(module_id, scraper_addon=None):
@@ -339,21 +380,29 @@ def _installed_external_scraper_addons():
     return sorted(found.values(), key=lambda addon_info: addon_info['name'].casefold())
 
 
-@plugin.route("/choose_scraper")
-def choose_scraper():
+def _choose_scraper_for_slot(slot):
     import xbmcgui
     addon = xbmcaddon.Addon()
     addon_name = addon.getAddonInfo('name')
-    addons = _installed_external_scraper_addons()
+    _migrate_legacy_scraper_slot(addon)
+    current_module = addon.getSetting(_scraper_slot_setting(slot, 'module')) or ''
+    assigned = {
+        config['module'] for config in _configured_scraper_slots(addon, migrate_legacy=False)
+        if config['slot'] != slot
+    }
+    addons = [
+        scraper_addon for scraper_addon in _installed_external_scraper_addons()
+        if scraper_addon['addonid'] not in assigned or scraper_addon['addonid'] == current_module
+    ]
     if not addons:
         xbmcgui.Dialog().ok(
             addon_name,
-            'No compatible external scraper add-ons are installed and enabled.\n\n'
-            'Install a supported scraper add-on first, then return here to choose it.'
+            'No additional compatible external scraper add-ons are installed and enabled.\n\n'
+            'Install another supported scraper add-on or free one of the other slots first.'
         )
         return
     names = [a['name'] for a in addons]
-    choice = xbmcgui.Dialog().select('Choose Scraper Module', names)
+    choice = xbmcgui.Dialog().select('Choose Scraper Module (Slot %d)' % slot, names)
     if choice == -1:
         return
     selected = addons[choice]
@@ -366,13 +415,31 @@ def choose_scraper():
         success = False
         do_log(f'choose_scraper - Failed to import {module_id}: {e}')
     if success:
-        addon.setSetting('scraper.module', module_id)
-        addon.setSetting('scraper.import', scraper_module_name)
-        addon.setSetting('scraper.name', module_name)
-        addon.setSetting('scraper.name.source', module_name)
-        xbmcgui.Dialog().ok(addon_name, f'Success!\n[B]{module_name}[/B] set as Scraper Module.')
+        addon.setSetting(_scraper_slot_setting(slot, 'module'), module_id)
+        addon.setSetting(_scraper_slot_setting(slot, 'import'), scraper_module_name)
+        addon.setSetting(_scraper_slot_setting(slot, 'name'), module_name)
+        addon.setSetting(_scraper_slot_setting(slot, 'enabled'), 'true')
+        # Keep old settings populated for older skins/actions and slot-1 upgrades.
+        if slot == 1:
+            addon.setSetting('scraper.module', module_id)
+            addon.setSetting('scraper.import', scraper_module_name)
+            addon.setSetting('scraper.name', module_name)
+            addon.setSetting('scraper.name.source', module_name)
+        xbmcgui.Dialog().ok(addon_name, f'Success!\n[B]{module_name}[/B] set as External Scraper Slot {slot}.')
     else:
         xbmcgui.Dialog().ok(addon_name, f'[B]{module_name}[/B] is not a compatible scraper module.\nPlease choose a different one.')
+
+
+@plugin.route("/choose_scraper")
+def choose_scraper():
+    return _choose_scraper_for_slot(1)
+
+
+@plugin.route("/choose_scraper/<slot>")
+def choose_scraper_slot(slot):
+    if not _valid_scraper_slot(slot):
+        return
+    return _choose_scraper_for_slot(int(slot))
 
 @plugin.route("/inputstream_helper")
 def inputstream_helper():
@@ -402,26 +469,61 @@ def inputstream_helper():
         do_log(f'inputstream_helper - Error opening helper: {e}')
         xbmc.executebuiltin(f'Addon.OpenSettings({helper_id})')
 
-@plugin.route("/open_scraper_settings")
-def open_scraper_settings():
+def _open_scraper_settings_for_slot(slot):
     import xbmc, xbmcgui
     addon = xbmcaddon.Addon()
-    module_id = addon.getSetting('scraper.module') or ''
+    _migrate_legacy_scraper_slot(addon)
+    module_id = addon.getSetting(_scraper_slot_setting(slot, 'module')) or ''
     if not module_id:
-        xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected yet.\nPlease choose one first via Settings > Sources Accounts.')
+        xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected in Slot %d yet.\nPlease choose one first via Settings > Sources Accounts.' % slot)
         return
-    xbmc.executebuiltin(f'Addon.OpenSettings({module_id})')
+    do_log('open_scraper_settings - opening Slot %d module %s through its plugin entry' % (slot, module_id))
+    xbmc.executebuiltin('RunPlugin(plugin://%s/)' % module_id)
+
+
+@plugin.route("/open_scraper_settings")
+def open_scraper_settings():
+    return _open_scraper_settings_for_slot(1)
+
+
+@plugin.route("/open_scraper_settings/<slot>")
+def open_scraper_slot_settings(slot):
+    if not _valid_scraper_slot(slot):
+        return
+    return _open_scraper_settings_for_slot(int(slot))
+
+
+@plugin.route("/clear_scraper_slot/<slot>")
+def clear_scraper_slot(slot):
+    import xbmcgui
+    if not _valid_scraper_slot(slot):
+        return
+    slot = int(slot)
+    addon = xbmcaddon.Addon()
+    _migrate_legacy_scraper_slot(addon)
+    module_id = addon.getSetting(_scraper_slot_setting(slot, 'module')) or ''
+    if not module_id:
+        return
+    if not xbmcgui.Dialog().yesno(addon.getAddonInfo('name'), 'Clear External Scraper Slot %d?\n\n[B]%s[/B]' % (slot, addon.getSetting(_scraper_slot_setting(slot, 'name')) or module_id)):
+        return
+    for field in ('module', 'import', 'name'):
+        addon.setSetting(_scraper_slot_setting(slot, field), '')
+    addon.setSetting(_scraper_slot_setting(slot, 'enabled'), 'false')
+    if slot == 1:
+        for setting_id in ('scraper.module', 'scraper.import', 'scraper.name', 'scraper.name.source'):
+            addon.setSetting(setting_id, '')
+    xbmcgui.Dialog().notification(addon.getAddonInfo('name'), 'External Scraper Slot %d cleared' % slot, xbmcgui.NOTIFICATION_INFO, 2500)
 
 @plugin.route("/show_selected_scraper")
 def show_selected_scraper():
     import xbmcgui
     addon = xbmcaddon.Addon()
-    module_id = addon.getSetting('scraper.module') or ''
-    module_name = addon.getSetting('scraper.name') or ''
-    if not module_id:
+    slots = _configured_scraper_slots(addon)
+    if not slots:
         xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'No scraper module selected yet.\nPlease choose one first via Settings > Sources Accounts.')
         return
-    xbmcgui.Dialog().ok(addon.getAddonInfo('name'), f'Current external scraper:\n[B]{module_name or module_id}[/B]\n\nAddon ID:\n{module_id}')
+    lines = ['Slot %d: [B]%s[/B] (%s)' % (config['slot'], config['name'], 'Enabled' if config['enabled'] else 'Disabled') for config in slots]
+    xbmcgui.Dialog().ok(addon.getAddonInfo('name'), 'Current external scrapers:\n\n' + '\n'.join(lines))
 
 @plugin.route("/auth_service/<service>")
 def auth_service(service):

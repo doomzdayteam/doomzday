@@ -21,7 +21,7 @@ def _raise_for_error(payload):
 
 
 def api_request(requests_module, method, endpoint, api_key, data=None, json_data=None, timeout=20):
-    """Call Offcloud's current bearer-key API and return its JSON body."""
+    
     api_key = (api_key or "").strip()
     if not api_key:
         raise OffcloudError("Offcloud API key is missing.")
@@ -46,7 +46,6 @@ def api_request(requests_module, method, endpoint, api_key, data=None, json_data
 
 
 def verify_api_key(requests_module, api_key):
-    """Verify the end-user Offcloud access key held in Kodi settings."""
     return api_request(requests_module, "get", "account/info", api_key, timeout=20)
 
 
@@ -99,8 +98,6 @@ def explore_cloud(requests_module, api_key, request_id, timeout=20):
     payload = api_request(requests_module, "get", "cloud/explore/%s" % request_id, api_key, timeout=timeout)
     if isinstance(payload, list):
         return payload
-    # The documented response is a list, but accept the current API's common
-    # wrapper shapes as well.  This keeps the resolver focused on file links.
     if isinstance(payload, dict):
         for key in ("files", "items", "links", "results", "downloads"):
             value = payload.get(key)

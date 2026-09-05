@@ -117,7 +117,7 @@ class HistoryPlayer:
 
     def play(self, url, list_item):
         state = self.store.get_state(self.item)
-        start_target = float(self._intro_skip_seconds())
+        start_target = float(self._manual_intro_skip_seconds())
         if state["resume_point"] > 0:
             action = self._choose_resume_action(state)
             if action < 0:
@@ -135,10 +135,13 @@ class HistoryPlayer:
         self._monitor(start_target)
         return True
 
-    def _intro_skip_seconds(self):
+    def _manual_intro_skip_seconds(self):
         try:
             import xbmcaddon
 
+            enabled = xbmcaddon.Addon().getSetting("debrid.intro.skip.manual.enabled")
+            if str(enabled or "true").lower() != "true":
+                return 0
             value = xbmcaddon.Addon().getSetting("debrid.intro.skip.seconds")
             return max(0, int(float(value or 0)))
         except Exception as e:
@@ -148,6 +151,49 @@ class HistoryPlayer:
             except Exception:
                 pass
             return 0
+
+    def _introdb_enabled(self):
+        try:
+            import xbmcaddon
+
+            return str(xbmcaddon.Addon().getSetting("introdb.enabled") or "false").lower() == "true"
+        except Exception:
+            return False
+
+    def _introdb_segments(self, total_time):
+        if not self._introdb_enabled() or total_time <= 0:
+            return {}
+        try:
+            from resources.lib.util.introdb import lookup_segments
+
+            return lookup_segments(self.item, int(float(total_time) * 1000.0))
+        except Exception as e:
+            try:
+                import xbmc
+                xbmc.log("[TheArchives] TheIntroDB lookup error: %s" % e, xbmc.LOGERROR)
+            except Exception:
+                pass
+            return {}
+
+    def _skip_introdb_segments(self, segments, skipped, current_time, total_time):
+        for segment_type in ("intro", "credits"):
+            for index, segment in enumerate(segments.get(segment_type) or []):
+                key = "%s:%d" % (segment_type, index)
+                if key in skipped:
+                    continue
+                start = float(segment.get("start") or 0.0)
+                end = segment.get("end")
+                if current_time < start:
+                    continue
+                if end is not None and current_time >= float(end):
+                    skipped.add(key)
+                    continue
+                target = float(end) if end is not None else max(0.0, total_time - 1.0)
+                skipped.add(key)
+                if target > current_time + 0.25:
+                    self.player.seekTime(min(target, max(0.0, total_time - 0.25)))
+                    return True
+        return False
 
     def _apply_start_seek(self, target, timeout_ms=15000):
         target = max(0.0, float(target or 0.0))
@@ -211,6 +257,8 @@ class HistoryPlayer:
             last_time = 0.0
             total_time = 0.0
             best_percent = 0.0
+            introdb_segments = None
+            introdb_skipped = set()
             while self.player.isPlaying():
                 xbmc.sleep(1000)
                 try:
@@ -220,6 +268,12 @@ class HistoryPlayer:
                     continue
                 if total_time <= 0:
                     continue
+                if introdb_segments is None:
+                    introdb_segments = self._introdb_segments(total_time)
+                if introdb_segments:
+                    self._skip_introdb_segments(
+                        introdb_segments, introdb_skipped, last_time, total_time
+                    )
                 best_percent = max(best_percent, round((last_time / total_time) * 100.0, 1))
 
             if total_time <= 0:

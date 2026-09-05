@@ -30,6 +30,27 @@ addon_name = xbmcaddon.Addon().getAddonInfo('name')
 DEFAULT_TIMEOUT = 12
 REAL_DEBRID_MAGNET_SEMAPHORE = Semaphore(3)
 _REAL_DEBRID_SESSION = None
+EXTERNAL_SCRAPER_SLOT_COUNT = 3
+TORRENT_LANGUAGE_OPTIONS = (
+    ("All", ""),
+    ("English", "en"),
+    ("German", "de"),
+    ("French", "fr"),
+    ("Korean", "ko"),
+    ("Polish", "pl"),
+    ("Portuguese", "pt"),
+    ("Russian", "ru"),
+)
+TORRENT_LANGUAGE_LABELS = {code: label for label, code in TORRENT_LANGUAGE_OPTIONS if code}
+TORRENT_LANGUAGE_ALIASES = {
+    "eng": "en", "english": "en",
+    "deu": "de", "ger": "de", "german": "de",
+    "fra": "fr", "fre": "fr", "french": "fr",
+    "kor": "ko", "korean": "ko",
+    "pol": "pl", "polish": "pl",
+    "por": "pt", "portuguese": "pt",
+    "rus": "ru", "russian": "ru",
+}
 
 
 class RealDebridApiError(Exception):
@@ -43,18 +64,70 @@ class RealDebridApiError(Exception):
         return self.error_code == 37
 
 
+def _scraper_slot_setting(slot, field):
+    return 'scraper.slot.%d.%s' % (slot, field)
+
+
+def _torrent_language_filter():
+    if str(ownAddon.getSetting("scraper.language.filter.enabled") or "").lower() != "true":
+        return None
+    try:
+        option = int(ownAddon.getSetting("scraper.language.filter") or 0)
+    except (TypeError, ValueError):
+        option = 0
+    if 0 <= option < len(TORRENT_LANGUAGE_OPTIONS):
+        return TORRENT_LANGUAGE_OPTIONS[option][1]
+    return ""
+
+
+def get_scraper_slots():
+    if str(ownAddon.getSetting('provider.external') or 'true').lower() != 'true':
+        return []
+    configured = []
+    for slot in range(1, EXTERNAL_SCRAPER_SLOT_COUNT + 1):
+        module_id = ownAddon.getSetting(_scraper_slot_setting(slot, 'module')) or ''
+        if not module_id:
+            continue
+        configured.append({
+            'slot': slot,
+            'module': module_id,
+            'import': ownAddon.getSetting(_scraper_slot_setting(slot, 'import')) or '',
+            'name': ownAddon.getSetting(_scraper_slot_setting(slot, 'name')) or module_id,
+            'enabled': str(ownAddon.getSetting(_scraper_slot_setting(slot, 'enabled')) or '').lower() == 'true',
+        })
+    if configured:
+        return [config for config in configured if config['enabled']]
+
+    module_id = ownAddon.getSetting('scraper.module') or ''
+    if not module_id:
+        return []
+    config = {
+        'slot': 1,
+        'module': module_id,
+        'import': ownAddon.getSetting('scraper.import') or '',
+        'name': ownAddon.getSetting('scraper.name') or module_id,
+        'enabled': True,
+    }
+    for field in ('module', 'import', 'name'):
+        ownAddon.setSetting(_scraper_slot_setting(1, field), config[field])
+    ownAddon.setSetting(_scraper_slot_setting(1, 'enabled'), 'true')
+    return [config]
+
+
 def get_scraper_module_id():
-    
-    return ownAddon.getSetting('scraper.module') or ''
+    slots = get_scraper_slots()
+    return slots[0]['module'] if slots else ''
 
 
-def get_scraper_import_name():
+def get_scraper_import_name(module_id=None):
+    for config in get_scraper_slots():
+        if module_id is None or config['module'] == module_id:
+            return config['import']
     return ownAddon.getSetting('scraper.import') or ''
 
 
-def get_scrapers_addon():
-    
-    module_id = get_scraper_module_id()
+def get_scrapers_addon(module_id=None):
+    module_id = module_id or get_scraper_module_id()
     if not module_id:
         return None
     try:
@@ -63,11 +136,10 @@ def get_scrapers_addon():
         return None
 
 
-def _scraper_import_candidates(module_id, scraper_addon):
+def _scraper_import_candidates(module_id, scraper_addon, stored_name=''):
     candidates = [module_id.rsplit('.', 1)[-1]]
     try:
         scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
-        stored_name = get_scraper_import_name()
         if stored_name and os.path.isfile(os.path.join(scraper_path, stored_name, '__init__.py')):
             candidates.insert(0, stored_name)
         for entry in os.listdir(scraper_path):
@@ -86,34 +158,51 @@ def _scraper_import_candidates(module_id, scraper_addon):
 
 
 def import_scraper_sources():
-    
-    module_id = get_scraper_module_id()
-    if not module_id:
-        xbmcgui.Dialog().ok(addon_name, 'No scraper module selected.\nPlease choose one in Settings > Choose Scraper Module.')
+    slots = get_scraper_slots()
+    if not slots:
+        xbmcgui.Dialog().ok(addon_name, 'No enabled external scraper slots.\nPlease choose and enable one in Settings > Sources Accounts.')
         return None
-    try:
-        scraper_addon = xbmcaddon.Addon(module_id)
-        scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
-        if scraper_path not in sys.path:
-            sys.path.insert(0, scraper_path)
-        failures = []
-        for module_name in _scraper_import_candidates(module_id, scraper_addon):
-            try:
-                mod = importlib.import_module(module_name)
-                source_factory = getattr(mod, 'sources', None)
-                if not callable(source_factory):
-                    raise AttributeError('missing sources(...) factory')
+    all_sources = []
+    failures = []
+    for config in slots:
+        module_id = config['module']
+        try:
+            scraper_addon = xbmcaddon.Addon(module_id)
+            scraper_path = os.path.join(scraper_addon.getAddonInfo('path'), 'lib')
+            if scraper_path not in sys.path:
+                sys.path.insert(0, scraper_path)
+            slot_failures = []
+            for module_name in _scraper_import_candidates(module_id, scraper_addon, config['import']):
                 try:
-                    return source_factory(specified_folders=['torrents'])
-                except TypeError:
-                    return source_factory()
-            except Exception as exc:
-                failures.append(f'{module_name}: {exc}')
-        raise ImportError('; '.join(failures) or 'no compatible scraper package found')
-    except Exception as e:
-        do_log(f'TheArchivesScrapers - Failed to import scraper module {module_id}: {e}')
-        xbmcgui.Dialog().ok(addon_name, f'Failed to load scraper module:\n[B]{module_id}[/B]\n\nPlease check it is installed and enabled.')
-        return None
+                    mod = importlib.import_module(module_name)
+                    source_factory = getattr(mod, 'sources', None)
+                    if not callable(source_factory):
+                        raise AttributeError('missing sources(...) factory')
+                    try:
+                        loaded_sources = source_factory(specified_folders=['torrents'])
+                    except TypeError:
+                        loaded_sources = source_factory()
+                    if loaded_sources:
+                        for source in loaded_sources:
+                            if isinstance(source, dict):
+                                source = dict(source)
+                                source['scraper_addon'] = config['name']
+                                source['scraper_slot'] = config['slot']
+                            all_sources.append(source)
+                    break
+                except Exception as exc:
+                    slot_failures.append(f'{module_name}: {exc}')
+            else:
+                raise ImportError('; '.join(slot_failures) or 'no compatible scraper package found')
+        except Exception as exc:
+            failures.append('%s: %s' % (config['name'], exc))
+            do_log(f'TheArchivesScrapers - Failed to import scraper slot {config["slot"]} ({module_id}): {exc}')
+    if all_sources:
+        return all_sources
+    if failures:
+        do_log('TheArchivesScrapers - No external scraper slots loaded: ' + '; '.join(failures))
+        xbmcgui.Dialog().ok(addon_name, 'No enabled external scraper slot could be loaded.\n\nPlease check the selected packs are installed and enabled.')
+    return None
 
 
 class TheArchivesScrapers(Plugin):
@@ -956,11 +1045,21 @@ class TheArchivesScrapers(Plugin):
 
     def _prepare_source_results(self, sources):
         prepared = []
-        seen = set()
+        seen = {}
         rejected_uncached = 0
         rejected_unplayable = 0
+        rejected_language = 0
         duplicates = 0
         normalized_sources = [self._normalize_source_item(source) for source in sources or []]
+        language_filter = _torrent_language_filter()
+        if language_filter:
+            filtered_sources = []
+            for item in normalized_sources:
+                if self._is_torrent_source(item) and item.get("language_code") != language_filter:
+                    rejected_language += 1
+                    continue
+                filtered_sources.append(item)
+            normalized_sources = filtered_sources
         self._prime_cache_checks(normalized_sources)
         for item in normalized_sources:
             source_url = item.get("url", "")
@@ -988,14 +1087,18 @@ class TheArchivesScrapers(Plugin):
             key = self._source_dedupe_key(item)
             if key in seen:
                 duplicates += 1
+                existing_index = seen[key]
+                if item.get('debrid_cached') and not prepared[existing_index].get('debrid_cached'):
+                    prepared[existing_index] = item
                 continue
-            seen.add(key)
+            seen[key] = len(prepared)
             prepared.append(item)
         provider_counts = {}
         for item in prepared:
             provider = item.get("origin") or "Unknown"
             provider_counts[provider] = provider_counts.get(provider, 0) + 1
-        summary = f'{self.name} - source filter kept={len(prepared)} providers={provider_counts} uncached={rejected_uncached} unplayable={rejected_unplayable} duplicates={duplicates}'
+        language_name = TORRENT_LANGUAGE_LABELS.get(language_filter, "All") if language_filter else "All"
+        summary = f'{self.name} - source filter kept={len(prepared)} providers={provider_counts} language={language_name} language_rejected={rejected_language} uncached={rejected_uncached} unplayable={rejected_unplayable} duplicates={duplicates}'
         do_log(summary)
         xbmc.log(f'TheArchivesScrapers - {summary}', getattr(xbmc, 'LOGINFO', 1))
         return sorted(prepared, key=self._source_sort_key)
@@ -1075,6 +1178,8 @@ class TheArchivesScrapers(Plugin):
         item = dict(source or {})
         item["origin"] = item.get("origin") or item.get("provider") or item.get("name") or "Unknown"
         item["source"] = item.get("source") or item.get("provider") or item.get("origin") or "Unknown"
+        item["language_code"] = self._normalize_language(item.get("language"))
+        item["language_label"] = TORRENT_LANGUAGE_LABELS.get(item["language_code"], item["language_code"].upper()) if item["language_code"] else ""
         item["quality"] = self._normalize_quality(item.get("quality"))
         item["info"] = item.get("info") or item.get("size_label") or item.get("size") or item.get("name") or "Size Unknown"
         item["url"] = item.get("url") or item.get("link") or item.get("url_dl") or ""
@@ -1085,6 +1190,20 @@ class TheArchivesScrapers(Plugin):
             item["debrid_service"] = cached_service["name"]
             item["cached_service_id"] = cached_service["id"]
         return item
+
+    def _normalize_language(self, language):
+        if isinstance(language, (list, tuple, set)):
+            language = next(iter(language), "")
+        language = str(language or "").strip().lower().replace("_", "-")
+        if not language:
+            return ""
+        language = language.split("-", 1)[0]
+        return TORRENT_LANGUAGE_ALIASES.get(language, language)
+
+    def _is_torrent_source(self, item):
+        source_url = item.get("url", "")
+        source_type = str(item.get("source") or "").lower()
+        return self._is_magnet_url(source_url) or "torrent" in source_type or bool(self._source_hash(item))
 
     def _normalize_quality(self, quality):
         quality = str(quality or "SD").replace(".", "").strip()
@@ -1110,11 +1229,13 @@ class TheArchivesScrapers(Plugin):
         else:
             cache_label = service
         parts = [
+            str(item.get("scraper_addon") or "External Scraper"),
             str(item.get("origin") or "Unknown"),
             str(item.get("quality") or "SD").replace(".", ""),
-            cache_label,
-            str(item.get("info") or "Size Unknown"),
         ]
+        if item.get("language_label"):
+            parts.append(str(item["language_label"]))
+        parts.extend((cache_label, str(item.get("info") or "Size Unknown")))
         seeders = item.get("seeders")
         if seeders not in ("", None):
             parts.append(f"S:{seeders}")
@@ -1158,8 +1279,7 @@ class TheArchivesScrapers(Plugin):
     def _source_dedupe_key(self, item):
         source_hash = self._source_hash(item)
         if source_hash:
-            provider = item.get("origin") or item.get("provider") or item.get("source") or ""
-            return f"hash:{str(provider).lower()}:{source_hash.lower()}"
+            return f"hash:{source_hash.lower()}"
         return str(item.get("url") or item.get("origin") or "").lower()
 
     def _source_hash(self, item):
@@ -1719,8 +1839,6 @@ class TheArchivesScrapers(Plugin):
             torrent_id = added.get("torrent_id") if isinstance(added, dict) else None
             if not torrent_id:
                 return None
-            # TorBox can serve a cached mylist response just after creation. Force
-            # a fresh item read so the completed torrent's file list is present.
             info = torbox_client.api_get(
                 requests,
                 "torrents/mylist",
@@ -1755,8 +1873,6 @@ class TheArchivesScrapers(Plugin):
         import requests
 
         magnet_url = source_item.get("url", "")
-        # Match Red Light's fast path: a cached magnet yields individual,
-        # playable file links from cache/download without creating a cloud job.
         try:
             cached_files = offcloud_client.cache_download(requests, token, magnet_url, timeout=30)
         except Exception as exc:
@@ -1777,9 +1893,6 @@ class TheArchivesScrapers(Plugin):
             return None
         request_id = transfer.get("requestId")
         status = str(transfer.get("status") or "").lower()
-        # Cached transfers normally arrive as downloaded. For an explicitly
-        # uncached-enabled account, wait briefly but leave the user's cloud job
-        # intact if Offcloud needs longer than this resolver window.
         for _ in range(6):
             if status == "downloaded":
                 break
@@ -1801,13 +1914,10 @@ class TheArchivesScrapers(Plugin):
             do_log(f'{self.name} - Offcloud cloud explore failed: {exc}')
             xbmc.log(f'TheArchivesScrapers - Offcloud cloud explore failed: {exc}', getattr(xbmc, 'LOGERROR', 4))
             return None
-        # Offcloud may not return a list for a single-file transfer. Red Light
-        # falls back to the cloud URL plus file name in that case.
         if not links and isinstance(transfer, dict):
             base_url = str(transfer.get("url") or "").rstrip("/")
             file_name = str(transfer.get("fileName") or "").lstrip("/")
             if base_url and self._is_video_file(base_url):
-                # A one-file response sometimes supplies the complete file URL.
                 links = [base_url]
             elif base_url and file_name:
                 links = ["%s/%s" % (base_url, file_name)]

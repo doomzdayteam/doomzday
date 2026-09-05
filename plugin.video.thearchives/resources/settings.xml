@@ -4,42 +4,102 @@
     <setting id="time_cache" type="number" label="[COLOR khaki]    Cache Update Interval [I][COLOR white](minutes)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="60" />
     <setting id="clear_cache" type="action" label="[COLOR khaki]    Clear Cache [/COLOR]" subsetting="true" visible="true" option="close" action="PlayMedia(plugin://$ID/clear_cache)" />
     <setting id="resume.playback.popup" type="bool" label="Show Resume Playback Popup" visible="true" default="true" />
-    <setting id="debrid.intro.skip.seconds" type="number" label="Automatic Intro Skip (seconds)" visible="true" option="int" default="0" />
+    <setting id="debrid.intro.skip.manual.enabled" type="bool" label="Enable Manual Intro Adjustment" visible="true" default="false" />
+    <setting id="debrid.intro.skip.seconds" type="number" label="Automatic Intro Skip (seconds)" subsetting="true" visible="eq(-1,true)" option="int" default="0" />
+    <setting id="introdb.enabled" type="bool" label="Enable TheIntroDB Intro &amp; Credits Skip" visible="true" default="false" />
+    <setting id="scraper.language.filter.enabled" type="bool" label="Enable Torrent Language Filter" visible="true" default="true" />
+    <setting id="scraper.language.filter" type="enum" label="Torrent Language" values="All|English|German|French|Korean|Polish|Portuguese|Russian" subsetting="true" visible="eq(-1,true)" default="1" />
     <setting id="debrid.autoplay.movies" type="bool" label="Autoplay Debrid Movies" visible="true" default="false" />
     <setting id="debrid.autoplay.episodes" type="bool" label="Autoplay Debrid TV Episodes" visible="true" default="false" />
     <setting id="debrid.autoplay.next_episode" type="bool" label="Autoplay Next Debrid Episode" visible="true" default="false" />
     <setting id="scraper.module" type="text" label="Selected Scraper Module" visible="false" default="" />
     <setting id="scraper.import" type="text" label="Selected Scraper Import" visible="false" default="" />
-    <setting id="scraper.name" type="text" label="[COLOR khaki]Current External Scraper[/COLOR]" visible="true" default="" />
-    <setting id="choose.scraper" subsetting="false" type="action" label="[COLOR lawngreen]Choose Scraper Module[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
-    <setting id="open.Osettings" subsetting="false" type="action" label="[COLOR deepskyblue]Open Selected Scraper Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
-    <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
-    <setting id="lsep.custom.debrid.header" type="lsep" label="" />
-    <setting id="custom.debrid.1.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 1[/COLOR][/B]" default="false" />
-    <setting id="custom.debrid.1.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 1" />
-    <setting id="custom.debrid.1.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
-    <setting id="custom.debrid.1.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
-    <setting id="lsep.custom.debrid.1" type="lsep" label="" />
-    <setting id="custom.debrid.2.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 2[/COLOR][/B]" default="false" />
-    <setting id="custom.debrid.2.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 2" />
-    <setting id="custom.debrid.2.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
-    <setting id="custom.debrid.2.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
-    <setting id="lsep.custom.debrid.2" type="lsep" label="" />
-    <setting id="custom.debrid.3.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 3[/COLOR][/B]" default="false" />
-    <setting id="custom.debrid.3.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 3" />
-    <setting id="custom.debrid.3.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
-    <setting id="custom.debrid.3.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
-    <setting id="lsep.custom.debrid.3" type="lsep" label="" />
-    <setting id="custom.debrid.4.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 4[/COLOR][/B]" default="false" />
-    <setting id="custom.debrid.4.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 4" />
-    <setting id="custom.debrid.4.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
-    <setting id="custom.debrid.4.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
-    <setting id="lsep.custom.debrid.4" type="lsep" label="" />
-    <setting id="custom.debrid.5.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 5[/COLOR][/B]" default="false" />
-    <setting id="custom.debrid.5.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 5" />
-    <setting id="custom.debrid.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
-    <setting id="custom.debrid.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
-    <setting id="lsep.custom.personal.header" type="lsep" label="" />
+    <setting id="scraper.name" type="text" label="Current External Scraper (legacy)" visible="false" default="" />
+    <setting id="choose.scraper" subsetting="false" type="action" label="Choose Scraper Module (legacy)" visible="false" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
+    <setting id="open.Osettings" subsetting="false" type="action" label="Open Selected Scraper Settings (legacy)" visible="false" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
+    <setting id="scraper.slot.1.module" type="text" label="External Scraper Slot 1 Module" visible="false" default="" />
+    <setting id="scraper.slot.1.import" type="text" label="External Scraper Slot 1 Import" visible="false" default="" />
+    <setting id="scraper.slot.2.module" type="text" label="External Scraper Slot 2 Module" visible="false" default="" />
+    <setting id="scraper.slot.2.import" type="text" label="External Scraper Slot 2 Import" visible="false" default="" />
+    <setting id="scraper.slot.3.module" type="text" label="External Scraper Slot 3 Module" visible="false" default="" />
+    <setting id="scraper.slot.3.import" type="text" label="External Scraper Slot 3 Import" visible="false" default="" />
+  </category>
+  <category label="Media Trackers">
+    <setting id="lsep.tmdb.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />
+    <setting id="tmdb.revoke" type="action" label="[COLOR red]Revoke TMDb Account Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_revoke)" />
+    <setting id="tmdb.token" type="text" label="TMDb Token" visible="false" default="" />
+    <setting id="tmdb.account_id" type="text" label="TMDb Account ID" visible="false" default="" />
+    <setting id="tmdb.username" type="text" label="TMDb Username" visible="false" default="" />
+    <setting id="tmdb.session_id" type="text" label="TMDb Session ID" visible="false" default="" />
+    <setting id="tmdb.account_session_id" type="text" label="TMDb Account Session ID" visible="false" default="" />
+    <setting id="lsep.tmdb.2" type="lsep" label="" />
+    <setting id="items_per_page" label="[B][COLOR white]Items Per Page For TMDB Lists[/COLOR][/B]" type="enum" values="20|40|60|80|100" />
+    <setting id="full_meta" type="bool" label="[B][COLOR white]Enable Full Meta For TMDB Lists[/COLOR][/B]" visible="true" default="true" />
+    <setting id="item_meta" type="bool" label="[COLOR khaki]    Fetch Metadata For Manually Made Lists [I][COLOR white](Slow Loading)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" default="false" />
+    <setting id="lsep.tmdb.3" type="lsep" label="" />
+    <setting id="tmdbsort.watchlist" type="enum" label="[B][COLOR white]Watchlist Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
+    <setting id="tmdbsort.favorites" type="enum" label="[B][COLOR white]Favorites Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
+    <setting id="lsep.media.trackers.trakt" type="lsep" label="[B]Trakt[/B]" />
+    <setting id="lsep.trakt.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="trakt.authorize" type="action" label="[COLOR lawngreen]Authorize Trakt Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)" />
+    <setting id="trakt.clear" type="action" label="[COLOR red]Revoke Trakt Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/clear)" />
+    <setting id="trakt.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="trakt.refresh_token" type="text" label="Refresh Token" visible="false" default="" />
+    <setting id="trakt.user_id" type="text" label="User ID" visible="false" default="" />
+    <setting id="trakt.expires" type="text" label="Token Expires" visible="false" default="0" />
+    <setting id="lsep.trakt.2" type="lsep" label="" />
+    <setting id="watched_indicators" type="enum" label="[B][COLOR white]Watched Indicators[/COLOR][/B]" values="The Archives|Trakt" default="0" />
+    <setting id="lsep.trakt.3" type="lsep" label="" />
+    <setting id="trakt.sync_interval" type="number" label="[B][COLOR white]Sync Interval [I][COLOR khaki](minutes)[/I][/COLOR][/B]" option="int" default="60" />
+    <setting id="trakt.refresh_widgets" type="bool" label="[B][COLOR white]Refresh Widgets on Sync[/COLOR][/B]" default="true" />
+    <setting id="lsep.trakt.4" type="lsep" label="" />
+    <setting id="trakt.calendar_sort_order" type="enum" label="[B][COLOR white]Calendar Sort Order[/COLOR][/B]" values="Descending|Ascending" default="0" />
+    <setting id="trakt.calendar_previous_days" type="number" label="[COLOR khaki]    Previous Days[/COLOR]" option="int" default="7" />
+    <setting id="trakt.calendar_future_days" type="number" label="[COLOR khaki]    Future Days[/COLOR]" option="int" default="7" />
+    <setting id="lsep.trakt.5" type="lsep" label="" />
+    <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
+    <setting id="lsep.media.trackers.wetrakr" type="lsep" label="[B]WeTrakr[/B]" />
+    <setting id="wetrakr.authorize" type="action" label="[COLOR lawngreen]Authorize WeTrakr Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/authorize)" />
+    <setting id="wetrakr.test" type="action" label="[COLOR deepskyblue]Test WeTrakr Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/test)" />
+    <setting id="wetrakr.clear" type="action" label="[COLOR red]Revoke WeTrakr Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/clear)" />
+    <setting id="wetrakr.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="wetrakr.username" type="text" label="Username" visible="false" default="" />
+    <setting id="wetrakr.auth_invalid" type="bool" label="Auth Invalid" visible="false" default="false" />
+    <setting id="wetrakr.backend_url" type="text" label="Backend URL" visible="false" default="https://api.wetrakr.com" />
+    <setting id="lsep.media.trackers.punchplay" type="lsep" label="[B]PunchPlay[/B]" />
+    <setting id="lsep.punchplay.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="punchplay.authorize" type="action" label="[COLOR lawngreen]Authorize PunchPlay Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/authorize)" />
+    <setting id="punchplay.test" type="action" label="[COLOR deepskyblue]Test PunchPlay Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/test)" />
+    <setting id="punchplay.clear" type="action" label="[COLOR red]Revoke PunchPlay Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/clear)" />
+    <setting id="punchplay.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="punchplay.refresh_token" type="text" label="Refresh Token" visible="false" default="" />
+    <setting id="punchplay.user_id" type="text" label="User ID" visible="false" default="" />
+    <setting id="punchplay.username" type="text" label="Username" visible="false" default="" />
+    <setting id="punchplay.expires" type="text" label="Token Expires" visible="false" default="0" />
+    <setting id="punchplay.refresh_expires" type="text" label="Refresh Token Expires" visible="false" default="0" />
+    <setting id="punchplay.device_id" type="text" label="Device ID" visible="false" default="" />
+    <setting id="punchplay.scope" type="text" label="Scope" visible="false" default="profile:read playback:read playback:write events:read" />
+    <setting id="punchplay.backend_url" type="text" label="Backend URL" visible="false" default="https://punchplay.tv" />
+    <setting id="lsep.media.trackers.simkl" type="lsep" label="[B]Simkl[/B]" />
+    <setting id="lsep.simkl.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="simkl.authorize" type="action" label="[COLOR lawngreen]Authorize Simkl Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/authorize)" />
+    <setting id="simkl.test" type="action" label="[COLOR deepskyblue]Test Simkl Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/test)" />
+    <setting id="simkl.clear" type="action" label="[COLOR red]Revoke Simkl Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/clear)" />
+    <setting id="simkl.access_token" type="text" label="Access Token" visible="false" default="" />
+    <setting id="simkl.user_code" type="text" label="Last User Code" visible="false" default="" />
+    <setting id="simkl.backend_url" type="text" label="Backend URL" visible="false" default="https://api.simkl.com" />
+    <setting id="lsep.media.trackers.mdblist" type="lsep" label="[B]MDBList[/B]" />
+    <setting id="lsep.mdblist.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
+    <setting id="mdblist.authorize" type="action" label="[COLOR lawngreen]Authorize MDBList API Key[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/authorize)" />
+    <setting id="mdblist.test" type="action" label="[COLOR deepskyblue]Test MDBList Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/test)" />
+    <setting id="mdblist.clear" type="action" label="[COLOR red]Revoke MDBList Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/clear)" />
+    <setting id="mdblist.api_key" type="text" label="API Key" visible="false" option="hidden" default="" />
+    <setting id="mdblist.user_id" type="text" label="User ID" visible="false" default="" />
+    <setting id="mdblist.username" type="text" label="Username" visible="false" default="" />
+    <setting id="mdblist.plan" type="text" label="Plan" visible="false" default="" />
+    <setting id="mdblist.backend_url" type="text" label="Backend URL" visible="false" default="https://api.mdblist.com" />
+    <setting id="lsep.custom.personal.header" type="lsep" label="[B]Personal Media Lists[/B]" />
     <setting id="custom.personal.1.enabled" type="bool" label="[B][COLOR white]Personal List 1[/COLOR][/B]" default="false" />
     <setting id="custom.personal.1.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Personal List 1" />
     <setting id="custom.personal.1.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
@@ -65,94 +125,8 @@
     <setting id="custom.personal.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
     <setting id="custom.personal.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
   </category>
-  <category label="TMDB">
-    <setting id="lsep.tmdb.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
-    <setting id="tmdb.authorize" type="action" label="[COLOR lawngreen]Authorize TMDb Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_auth)" />
-    <setting id="tmdb.revoke" type="action" label="[COLOR red]Revoke TMDb Account Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/tmdb_revoke)" />
-    <setting id="tmdb.token" type="text" label="TMDb Token" visible="false" default="" />
-    <setting id="tmdb.account_id" type="text" label="TMDb Account ID" visible="false" default="" />
-    <setting id="tmdb.username" type="text" label="TMDb Username" visible="false" default="" />
-    <setting id="tmdb.session_id" type="text" label="TMDb Session ID" visible="false" default="" />
-    <setting id="tmdb.account_session_id" type="text" label="TMDb Account Session ID" visible="false" default="" />
-    <setting id="lsep.tmdb.2" type="lsep" label="" />
-    <setting id="items_per_page" label="[B][COLOR white]Items Per Page For TMDB Lists[/COLOR][/B]" type="enum" values="20|40|60|80|100" />
-    <setting id="full_meta" type="bool" label="[B][COLOR white]Enable Full Meta For TMDB Lists[/COLOR][/B]" visible="true" default="true" />
-    <setting id="item_meta" type="bool" label="[COLOR khaki]    Fetch Metadata For Manually Made Lists [I][COLOR white](Slow Loading)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" default="false" />
-    <setting id="lsep.tmdb.3" type="lsep" label="" />
-    <setting id="tmdbsort.watchlist" type="enum" label="[B][COLOR white]Watchlist Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
-    <setting id="tmdbsort.favorites" type="enum" label="[B][COLOR white]Favorites Sort Order[/COLOR][/B]" values="Title|Release Date (Asc)|Release Date (Desc)|Date Added (Asc)|Date Added (Desc)" default="4" />
-  </category>
-  <category label="Trakt">
-    <setting id="lsep.trakt.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
-    <setting id="trakt.authorize" type="action" label="[COLOR lawngreen]Authorize Trakt Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/authorize)" />
-    <setting id="trakt.clear" type="action" label="[COLOR red]Revoke Trakt Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/trakt/clear)" />
-    <setting id="trakt.access_token" type="text" label="Access Token" visible="false" default="" />
-    <setting id="trakt.refresh_token" type="text" label="Refresh Token" visible="false" default="" />
-    <setting id="trakt.user_id" type="text" label="User ID" visible="false" default="" />
-    <setting id="trakt.expires" type="text" label="Token Expires" visible="false" default="0" />
-    <setting id="lsep.trakt.2" type="lsep" label="" />
-    <setting id="watched_indicators" type="enum" label="[B][COLOR white]Watched Indicators[/COLOR][/B]" values="The Archives|Trakt" default="0" />
-    <setting id="lsep.trakt.3" type="lsep" label="" />
-    <setting id="trakt.sync_interval" type="number" label="[B][COLOR white]Sync Interval [I][COLOR khaki](minutes)[/I][/COLOR][/B]" option="int" default="60" />
-    <setting id="trakt.refresh_widgets" type="bool" label="[B][COLOR white]Refresh Widgets on Sync[/COLOR][/B]" default="true" />
-    <setting id="lsep.trakt.4" type="lsep" label="" />
-    <setting id="trakt.calendar_sort_order" type="enum" label="[B][COLOR white]Calendar Sort Order[/COLOR][/B]" values="Descending|Ascending" default="0" />
-    <setting id="trakt.calendar_previous_days" type="number" label="[COLOR khaki]    Previous Days[/COLOR]" option="int" default="7" />
-    <setting id="trakt.calendar_future_days" type="number" label="[COLOR khaki]    Future Days[/COLOR]" option="int" default="7" />
-    <setting id="lsep.trakt.5" type="lsep" label="" />
-    <setting id="trakt.flatten_episodes" type="bool" label="[B][COLOR white]Flatten Episodes[/COLOR][/B]" default="false" />
-  </category>
-  <category label="WeTrakr">
-    <setting id="wetrakr.authorize" type="action" label="[COLOR lawngreen]Authorize WeTrakr Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/authorize)" />
-    <setting id="wetrakr.test" type="action" label="[COLOR deepskyblue]Test WeTrakr Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/test)" />
-    <setting id="wetrakr.clear" type="action" label="[COLOR red]Revoke WeTrakr Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/wetrakr/clear)" />
-    <setting id="wetrakr.access_token" type="text" label="Access Token" visible="false" default="" />
-    <setting id="wetrakr.username" type="text" label="Username" visible="false" default="" />
-    <setting id="wetrakr.auth_invalid" type="bool" label="Auth Invalid" visible="false" default="false" />
-    <setting id="wetrakr.backend_url" type="text" label="Backend URL" visible="false" default="https://api.wetrakr.com" />
-  </category>
-  <category label="PunchPlay">
-    <setting id="lsep.punchplay.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
-    <setting id="punchplay.authorize" type="action" label="[COLOR lawngreen]Authorize PunchPlay Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/authorize)" />
-    <setting id="punchplay.test" type="action" label="[COLOR deepskyblue]Test PunchPlay Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/test)" />
-    <setting id="punchplay.clear" type="action" label="[COLOR red]Revoke PunchPlay Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/punchplay/clear)" />
-    <setting id="punchplay.access_token" type="text" label="Access Token" visible="false" default="" />
-    <setting id="punchplay.refresh_token" type="text" label="Refresh Token" visible="false" default="" />
-    <setting id="punchplay.user_id" type="text" label="User ID" visible="false" default="" />
-    <setting id="punchplay.username" type="text" label="Username" visible="false" default="" />
-    <setting id="punchplay.expires" type="text" label="Token Expires" visible="false" default="0" />
-    <setting id="punchplay.refresh_expires" type="text" label="Refresh Token Expires" visible="false" default="0" />
-    <setting id="punchplay.device_id" type="text" label="Device ID" visible="false" default="" />
-    <setting id="punchplay.scope" type="text" label="Scope" visible="false" default="profile:read playback:read playback:write events:read" />
-    <setting id="punchplay.backend_url" type="text" label="Backend URL" visible="false" default="https://punchplay.tv" />
-  </category>
-  <category label="Simkl">
-    <setting id="lsep.simkl.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
-    <setting id="simkl.authorize" type="action" label="[COLOR lawngreen]Authorize Simkl Account[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/authorize)" />
-    <setting id="simkl.test" type="action" label="[COLOR deepskyblue]Test Simkl Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/test)" />
-    <setting id="simkl.clear" type="action" label="[COLOR red]Revoke Simkl Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/simkl/clear)" />
-    <setting id="simkl.access_token" type="text" label="Access Token" visible="false" default="" />
-    <setting id="simkl.user_code" type="text" label="Last User Code" visible="false" default="" />
-    <setting id="simkl.backend_url" type="text" label="Backend URL" visible="false" default="https://api.simkl.com" />
-  </category>
-  <category label="MDBList">
-    <setting id="lsep.mdblist.main_menu_note" type="lsep" label="[COLOR khaki]Turn on this menu under Main Menu to show it on the main menu.[/COLOR]" />
-    <setting id="mdblist.authorize" type="action" label="[COLOR lawngreen]Authorize MDBList API Key[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/authorize)" />
-    <setting id="mdblist.test" type="action" label="[COLOR deepskyblue]Test MDBList Connection[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/test)" />
-    <setting id="mdblist.clear" type="action" label="[COLOR red]Revoke MDBList Authorization[/COLOR]" option="close" action="PlayMedia(plugin://$ID/mdblist/clear)" />
-    <setting id="mdblist.api_key" type="text" label="API Key" visible="false" option="hidden" default="" />
-    <setting id="mdblist.user_id" type="text" label="User ID" visible="false" default="" />
-    <setting id="mdblist.username" type="text" label="Username" visible="false" default="" />
-    <setting id="mdblist.plan" type="text" label="Plan" visible="false" default="" />
-    <setting id="mdblist.backend_url" type="text" label="Backend URL" visible="false" default="https://api.mdblist.com" />
-  </category>
-  <category label="Sources Accounts">
-    <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPER[/COLOR][/B]" default="true" />
-    <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />
-    <setting id="choose.scraper.source" subsetting="true" type="action" label="[COLOR lawngreen]    Choose Scraper Module[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/choose_scraper)" />
-    <setting id="scraper.name.source" subsetting="true" type="text" label="[COLOR khaki]    Current External Scraper[/COLOR]" visible="eq(-3,true)" default="" />
-    <setting id="open.selected.scraper.settings" subsetting="true" type="action" label="[COLOR deepskyblue]    Open Selected Scraper Settings[/COLOR]" visible="eq(-4,true)" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings)" />
-    <setting id="lsep.1" type="lsep" label="" />
+  <category label="Debrid Services">
+    <setting id="lsep.debrid.services" type="lsep" label="[B]Debrid and Debrid-like Services[/B]" />
     <setting id="rd.enabled" type="bool" label="[B][COLOR white]REAL-DEBRID[/COLOR][/B]" default="false" />
     <setting id="rd.authorize" type="action" subsetting="true" label="[COLOR lawngreen]    Authorize[/COLOR]" visible="eq(-1,true)" option="close" action="PlayMedia(plugin://$ID/auth_service/rd)" />
     <setting id="rd.revoke" type="action" subsetting="true" label="[COLOR red]    Revoke Authorization[/COLOR]" visible="eq(-2,true)" option="close" action="PlayMedia(plugin://$ID/revoke_service/rd)" />
@@ -204,6 +178,55 @@
     <setting id="easynews.username" type="text" label="[COLOR khaki]    Username[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
     <setting id="easynews.password" type="text" label="[COLOR khaki]    Password[/COLOR]" subsetting="true" visible="eq(-2,true)" option="hidden" default="" />
     <setting id="en.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="7" />
+    <setting id="lsep.custom.debrid.header" type="lsep" label="[B]Custom Debrid Lists[/B]" />
+    <setting id="custom.debrid.1.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 1[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.1.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 1" />
+    <setting id="custom.debrid.1.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.1.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.1" type="lsep" label="" />
+    <setting id="custom.debrid.2.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 2[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.2.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 2" />
+    <setting id="custom.debrid.2.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.2.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.2" type="lsep" label="" />
+    <setting id="custom.debrid.3.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 3[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.3.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 3" />
+    <setting id="custom.debrid.3.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.3.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.3" type="lsep" label="" />
+    <setting id="custom.debrid.4.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 4[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.4.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 4" />
+    <setting id="custom.debrid.4.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.4.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+    <setting id="lsep.custom.debrid.4" type="lsep" label="" />
+    <setting id="custom.debrid.5.enabled" type="bool" label="[B][COLOR white]Custom Debrid List 5[/COLOR][/B]" default="false" />
+    <setting id="custom.debrid.5.name" type="text" label="[COLOR khaki]    List Name[/COLOR]" default="Custom Debrid List 5" />
+    <setting id="custom.debrid.5.url" type="text" label="[COLOR khaki]    HTTP XML/JSON URL[/COLOR]" default="" />
+    <setting id="custom.debrid.5.file" type="file" label="[COLOR khaki]    Local XML/JSON File[/COLOR]" default="" />
+  </category>
+  <category label="Scrapers">
+    <setting id="provider.external" type="bool" label="[B][COLOR white]EXTERNAL SCRAPERS[/COLOR][/B]" default="true" />
+    <setting id="external.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-1,true)" option="int" default="10" />
+    <setting id="lsep.external.slots" type="lsep" label="[B]External Scraper Slots[/B]" />
+    <setting id="scraper.slot.1.enabled" type="bool" label="[COLOR khaki]    Enable Slot 1[/COLOR]" default="false" />
+    <setting id="scraper.slot.1.name" type="text" label="[COLOR khaki]    Slot 1 Module[/COLOR]" default="" />
+    <setting id="choose.scraper.slot.1" type="action" label="[COLOR lawngreen]    Choose Module (Slot 1)[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper/1)" />
+    <setting id="open.scraper.slot.1" type="action" label="[COLOR deepskyblue]    Open Slot 1 Module Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings/1)" />
+    <setting id="clear.scraper.slot.1" type="action" label="[COLOR red]    Clear Slot 1[/COLOR]" option="close" action="PlayMedia(plugin://$ID/clear_scraper_slot/1)" />
+    <setting id="lsep.external.slot.1" type="lsep" label="" />
+    <setting id="scraper.slot.2.enabled" type="bool" label="[COLOR khaki]    Enable Slot 2[/COLOR]" default="false" />
+    <setting id="scraper.slot.2.name" type="text" label="[COLOR khaki]    Slot 2 Module[/COLOR]" default="" />
+    <setting id="choose.scraper.slot.2" type="action" label="[COLOR lawngreen]    Choose Module (Slot 2)[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper/2)" />
+    <setting id="open.scraper.slot.2" type="action" label="[COLOR deepskyblue]    Open Slot 2 Module Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings/2)" />
+    <setting id="clear.scraper.slot.2" type="action" label="[COLOR red]    Clear Slot 2[/COLOR]" option="close" action="PlayMedia(plugin://$ID/clear_scraper_slot/2)" />
+    <setting id="lsep.external.slot.2" type="lsep" label="" />
+    <setting id="scraper.slot.3.enabled" type="bool" label="[COLOR khaki]    Enable Slot 3[/COLOR]" default="false" />
+    <setting id="scraper.slot.3.name" type="text" label="[COLOR khaki]    Slot 3 Module[/COLOR]" default="" />
+    <setting id="choose.scraper.slot.3" type="action" label="[COLOR lawngreen]    Choose Module (Slot 3)[/COLOR]" option="close" action="PlayMedia(plugin://$ID/choose_scraper/3)" />
+    <setting id="open.scraper.slot.3" type="action" label="[COLOR deepskyblue]    Open Slot 3 Module Settings[/COLOR]" option="close" action="PlayMedia(plugin://$ID/open_scraper_settings/3)" />
+    <setting id="clear.scraper.slot.3" type="action" label="[COLOR red]    Clear Slot 3[/COLOR]" option="close" action="PlayMedia(plugin://$ID/clear_scraper_slot/3)" />
+    <setting id="lsep.scraper.results" type="lsep" label="" />
+    <setting id="results.timeout" type="number" label="[COLOR khaki]Scraper Timeout [I][COLOR white](seconds)[/I][/COLOR]" option="int" default="12" />
     <setting id="lsep.7" type="lsep" label="" />
     <setting id="provider.folders" type="bool" label="[B][COLOR white]LOCAL MEDIA FOLDERS[/COLOR][/B]" default="false" />
     <setting id="folders.movie_folder" type="folder" label="[COLOR khaki]    Movie Folder[/COLOR]" subsetting="true" visible="eq(-1,true)" default="" />
@@ -211,8 +234,6 @@
     <setting id="folders.priority" type="number" label="[COLOR khaki]    Priority [I][COLOR white](Lower Number = Higher Priority)[/I][/COLOR]" subsetting="true" visible="eq(-3,true)" option="int" default="6" />
   </category>
   <category label="Main Menu">
-    <setting id="root_xml" type="text" label="Root XML Location" default="file://main.json" visible="true" />
-    <setting id="message_xml_url" type="text" label="News File Location" default="file://news.xml" visible="true" />
     <setting id="lsep.main.menu.cache.note" type="lsep" label="[COLOR khaki]Clear The Archives cache after changing main menu visibility options.[/COLOR]" />
     <setting id="menu.show.trakt" type="bool" label="Show Trakt on Main Menu" default="false" visible="true" />
     <setting id="menu.show.mdblist" type="bool" label="Show MDBList on Main Menu" default="false" visible="true" />
